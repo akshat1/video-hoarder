@@ -1,0 +1,22 @@
+@import (reference) '../vars.less';
+
+.tasks {
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__label {
+    padding: 0 @padding-0;
+  }
+
+  &__list-item {
+    display: block;
+    border-top: 1px solid @color-border;
+
+    &:last-child {
+      border-bottom: 1px solid @color-border;
+    }
+  }
+}

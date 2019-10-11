@@ -1,0 +1,18 @@
+{
+  "downloadLocation": "./download/",
+  "taskManager": {
+    "batchSize": 1,
+    "maxDoneSize": 20,
+    "maxPendingSize": 50
+  },
+  "youtube-dl": [
+    "--write-sub",
+    "--write-auto-sub",
+    "--sub-lang",
+    "en",
+    "--write-description",
+    "--write-info-json",
+    "--write-annotations",
+    "--write-thumbnail"
+  ]
+}
