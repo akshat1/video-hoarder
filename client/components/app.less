@@ -1,0 +1,32 @@
+@import (reference) '../vars.less';
+
+#app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  #app__left {
+    border-right: 1px solid @color-border;
+  }
+
+  #app__right {
+    padding: @padding-1;
+  }
+
+  #app__mid {
+    flex: 1 1;
+
+    @media screen and (min-width: 801px) {
+      display: flex;
+      flex-direction: row;
+      
+      #app__left {
+        flex: 0 0 40em;
+        // display: flex;
+        // flex-direction: column;
+      }
+      #app__right { flex: 1 1; }
+    }
+  }
+}
