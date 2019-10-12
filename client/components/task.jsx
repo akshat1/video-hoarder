@@ -1,11 +1,11 @@
 import './task.less';
+import Badge from 'react-bootstrap/Badge';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import React from 'react';
 import { selectTask } from '../redux/actions';
 import Spinner from 'react-bootstrap/Spinner';
-import Badge from 'react-bootstrap/Badge';
-import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const printableURL = url => decodeURI(url).replace(/^(http)s?:\/\/(www\.)?/, '');
 
