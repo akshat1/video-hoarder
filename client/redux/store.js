@@ -12,7 +12,7 @@ const getStore = () => {
   if (!store) {
     const composeArgs = [
       applyMiddleware(thunk, socketMiddleware),
-      window.devToolsExtension ? window.devToolsExtension() : f => f
+      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
     ];
 
     store = compose(...composeArgs)(createStore)(reducers);

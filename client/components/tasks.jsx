@@ -6,10 +6,12 @@ import Task from './task';
 
 const Tasks = ({ tasks }) =>
   <div className="tasks">
-    <h3 className="tasks__label">Queue</h3>
+    <label className="tasks__label">Queue</label>
     <ul className="tasks__list">
       <For each="task" of={tasks}>
-        <li className="tasks__list-item"><Task task={task} key={task.id} /></li>
+        <li className="tasks__list-item" key={task.id}>
+          <Task task={task} />
+        </li>
       </For>
     </ul>
   </div>

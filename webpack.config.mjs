@@ -24,6 +24,13 @@ export default {
           { loader: 'less-loader' }
         ]
       },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
+        ]
+      },
       { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" }
     ]
   },

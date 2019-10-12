@@ -36,7 +36,7 @@ const wireSocketToStore = ({ store }) => {
   });
 
   // TODO: match id for sanity?
-  socket.on(Event.TaskProgress, ({ output }) => store.dispatch(appendTaskOutput(output.replace(/\r/g, '\n'))));
+  socket.on(Event.TaskProgress, ({ output }) => store.dispatch(appendTaskOutput(output)));
 }
 
 const isValidTaskId = id => typeof id === 'string';

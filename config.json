@@ -1,7 +1,7 @@
 {
   "downloadLocation": "./download/",
   "taskManager": {
-    "batchSize": 1,
+    "batchSize": 5,
     "maxDoneSize": 20,
     "maxPendingSize": 50
   },
