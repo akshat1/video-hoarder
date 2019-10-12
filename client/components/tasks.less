@@ -5,15 +5,20 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    border-top: 1px solid @color-border;
   }
 
   &__label {
+    font-size: @text-size-1;
     padding: 0 @padding-0;
   }
 
   &__list-item {
     display: block;
-    border-top: 1px solid @color-border;
+
+    + .tasks__list-item {
+      border-top: 1px solid @color-border;
+    }
 
     &:last-child {
       border-bottom: 1px solid @color-border;
