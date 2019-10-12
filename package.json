@@ -1,6 +1,6 @@
 {
   "name": "ytdl-nas-fe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "youtube-dl frontend for NAS devices.",
   "main": "server/index.js",
   "scripts": {
