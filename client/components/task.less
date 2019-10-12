@@ -3,48 +3,43 @@
 .task {
   padding: @padding-0;
 
+  &__row {
+    + .task__row {
+      margin-top: @margin-0;
+    }
+
+    &--first {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
   &--selected {
-    background: lime;
+    background: #cce5ff;
+  }
+
+  &__status {
+    flex: 0 0 1rem;
+    min-height: 2.3rem;
+    >.badge {
+      width: 2.3rem;
+      height: 2.3rem;
+      font-size: 1.2rem;
+      padding-top: 10px;
+
+      &-danger {
+        padding-left: 6px;
+      }
+    }
   }
 
   &__url {
+    flex: 1 1;
     text-overflow: ellipsis;
     direction: rtl;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 40em;
-    padding-left: 1.5em;
-  }
-
-  &--pending {
-    &::before {
-      content: '⏳';
-      position: absolute;
-      left: @padding-0;
-    }
-  }
-
-  &--running {
-    &::before {
-      content: '🏃‍♂️';
-      position: absolute;
-      left: @padding-0;
-    }
-  }
-
-  &--complete {
-    &::before {
-      content: '✔️';
-      position: absolute;
-      left: @padding-0;
-    }
-  }
-
-  &--failed {
-    &::before {
-      content: '☠️';
-      position: absolute;
-      left: @padding-0;
-    }
+    padding-left: @padding-0;
   }
 }
