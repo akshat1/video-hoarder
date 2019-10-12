@@ -7,7 +7,7 @@ Video hoarder is a simple web-application front-end to youtube-dl, set up to dow
 This project grew out of a weekend project, so at the moment things are not super polished. That being said, I will clean it up if we see any adoption.
 
 # Screenshot (as of 12th October, 2019)
-!(screenshots taken on 12th October 2019)[https://github.com/kabukisolutions/video-hoarder/blob/develop/screenshots/10_12_2019.png]
+![screenshots taken on 12th October 2019](https://github.com/akshat1/video-hoarder/raw/develop/screenshots/10_12_2019.png)
 
 # Installation
 
