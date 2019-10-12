@@ -2,13 +2,12 @@
 
 Video hoarder is a simple web-application front-end to youtube-dl, set up to download videos straight to your server instead of whatever machine you are currently using. Built by a data-hoarder for data-hoarders.
 
-# Genesis
+# Disclaimer
 
 This project grew out of a weekend project, so at the moment things are not super polished. That being said, I will clean it up if we see any adoption.
 
-Features:
-- functional but retina burning UI (don't forget your safety squints).
-- quick setup. Install youtube-dl, npm install this and go.
+# Screenshot (as of 12th October, 2019)
+!(screenshots taken on 12th October 2019)[https://github.com/kabukisolutions/video-hoarder/blob/develop/screenshots/10_12_2019.png]
 
 # Installation
 
