@@ -22,9 +22,3 @@ There is a docker container in the works, but for the moment,
 # Bugs and questions
 
 Please log an issue at https://github.com/kabukisolutions/video-hoarder/issues and label it as either "bug", "feature request", or "question".
-
-# Contributing
-
-Because I haven't settled on the license yet, I'm not inviting code contributions. But please feel free to flag bugs or request features as described in the previous section.
-
-In the meantime, consider this software as a free to use beta.
