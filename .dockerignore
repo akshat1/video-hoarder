@@ -1,0 +1,5 @@
+build/
+node_modules/
+download/
+screenshots/
+npm-debug.log

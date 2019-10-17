@@ -1,6 +1,6 @@
 # Video Hoarder
 
-Video hoarder is a simple web-application front-end to youtube-dl, set up to download videos straight to your server instead of whatever machine you are currently using. Built by a data-hoarder for data-hoarders.
+Video hoarder is a simple web-application front-end to youtube-dl, set up to download videos straight to your server instead of whatever machine you are currently using. Built _by_ a data-hoarder, _for_ data-hoarders.
 
 # Disclaimer
 
@@ -11,7 +11,19 @@ This project grew out of a weekend project, so at the moment things are not supe
 
 # Installation
 
-There is a docker container in the works, but for the moment,
+## Docker (recommended)
+
+Unless you are tinkering with the source code, you will want to use the docker image. Create a container by running 
+
+```
+docker run -p 4000:4000 -v ~/download:/app/download --name video-hoarder simiacode/video-hoarder
+```
+
+The app listens on port 4000, and downloads to `/app/download`. You can bind these to a port and directory location of your choice.
+
+## From source
+
+If you want to change the source code, you will want to follow the following steps.
 
 - clone this repo.
 - npm install.
@@ -22,9 +34,3 @@ There is a docker container in the works, but for the moment,
 # Bugs and questions
 
 Please log an issue at https://github.com/kabukisolutions/video-hoarder/issues and label it as either "bug", "feature request", or "question".
-
-# Contributing
-
-Because I haven't settled on the license yet, I'm not inviting code contributions. But please feel free to flag bugs or request features as described in the previous section.
-
-In the meantime, consider this software as a free to use beta.
