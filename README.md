@@ -21,6 +21,8 @@ docker run -p 80:4000 -v ~/Downloads:/app/download --name video-hoarder simiacod
 
 The app listens on port 4000, and downloads to `/app/download` (inside the container). The example command given here binds it to port 80 and ~/Downloads on the host. You can bind these to a port and directory location of your choice.
 
+Once the container is up, you can visit [localhost](http://localhost) to see video-hoarder in action.
+
 ## From source
 
 If you want to change the source code, you will want to follow the following steps.
@@ -31,6 +33,6 @@ If you want to change the source code, you will want to follow the following ste
 - npm run start.
 - visit http://localhost:4000
 
-# Bugs and questions
+# Bugs, questions, and feature requests.
 
 Please log an issue at https://github.com/akshat1/video-hoarder/issues and label it as either "bug", "feature request", or "question".
