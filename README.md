@@ -33,4 +33,4 @@ If you want to change the source code, you will want to follow the following ste
 
 # Bugs and questions
 
-Please log an issue at https://github.com/kabukisolutions/video-hoarder/issues and label it as either "bug", "feature request", or "question".
+Please log an issue at https://github.com/akshat1/video-hoarder/issues and label it as either "bug", "feature request", or "question".
