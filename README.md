@@ -16,10 +16,10 @@ This project grew out of a weekend project, so at the moment things are not supe
 Unless you are tinkering with the source code, you will want to use the docker image. Create a container by running 
 
 ```
-docker run -p 4000:4000 -v ~/download:/app/download --name video-hoarder simiacode/video-hoarder
+docker run -p 80:4000 -v ~/Downloads:/app/download --name video-hoarder simiacode/video-hoarder
 ```
 
-The app listens on port 4000, and downloads to `/app/download`. You can bind these to a port and directory location of your choice.
+The app listens on port 4000, and downloads to `/app/download` (inside the container). The example command given here binds it to port 80 and ~/Downloads on the host. You can bind these to a port and directory location of your choice.
 
 ## From source
 
