@@ -1,15 +1,38 @@
 import path from 'path';
 import webpack from 'webpack';
 
-export default {
-  mode: 'development',
-  entry: {
+let mode = 'production';
+let entry = {
+  app: ['./client/index.js']
+};
+
+let devtool;
+let devServer;
+let plugins = [];
+
+if (process.env.NODE_ENV === 'development') {
+  mode = 'development';
+  entry = {
     app: [
       'webpack-hot-middleware/client',
       'react-hot-loader/patch',
-      './client/index.js'
+      './client/index'
     ]
-  },
+  };
+  devtool = 'source-map';
+  devServer = {
+    hot: true,
+    historyApiFallback: '/index.html'
+  };
+  plugins = [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ];
+}
+
+export default {
+  mode,
+  entry,
   output: {
     filename: 'index.js',
     path: path.resolve(process.cwd(), 'build')
@@ -37,16 +60,10 @@ export default {
   resolve: {
     extensions: ['.js', '.jsx', '.mjs']
   },
-  devtool: 'source-map',
-  devServer: {
-    hot: true,
-    historyApiFallback: '/index.html'
-  },
+  devtool,
+  devServer,
   node: {
     fs: 'empty'  // For winston.
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ]
+  plugins
 };

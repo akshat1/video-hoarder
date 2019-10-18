@@ -1,0 +1,2 @@
+# server/index.mjs uses dynamic imports but ESlint doesn't support it yet.
+server/index.mjs
