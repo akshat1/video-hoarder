@@ -28,9 +28,9 @@ Once the container is up, you can visit [localhost](http://localhost) to see vid
 If you want to change the source code, you will want to follow the following steps.
 
 - clone this repo.
-- npm install.
-- [install youtube-dl](https://ytdl-org.github.io/youtube-dl/download.html)
-- npm run start.
+- `npm install`
+- [install youtube-dl](https://ytdl-org.github.io/youtube-dl/download.html) and ffmpeg.
+- `npm run dev`
 - visit http://localhost:4000
 
 # Bugs, questions, and feature requests.
