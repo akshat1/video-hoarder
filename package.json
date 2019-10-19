@@ -12,7 +12,8 @@
     "debug": "NODE_ENV=development node --inspect --experimental-modules server/index.mjs",
     "dev": "NODE_ENV=development node --experimental-modules server/index.mjs",
     "start": "node --experimental-modules server/index.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "git tag -a $npm_package_version"
   },
   "type": "module",
   "repository": {

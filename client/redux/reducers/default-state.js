@@ -15,11 +15,17 @@ export const tasks = [];
 export const selectedTaskOutput = [];
 
 /**
+ * @type {Object.<string, TaskStats>}
+ */
+export const taskStats = {};
+
+/**
  * @type {AppState}
  */
 export default {
   inputForm,
-  tasks,
   selectedTaskId: null,
-  selectedTaskOutput
+  selectedTaskOutput,
+  tasks,
+  taskStats
 };

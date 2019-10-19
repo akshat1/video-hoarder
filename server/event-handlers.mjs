@@ -20,6 +20,7 @@ const outputBuffer = {};
 const config = getConfig();
 // See https://www.debuggex.com/r/vNKARIImtRAYy5bX
 const progressPattern = /([0-9|.]+)%\s+of\s+([0-9|.]+)(\w+)\s+at\s+([0-9|.]+)([\w|/]+)\s+ETA ([0-9|:]+)/;
+const completionPattern = /([0-9|.]+)%\s+of\s+([0-9|.]+)(\w+)\s+in\s+([0-9|:]+)/;
 const onConnection = async ({ socket, io }) => {
   let taskMan;
   const onProgress = ({ id, output: buff }) => {
@@ -31,19 +32,33 @@ const onConnection = async ({ socket, io }) => {
     
     const opBuff = outputBuffer[id];
     opBuff.push(output);
-    const matches = output.match(progressPattern);
+    let matches = output.match(progressPattern);
     const stats = {
       downloadedPercent: 0,
       downloadETA: 'Unknown',
       downloadSpeed: 'Unknown',
-      totalSize: 'Unknown'
+      totalSize: 'Unknown',
+      timeTaken: ''
     };
+
+    // Most messages are about download progress.
     if (matches && matches[0]) {
       stats.downloadedPercent = Number(matches[1]);
       stats.totalSize = `${matches[2]}${matches[3]}`;
       stats.downloadSpeed = `${matches[4]}${matches[5]}`;
       stats.downloadETA = matches[6];
+    } else {
+      // Other messages are about completion.
+      matches = output.match(completionPattern);
+      if (matches && matches[0]) {
+        stats.downloadedPercent = Number(matches[1]);
+        stats.totalSize = `${matches[2]}${matches[3]}`;
+        stats.timeTaken = matches[4];
+      } else
+        // And then there might be messages that we just couldn't parse.
+        logger.error(`Could not parse >${output}<`);
     }
+
     io.to(id).emit(Event.TaskProgress, {
       id,
       output,
@@ -55,9 +70,7 @@ const onConnection = async ({ socket, io }) => {
     config.taskManager, { processOne: (item) => ytdlDownload({ item, taskMan, io, onProgress }) }
   ));
 
-  const getQueue = () => taskMan.getQueue()
-    .map(item =>
-      item.stats ? item : Object.assign(item, { stats: { downloadPercent: 50, totalSize: '64.89MiB', downloadSpeed: '2.18MiB/s', downloadETA: '00:29' } }))
+  const getQueue = () => taskMan.getQueue();
 
   const onTaskAdded = async ({ url }) => {
     logger.debug('TaskAdded');

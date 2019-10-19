@@ -15,11 +15,13 @@ const selectedTaskOutput = (state = DefaultState.selectedTaskOutput, action) => 
   
 
   if (type === Actions.AppendTaskOutput) 
-    return state.concat(output);
-  
+    return state.concat(output);  
 
   return state;
 }
+
+const taskStats = (state = DefaultState.taskStats, { type, stats }) =>
+  type === Actions.SetTaskStats ? stats : state;
 
 /**
  * @function rootReducer
@@ -28,8 +30,9 @@ const selectedTaskOutput = (state = DefaultState.selectedTaskOutput, action) => 
  * @returns {AppState} -
  */
 export default combineReducers({
-  tasks,
   inputForm,
   selectedTaskId,
-  selectedTaskOutput
+  selectedTaskOutput,
+  tasks,
+  taskStats
 });

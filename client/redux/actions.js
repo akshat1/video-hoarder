@@ -10,6 +10,7 @@ export const TaskStatusChanged = 'TaskStatusChanged';
 export const SetSelectedTaskId = 'SetSelectedTaskId';
 export const SetTaskOutput = 'SetTaskOutput';
 export const AppendTaskOutput = 'AppendTaskOutput';
+export const SetTaskStats = 'SetTaskStats';
 
 export const setTaskOutput = output => ({
   type  : SetTaskOutput,
@@ -25,6 +26,21 @@ export const selectTask = ({ id }) => ({
   type: SetSelectedTaskId,
   id
 });
+
+/**
+ * Updates the existing taskStats in the store with the given task-stats.
+ * @param {string} id -
+ * @param {TaskStats} stats -
+ * @returns {function} -
+ */
+export const updateTaskStats = (id, stats) =>
+  (dispatch, getState) => {
+    const { taskStats } = getState();
+    dispatch({
+      type: SetTaskStats,
+      stats: Object.assign({}, taskStats, { [id]: stats })
+    });
+  }
 
 export const setInputFormDisabled = disabled => ({
   type: SetInputFormDisabled,

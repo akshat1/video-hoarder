@@ -1,5 +1,5 @@
 import * as Event from '../common/event.mjs';
-import { appendTaskOutput, SetSelectedTaskId, setTaskOutput, updateQueue } from './redux/actions';
+import { appendTaskOutput, SetSelectedTaskId, setTaskOutput, updateQueue, updateTaskStats } from './redux/actions';
 import getClient from './io-client';
 import getLogger from '../common/logger.mjs';
 
@@ -36,7 +36,10 @@ const wireSocketToStore = ({ store }) => {
   });
 
   // TODO: match id for sanity?
-  socket.on(Event.TaskProgress, ({ output }) => store.dispatch(appendTaskOutput(output)));
+  socket.on(Event.TaskProgress, ({ id, output, stats }) => {
+    store.dispatch(appendTaskOutput(output));
+    store.dispatch(updateTaskStats(id, stats));
+  });
 }
 
 const isValidTaskId = id => typeof id === 'string';
