@@ -18,7 +18,7 @@ const InputForm = ({ url, onFormSubmit, disabled, onUrlChanged, errorMessage }) 
           size="md"
           type="url"
           value={url}
-          autocomplete="off"
+          autoComplete="off"
         />
         <If condition={errorMessage}>
           <Form.Control.Feedback type="invalid">
