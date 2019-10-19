@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import React from 'react';
+import { selectedTaskOutput } from '../redux/selectors';
 
 const TaskOutput = ({ output }) =>
   <div className="task-output">
@@ -10,8 +11,6 @@ const TaskOutput = ({ output }) =>
     </pre>
   </div>
 
-const mapStateToProps = ({ selectedTaskOutput }) => ({
-  output: selectedTaskOutput
-});
+const mapStateToProps = state => ({ output: selectedTaskOutput(state) });
 
 export default connect(mapStateToProps)(TaskOutput);

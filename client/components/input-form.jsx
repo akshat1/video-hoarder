@@ -3,6 +3,7 @@ import { changeURL, submitTask } from '../redux/actions';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
+import { inputForm } from '../redux/selectors';
 import React from'react';
 
 const InputForm = ({ url, onFormSubmit, disabled, onUrlChanged, errorMessage }) =>
@@ -43,7 +44,7 @@ const InputForm = ({ url, onFormSubmit, disabled, onUrlChanged, errorMessage }) 
  * @param {InputFormState} state.inputForm -
  * @returns {InputFormState} -
  */
-const mapStateToProps = ({ inputForm }) => inputForm;
+const mapStateToProps = state => inputForm(state);
 
 const mapDispatchToProps = {
   onUrlChanged: e => changeURL(e.target.value),
@@ -51,6 +52,6 @@ const mapDispatchToProps = {
     e.preventDefault();
     return submitTask(e.target.elements['url'].value);
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputForm);

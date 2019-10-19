@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import InputForm from './input-form';
 import React from 'react';
 import Row from 'react-bootstrap/Row';
+import { selectedTaskId } from '../redux/selectors';
 import TaskDetails from './task-details';
 import Tasks from './tasks';
 
@@ -24,6 +25,8 @@ const App = ({ selectedTaskId }) =>
     </Row>
   </Container>
 
-const mapStateToProps = ({ selectedTaskId }) => ({ selectedTaskId });
+const mapStateToProps = state => ({
+  selectedTaskId: selectedTaskId(state)
+});
 
 export default connect(mapStateToProps)(App);
