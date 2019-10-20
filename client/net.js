@@ -1,5 +1,5 @@
+import { SetSelectedTaskId, updateQueue, updateTaskOutput, updateTaskStats } from './redux/actions';
 import * as Event from '../common/event.mjs';
-import { appendTaskOutput, SetSelectedTaskId, setTaskOutput, updateQueue, updateTaskStats } from './redux/actions';
 import getClient from './io-client';
 import getLogger from '../common/logger.mjs';
 
@@ -31,13 +31,13 @@ const wireSocketToStore = ({ store }) => {
     store.dispatch(updateQueue(tasks))
   });
 
-  socket.on(Event.ClientNSpaceBootstrap, ({ output }) => {
-    store.dispatch(setTaskOutput(output));
+  socket.on(Event.ClientNSpaceBootstrap, ({ id, output }) => {
+    store.dispatch(updateTaskOutput(id, output));
   });
 
   // TODO: match id for sanity?
   socket.on(Event.TaskProgress, ({ id, output, stats }) => {
-    store.dispatch(appendTaskOutput(output));
+    store.dispatch(updateTaskOutput(id, output));
     store.dispatch(updateTaskStats(id, stats));
   });
 }

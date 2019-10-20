@@ -31,10 +31,14 @@ module.exports = {
     "no-unmodified-loop-condition": "error",
     "node/no-missing-require": "error",
     "prefer-promise-reject-errors": "error",
-    "sort-imports": ["error", { "ignoreCase": true }],
     "valid-jsdoc": ["off", { "requireReturn": false }],
     curly: ["error", "multi"],
     eqeqeq: "error",
     indent: ["error", 2]
+  },
+  settings: {
+    react: {
+      version: "detect"
+    }
   }
 };

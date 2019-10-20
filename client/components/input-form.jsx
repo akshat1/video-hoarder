@@ -1,9 +1,10 @@
 import './input-form.less';
 import { changeURL, submitTask } from '../redux/actions';
-import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
-import Form from 'react-bootstrap/Form';
 import { inputForm } from '../redux/selectors';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import PropTypes from 'prop-types';
 import React from'react';
 
 const InputForm = ({ url, onFormSubmit, disabled, onUrlChanged, errorMessage }) =>
@@ -37,6 +38,14 @@ const InputForm = ({ url, onFormSubmit, disabled, onUrlChanged, errorMessage }) 
       </Button>
     </Form>
   </div>
+
+InputForm.propTypes = {
+  disabled: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  onFormSubmit: PropTypes.func,
+  onUrlChanged: PropTypes.func,
+  url: PropTypes.string
+};
 
 /**
  * @function

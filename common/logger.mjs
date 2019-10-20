@@ -20,12 +20,10 @@ const makeLogger = () =>
  * @return {winston.Logger} -
  */
 const getLogger = (meta) => {
-  if (!logger) {
+  if (!logger)
     logger = makeLogger();
-  }
 
   return logger.child(meta);
 }
-
 
 export default getLogger;

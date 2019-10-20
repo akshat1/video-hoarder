@@ -1,5 +1,5 @@
-import * as Actions from '../actions';
 import { combineReducers } from 'redux';
+import * as Actions from '../actions';
 import DefaultState from './default-state';
 import inputForm from './input-form';
 import tasks from './tasks';
@@ -7,18 +7,8 @@ import tasks from './tasks';
 const selectedTaskId = (state = DefaultState.selectedTaskId, { type, id }) =>
   type === Actions.SetSelectedTaskId ? id : state;
 
-const selectedTaskOutput = (state = DefaultState.selectedTaskOutput, action) => {
-  const { type, output } = action;
-  if (type === Actions.SetTaskOutput) 
-    // Clear output whenever taskId is changed
-    return action.output;
-  
-
-  if (type === Actions.AppendTaskOutput) 
-    return state.concat(output);  
-
-  return state;
-}
+const taskOutput = (state = DefaultState.taskOutput, { type, output }) =>
+  type === Actions.SetTaskOutput ? output : state;
 
 const taskStats = (state = DefaultState.taskStats, { type, stats }) =>
   type === Actions.SetTaskStats ? stats : state;
@@ -32,7 +22,7 @@ const taskStats = (state = DefaultState.taskStats, { type, stats }) =>
 export default combineReducers({
   inputForm,
   selectedTaskId,
-  selectedTaskOutput,
+  taskOutput,
   tasks,
   taskStats
 });

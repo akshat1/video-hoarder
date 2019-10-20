@@ -1,6 +1,6 @@
-import * as Actions from '../actions';
 import { combineReducers } from 'redux';
 import { inputForm as DefaultState } from './default-state';
+import * as Actions from '../actions';
 
 const url = (state = DefaultState.url, { type, url }) => {
   if (type === Actions.ClearInputForm)

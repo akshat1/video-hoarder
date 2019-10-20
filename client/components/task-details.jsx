@@ -1,7 +1,8 @@
 import './task-details.less';
 import { connect } from 'react-redux';
-import React from 'react';
 import { selectedTask } from '../redux/selectors';
+import PropTypes from 'prop-types';
+import React from 'react';
 import TaskOutput from './task-output';
 
 const TaskDetails = ({ task }) =>
@@ -37,6 +38,10 @@ const TaskDetails = ({ task }) =>
       </div>
     </div>
   </If>
+
+TaskDetails.propTypes = {
+  task: PropTypes.object
+};
 
 const mapStateToProps = state => ({ task: selectedTask(state) });
 

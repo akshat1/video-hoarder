@@ -2,25 +2,32 @@ import * as Event from '../../common/event.mjs';
 import getClient from '../io-client';
 import md5 from 'blueimp-md5';
 
-export const UrlChanged = 'UrlChanged';
-export const SetInputFormDisabled = 'SetInputFormDisabled';
 export const ClearInputForm = 'ClearInputForm';
 export const QueueUpdated = 'QueueUpdated';
-export const TaskStatusChanged = 'TaskStatusChanged';
+export const SetInputFormDisabled = 'SetInputFormDisabled';
 export const SetSelectedTaskId = 'SetSelectedTaskId';
 export const SetTaskOutput = 'SetTaskOutput';
-export const AppendTaskOutput = 'AppendTaskOutput';
 export const SetTaskStats = 'SetTaskStats';
+export const TaskStatusChanged = 'TaskStatusChanged';
+export const UrlChanged = 'UrlChanged';
 
-export const setTaskOutput = output => ({
-  type  : SetTaskOutput,
-  output: Array.isArray(output) ? output : [output]
-});
-
-export const appendTaskOutput = output => ({
-  type  : AppendTaskOutput,
-  output: Array.isArray(output) ? output : [output]
-});
+/**
+ * Appends given output to the existing output for the given task id.
+ *
+ * @param {string} taskId -
+ * @param {string} output -
+ * @returns {function} -
+ */
+export const updateTaskOutput = (taskId, output) =>
+  (dispatch, getState) => {
+    const { taskOutput } = getState();
+    const currentOutput = taskOutput[taskId] || [];
+    const newOutput = [...currentOutput, output];
+    dispatch({
+      type: SetTaskOutput,
+      output: Object.assign({}, taskOutput, { [taskId]: newOutput })
+    });
+  }
 
 export const selectTask = ({ id }) => ({
   type: SetSelectedTaskId,
@@ -40,7 +47,7 @@ export const updateTaskStats = (id, stats) =>
       type: SetTaskStats,
       stats: Object.assign({}, taskStats, { [id]: stats })
     });
-  }
+  };
 
 export const setInputFormDisabled = disabled => ({
   type: SetInputFormDisabled,

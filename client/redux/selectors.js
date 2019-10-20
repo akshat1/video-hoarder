@@ -20,7 +20,7 @@ export const selectedTask = ({ selectedTaskId, tasks }) => tasks.find(item => it
  * @param {AppState} state -
  * @returns {string[]} -
  */
-export const selectedTaskOutput = ({ selectedTaskOutput }) => selectedTaskOutput;
+export const selectedTaskOutput = ({ selectedTaskId, taskOutput }) => taskOutput[selectedTaskId];
 
 /** 
  * @param {AppState} state -
