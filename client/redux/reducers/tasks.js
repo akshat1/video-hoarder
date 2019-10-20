@@ -1,5 +1,5 @@
-import { tasks as DefaultState } from './default-state';
 import { QueueUpdated } from '../actions';
+import { tasks as DefaultState } from './default-state';
 
 /**
  * @param {Object[]} state -

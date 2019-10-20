@@ -1,4 +1,4 @@
-import bootstrapApp from './event-handlers.mjs';
+import bootstrapApp from './event-handlers/index.mjs';
 import express from 'express';
 import getLogger from '../common/logger.mjs';
 import http from 'http';

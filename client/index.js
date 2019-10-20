@@ -1,8 +1,8 @@
 import './index.less';
+import { Provider } from 'react-redux';
 import App from './components/app';
 import getClient from './io-client';
 import getStore from './redux/store';
-import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import wireSocketToStore from './net';

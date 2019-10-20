@@ -1,9 +1,9 @@
+import { promisify } from 'util';
 import * as childProcess from 'child_process';
 import fs from 'fs';
 import getConfig from './config.mjs';
 import getLogger from '../common/logger.mjs';
 import path from 'path';
-import { promisify } from 'util';
 
 
 const logger = getLogger({ module: 'download-file' });
