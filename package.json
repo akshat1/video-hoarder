@@ -1,6 +1,6 @@
 {
   "name": "video-hoarder",
-  "version": "0.0.3",
+  "version": "0.0.4-rc1",
   "description": "youtube-dl frontend for NAS devices.",
   "main": "server/index.js",
   "scripts": {
