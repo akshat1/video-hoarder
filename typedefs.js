@@ -9,6 +9,15 @@
  */
 
 /**
+ * @typedef TaskStats
+ * @property {string} downloadETA
+ * @property {number} downloadedPercent
+ * @property {string} downloadSpeed
+ * @property {string} totalSize
+ * @property {string} timeTaken
+ */
+
+/**
  * @typedef InputFormState
  * @property {string} url -
  * @property {boolean} disabled -
@@ -20,7 +29,8 @@
  * @property {Tasks[]} tasks -
  * @property {InputFormState} inputForm -
  * @property {string} selectedTaskId -
- * @property {string[]} selectedTaskOutput -
+ * @property {Object.<string, TaskStats>} taskStats - A map of task-id to respective TaskStats
+ * @property {Object.<string, string[]>} taskOutput - A map of task-id to ytdl output.
  */
 
 /**

@@ -1,6 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
-import reducers from './reducers';
 import { socketMiddleware } from '../net';
+import reducers from './reducers';
 import thunk from 'redux-thunk';
 
 let store;

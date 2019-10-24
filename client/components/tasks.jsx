@@ -1,6 +1,7 @@
-import './tasks.less';
 import _ from 'lodash';
+import './tasks.less';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Task from './task';
 
@@ -15,6 +16,10 @@ const Tasks = ({ tasks }) =>
       </For>
     </ul>
   </div>
+
+Tasks.propTypes = {
+  tasks: PropTypes.arrayOf(PropTypes.Object)
+};
 
 const mapStateToProps = ({ tasks }) =>({
   tasks: _.sortBy(tasks, 'added')

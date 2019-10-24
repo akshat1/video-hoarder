@@ -12,14 +12,23 @@ export const inputForm = {
  */
 export const tasks = [];
 
-export const selectedTaskOutput = [];
+/**
+ * @type {Object.<string, string[]>}
+ */
+export const taskOutput = {};
+
+/**
+ * @type {Object.<string, TaskStats>}
+ */
+export const taskStats = {};
 
 /**
  * @type {AppState}
  */
 export default {
+  taskOutput,
   inputForm,
-  tasks,
   selectedTaskId: null,
-  selectedTaskOutput
+  tasks,
+  taskStats
 };

@@ -1,8 +1,10 @@
 import './input-form.less';
 import { changeURL, submitTask } from '../redux/actions';
-import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
+import { inputForm } from '../redux/selectors';
+import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import PropTypes from 'prop-types';
 import React from'react';
 
 const InputForm = ({ url, onFormSubmit, disabled, onUrlChanged, errorMessage }) =>
@@ -18,7 +20,7 @@ const InputForm = ({ url, onFormSubmit, disabled, onUrlChanged, errorMessage }) 
           size="md"
           type="url"
           value={url}
-          autocomplete="off"
+          autoComplete="off"
         />
         <If condition={errorMessage}>
           <Form.Control.Feedback type="invalid">
@@ -37,13 +39,21 @@ const InputForm = ({ url, onFormSubmit, disabled, onUrlChanged, errorMessage }) 
     </Form>
   </div>
 
+InputForm.propTypes = {
+  disabled: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  onFormSubmit: PropTypes.func,
+  onUrlChanged: PropTypes.func,
+  url: PropTypes.string
+};
+
 /**
  * @function
  * @param {AppState} state -
  * @param {InputFormState} state.inputForm -
  * @returns {InputFormState} -
  */
-const mapStateToProps = ({ inputForm }) => inputForm;
+const mapStateToProps = state => inputForm(state);
 
 const mapDispatchToProps = {
   onUrlChanged: e => changeURL(e.target.value),
@@ -51,6 +61,6 @@ const mapDispatchToProps = {
     e.preventDefault();
     return submitTask(e.target.elements['url'].value);
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputForm);

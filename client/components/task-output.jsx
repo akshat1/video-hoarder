@@ -1,4 +1,6 @@
 import { connect } from 'react-redux'
+import { selectedTaskOutput } from '../redux/selectors';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const TaskOutput = ({ output }) =>
@@ -10,8 +12,10 @@ const TaskOutput = ({ output }) =>
     </pre>
   </div>
 
-const mapStateToProps = ({ selectedTaskOutput }) => ({
-  output: selectedTaskOutput
-});
+TaskOutput.propTypes = {
+  output: PropTypes.arrayOf(PropTypes.string)
+};
+
+const mapStateToProps = state => ({ output: selectedTaskOutput(state) });
 
 export default connect(mapStateToProps)(TaskOutput);

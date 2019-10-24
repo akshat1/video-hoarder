@@ -1,9 +1,11 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.less';
-import Col from 'react-bootstrap/Col';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
+import { selectedTaskId } from '../redux/selectors';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import InputForm from './input-form';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Row from 'react-bootstrap/Row';
 import TaskDetails from './task-details';
@@ -24,6 +26,12 @@ const App = ({ selectedTaskId }) =>
     </Row>
   </Container>
 
-const mapStateToProps = ({ selectedTaskId }) => ({ selectedTaskId });
+App.propTypes = {
+  selectedTaskId: PropTypes.string
+};
+
+const mapStateToProps = state => ({
+  selectedTaskId: selectedTaskId(state)
+});
 
 export default connect(mapStateToProps)(App);

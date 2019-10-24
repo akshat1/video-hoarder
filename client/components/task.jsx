@@ -1,10 +1,11 @@
 import './task.less';
+import { connect } from 'react-redux';
+import { selectedTaskId } from '../redux/selectors';
+import { selectTask } from '../redux/actions';
 import Badge from 'react-bootstrap/Badge';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
-import ProgressBar from 'react-bootstrap/ProgressBar';
+import PropTypes from 'prop-types';
 import React from 'react';
-import { selectTask } from '../redux/actions';
 import Spinner from 'react-bootstrap/Spinner';
 
 const printableURL = url => decodeURI(url).replace(/^(http)s?:\/\/(www\.)?/, '');
@@ -37,7 +38,11 @@ const TaskStatusIcon = ({status}) =>
     </Choose>
   </div>
 
-const Task = ({ task, selectTask, isSelected }) =>
+TaskStatusIcon.propTypes = {
+  status: PropTypes.string
+};
+
+const Task = ({ isSelected, task, selectTask }) =>
   <div className={getContainerClassNames(isSelected)}>
     <div className="task__row task__row--first">
       <TaskStatusIcon status={task.status} />
@@ -47,13 +52,16 @@ const Task = ({ task, selectTask, isSelected }) =>
         </a>
       </div>
     </div>
-    <div className="task__row task__row--second">
-      <ProgressBar now={task.stats.downloadPercent} label={`${task.stats.downloadPercent}%`}/>
-    </div>
   </div>
 
-const mapStateToProps = ({ selectedTaskId }, { task }) => ({
-  isSelected: task.id === selectedTaskId
+Task.propTypes = {
+  isSelected: PropTypes.bool,
+  selectTask: PropTypes.func,
+  task: PropTypes.object
+};
+
+const mapStateToProps = (state, { task }) => ({
+  isSelected: task.id === selectedTaskId(state)
 });
 
 const mapDispatchToProps = (dispatch, { task }) => ({
