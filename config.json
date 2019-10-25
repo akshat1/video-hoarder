@@ -5,15 +5,5 @@
     "maxDoneSize": 20,
     "maxPendingSize": 50
   },
-  "youtube-dl": [
-    "-f bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4",
-    "--write-sub",
-    "--write-auto-sub",
-    "--sub-lang",
-    "en",
-    "--write-description",
-    "--write-info-json",
-    "--write-annotations",
-    "--write-thumbnail"
-  ]
+  "youtube-dl": []
 }

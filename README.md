@@ -7,7 +7,7 @@ Video hoarder is a simple web-application front-end to youtube-dl, set up to dow
 This project grew out of a weekend project, so at the moment things are not super polished. That being said, I will clean it up if we see any adoption.
 
 # Screenshot (as of 12th October, 2019)
-![screenshots taken on 12th October 2019](https://github.com/akshat1/video-hoarder/raw/master/screenshots/10_12_2019.png)
+![screenshots taken on 12th October 2019](https://github.com/akshat1/video-hoarder/raw/master/screenshots/10_24_2019.png | width=500)
 
 # Installation
 
@@ -22,6 +22,16 @@ docker run -p 80:4000 -v ~/Downloads:/app/download --name video-hoarder simiacod
 The app listens on port 4000, and downloads to `/app/download` (inside the container). The example command given here binds it to port 80 and ~/Downloads on the host. You can bind these to a port and directory location of your choice.
 
 Once the container is up, you can visit [localhost](http://localhost) to see video-hoarder in action.
+
+### YouTube-dl Configuration
+
+We configure youtube-dl by utilising the configuration file (/app/youtube-dl.conf inside the container). The default configuration is [here](https://github.com/akshat1/video-hoarder/blob/release/youtube-dl.conf). You can override this by mounting your own configuration file using the docker -v switch. For example, the previous example command will become
+
+```
+docker run -p 80:4000 -v ~/Downloads:/app/download -v ~/your-config-file.conf:/app/youtube-dl.conf --name video-hoarder video-hoarder
+```
+
+You can see all the configuration options over on the [youtube-dl website](https://github.com/ytdl-org/youtube-dl/blob/master/README.md#configuration).
 
 ## From source
 
