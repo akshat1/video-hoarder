@@ -25,10 +25,10 @@ Once the container is up, you can visit [localhost](http://localhost) to see vid
 
 ### YouTube-dl Configuration
 
-We configure youtube-dl by utilising the configuration file (/etc/youtube-dl.conf inside the container). The default configuration is [here](https://github.com/akshat1/video-hoarder/blob/release/youtube-dl.conf). You can override this by mounting your own configuration file using the docker -v switch. For example, the previous example command will become
+We configure youtube-dl by utilising the configuration file (/app/youtube-dl.conf inside the container). The default configuration is [here](https://github.com/akshat1/video-hoarder/blob/release/youtube-dl.conf). You can override this by mounting your own configuration file using the docker -v switch. For example, the previous example command will become
 
 ```
-docker run -p 80:4000 -v ~/Downloads:/app/download -v ~/yout-config-file.conf:/etc/youtube-dl.conf --name video-hoarder video-hoarder
+docker run -p 80:4000 -v ~/Downloads:/app/download -v ~/your-config-file.conf:/app/youtube-dl.conf --name video-hoarder video-hoarder
 ```
 
 You can see all the configuration options over on the [youtube-dl website](https://github.com/ytdl-org/youtube-dl/blob/master/README.md#configuration).

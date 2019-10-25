@@ -4,7 +4,6 @@ ADD https://yt-dl.org/downloads/latest/youtube-dl /usr/local/bin/youtube-dl
 RUN chmod a+rx /usr/local/bin/youtube-dl
 WORKDIR /app
 COPY . .
-COPY youtube-dl.conf /etc/youtube-dl.conf
 RUN npm ci
 RUN npm run build-prod
 EXPOSE 4000

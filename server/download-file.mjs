@@ -15,6 +15,8 @@ const config = getConfig();
 
 const getArgs = url => [
   ...config['youtube-dl'],
+  '--config-location',
+  path.resolve(process.cwd(), 'youtube-dl.conf'),
   url
 ];
 
