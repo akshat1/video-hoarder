@@ -11,9 +11,7 @@ const makeLogger = () =>
   winston.createLogger({
     level,
     format: winston.format.json(),
-    transports: [
-      new winston.transports.Console(),
-    ]
+    transports: [new winston.transports.Console()]
   });
 
 /**
