@@ -11,7 +11,7 @@ const InputForm = ({ url, onFormSubmit, disabled, onUrlChanged, errorMessage }) 
   <div className="input-form">
     <Form onSubmit={onFormSubmit}>
       <Form.Group>
-        <Form.Label>Queue up a download</Form.Label>
+        <Form.Label>Add a new download</Form.Label>
         <Form.Control
           disabled={disabled}
           name="url"
