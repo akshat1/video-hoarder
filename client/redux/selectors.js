@@ -24,4 +24,7 @@ export const taskStats = ({ taskStats }) => taskStats;
  */
 export const statusFilter = ({ statusFilter }) => statusFilter;
 
-export const filteredTasks = ({ statusFilter, tasks }) => statusFilter === All ? tasks :  _.filter(tasks, { status: statusFilter });
+export const tasks = ({ tasks }) => tasks;
+
+export const filteredTasks = ({ statusFilter, tasks }) =>
+  statusFilter === All ? tasks :  _.filter(tasks, { status: statusFilter });
