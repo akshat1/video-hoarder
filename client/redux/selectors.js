@@ -1,8 +1,5 @@
-/**
- * @param {AppState} state -
- * @returns {string} -
- */
-export const selectedTaskId = ({ selectedTaskId }) => selectedTaskId;
+import _ from 'lodash';
+import { All } from '../../common/constants.mjs';
 
 /**
  * @param {AppState} state -
@@ -11,16 +8,9 @@ export const selectedTaskId = ({ selectedTaskId }) => selectedTaskId;
 export const inputForm = ({ inputForm }) => inputForm;
 
 /**
- * @param {AppState} state -
- * @returns {Task} -
+ * @returns {Object.<string, string[]>} -
  */
-export const selectedTask = ({ selectedTaskId, tasks }) => tasks.find(item => item.id === selectedTaskId);
-
-/**
- * @param {AppState} state -
- * @returns {string[]} -
- */
-export const selectedTaskOutput = ({ selectedTaskId, taskOutput }) => taskOutput[selectedTaskId];
+export const taskOutput = ({ taskOutput }) => taskOutput;
 
 /** 
  * @param {AppState} state -
@@ -28,8 +18,13 @@ export const selectedTaskOutput = ({ selectedTaskId, taskOutput }) => taskOutput
  */
 export const taskStats = ({ taskStats }) => taskStats;
 
-/**
+/** 
  * @param {AppState} state -
- * @returns {TaskStats} -
+ * @returns {string} -
  */
-export const selectedTaskStats = ({ selectedTaskId, taskStats}) => taskStats[selectedTaskId];
+export const statusFilter = ({ statusFilter }) => statusFilter;
+
+export const tasks = ({ tasks }) => tasks;
+
+export const filteredTasks = ({ statusFilter, tasks }) =>
+  statusFilter === All ? tasks :  _.filter(tasks, { status: statusFilter });

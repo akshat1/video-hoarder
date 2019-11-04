@@ -5,11 +5,11 @@ import md5 from 'blueimp-md5';
 export const ClearInputForm = 'ClearInputForm';
 export const QueueUpdated = 'QueueUpdated';
 export const SetInputFormDisabled = 'SetInputFormDisabled';
-export const SetSelectedTaskId = 'SetSelectedTaskId';
 export const SetTaskOutput = 'SetTaskOutput';
 export const SetTaskStats = 'SetTaskStats';
 export const TaskStatusChanged = 'TaskStatusChanged';
 export const UrlChanged = 'UrlChanged';
+export const SetStatusFilter = 'SetStatusFilter';
 
 /**
  * Appends given output to the existing output for the given task id.
@@ -28,11 +28,6 @@ export const updateTaskOutput = (taskId, output) =>
       output: Object.assign({}, taskOutput, { [taskId]: newOutput })
     });
   }
-
-export const selectTask = ({ id }) => ({
-  type: SetSelectedTaskId,
-  id
-});
 
 /**
  * Updates the existing taskStats in the store with the given task-stats.
@@ -77,10 +72,14 @@ export const submitTask = url =>
   (dispatch) => {
     getClient().emit(Event.TaskAdded, { url });
     dispatch(clearInputForm());
-    dispatch(selectTask({ id: md5(url) }));
   };
 
 export const updateQueue = queue => ({
   type: QueueUpdated,
   queue
+});
+
+export const setStatusFilter = status => ({
+  type: SetStatusFilter,
+  status
 });

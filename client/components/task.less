@@ -2,6 +2,8 @@
 
 .task {
   padding: @padding-0;
+  border-radius: @border-radius-0;
+  background: #cce5ff;
 
   &__row {
     + .task__row {
@@ -12,25 +14,6 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-    }
-  }
-
-  &--selected {
-    background: #cce5ff;
-  }
-
-  &__status {
-    flex: 0 0 1rem;
-    min-height: 2.3rem;
-    >.badge {
-      width: 2.3rem;
-      height: 2.3rem;
-      font-size: 1.2rem;
-      padding-top: 10px;
-
-      &-danger {
-        padding-left: 6px;
-      }
     }
   }
 

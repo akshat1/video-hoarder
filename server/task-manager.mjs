@@ -1,19 +1,10 @@
 import * as Events from '../common/event.mjs';
 import EventEmitter from 'events';
 import getLogger from '../common/logger.mjs';
+import Status from '../common/status.mjs';
 import md5 from 'blueimp-md5';
 
 const logger = getLogger({ module: 'event-handlers' });
-
-/**
- * @enum {string} Status -
- */
-export const Status = {
-  pending : 'pending',
-  running : 'running',
-  complete: 'complete',
-  failed  : 'failed'
-};
 
 const makeTaskManagerInner = (args) => {
   const {
