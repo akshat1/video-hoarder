@@ -14,19 +14,19 @@ const TaskFilter = (props) =>
   <ButtonToolbar className="task-filter" aria-label="Filter and clear tasks">
     <div>
       <ButtonGroup className="task-filter__filter">
-        <Button variant="dark" active={props.isInProgress} onClick={props.setInProgress}>
+        <Button variant="dark" active={props.isInProgress} onClick={props.setInProgress} disabled={!props.numInProgress}>
           {`In Progress (${props.numInProgress})`}
         </Button>
-        <Button variant="dark" active={props.isCompleted} onClick={props.setCompleted}>
+        <Button variant="dark" active={props.isCompleted} onClick={props.setCompleted} disabled={!props.numCompleted}>
           {`Completed (${props.numCompleted})`}
         </Button>
-        <Button variant="dark" active={props.isFailed} onClick={props.setFailed}>
+        <Button variant="dark" active={props.isFailed} onClick={props.setFailed} disabled={!props.numFailed}>
           {`Failed (${props.numFailed})`}
         </Button>
-        <Button variant="dark" active={props.isPending} onClick={props.setPending}>
+        <Button variant="dark" active={props.isPending} onClick={props.setPending} disabled={!props.numPending}>
           {`Pending (${props.numPending})`}
         </Button>
-        <Button variant="dark" active={props.isAll} onClick={props.setAll}>
+        <Button variant="dark" active={props.isAll} onClick={props.setAll} disabled={!props.numAll}>
           {`All (${props.numAll})`}
         </Button>
       </ButtonGroup>
