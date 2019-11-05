@@ -2,7 +2,7 @@ import _ from 'lodash';
 import './task-filter.less';
 import { All } from '../../common/constants.mjs';
 import { connect } from 'react-redux';
-import { setStatusFilter } from '../redux/actions';
+import { clearQueue, setStatusFilter } from '../redux/actions';
 import { statusFilter, tasks } from '../redux/selectors';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -14,25 +14,25 @@ const TaskFilter = (props) =>
   <ButtonToolbar className="task-filter" aria-label="Filter and clear tasks">
     <div>
       <ButtonGroup className="task-filter__filter">
-        <Button variant="dark" active={props.isInProgress} onClick={props.setInProgress} disabled={!props.numInProgress}>
+        <Button variant="dark" active={props.isInProgress} onClick={props.setInProgress}>
           {`In Progress (${props.numInProgress})`}
         </Button>
-        <Button variant="dark" active={props.isCompleted} onClick={props.setCompleted} disabled={!props.numCompleted}>
+        <Button variant="dark" active={props.isCompleted} onClick={props.setCompleted}>
           {`Completed (${props.numCompleted})`}
         </Button>
-        <Button variant="dark" active={props.isFailed} onClick={props.setFailed} disabled={!props.numFailed}>
+        <Button variant="dark" active={props.isFailed} onClick={props.setFailed}>
           {`Failed (${props.numFailed})`}
         </Button>
-        <Button variant="dark" active={props.isPending} onClick={props.setPending} disabled={!props.numPending}>
+        <Button variant="dark" active={props.isPending} onClick={props.setPending}>
           {`Pending (${props.numPending})`}
         </Button>
-        <Button variant="dark" active={props.isAll} onClick={props.setAll} disabled={!props.numAll}>
+        <Button variant="dark" active={props.isAll} onClick={props.setAll}>
           {`All (${props.numAll})`}
         </Button>
       </ButtonGroup>
     </div>
     <ButtonGroup className="task-filter__clear">
-      <Button variant="light">🗑️ Clear</Button>
+      <Button variant="light" onClick={props.clearQueue}>🗑️ Clear</Button>
     </ButtonGroup>
   </ButtonToolbar>
 
@@ -54,6 +54,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
+  clearQueue,
   setAll: () => dispatch(setStatusFilter(All)),
   setCompleted: () => dispatch(setStatusFilter(Status.complete)),
   setFailed: () => dispatch(setStatusFilter(Status.failed)),

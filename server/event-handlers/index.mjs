@@ -18,7 +18,7 @@ const logger = getLogger({ module: 'event-handlers' });
 const outputBuffer = {};
 const config = getConfig();
 
-const onConnection = async ({ socket, onProgress, taskMan }) => {  
+const onConnection = async ({ io, socket, onProgress, taskMan }) => {  
   logger.debug('bootstrap');
   socket.emit(Event.ClientBootstrap, { tasks: taskMan.getQueue() });
   logger.debug('wireAllEvents');
@@ -39,6 +39,14 @@ const onConnection = async ({ socket, onProgress, taskMan }) => {
       output: outputBuffer[id]
     });
   });
+
+  // This only works because we have a single user. If we ever have multiple users then
+  // this would get rather awkward as one user could clear the queue for everyone else.
+  socket.on(Event.ClearQueue, () => {
+    const clearedIDs = taskMan.clearQueue();
+    clearedIDs.forEach(id => delete outputBuffer[id]);
+    io.emit(Event.QueueUpdated, taskMan.getQueue());
+  });
 }
 
 const bootstrapApp = io => {
@@ -52,7 +60,7 @@ const bootstrapApp = io => {
   // Wire-up each client as it connects.
   io.on('connection', (socket) => {
     logger.debug('socket connected');
-    onConnection({ socket, onProgress, taskMan });
+    onConnection({ io, socket, onProgress, taskMan });
   });
 }
 

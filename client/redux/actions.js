@@ -1,6 +1,5 @@
 import * as Event from '../../common/event.mjs';
 import getClient from '../io-client';
-import md5 from 'blueimp-md5';
 
 export const ClearInputForm = 'ClearInputForm';
 export const QueueUpdated = 'QueueUpdated';
@@ -83,3 +82,5 @@ export const setStatusFilter = status => ({
   type: SetStatusFilter,
   status
 });
+
+export const clearQueue = () => getClient().emit(Event.ClearQueue);    
