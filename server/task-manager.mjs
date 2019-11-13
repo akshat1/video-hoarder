@@ -106,13 +106,13 @@ const makeTaskManagerInner = (args) => {
     done.length = 0;
     logger.info({ message: 'clearQueue', cleared });
     return cleared;
-  }
+  };
 
   return {
     addToQueue,
     clearQueue,
     getQueue,
-    on: (...args) => eventEmitter.on(...args),
+    on: (...args) => eventEmitter.on(...args)
   };
 };
 

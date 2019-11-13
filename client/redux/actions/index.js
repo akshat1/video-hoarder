@@ -10,6 +10,29 @@ export const TaskStatusChanged = 'TaskStatusChanged';
 export const UrlChanged = 'UrlChanged';
 export const SetStatusFilter = 'SetStatusFilter';
 
+// Signals going to the server
+const NOOP = { type: 'NOOP' };
+const emit = (event, payload) => {
+  getClient().emit(event, payload);
+  return NOOP;
+}
+
+export const submitTask = url =>
+  (dispatch) => {
+    emit(Event.TaskAdded, { url });
+    dispatch(clearInputForm());
+  };
+
+export const clearQueue = () => emit(Event.ClearQueue);
+
+export const abortTask = taskId => emit(Event.AbortTask, { taskId });
+
+// Signals going to the client
+export const updateQueue = queue => ({
+  type: QueueUpdated,
+  queue
+});
+
 /**
  * Appends given output to the existing output for the given task id.
  *
@@ -43,6 +66,7 @@ export const updateTaskStats = (id, stats) =>
     });
   };
 
+// Signals going to the client, from the client.
 export const setInputFormDisabled = disabled => ({
   type: SetInputFormDisabled,
   disabled
@@ -67,20 +91,7 @@ export const changeURL = url => {
   };
 }
 
-export const submitTask = url =>
-  (dispatch) => {
-    getClient().emit(Event.TaskAdded, { url });
-    dispatch(clearInputForm());
-  };
-
-export const updateQueue = queue => ({
-  type: QueueUpdated,
-  queue
-});
-
 export const setStatusFilter = status => ({
   type: SetStatusFilter,
   status
 });
-
-export const clearQueue = () => getClient().emit(Event.ClearQueue);    

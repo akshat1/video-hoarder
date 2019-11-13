@@ -47,6 +47,10 @@ const onConnection = async ({ io, socket, onProgress, taskMan }) => {
     clearedIDs.forEach(id => delete outputBuffer[id]);
     io.emit(Event.QueueUpdated, taskMan.getQueue());
   });
+
+  socket.on(Event.AbortTask, ({ taskId }) => {
+    logger.debug(`Abort ${taskId}`);
+  });
 }
 
 const bootstrapApp = io => {
