@@ -1,5 +1,5 @@
-import * as Event from '../../common/event.mjs';
-import getClient from '../io-client';
+import * as Event from '../../../common/event.mjs';
+import getClient from '../../io-client';
 
 export const ClearInputForm = 'ClearInputForm';
 export const QueueUpdated = 'QueueUpdated';
