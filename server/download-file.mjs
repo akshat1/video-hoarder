@@ -4,6 +4,10 @@ import fs from 'fs';
 import getConfig from './config.mjs';
 import getLogger from '../common/logger.mjs';
 import path from 'path';
+import * as Store from './store.mjs';
+import * as EventBus from './event-bus.mjs';
+import Status from '../common/status.mjs';
+import * as Event from '../common/event.mjs';
 
 const logger = getLogger({ module: 'download-file' });
 
@@ -51,44 +55,52 @@ const prepareLocation = dirName =>
  */
 
 /**
- * @param {Object} args -
- * @param {function} args.onError -
- * @param {function} args.onProgress -
- * @param {function} args.onSuccess -
- * @param {string} args.taskId -
- * @param {string} args.url -
- * @returns {FileDownload} -
+ * @param {string} id - the task id
+ * @returns {Promise} -
  */
-export const downloadFile = async (args) => {
-  try {
-    const {
-      onError,
-      onProgress,
-      onSuccess,
-      taskId,
-      url
-    } = args;
+export const downloadFile = async (id) => {
+  const task = Store.getTask(id);
+  const { url } = task;
 
-    const dirName = path.join(process.cwd(), config.downloadLocation, await getFileName(url));
-    logger.debug(`dirName := ${dirName}`);
-    await prepareLocation(dirName);
+  getTitle(url)
+    .then((title) => {
+      task.title = title;
+      EventBus.emit(Event.TaskStatusChanged, { id });
+    });
+
+  const dirName = path.join(process.cwd(), config.downloadLocation, await getFileName(url));
+  logger.debug(`dirName := ${dirName}`);
+  await prepareLocation(dirName);
+
+  return new Promise((resolve) => {
     logger.debug(`exec: youtube-dl ${getArgs(url, dirName).join(' ')}`);
     const prcs = spawn('youtube-dl', getArgs(url, dirName), { detached: true, cwd: dirName });
-    prcs.on('error', (err) => {
+
+    const onError = (err) => {
       logger.error({
         err,
-        message: 'Process error',
-        taskId
+        id,
+        message: 'Download process error'
       });
-      onError(err);
-    });
+      task.status = Status.failed;
+      EventBus.emit(Event.TaskStatusChanged, { id });
+      resolve();
+    };
+
+    const onSuccess = () => {
+      task.status = Status.complete;
+      EventBus.emit(Event.TaskStatusChanged, { id });
+      resolve();
+    }
+
+    prcs.on('error', onError);
 
     prcs.on('exit', (code, signal) => {
       logger.debug({
         code,
         message: 'Process complete',
         signal,
-        taskId
+        id
       });
 
       if (code)
@@ -102,24 +114,22 @@ export const downloadFile = async (args) => {
       logger.debug({
         message: 'Process output',
         output,
-        taskId
+        id
       });
-      onProgress(output);
+      Store.appendTaskOutput(id, output);
+      if (task.status === Status.pending) {
+        task.status = Status.running;
+        EventBus.emit(Event.TaskStatusChanged, { id });
+      }
+
+      EventBus.emit(Event.TaskProgress, { id, output });
     };
 
     prcs.stdout.on('data', onData);
     prcs.stderr.on('data', onData);
 
-    return {
-      abort: () => prcs.kill()
-    };
-  } catch (err) {
-    logger.error({
-      err,
-      message: 'caught error'
-    });
-    args.onError && args.onError(err);
-  }
+    EventBus.once(Event.AbortTask, () => prcs.kill());
+  });
 }
 
 /**
