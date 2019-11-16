@@ -25,7 +25,7 @@ export const submitTask = url =>
 
 export const clearQueue = () => emit(Event.ClearQueue);
 
-export const abortTask = taskId => emit(Event.AbortTask, { taskId });
+export const abortTask = id => emit(Event.AbortTask, { id });
 
 // Signals going to the client
 export const updateQueue = queue => ({
