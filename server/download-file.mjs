@@ -76,6 +76,13 @@ export const downloadFile = async (id) => {
     logger.debug(`exec: youtube-dl ${getArgs(url, dirName).join(' ')}`);
     const prcs = spawn('youtube-dl', getArgs(url, dirName), { detached: true, cwd: dirName });
 
+    const onAbort = (payload) => {
+      if (payload.id === id) {
+        prcs.kill();
+        EventBus.unsubscribe(Event.AbortTask, onAbort);
+      }
+    };
+
     const onError = (err) => {
       logger.error({
         err,
@@ -84,12 +91,14 @@ export const downloadFile = async (id) => {
       });
       task.status = Status.failed;
       EventBus.emit(Event.TaskStatusChanged, { id });
+      EventBus.unsubscribe(Event.AbortTask, onAbort);
       resolve();
     };
 
     const onSuccess = () => {
       task.status = Status.complete;
       EventBus.emit(Event.TaskStatusChanged, { id });
+      EventBus.unsubscribe(Event.AbortTask, onAbort);
       resolve();
     }
 
@@ -103,7 +112,7 @@ export const downloadFile = async (id) => {
         id
       });
 
-      if (code)
+      if (code || signal)
         onError(new Error(`YouTubeDL exited with code ${code} // ${signal}`));
       else
         onSuccess();
@@ -127,8 +136,7 @@ export const downloadFile = async (id) => {
 
     prcs.stdout.on('data', onData);
     prcs.stderr.on('data', onData);
-
-    EventBus.once(Event.AbortTask, () => prcs.kill());
+    EventBus.subscribe(Event.AbortTask, onAbort);
   });
 }
 

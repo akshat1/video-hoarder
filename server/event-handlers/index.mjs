@@ -42,8 +42,9 @@ const bootstrapApp = io => {
   io.on('connection', (socket) => {
     console.log('Client connected');
     socket.on(Event.TaskAdded, onTaskAdded);
-    socket.on(Event.TaskAborted, onTaskAborted);
+    socket.on(Event.AbortTask, onTaskAborted);
     socket.on(Event.ClearQueue, onClearQueue);
+    socket.emit(Event.QueueUpdated, Store.all());
   });
 }
 
