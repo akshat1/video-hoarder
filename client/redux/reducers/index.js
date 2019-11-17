@@ -4,14 +4,14 @@ import DefaultState from './default-state';
 import inputForm from './input-form';
 import tasks from './tasks';
 
-const selectedTaskId = (state = DefaultState.selectedTaskId, { type, id }) =>
-  type === Actions.SetSelectedTaskId ? id : state;
-
 const taskOutput = (state = DefaultState.taskOutput, { type, output }) =>
   type === Actions.SetTaskOutput ? output : state;
 
 const taskStats = (state = DefaultState.taskStats, { type, stats }) =>
   type === Actions.SetTaskStats ? stats : state;
+
+const statusFilter = (state = DefaultState.statusFilter, { type, status }) =>
+  type === Actions.SetStatusFilter ? status : state;
 
 /**
  * @function rootReducer
@@ -21,7 +21,7 @@ const taskStats = (state = DefaultState.taskStats, { type, stats }) =>
  */
 export default combineReducers({
   inputForm,
-  selectedTaskId,
+  statusFilter,
   taskOutput,
   tasks,
   taskStats

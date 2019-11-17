@@ -1,15 +1,40 @@
-import * as Event from '../../common/event.mjs';
-import getClient from '../io-client';
-import md5 from 'blueimp-md5';
+import * as Event from '../../../common/event.mjs';
+import getClient from '../../io-client';
 
 export const ClearInputForm = 'ClearInputForm';
 export const QueueUpdated = 'QueueUpdated';
 export const SetInputFormDisabled = 'SetInputFormDisabled';
-export const SetSelectedTaskId = 'SetSelectedTaskId';
 export const SetTaskOutput = 'SetTaskOutput';
 export const SetTaskStats = 'SetTaskStats';
 export const TaskStatusChanged = 'TaskStatusChanged';
 export const UrlChanged = 'UrlChanged';
+export const SetStatusFilter = 'SetStatusFilter';
+
+// Signals going to the server
+const NOOP = { type: 'NOOP' };
+const emit = (event, payload) => {
+  getClient().emit(event, payload);
+  return NOOP;
+}
+
+export const submitTask = url =>
+  (dispatch) => {
+    emit(Event.TaskAdded, { url });
+    dispatch(clearInputForm());
+  };
+
+export const clearQueue = () => emit(Event.ClearQueue);
+
+export const abortTask = id => {
+  emit(Event.AbortTask, { id });
+  return NOOP;
+}
+
+// Signals going to the client
+export const updateQueue = queue => ({
+  type: QueueUpdated,
+  queue
+});
 
 /**
  * Appends given output to the existing output for the given task id.
@@ -29,11 +54,6 @@ export const updateTaskOutput = (taskId, output) =>
     });
   }
 
-export const selectTask = ({ id }) => ({
-  type: SetSelectedTaskId,
-  id
-});
-
 /**
  * Updates the existing taskStats in the store with the given task-stats.
  * @param {string} id -
@@ -49,6 +69,7 @@ export const updateTaskStats = (id, stats) =>
     });
   };
 
+// Signals going to the client, from the client.
 export const setInputFormDisabled = disabled => ({
   type: SetInputFormDisabled,
   disabled
@@ -73,14 +94,7 @@ export const changeURL = url => {
   };
 }
 
-export const submitTask = url =>
-  (dispatch) => {
-    getClient().emit(Event.TaskAdded, { url });
-    dispatch(clearInputForm());
-    dispatch(selectTask({ id: md5(url) }));
-  };
-
-export const updateQueue = queue => ({
-  type: QueueUpdated,
-  queue
+export const setStatusFilter = status => ({
+  type: SetStatusFilter,
+  status
 });

@@ -1,45 +1,37 @@
 @import (reference) '../vars.less';
 
 .task {
-  padding: @padding-0;
-
-  &__row {
-    + .task__row {
-      margin-top: @margin-0;
-    }
-
-    &--first {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
+  &__toggle {
+    width: 100%;
   }
 
-  &--selected {
-    background: #cce5ff;
-  }
-
-  &__status {
-    flex: 0 0 1rem;
-    min-height: 2.3rem;
-    >.badge {
-      width: 2.3rem;
-      height: 2.3rem;
-      font-size: 1.2rem;
-      padding-top: 10px;
-
-      &-danger {
-        padding-left: 6px;
-      }
-    }
-  }
-
-  &__url {
+  &__title {
     flex: 1 1;
-    text-overflow: ellipsis;
-    direction: rtl;
-    white-space: nowrap;
-    overflow: hidden;
-    padding-left: @padding-0;
+    text-align: left;
+    position: relative;
+
+    label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: absolute;
+      top: 6px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  &__stop-button {
+    padding: 0.5rem 0.75rem 0;
+    label {
+      margin-left: @margin-0;
+    }
   }
 }

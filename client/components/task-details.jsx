@@ -1,6 +1,4 @@
 import './task-details.less';
-import { connect } from 'react-redux';
-import { selectedTask } from '../redux/selectors';
 import PropTypes from 'prop-types';
 import React from 'react';
 import TaskOutput from './task-output';
@@ -43,6 +41,4 @@ TaskDetails.propTypes = {
   task: PropTypes.object
 };
 
-const mapStateToProps = state => ({ task: selectedTask(state) });
-
-export default connect(mapStateToProps)(TaskDetails);
+export default TaskDetails;

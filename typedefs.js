@@ -28,9 +28,9 @@
  * @typedef AppState
  * @property {Tasks[]} tasks -
  * @property {InputFormState} inputForm -
- * @property {string} selectedTaskId -
  * @property {Object.<string, TaskStats>} taskStats - A map of task-id to respective TaskStats
  * @property {Object.<string, string[]>} taskOutput - A map of task-id to ytdl output.
+ * @property {string} statusFilter -
  */
 
 /**
