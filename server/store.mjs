@@ -65,6 +65,6 @@ export const remove = (id) => {
   outputMap.delete(id);
 };
 
-export const all = () => Array.from(tasks.entries);
+export const all = () => Array.from(tasks.values());
 
 export const filter = fn => all().filter(fn);

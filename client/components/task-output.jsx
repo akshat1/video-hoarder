@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { taskOutput } from '../redux/selectors';
 import PropTypes from 'prop-types';
 import React from 'react';
+import './task-output.less';
 
 const TaskOutput = ({ output }) =>
   <div className="task-output">

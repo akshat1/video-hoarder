@@ -6,10 +6,6 @@
   flex-direction: row;
   justify-content: space-between;
 
-  label {
-    font-size: 1.25rem;
-  }
-
   .btn-group {
     + .btn-group {
       margin-left: @margin-0;
@@ -17,6 +13,34 @@
   }
 
   .btn {
-    min-width: 8rem;
+    min-width: 6rem;
+  }
+
+  .filter-button__number {
+    margin-left: @margin-0;
+    display: none;
+    @media all and (min-width: 600px) {
+      display: initial;
+    }
+  }
+
+  .task-filter__button {
+    &--complete, &--failed {
+      display: none;
+      @media all and (min-width: 600px) {
+        display: initial;
+      }
+    }
+
+    &--clear {
+      min-width: initial;
+      .filter-button__label {
+        display: none;
+
+        @media all and (min-width: 600px) {
+          display: initial;
+        }
+      }
+    }
   }
 }
