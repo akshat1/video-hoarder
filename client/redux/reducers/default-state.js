@@ -1,4 +1,4 @@
-import Status from '../../../common/status.mjs';
+import { All } from '../../../common/constants.mjs';
 
 /**
  * @type {InputFormState}
@@ -27,7 +27,7 @@ export const taskStats = {};
 /**
  * @type {string}
  */
-export const statusFilter = Status.running;
+export const statusFilter = All;
 
 /**
  * @type {AppState}

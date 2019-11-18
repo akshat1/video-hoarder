@@ -27,50 +27,23 @@ const getArgs = url => [
 // mkdir -p that download target.
 // try to cd into that location and then download.
 
-const getFileName = async url => {
+const getDirName = async url => {
   const fileName = (await execFile('youtube-dl', ['--get-filename', url])).stdout.toString();
-  return path.basename(fileName, path.extname(fileName));
+  return path.join(process.cwd(), config.downloadLocation, path.basename(fileName, path.extname(fileName)));
 }
 
 const prepareLocation = dirName =>
   mkdir(dirName, { recursive: true });
 
-/**
- * @callback onSuccess
- */
-
-/**
- * @callback onError
- * @param {Error} err
- */
-
-/**
- * @callback onProgress
- * @param {string} output
- */
-
-/**
- * @typedef {Object} FileDownload -
- * @property {function} abort -
- */
-
-/**
- * @param {string} id - the task id
- * @returns {Promise} -
- */
-export const downloadFile = async (id) => {
-  const task = Store.getTask(id);
-  const { url } = task;
-
-  getTitle(url)
-    .then((title) => {
-      task.title = title;
-      EventBus.emit(Event.TaskStatusChanged, { id });
-    });
-
-  const dirName = path.join(process.cwd(), config.downloadLocation, await getFileName(url));
-  logger.debug(`dirName := ${dirName}`);
-  await prepareLocation(dirName);
+const downloadFileInner = (opts) => {
+  const {
+    dirName,
+    task
+  } = opts;
+  const {
+    id,
+    url
+  } = task;
 
   return new Promise((resolve) => {
     logger.debug(`exec: youtube-dl ${getArgs(url, dirName).join(' ')}`);
@@ -119,7 +92,7 @@ export const downloadFile = async (id) => {
     });
 
     const onData = (outputBuff) => {
-      const output = outputBuff.toString();
+      const output = `\n${outputBuff.toString()}`;
       logger.debug({
         message: 'Process output',
         output,
@@ -141,15 +114,33 @@ export const downloadFile = async (id) => {
 }
 
 /**
+ * @param {string} id - the task id
+ * @returns {Promise} -
+ */
+export const downloadFile = async (id) => {
+  const task = Store.getTask(id);
+  const { url } = task;
+  const dirName = await getDirName(url);
+  logger.debug(`dirName := ${dirName}`);
+  await prepareLocation(dirName);
+  return downloadFileInner({ dirName, task });
+}
+
+/**
  * @param {string} url -
  * @returns {Promise.<string>} - title obtained using youtube-dl --get-title
  * @throws {Error} - if youtube-dl emits anything in the stdErr.
  */
-export const getTitle = async (url) => {
+export const getTitle = async (id) => {
   logger.debug('TaskAdded');
-  const foo = await execFile('youtube-dl', ['--get-title', url]);
+  const task = Store.getTask(id);
+  const foo = await execFile('youtube-dl', ['--get-title', task.url]);
   if (foo.stderr.length)
-    throw new Error(foo.stderr.toString());
+    logger.error({
+      err: foo.stderr.toString(),
+      message: `Error getting title for ${task.url}`
+    });
 
-  return foo.stdout.toString();
+  task.title = foo.stdout.toString();
+  EventBus.emit(Event.TaskStatusChanged, { id });
 };

@@ -7,14 +7,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import TaskStatusIcon from './task-status-icon';
 import TaskOutput from './task-output';
-import { dispatch } from 'rxjs/internal/observable/range';
 import { abortTask } from '../redux/actions';
+import Status from '../../common/status.mjs';
 
 
 const printableURL = url => decodeURI(url).replace(/^(http)s?:\/\/(www\.)?/, '');
 const getTooltip = ({ status, url }) => `${status}, ${url}`;
 
-const Task = ({ task, abortTask }) =>
+const Task = ({ task, abortTask, showStopButton }) =>
   <Card>
     <Card.Header>
       <Accordion.Toggle as={Button} variant="link" eventKey={task.id} className="task__toggle">
@@ -23,10 +23,12 @@ const Task = ({ task, abortTask }) =>
           <div className="task__title" title={getTooltip(task)}>
             <label>{task.title || printableURL(task.url)}</label>
           </div>
-          <Button title="Stop downloading" className="task__stop-button" variant="dark" onClick={abortTask}>
-            🛑
-            <label>Stop</label>
-          </Button>
+          <If condition={showStopButton}>
+            <Button title="Stop downloading" className="task__stop-button" variant="dark" onClick={abortTask}>
+              🛑
+              <label>Stop</label>
+            </Button>
+          </If>
         </div>
       </Accordion.Toggle>
     </Card.Header>
@@ -41,7 +43,10 @@ Task.propTypes = {
   task: PropTypes.object
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state, ownProps) => ({
+  showStopButton: ownProps.task.status === Status.pending || ownProps.task.status === Status.running
+});
+
 const mapDispatchToProps = (dispatch, { task }) => ({
   abortTask: (evt) => {
     evt.stopPropagation();
@@ -49,4 +54,4 @@ const mapDispatchToProps = (dispatch, { task }) => ({
   }
 });
 
-export default connect(undefined, mapDispatchToProps)(Task);
+export default connect(mapStateToProps, mapDispatchToProps)(Task);

@@ -1,18 +1,21 @@
-import _ from 'lodash';
-import getConfig from './config.mjs';
-import { downloadFile as processOne } from './download-file.mjs';
+export default function ({ processOne, batchSize }) {
+  const pending = [];
+  let inFlight = 0;
 
-const batchSize = _.get(getConfig(), 'taskManager.batchSize');
-const pending = [];
-let inFlight = 0;
+  const processQueue = () => {
+    let taskId;
+    while ((taskId = pending.shift()) && inFlight++ <= batchSize)
+      processOne(taskId)
+        .then(() => {
+          inFlight--;
+          setTimeout(processQueue);
+        });
+  };
 
-const processQueue = async () => {
-  let taskId;
-  while ((taskId = pending.shift()) && inFlight++ <= batchSize)
-    processOne(taskId).then(processQueue);
-};
+  const enqueue = (taskId) => {
+    pending.push(taskId);
+    processQueue();
+  };
 
-export const enqueue = (taskId) => {
-  pending.push(taskId);
-  processQueue();
-};
+  return { enqueue };
+}

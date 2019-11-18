@@ -1,11 +1,29 @@
+import _ from 'lodash';
+import { downloadFile, getTitle } from '../ytdl.mjs';
 import * as Event from '../../common/event.mjs';
-import * as Store from '../store.mjs';
-import getLogger from '../../common/logger.mjs';
-import { enqueue } from '../task-queue.mjs';
 import * as EventBus from '../event-bus.mjs';
+import * as Store from '../store.mjs';
+import getConfig from '../config.mjs';
+import getLogger from '../../common/logger.mjs';
+import TaskQueue from '../task-queue.mjs';
 import Status from '../../common/status.mjs';
 
 const logger = getLogger({ module: 'event-handlers' });
+
+const downloadQueue = new TaskQueue({
+  batchSize: _.get(getConfig(), 'taskManager.batchSize'),
+  processOne: downloadFile
+});
+
+const metadataQueue = new TaskQueue({
+  batchSize: 10,
+  processOne: getTitle
+});
+
+const enqueue = (id) => {
+  downloadQueue.enqueue(id);
+  metadataQueue.enqueue(id);
+}
 
 const onTaskAdded = ({ url }) => {
   const id = Store.addTask(url);
