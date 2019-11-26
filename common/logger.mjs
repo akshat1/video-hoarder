@@ -4,7 +4,7 @@ import getConfig from './config.mjs';
 
 /** @type {winston.Logger} */
 let logger;
-const level = _.get(getConfig(), 'logging.level');
+const level = typeof window === 'undefined' ? _.get(getConfig(), 'logging.level') : 'info';
 
 /**
  * @return {winston.Logger} -
