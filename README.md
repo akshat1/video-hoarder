@@ -2,6 +2,10 @@
 
 Video hoarder is a simple web-application front-end to youtube-dl, set up to download videos straight to your server instead of whatever machine you are currently using. Built _by_ a data-hoarder, _for_ data-hoarders.
 
+Video Hoarder is meant to run on your home (or cloud) server, and be accessible from your phone as well as your computer. The design reflects this focus on mobile first usability.
+
+![Screenshot on mobile device](./blob/master/screenshots/latest.png)
+
 # Installation
 
 ## Docker (recommended)
