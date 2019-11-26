@@ -1,27 +1,18 @@
 @import (reference) '../vars.less';
 
 .tasks {
-  &__list {
-    margin: 0;
+  padding: @padding-1 0;
+
+  .card-header {
     padding: 0;
-    list-style: none;
-    border-top: 1px solid @color-border;
   }
 
-  &__label {
-    font-size: @text-size-1;
-    padding: 0 @padding-0;
-  }
-
-  &__list-item {
-    display: block;
-
-    + .tasks__list-item {
-      border-top: 1px solid @color-border;
-    }
-
-    &:last-child {
-      border-bottom: 1px solid @color-border;
+  .accordion {
+    >.card {
+      &:first-of-type:last-of-type {
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 4px;
+      }
     }
   }
 }

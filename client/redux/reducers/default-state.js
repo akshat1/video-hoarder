@@ -1,3 +1,5 @@
+import { All } from '../../../common/constants.mjs';
+
 /**
  * @type {InputFormState}
  */
@@ -23,12 +25,17 @@ export const taskOutput = {};
 export const taskStats = {};
 
 /**
+ * @type {string}
+ */
+export const statusFilter = All;
+
+/**
  * @type {AppState}
  */
 export default {
-  taskOutput,
   inputForm,
-  selectedTaskId: null,
+  statusFilter,
+  taskOutput,
   tasks,
   taskStats
 };

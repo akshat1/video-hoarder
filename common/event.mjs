@@ -1,3 +1,5 @@
+export const AbortTask = 'AbortTask';
+export const ClearQueue = 'ClearQueue';
 export const ClientBootstrap = 'ClientBootstrap';
 export const ClientJoin = 'ClientJoin';
 export const ClientLeave = 'ClientLeave';

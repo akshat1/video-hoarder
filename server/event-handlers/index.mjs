@@ -1,58 +1,68 @@
+import _ from 'lodash';
+import { downloadFile, getTitle } from '../ytdl.mjs';
 import * as Event from '../../common/event.mjs';
-import assert from 'assert';
-import getConfig from '../config.mjs';
+import * as EventBus from '../event-bus.mjs';
+import * as Store from '../store.mjs';
+import getConfig from '../../common/config.mjs';
 import getLogger from '../../common/logger.mjs';
-import getOnProgress from './on-progress.mjs';
-import getOnTaskAdded from './on-task-added.mjs';
-import makeTaskManager from '../task-manager.mjs';
-import ytdlDownload from '../download-file.mjs';
-
-// TODO: Keep a separate queue of more fully-fledged tasks here; task manager should keep very minimal info.
-// for the time being, we'll map queue before sending it down.
-
+import TaskQueue from '../task-queue.mjs';
+import Status from '../../common/status.mjs';
 
 const logger = getLogger({ module: 'event-handlers' });
 
-// Real dirty deeds now. This WILL lead to a memory leak.
-// Need to set-up a system of max number of items (because I don't want to implement a least recent type cache).
-const outputBuffer = {};
-const config = getConfig();
+const downloadQueue = new TaskQueue({
+  batchSize: _.get(getConfig(), 'taskManager.batchSize'),
+  processOne: downloadFile
+});
 
-const onConnection = async ({ socket, onProgress, taskMan }) => {  
-  logger.debug('bootstrap');
-  socket.emit(Event.ClientBootstrap, { tasks: taskMan.getQueue() });
-  logger.debug('wireAllEvents');
-  const onTaskAdded = getOnTaskAdded({ taskMan, onProgress });
-  socket.on(Event.TaskAdded, onTaskAdded);
+const metadataQueue = new TaskQueue({
+  batchSize: 10,
+  processOne: getTitle
+});
 
-  socket.on(Event.ClientLeave, ({ id }) => {
-    assert.equal(typeof id, 'string', 'ClientLeave event missing id');
-    socket.leave(id);
+const enqueue = (id) => {
+  downloadQueue.enqueue(id);
+  metadataQueue.enqueue(id);
+}
+
+const onTaskAdded = ({ url }) => {
+  const id = Store.addTask(url);
+  enqueue(id);
+  logger.debug({
+    id,
+    message: 'task added',
+    url
   });
+  EventBus.emit(Event.QueueUpdated);
+}
 
-  socket.on(Event.ClientJoin, ({ id }) => {
-    assert.equal(typeof id, 'string', 'ClientJoin event missing id');
-    logger.debug('ClientJoin', id);
-    socket.join(id);
-    socket.emit(Event.ClientNSpaceBootstrap, {
-      id,
-      output: outputBuffer[id]
-    });
-  });
+const onTaskAborted = payload => EventBus.emit(Event.AbortTask, payload)
+
+const onClearQueue = () => {
+  logger.debug('onClearQueue');
+  Store.filter(({ status }) => status !== Status.pending && status !== Status.running)
+    .map(({ id }) => id)
+    .forEach(Store.remove);
+  EventBus.emit(Event.QueueUpdated);
 }
 
 const bootstrapApp = io => {
-  const onProgress = getOnProgress({ outputBuffer, io });
-  const taskMan = makeTaskManager(Object.assign(
-    config.taskManager, { processOne: (item) => ytdlDownload({ item, onProgress }) }
-  ));
-  taskMan.on(Event.QueueUpdated, () => io.emit(Event.QueueUpdated, taskMan.getQueue()));
-  taskMan.on(Event.TaskStatusChanged, task => io.emit(Event.TaskStatusChanged, task));
+  EventBus.subscribe(Event.QueueUpdated, () => io.emit(Event.QueueUpdated, Store.all()));
+  EventBus.subscribe(Event.TaskStatusChanged, ({ id }) => io.emit(Event.TaskStatusChanged, Store.getTask(id)));
+  EventBus.subscribe(Event.TaskProgress, ({ id, output }) =>
+    io.emit(
+      Event.TaskProgress, {
+        id,
+        output,
+        stats: {}
+      }));
 
-  // Wire-up each client as it connects.
   io.on('connection', (socket) => {
-    logger.debug('socket connected');
-    onConnection({ socket, onProgress, taskMan });
+    console.log('Client connected');
+    socket.on(Event.TaskAdded, onTaskAdded);
+    socket.on(Event.AbortTask, onTaskAborted);
+    socket.on(Event.ClearQueue, onClearQueue);
+    socket.emit(Event.QueueUpdated, Store.all());
   });
 }
 

@@ -15,6 +15,7 @@ const start = async () => {
   const server = http.createServer(app);
 
   if (process.env.NODE_ENV === 'development') {
+    logger.info('Dev mode. Going to include webpack dev server');
     // We don't want to install these dev dependencies in our prod env (docker container)
     // So, dyanmic imports.
     const [
@@ -31,12 +32,15 @@ const start = async () => {
     const compiler = webpack(config);
     app.use(webpackDevMiddleware(compiler));
     app.use(webpackHotMiddleware(compiler));
+    logger.debug('Done');
   }
 
+  logger.debug('resources');
   app.use(express.static('public'));
   app.use(express.static('build'));
 
   // Sockets
+  logger.debug('Socket IO');
   const io = SocketIO(server);
   bootstrapApp(io);
 
