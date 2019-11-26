@@ -1,8 +1,10 @@
+import _ from 'lodash';
 import winston from 'winston';
+import getConfig from './config.mjs';
 
 /** @type {winston.Logger} */
 let logger;
-const level = 'debug';
+const level = _.get(getConfig(), 'logging.level');
 
 /**
  * @return {winston.Logger} -
