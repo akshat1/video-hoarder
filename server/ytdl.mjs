@@ -1,7 +1,7 @@
 import { promisify } from 'util';
 import * as childProcess from 'child_process';
 import fs from 'fs';
-import getConfig from './config.mjs';
+import getConfig from '../common/config.mjs';
 import getLogger from '../common/logger.mjs';
 import path from 'path';
 import * as Store from './store.mjs';

@@ -3,7 +3,7 @@ import { downloadFile, getTitle } from '../ytdl.mjs';
 import * as Event from '../../common/event.mjs';
 import * as EventBus from '../event-bus.mjs';
 import * as Store from '../store.mjs';
-import getConfig from '../config.mjs';
+import getConfig from '../../common/config.mjs';
 import getLogger from '../../common/logger.mjs';
 import TaskQueue from '../task-queue.mjs';
 import Status from '../../common/status.mjs';
