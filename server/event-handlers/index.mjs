@@ -62,7 +62,11 @@ const bootstrapApp = io => {
     socket.on(Event.TaskAdded, onTaskAdded);
     socket.on(Event.AbortTask, onTaskAborted);
     socket.on(Event.ClearQueue, onClearQueue);
-    socket.emit(Event.QueueUpdated, Store.all());
+    const tasks = Store.all();
+    socket.emit(Event.QueueUpdated, tasks);
+    socket.emit(Event.TaskProgress, {
+      multi: Store.getAllOutput()
+    })
   });
 }
 

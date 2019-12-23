@@ -68,3 +68,9 @@ export const remove = (id) => {
 export const all = () => Array.from(tasks.values());
 
 export const filter = fn => all().filter(fn);
+
+/**
+ * Returns an object mapping task-ids to task-output list.
+ * @returns {Array} -
+ */
+export const getAllOutput = () => Array.from(outputMap);

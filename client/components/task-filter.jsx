@@ -37,7 +37,7 @@ const TaskFilter = (props) =>
         </Button>
       </ButtonGroup>
     </div>
-    <Button variant="light" onClick={props.clearQueue} size="sm" className="task-filter__button--clear">
+    <Button variant="warning" onClick={props.clearQueue} size="sm" className="task-filter__button--clear">
       <label>🗑️</label>
       <label className="filter-button__label">Clear</label>
     </Button>
