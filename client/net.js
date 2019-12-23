@@ -36,8 +36,12 @@ const wireSocketToStore = ({ store }) => {
   });
 
   // TODO: match id for sanity?
-  socket.on(Event.TaskProgress, ({ id, output, stats }) => {
-    store.dispatch(updateTaskOutput(id, output));
+  socket.on(Event.TaskProgress, (args) => {
+    const { id, output, stats, multi } = args;
+    if (multi)
+      store.dispatch(updateTaskOutput({ multi }));
+    else
+      store.dispatch(updateTaskOutput({ id, output }));
     store.dispatch(updateTaskStats(id, stats));
   });
 }

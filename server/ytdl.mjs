@@ -134,13 +134,22 @@ export const downloadFile = async (id) => {
 export const getTitle = async (id) => {
   logger.debug('TaskAdded');
   const task = Store.getTask(id);
-  const foo = await execFile('youtube-dl', ['--get-title', task.url]);
-  if (foo.stderr.length)
+  try {
+    const prcs = await execFile('youtube-dl', ['--get-title', task.url]);
+    if (prcs.stderr.length)
+      throw new Error(prcs.stderr.toString());
+
+    task.title = prcs.stdout.toString();
+    EventBus.emit(Event.TaskStatusChanged, { id });
+  } catch (err) {
     logger.error({
-      err: foo.stderr.toString(),
+      err,
       message: `Error getting title for ${task.url}`
     });
-
-  task.title = foo.stdout.toString();
-  EventBus.emit(Event.TaskStatusChanged, { id });
+    const { message: output } = err;
+    Store.appendTaskOutput(id, output);
+    EventBus.emit(Event.TaskProgress, { id, output });
+    task.status = Status.failed;
+    EventBus.emit(Event.TaskStatusChanged, { id });
+  }
 };
