@@ -10,10 +10,17 @@
     + .btn-group {
       margin-left: @margin-0;
     }
+
+    .btn + .btn {
+      border-left: 1px solid #000;
+    }
   }
 
   .btn {
     min-width: 6rem;
+    label {
+      margin: 0.25rem;
+    }
   }
 
   .filter-button__number {

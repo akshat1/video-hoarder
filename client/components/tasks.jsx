@@ -17,7 +17,7 @@ const Tasks = ({ tasks }) =>
   </div>
 
 Tasks.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.Object)
+  tasks: PropTypes.arrayOf(PropTypes.object)
 };
 
 const mapStateToProps = (state) =>({

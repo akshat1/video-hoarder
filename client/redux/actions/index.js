@@ -39,19 +39,27 @@ export const updateQueue = queue => ({
 /**
  * Appends given output to the existing output for the given task id.
  *
- * @param {string} taskId -
- * @param {string} output -
+ * @param {Array} [args.multi] - contains multiple task statuses
+ * @param {string} [args.id] - won't be supplied if multi is present
+ * @param {string} [args.output] - won't be supplied if multi is present
  * @returns {function} -
  */
-export const updateTaskOutput = (taskId, output) =>
+export const updateTaskOutput = (args) =>
   (dispatch, getState) => {
     const { taskOutput } = getState();
-    const currentOutput = taskOutput[taskId] || [];
-    const newOutput = [...currentOutput, output];
-    dispatch({
-      type: SetTaskOutput,
-      output: Object.assign({}, taskOutput, { [taskId]: newOutput })
-    });
+    const append = (id, output) => {
+      const currentOutput = taskOutput[id] || [];
+      const newOutput = [...currentOutput, ...output];
+      dispatch({
+        type: SetTaskOutput,
+        output: Object.assign({}, taskOutput, { [id]: newOutput })
+      });
+    }
+
+    if (args.multi)
+      args.multi.forEach(([id, output]) => append(id, output));
+    else
+      append(args.id, args.output);
   }
 
 /**
