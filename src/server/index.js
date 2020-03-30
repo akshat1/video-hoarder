@@ -1,18 +1,23 @@
 /** @module server */
 import express from 'express';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackConfig from '../../webpack.config.cjs';
 
+// because we don't have top level async/await yet, we must put all this code inside a function.
 const startServer = async () => {
   const app = express();
-  const compiler = webpack(webpackConfig);
-  app.use(webpackDevMiddleware(compiler, {}));
   if (process.env.NODE_ENV === 'development') {
+    const webpack = (await import('webpack')).default;
+    const webpackDevMiddleware = (await import('webpack-dev-middleware')).default;
+    const webpackConfig = (await import('../../webpack.config.cjs')).default;
+    const compiler = webpack(webpackConfig);
+    app.use(webpackDevMiddleware(compiler, {}));
     const webpackHotMiddleware = (await import('webpack-hot-middleware')).default;
     app.use(webpackHotMiddleware(compiler));
+  } else {
+    // In non-dev mode, we expect client files to already be present in /dist directory.
+    // `npm run start` script is responsible for ensuring that.
+    app.use(express.static('./dist'));
   }
-  app.use(express.static('./src/static'));
+
   app.listen(7200, () => console.log('App listening on port 7200'));
 };
 

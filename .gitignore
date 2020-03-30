@@ -1,6 +1,7 @@
+./db/
 build/
+dist/
+docs/
 download/*
 node_modules/
 node_modules/
-docs/
-./db/
