@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { getStore } from './redux';
 import InputForm from './components/InputForm';
 import { isDevMode } from './selectors';
+import './App.less';
 
 const App = () =>
   <Provider store={getStore()}>

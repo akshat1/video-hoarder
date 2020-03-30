@@ -45,6 +45,14 @@ const config = {
       test: /\.jsx?$/,
       exclude: /node_modules/,
       use: { loader: "babel-loader" }
+    }, {
+      test: /\.less$/,
+      exclude: /node_modules/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'less-loader',
+      ],
     }]
   },
   resolve: {
