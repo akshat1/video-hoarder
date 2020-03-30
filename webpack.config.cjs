@@ -46,11 +46,27 @@ const config = {
       exclude: /node_modules/,
       use: { loader: "babel-loader" }
     }, {
+      test: /\.css$/,
+      exclude: /node_modules/,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: { sourceMap: mode === 'development', },
+        }
+      ],
+    }, {
       test: /\.less$/,
       exclude: /node_modules/,
       use: [
         'style-loader',
-        'css-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: mode === 'development',
+            modules: { localIdentName: '[local]__[hash:base64:5]' },
+          },
+        },
         'less-loader',
       ],
     }]
