@@ -9,7 +9,8 @@ module.exports = {
   plugins: [
     "node",
     "react",
-    "jsx-control-statements"
+    "jsx-control-statements",
+    "jest",
   ],
   extends: [
     "eslint:recommended",
@@ -21,6 +22,7 @@ module.exports = {
     es6: true,
     mocha: true,
     browser: true,
+    "jest/globals": true,
   },
   settings: {
     react: {
@@ -29,5 +31,10 @@ module.exports = {
   },
   rules: {
     "react/jsx-no-undef": [2, { allowGlobals: true }],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
   }
 };

@@ -1,7 +1,7 @@
 ./db/
 build/
+coverage/
 dist/
 docs/
 download/*
-node_modules/
 node_modules/
