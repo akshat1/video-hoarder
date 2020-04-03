@@ -11,7 +11,7 @@
     "lint": "eslint src/",
     "build-dev-docker": "docker build -t vh-dev-img .",
     "run-dev-docker": "docker run --rm -it --name vh-dev --network=\"host\" -v $PWD:/app/ vh-dev-img -v $PWD/db:/data/db/ -p 7200:7200",
-    "test": "jest --coverage"
+    "test": "NODE_ENV=test jest --coverage"
   },
   "type": "module",
   "repository": {
@@ -41,6 +41,9 @@
     "babel-plugin-jsx-control-statements": "^4.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.4.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "eslint": "^6.8.0",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-jsx-control-statements": "^2.2.1",
@@ -50,6 +53,7 @@
     "file-loader": "^6.0.0",
     "html-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^25.2.4",
     "jsdoc": "^3.6.3",
     "less": "^3.11.1",

@@ -20,6 +20,7 @@ export const setUser = makeActionF(User);
 /**
  * The redux store.
  * @typedef State
+ * @memberof module:client/redux
  * @property {User} user - currently logged in user; or `{}` when not logged in.
  */
 
