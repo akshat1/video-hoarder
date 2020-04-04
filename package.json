@@ -11,7 +11,9 @@
     "lint": "eslint src/",
     "build-dev-docker": "docker build -t vh-dev-img .",
     "run-dev-docker": "docker run --rm -it --name vh-dev --network=\"host\" -v $PWD:/app/ vh-dev-img -v $PWD/db:/data/db/ -p 7200:7200",
-    "test": "NODE_ENV=test jest --coverage"
+    "test": "NODE_ENV=test jest --coverage",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "type": "module",
   "repository": {
@@ -36,6 +38,14 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
+    "@storybook/addon-a11y": "^5.3.18",
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-knobs": "^5.3.18",
+    "@storybook/addon-links": "^5.3.18",
+    "@storybook/addon-viewport": "^5.3.18",
+    "@storybook/addons": "^5.3.18",
+    "@storybook/cli": "^5.3.18",
+    "@storybook/react": "^5.3.18",
     "babel-jest": "^25.2.4",
     "babel-loader": "^8.1.0",
     "babel-plugin-jsx-control-statements": "^4.1.0",

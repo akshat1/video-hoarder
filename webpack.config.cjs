@@ -5,8 +5,6 @@ const path = require('path');
 
 const isDevMode = () => process.env.NODE_ENV === 'development';
 
-let devServer = undefined;
-
 const getDevServer = () => {
   if (isDevMode()) {
     return {
