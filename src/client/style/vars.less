@@ -1,0 +1,37 @@
+/* Breakpoints */
+@desktop: ~'(min-width: 992px)';
+
+.desktop-only(@display: initial) {
+  display: none;
+  @media @desktop {
+    display: @display;
+  }
+}
+
+.mobile-only {
+  @media @desktop {
+    display: none;
+  }
+}
+
+/* Type and rem definitions */
+@mobile-font-size: 16;
+@desktop-font-size: 18;
+.font-size-large { font-size: 1.7rem; }
+.font-size-medium { font-size: 1rem; }
+.font-size-small { font-size: 0.8rem; }
+
+/* Whitespace */
+@space-small: 0.3rem;
+@space-medium: 1rem;
+@space-large: 1.5rem;
+
+/* Color */
+@color-border: gray;
+@color-border-muted: lighten(@color-border, 20%);
+@color-error: #ff6363;
+
+/* Borders */
+.border { border: 1px solid @color-border; }
+.border-muted { border: 1px solid @color-border-muted; }
+

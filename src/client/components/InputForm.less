@@ -1,0 +1,60 @@
+@import (reference) "../style/vars.less";
+
+.wrapper {
+  padding: @space-small @space-small 0 @space-small; // bottom padding gets added by the grid row gap.
+  border: 1px solid gray;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: auto 2.5rem;
+  grid-column-gap: @space-small;
+  grid-row-gap: @space-small;
+  grid-template-areas:
+    "urlInput clearButton"
+    "validationMessage validationMessage"
+    "submitButton submitButton";
+
+  @media @desktop {
+    grid-template-columns: auto 2.5rem 10rem;
+    grid-template-areas:
+    "urlInput clearButton submitButton"
+    "validationMessage validationMessage validationMessage";
+  }
+}
+
+.input {
+  display: inline-block;
+  .font-size-large;
+  padding: @space-small;
+  &.invalid {
+    // border-color: @color-border;
+    box-shadow: inset 0 0 6px @color-error;
+  }
+}
+
+.clear {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  .border-muted;
+  .font-size-large;
+  box-shadow: 0 0 4px @color-border;
+  cursor: pointer;
+  place-self: center;
+  align-self: center;
+  &[disabled] {
+    box-shadow: none;
+    opacity: 0.1;
+  }
+}
+
+.submit {
+  display: inline-block;
+  .font-size-large;
+  grid-area: submitButton;
+}
+
+.errorMessage {
+  grid-area: validationMessage
+}

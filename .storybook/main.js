@@ -1,4 +1,4 @@
-const fs = require('fs');
+const React = require('react');
 
 module.exports = {
   stories: ['../src/**/*.story.jsx'],
