@@ -37,23 +37,28 @@
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
-  .border-muted;
+  .border;
+  border-color: @color-circular-border;
   .font-size-large;
-  box-shadow: 0 0 4px @color-border;
   cursor: pointer;
   place-self: center;
   align-self: center;
-  &:hover {
-    box-shadow: 0 0 6px @color-border;
-  }
-
-  &:active {
-    box-shadow: 0 0 3px 2px @color-border;
-  }
+  padding: 0;
+  font-size: 2.1rem;
+  position: relative;
 
   &[disabled] {
     box-shadow: none;
     opacity: 0.1;
+  }
+
+  >span {
+    display: inline-block;
+    transform: rotate(45deg);
+    position: absolute;
+    font-size: 2.5rem;
+    top: -8px;
+    left: 4px;
   }
 }
 

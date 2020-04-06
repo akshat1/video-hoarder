@@ -55,7 +55,7 @@ const InputForm = ({ initialValue, onSubmit }) => {
           role="button"
           disabled={!url}
         >
-          X
+          <span>+</span>
         </button>
         <If condition={isInvalid}>
           <label className={Style.errorMessage} id="inp-err-mobile">Please enter a valid URL.</label>
