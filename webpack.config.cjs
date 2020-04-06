@@ -22,13 +22,7 @@ const getDevServer = () => {
 }
 
 const getPlugins = () => {
-  const plugins = [
-    new HtmlWebPackPlugin({
-      template: "./src/client/template.html",
-      filename: "./index.html"
-    })
-  ];
-
+  const plugins = [];
   if (isDevMode()) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
   } else {
@@ -37,6 +31,10 @@ const getPlugins = () => {
       chunkFilename: '[id].css',
     }));
   }
+  plugins.push(new HtmlWebPackPlugin({
+    template: "./src/client/template.html",
+    filename: "./index.html"
+  }));
 
   return plugins;
 }
@@ -49,6 +47,12 @@ const getEntry = () => {
 
   return { app };
 }
+
+const getJSRule = () => ({
+  test: /\.jsx?$/,
+  exclude: /node_modules/,
+  use: { loader: "babel-loader" }
+});
 
 const getLessRule = () => {
   const loaders = [];
@@ -74,6 +78,14 @@ const getLessRule = () => {
   };
 }
 
+const getFontsRule = () => ({
+  test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+  use: [{
+    loader: 'file-loader',
+    options: { name: 'static/[name].[ext]' },
+  }],
+});
+
 const config = {
   mode: isDevMode() ? 'development' : 'production',
   entry: getEntry(),
@@ -85,11 +97,11 @@ const config = {
   devtool: isDevMode() ? 'inline-source-map' : false,
   plugins: getPlugins(),
   module: {
-    rules: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      use: { loader: "babel-loader" }
-    }, getLessRule()]
+    rules: [
+      getJSRule(),
+      getLessRule(),
+      getFontsRule(),
+    ]
   },
   resolve: {
     extensions: ['.js', '.jsx']

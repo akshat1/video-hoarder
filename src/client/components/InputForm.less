@@ -7,7 +7,7 @@
 
 .form {
   display: grid;
-  grid-template-columns: auto 2.5rem;
+  grid-template-columns: auto;
   grid-column-gap: @space-small;
   grid-row-gap: @space-small;
   grid-template-areas:
@@ -43,6 +43,14 @@
   cursor: pointer;
   place-self: center;
   align-self: center;
+  &:hover {
+    box-shadow: 0 0 6px @color-border;
+  }
+
+  &:active {
+    box-shadow: 0 0 3px 2px @color-border;
+  }
+
   &[disabled] {
     box-shadow: none;
     opacity: 0.1;

@@ -1,10 +1,11 @@
-const React = require('react');
-require('@storybook/addon-console');
-const { addDecorator } = require('@storybook/react');
-const { Provider } = require('react-redux');
+import React from 'react';
+// const React = require('react');
+import '@storybook/addon-console';
+import { addDecorator } from '@storybook/react';
+import { Provider } from 'react-redux';
 import { withA11y } from "@storybook/addon-a11y";
-const { getStore } = require('../src/client/redux');
-require('../src/client/App.less');
+import { getStore } from '../src/client/redux';
+import '../src/client/App.less';
 
 const withProvider = story =>
   <Provider store={getStore()}>{story()}</Provider>;
