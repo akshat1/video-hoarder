@@ -1,6 +1,5 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs } from '@storybook/addon-knobs';
 import Item from './Item';
 import Status from '../../Status';
 

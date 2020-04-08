@@ -3,16 +3,19 @@
 .wrapper {
   .border;
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 1rem auto;
   column-gap: @space-small;
   row-gap: @space-small;
   grid-template-areas:
     "title title"
-    "statusIndicator url";
+    "statusIndicator url"
+    "meta meta";
+  @media @desktop {
+
+  }
 }
 
 .label {
-  .desktop-only;
   font-weight: bold;
   @media @desktop {
     &:after {
@@ -38,9 +41,24 @@
 }
 
 .title {
-  grid-area: "title";
+  grid-area: title;
+  .font-size-large;
 }
 
 .url {
-  grid-area: "url";
+  grid-area: url;
+  overflow: hidden;
+  .label {
+    .desktop-only;
+  }
+}
+
+.status {
+  grid-area: statusIndicator;
+}
+
+.meta {
+  grid-area: meta;
+  display: grid;
+  grid-template-columns: 5rem auto;
 }

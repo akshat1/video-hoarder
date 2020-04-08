@@ -4,7 +4,7 @@ import InputForm from './InputForm';
 
 describe('components/InputForm', () => {
   test('InputForm matches snapshot', () => {
-    const component = shallow(<InputForm />);
+    const component = shallow(<InputForm onSubmit={() => 0}/>);
     expect(component).toMatchSnapshot();
   });
 });

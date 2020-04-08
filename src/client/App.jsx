@@ -8,7 +8,7 @@ import * as Style from './App.less';
 const App = () =>
   <Provider store={getStore()}>
     <div id={Style.App}>
-      <InputForm />
+      <InputForm onSubmit={() => 0}/>
     </div>
   </Provider>;
 

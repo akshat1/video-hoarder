@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/ItemTest ItemTest matches snapshot for failed 1`] = `
+<div
+  className="wrapper"
+>
+  <FontAwesomeIcon
+    border={false}
+    className=""
+    fixedWidth={false}
+    flip={null}
+    icon={
+      Object {
+        "icon": Array [
+          496,
+          512,
+          Array [],
+          "f567",
+          "M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm-96 206.6l-28.7 28.7c-14.8 14.8-37.8-7.5-22.6-22.6l28.7-28.7-28.7-28.7c-15-15 7.7-37.6 22.6-22.6l28.7 28.7 28.7-28.7c15-15 37.6 7.7 22.6 22.6L174.6 192l28.7 28.7c15.2 15.2-7.9 37.4-22.6 22.6L152 214.6zM248 416c-35.3 0-64-28.7-64-64s28.7-64 64-64 64 28.7 64 64-28.7 64-64 64zm147.3-195.3c15.2 15.2-7.9 37.4-22.6 22.6L344 214.6l-28.7 28.7c-14.8 14.8-37.8-7.5-22.6-22.6l28.7-28.7-28.7-28.7c-15-15 7.7-37.6 22.6-22.6l28.7 28.7 28.7-28.7c15-15 37.6 7.7 22.6 22.6L366.6 192l28.7 28.7z",
+        ],
+        "iconName": "dizzy",
+        "prefix": "fas",
+      }
+    }
+    inverse={false}
+    listItem={false}
+    mask={null}
+    pull={null}
+    pulse={false}
+    rotation={null}
+    size={null}
+    spin={false}
+    swapOpacity={false}
+    symbol={false}
+    title=""
+    transform={null}
+  />
+</div>
+`;
+
+exports[`components/ItemTest ItemTest matches snapshot for pending 1`] = `
+<div
+  className="wrapper"
+>
+  <FontAwesomeIcon
+    border={false}
+    className=""
+    fixedWidth={false}
+    flip={null}
+    icon={
+      Object {
+        "icon": Array [
+          384,
+          512,
+          Array [],
+          "f254",
+          "M360 64c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24 0 90.965 51.016 167.734 120.842 192C75.016 280.266 24 357.035 24 448c-13.255 0-24 10.745-24 24v16c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24 0-90.965-51.016-167.734-120.842-192C308.984 231.734 360 154.965 360 64z",
+        ],
+        "iconName": "hourglass",
+        "prefix": "fas",
+      }
+    }
+    inverse={false}
+    listItem={false}
+    mask={null}
+    pull={null}
+    pulse={false}
+    rotation={null}
+    size={null}
+    spin={true}
+    swapOpacity={false}
+    symbol={false}
+    title=""
+    transform={null}
+  />
+</div>
+`;
+
+exports[`components/ItemTest ItemTest matches snapshot for running 1`] = `
+<div
+  className="wrapper"
+>
+  <FontAwesomeIcon
+    border={false}
+    className=""
+    fixedWidth={false}
+    flip={null}
+    icon={
+      Object {
+        "icon": Array [
+          512,
+          512,
+          Array [],
+          "f110",
+          "M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z",
+        ],
+        "iconName": "spinner",
+        "prefix": "fas",
+      }
+    }
+    inverse={false}
+    listItem={false}
+    mask={null}
+    pull={null}
+    pulse={false}
+    rotation={null}
+    size={null}
+    spin={true}
+    swapOpacity={false}
+    symbol={false}
+    title=""
+    transform={null}
+  />
+</div>
+`;
+
+exports[`components/ItemTest ItemTest matches snapshot for succeeded 1`] = `
+<div
+  className="wrapper"
+>
+  <FontAwesomeIcon
+    border={false}
+    className=""
+    fixedWidth={false}
+    flip={null}
+    icon={
+      Object {
+        "icon": Array [
+          512,
+          512,
+          Array [],
+          "f00c",
+          "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+        ],
+        "iconName": "check",
+        "prefix": "fas",
+      }
+    }
+    inverse={false}
+    listItem={false}
+    mask={null}
+    pull={null}
+    pulse={false}
+    rotation={null}
+    size={null}
+    spin={false}
+    swapOpacity={false}
+    symbol={false}
+    title=""
+    transform={null}
+  />
+</div>
+`;

@@ -13,7 +13,10 @@ exports[`App App matches snapshot 1`] = `
   }
 >
   <div>
-    <InputForm />
+    <InputForm
+      initialValue=""
+      onSubmit={[Function]}
+    />
   </div>
 </Provider>
 `;

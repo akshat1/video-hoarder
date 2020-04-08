@@ -1,7 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/InputForm InputForm matches snapshot 1`] = `
-<h1>
-  Input Form!!
-</h1>
+<div>
+  <form
+    onSubmit={[Function]}
+  >
+    <input
+      id="urlInput"
+      onChange={[Function]}
+      pattern="^(https?:\\\\/\\\\/.+)?$"
+      placeholder="Enter the URL of the video here"
+      required={true}
+      spellCheck={false}
+      title="Enter the URL of the video here"
+      type="url"
+      value=""
+    />
+    <div
+      onClick={[Function]}
+      role="button"
+      tabIndex={0}
+      title="Clear"
+    >
+      <span>
+        +
+      </span>
+    </div>
+    <button
+      disabled={true}
+      role="button"
+      title="Submit URL for download"
+      type="submit"
+    >
+      Download
+    </button>
+  </form>
+</div>
 `;

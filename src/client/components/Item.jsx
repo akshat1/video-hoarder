@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import ItemStatus from './ItemStatus';
 import Style from './Item.less';
 
 const Item = ({ item }) => {
@@ -16,10 +17,19 @@ const Item = ({ item }) => {
   } = item;
   return (
     <div className={Style.wrapper}>
-      <h3 className={Style.title}>{title}</h3>
+      <div className={Style.title}>{title}</div>
       <div className={Style.url}>
         <div className={Style.label}>URL</div>
-        <div className={Style.value}>{url}</div>
+        <div className={Style.value} title={url}>{url}</div>
+      </div>
+      <div className={Style.status}>
+        <ItemStatus status={status} />
+      </div>
+      <div className={Style.meta}>
+        <div className={Style.label}>Added</div>
+        <div className={Style.value}>{new Date(addedAt).toLocaleString()}</div>
+        <div className={Style.label}>Updated</div>
+        <div className={Style.value}>{new Date(updatedAt).toLocaleString()}</div>
       </div>
     </div>
   );
