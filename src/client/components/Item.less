@@ -1,0 +1,46 @@
+@import (reference) "../style/vars.less";
+
+.wrapper {
+  .border;
+  display: grid;
+  grid-template-columns: auto;
+  column-gap: @space-small;
+  row-gap: @space-small;
+  grid-template-areas:
+    "title title"
+    "statusIndicator url";
+}
+
+.label {
+  .desktop-only;
+  font-weight: bold;
+  @media @desktop {
+    &:after {
+      content: ":"
+    }
+  }
+}
+
+.label, .value {
+  @media @desktop {
+    display: inline-block;
+  }
+}
+
+.value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  @media @desktop {
+    overflow: unset;
+    padding-left: @space-small;
+  }
+}
+
+.title {
+  grid-area: "title";
+}
+
+.url {
+  grid-area: "url";
+}

@@ -27,38 +27,31 @@
   display: inline-block;
   .font-size-large;
   padding: @space-small;
-  &.invalid {
-    // border-color: @color-border;
-    box-shadow: inset 0 0 6px @color-error;
-  }
 }
 
+@sizeClear: 1.5rem;
 .clear {
-  width: 2rem;
-  height: 2rem;
+  .button;
+  width: @sizeClear;
+  height: @sizeClear;
+  line-height: @sizeClear;
   border-radius: 1rem;
-  .border;
-  border-color: @color-circular-border;
   .font-size-large;
-  cursor: pointer;
   place-self: center;
   align-self: center;
   padding: 0;
   font-size: 2.1rem;
   position: relative;
-
-  &[disabled] {
-    box-shadow: none;
-    opacity: 0.1;
-  }
+  text-align: center;
 
   >span {
     display: inline-block;
+    height: @sizeClear;
+    width: @sizeClear;
+    line-height: @sizeClear;
     transform: rotate(45deg);
-    position: absolute;
-    font-size: 2.5rem;
-    top: -8px;
-    left: 4px;
+    transform-origin: center center;
+    // font-size: 2.5rem;
   }
 }
 

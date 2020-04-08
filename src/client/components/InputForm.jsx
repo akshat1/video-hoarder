@@ -10,20 +10,15 @@
  */
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
-import classNames from "classnames";
 import * as Style from "./InputForm.less";
 
-const InputPattern = /^(https?:\/\/.+)?$/;
-
-const getInputStyleClass = invalid => {
-  return classNames(Style.input, { [Style.invalid]: invalid });
-}
+const InputPattern = '^(https?:\\/\\/.+)?$';
 
 const InputForm = ({ initialValue, onSubmit }) => {
   const [url, setURL] = useState(initialValue);
   useEffect(() => setURL(initialValue), [initialValue]);
   const onChange = e => setURL(e.currentTarget.value);
-  const isInvalid = !InputPattern.test(url);
+  const isInvalid = !new RegExp(InputPattern).test(url);
   const onFormSubmit = (e) => {
     e.preventDefault();
     if (!isInvalid) onSubmit(url);
@@ -41,22 +36,23 @@ const InputForm = ({ initialValue, onSubmit }) => {
           title="Enter the URL of the video here"
           type="url"
           placeholder="Enter the URL of the video here"
-          className={getInputStyleClass(isInvalid)}
+          className={Style.input}
           onChange={onChange}
           id="urlInput"
           value={url}
           spellCheck={false}
           required
+          pattern={InputPattern}
         />
-        <button
+        <div
           className={Style.clear}
           onClick={onClear}
           title="Clear"
           role="button"
-          disabled={!url}
+          tabIndex={0}
         >
           <span>+</span>
-        </button>
+        </div>
         <If condition={isInvalid}>
           <label className={Style.errorMessage} id="inp-err-mobile">Please enter a valid URL.</label>
         </If>
