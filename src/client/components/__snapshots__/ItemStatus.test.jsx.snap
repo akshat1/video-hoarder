@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/ItemTest ItemTest matches snapshot for failed 1`] = `
+exports[`components/ItemStatus ItemStatus matches snapshot for failed 1`] = `
 <div
   className="wrapper"
 >
@@ -38,7 +38,7 @@ exports[`components/ItemTest ItemTest matches snapshot for failed 1`] = `
 </div>
 `;
 
-exports[`components/ItemTest ItemTest matches snapshot for pending 1`] = `
+exports[`components/ItemStatus ItemStatus matches snapshot for pending 1`] = `
 <div
   className="wrapper"
 >
@@ -76,7 +76,7 @@ exports[`components/ItemTest ItemTest matches snapshot for pending 1`] = `
 </div>
 `;
 
-exports[`components/ItemTest ItemTest matches snapshot for running 1`] = `
+exports[`components/ItemStatus ItemStatus matches snapshot for running 1`] = `
 <div
   className="wrapper"
 >
@@ -114,7 +114,7 @@ exports[`components/ItemTest ItemTest matches snapshot for running 1`] = `
 </div>
 `;
 
-exports[`components/ItemTest ItemTest matches snapshot for succeeded 1`] = `
+exports[`components/ItemStatus ItemStatus matches snapshot for succeeded 1`] = `
 <div
   className="wrapper"
 >

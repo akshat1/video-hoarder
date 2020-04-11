@@ -4,32 +4,37 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import ItemStatus from './ItemStatus';
 import Style from './Item.less';
+import Status from '../../Status';
+import ItemMeta from './ItemMeta';
+
+const getWrapperClass = status => classNames(Style.wrapper, {
+  [Style.failed]: status === Status.Failed,
+  [Style.pending]: status === Status.Pending,
+  [Style.running]: status === Status.Running,
+  [Style.succeeded]: status === Status.Succeeded,
+});
 
 const Item = ({ item }) => {
   const {
-    addedAt,
     status,
     title,
-    updatedAt,
     url,
   } = item;
+
   return (
-    <div className={Style.wrapper}>
+    <div className={getWrapperClass(status)}>
       <div className={Style.title}>{title}</div>
       <div className={Style.url}>
-        <div className={Style.label}>URL</div>
         <div className={Style.value} title={url}>{url}</div>
       </div>
       <div className={Style.status}>
         <ItemStatus status={status} />
       </div>
       <div className={Style.meta}>
-        <div className={Style.label}>Added</div>
-        <div className={Style.value}>{new Date(addedAt).toLocaleString()}</div>
-        <div className={Style.label}>Updated</div>
-        <div className={Style.value}>{new Date(updatedAt).toLocaleString()}</div>
+        <ItemMeta item={item} />
       </div>
     </div>
   );

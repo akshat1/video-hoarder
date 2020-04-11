@@ -2,31 +2,33 @@
 
 .wrapper {
   .border;
+  border-left-width: @space-medium;
+  padding: @space-small;
   display: grid;
   grid-template-columns: 1rem auto;
-  column-gap: @space-small;
-  row-gap: @space-small;
+  gap: @space-small @space-small;
   grid-template-areas:
     "title title"
     "statusIndicator url"
     "meta meta";
   @media @desktop {
-
+    padding: @space-medium;
   }
-}
 
-.label {
-  font-weight: bold;
-  @media @desktop {
-    &:after {
-      content: ":"
-    }
+  &.pending {
+    border-left-color: rgb(240, 212, 51);
   }
-}
 
-.label, .value {
-  @media @desktop {
-    display: inline-block;
+  &.running {
+    border-left-color: rgb(51, 155, 240);
+  }
+
+  &.failed {
+    border-left-color: rgb(240, 57, 51);
+  }
+
+  &.succeeded {
+    border-left-color: rgb(111, 240, 51);
   }
 }
 
@@ -35,6 +37,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   @media @desktop {
+    display: inline-block;
     overflow: unset;
     padding-left: @space-small;
   }
@@ -59,6 +62,4 @@
 
 .meta {
   grid-area: meta;
-  display: grid;
-  grid-template-columns: 5rem auto;
 }
