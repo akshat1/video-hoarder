@@ -7,11 +7,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "succeeded",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -20,11 +20,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "succeeded",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -33,11 +33,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "failed",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -46,11 +46,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "failed",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -59,11 +59,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "running",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -72,11 +72,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "running",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -85,11 +85,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "running",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -98,11 +98,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "running",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -111,11 +111,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "succeeded",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -124,11 +124,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "running",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -137,11 +137,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "succeeded",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -150,11 +150,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "running",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -163,11 +163,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "pending",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -176,11 +176,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "running",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -189,11 +189,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "pending",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -202,11 +202,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "pending",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
@@ -215,11 +215,11 @@ exports[`components/ItemList ItemList should match snapshot 1`] = `
   <Item
     item={
       Object {
-        "addedAt": "2020-03-29T21:30:45.000Z",
+        "addedAt": "2020-03-29T14:30:45.000Z",
         "id": "3idh834dh348dhhfufh48",
         "status": "pending",
         "title": "A collectible video",
-        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+        "updatedAt": "Sun Mar 29 2020 14:32:30 GMT+0000 (Coordinated Universal Time)",
         "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
       }
     }
