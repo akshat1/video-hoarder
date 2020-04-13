@@ -1,5 +1,5 @@
 /* Breakpoints */
-@desktop: ~'(min-width: 992px)';
+@desktop: ~'(min-width: 768px)';
 
 .desktop-only(@display: initial) {
   display: none;
@@ -37,16 +37,25 @@
 .border { border: 1px solid @color-border; }
 .border-muted { border: 1px solid @color-border-muted; }
 
+/* Box Shadows */
+@shadow-focus: 0px 0px 3px 2px @color-focus;
+@shadow-focus--inset: inset 0px 0px 3px 2px @color-focus;
+@shadow-error: 0px 0px 3px 2px @color-error;
+@shadow-hover: 0 0 5px 1px darken(@color-border, 20%);
+@shadow-hover--inset: inset 0 0 5px 1px darken(@color-border, 20%);
+@shadow-active: 0 0 3px 1px darken(@color-border, 50%);
+@shadow-active--inset: inset 0 0 3px 1px darken(@color-border, 50%);
+
 /* UI Elements */
 .focusable {
   &:focus {
     border-color: transparent;
     outline: none;
-    box-shadow: 0px 0px 3pt 2pt @color-focus;
+    box-shadow: @shadow-focus;
   }
   &:invalid {
     &:focus {
-      box-shadow: 0px 0px 3pt 2pt @color-error;
+      box-shadow: @shadow-error;
     }
   }
 }
@@ -58,10 +67,10 @@
   border-color: @color-circular-border;
   cursor: pointer;
   &:hover {
-    box-shadow: 0 0 5px @color-border;
+    box-shadow: @shadow-hover;
   }
   &:active {
-    box-shadow: 0 0 3px darken(@color-border, 50%);
+    box-shadow: @shadow-active;
     outline: none;
   }
   &[disabled], &.disabled {

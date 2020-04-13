@@ -1,0 +1,285 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/ItemFilter should render and match snapshot 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="mobile"
+  >
+    <select
+      onChange={[Function]}
+      value="pending"
+    >
+      <option
+        key="failed"
+        value="failed"
+      >
+        failed
+      </option>
+      <option
+        key="pending"
+        value="pending"
+      >
+        pending
+      </option>
+      <option
+        key="running"
+        value="running"
+      >
+        running
+      </option>
+      <option
+        key="succeeded"
+        value="succeeded"
+      >
+        succeeded
+      </option>
+    </select>
+  </div>
+  <div
+    className="desktop"
+  >
+    <ButtonGrid
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "failed",
+            "selected": false,
+            "value": "failed",
+          },
+          Object {
+            "label": "pending",
+            "selected": true,
+            "value": "pending",
+          },
+          Object {
+            "label": "running",
+            "selected": false,
+            "value": "running",
+          },
+          Object {
+            "label": "succeeded",
+            "selected": false,
+            "value": "succeeded",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`components/ItemFilter should render and match snapshot 2`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="mobile"
+  >
+    <select
+      onChange={[Function]}
+      value="running"
+    >
+      <option
+        key="failed"
+        value="failed"
+      >
+        failed
+      </option>
+      <option
+        key="pending"
+        value="pending"
+      >
+        pending
+      </option>
+      <option
+        key="running"
+        value="running"
+      >
+        running
+      </option>
+      <option
+        key="succeeded"
+        value="succeeded"
+      >
+        succeeded
+      </option>
+    </select>
+  </div>
+  <div
+    className="desktop"
+  >
+    <ButtonGrid
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "failed",
+            "selected": false,
+            "value": "failed",
+          },
+          Object {
+            "label": "pending",
+            "selected": false,
+            "value": "pending",
+          },
+          Object {
+            "label": "running",
+            "selected": true,
+            "value": "running",
+          },
+          Object {
+            "label": "succeeded",
+            "selected": false,
+            "value": "succeeded",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`components/ItemFilter should render and match snapshot 3`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="mobile"
+  >
+    <select
+      onChange={[Function]}
+      value="failed"
+    >
+      <option
+        key="failed"
+        value="failed"
+      >
+        failed
+      </option>
+      <option
+        key="pending"
+        value="pending"
+      >
+        pending
+      </option>
+      <option
+        key="running"
+        value="running"
+      >
+        running
+      </option>
+      <option
+        key="succeeded"
+        value="succeeded"
+      >
+        succeeded
+      </option>
+    </select>
+  </div>
+  <div
+    className="desktop"
+  >
+    <ButtonGrid
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "failed",
+            "selected": true,
+            "value": "failed",
+          },
+          Object {
+            "label": "pending",
+            "selected": false,
+            "value": "pending",
+          },
+          Object {
+            "label": "running",
+            "selected": false,
+            "value": "running",
+          },
+          Object {
+            "label": "succeeded",
+            "selected": false,
+            "value": "succeeded",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`components/ItemFilter should render and match snapshot 4`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="mobile"
+  >
+    <select
+      onChange={[Function]}
+      value="succeeded"
+    >
+      <option
+        key="failed"
+        value="failed"
+      >
+        failed
+      </option>
+      <option
+        key="pending"
+        value="pending"
+      >
+        pending
+      </option>
+      <option
+        key="running"
+        value="running"
+      >
+        running
+      </option>
+      <option
+        key="succeeded"
+        value="succeeded"
+      >
+        succeeded
+      </option>
+    </select>
+  </div>
+  <div
+    className="desktop"
+  >
+    <ButtonGrid
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "failed",
+            "selected": false,
+            "value": "failed",
+          },
+          Object {
+            "label": "pending",
+            "selected": false,
+            "value": "pending",
+          },
+          Object {
+            "label": "running",
+            "selected": false,
+            "value": "running",
+          },
+          Object {
+            "label": "succeeded",
+            "selected": true,
+            "value": "succeeded",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;

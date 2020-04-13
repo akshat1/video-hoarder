@@ -28,7 +28,9 @@ const Item = ({ item }) => {
     <div className={getWrapperClass(status)}>
       <div className={Style.title}>{title}</div>
       <div className={Style.url}>
-        <div className={Style.value} title={url}>{url}</div>
+        <div className={Style.value} title={url}>
+          <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
+        </div>
       </div>
       <div className={Style.status}>
         <ItemStatus status={status} />

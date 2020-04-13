@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Item Item matches snapshot for failed 1`] = `
+<div
+  className="wrapper failed"
+>
+  <div
+    className="title"
+  >
+    A collectible video
+  </div>
+  <div
+    className="url"
+  >
+    <div
+      className="value"
+      title="https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux"
+    >
+      <a
+        href="https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux
+      </a>
+    </div>
+  </div>
+  <div
+    className="status"
+  >
+    <ItemStatus
+      status="failed"
+    />
+  </div>
+  <div
+    className="meta"
+  >
+    <ItemMeta
+      item={
+        Object {
+          "addedAt": "2020-03-29T21:30:45.000Z",
+          "id": "3idh834dh348dhhfufh48",
+          "status": "failed",
+          "title": "A collectible video",
+          "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+          "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`components/Item Item matches snapshot for pending 1`] = `
+<div
+  className="wrapper pending"
+>
+  <div
+    className="title"
+  >
+    A collectible video
+  </div>
+  <div
+    className="url"
+  >
+    <div
+      className="value"
+      title="https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux"
+    >
+      <a
+        href="https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux
+      </a>
+    </div>
+  </div>
+  <div
+    className="status"
+  >
+    <ItemStatus
+      status="pending"
+    />
+  </div>
+  <div
+    className="meta"
+  >
+    <ItemMeta
+      item={
+        Object {
+          "addedAt": "2020-03-29T21:30:45.000Z",
+          "id": "3idh834dh348dhhfufh48",
+          "status": "pending",
+          "title": "A collectible video",
+          "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+          "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`components/Item Item matches snapshot for running 1`] = `
+<div
+  className="wrapper running"
+>
+  <div
+    className="title"
+  >
+    A collectible video
+  </div>
+  <div
+    className="url"
+  >
+    <div
+      className="value"
+      title="https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux"
+    >
+      <a
+        href="https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux
+      </a>
+    </div>
+  </div>
+  <div
+    className="status"
+  >
+    <ItemStatus
+      status="running"
+    />
+  </div>
+  <div
+    className="meta"
+  >
+    <ItemMeta
+      item={
+        Object {
+          "addedAt": "2020-03-29T21:30:45.000Z",
+          "id": "3idh834dh348dhhfufh48",
+          "status": "running",
+          "title": "A collectible video",
+          "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+          "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`components/Item Item matches snapshot for succeeded 1`] = `
+<div
+  className="wrapper succeeded"
+>
+  <div
+    className="title"
+  >
+    A collectible video
+  </div>
+  <div
+    className="url"
+  >
+    <div
+      className="value"
+      title="https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux"
+    >
+      <a
+        href="https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux
+      </a>
+    </div>
+  </div>
+  <div
+    className="status"
+  >
+    <ItemStatus
+      status="succeeded"
+    />
+  </div>
+  <div
+    className="meta"
+  >
+    <ItemMeta
+      item={
+        Object {
+          "addedAt": "2020-03-29T21:30:45.000Z",
+          "id": "3idh834dh348dhhfufh48",
+          "status": "succeeded",
+          "title": "A collectible video",
+          "updatedAt": "Sun Mar 29 2020 14:32:30 GMT-0700 (Pacific Daylight Time)",
+          "url": "https://www.youtube.com/watch?v=eQ5Ru7Zu_1I?foo=bar&baz=qux",
+        }
+      }
+    />
+  </div>
+</div>
+`;
