@@ -25,8 +25,6 @@ pipeline {
     stage('Docs') {
       steps {
         sh 'npm run docs'
-      }
-      steps {
         sshPublisher(
           publishers: [
             sshPublisherDesc(
