@@ -3,7 +3,8 @@
   "version": "0.0.7",
   "description": "youtube-dl frontend for NAS devices.",
   "scripts": {
-    "docs": "jsdoc -c jsdoc.conf.json",
+    "docs": "mkdir docs; cp docs.html docs/index.html; npm run jsdoc; npm run build-storybook",
+    "jsdoc": "jsdoc -c jsdoc.conf.json",
     "clean": "rm -rf dist/* docs/",
     "dev": "NODE_ENV=development node src/server/index.js",
     "start": "npm run clean; npm run build; NODE_ENV=production node src/server/index.js",
@@ -13,7 +14,7 @@
     "run-dev-docker": "docker run --rm -it --name vh-dev --network=\"host\" -v $PWD:/app/ vh-dev-img -v $PWD/db:/data/db/ -p 7200:7200",
     "test": "TZ=UTC NODE_ENV=test jest --coverage",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -o docs/storybook"
   },
   "type": "module",
   "repository": {

@@ -22,9 +22,37 @@ pipeline {
         }
       }
     }
-    stage('Storybook') {
+    stage('Docs') {
       steps {
-        sh 'npm run build-storybook'
+        sh 'npm run docs'
+      }
+      steps {
+        sshPublisher(
+          publishers: [
+            sshPublisherDesc(
+              configName: 'www',
+              transfers: [
+                sshTransfer(
+                  cleanRemote: true,
+                  excludes: '',
+                  execCommand: '',
+                  execTimeout: 120000,
+                  flatten: false,
+                  makeEmptyDirs: false,
+                  noDefaultExcludes: false,
+                  patternSeparator: '[, ]+',
+                  remoteDirectory: '${JOB_NAME}',
+                  remoteDirectorySDF: false,
+                  removePrefix: 'docs/',
+                  sourceFiles: 'docs/'
+                )
+              ],
+              usePromotionTimestamp: false,
+              useWorkspaceInPromotion: false,
+              verbose: false
+            )
+          ]
+        )
       }
     }
     stage('Build') {
