@@ -3,7 +3,7 @@
   "version": "0.0.7",
   "description": "youtube-dl frontend for NAS devices.",
   "scripts": {
-    "docs": "mkdir docs; cp docs.html docs/index.html; npm run jsdoc; npm run build-storybook",
+    "docs": "mkdir -p docs; cp docs.html docs/index.html; npm run jsdoc; npm run build-storybook",
     "jsdoc": "jsdoc -c jsdoc.conf.json",
     "clean": "rm -rf dist/* docs/",
     "dev": "NODE_ENV=development node src/server/index.js",
