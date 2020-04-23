@@ -1,22 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App App matches snapshot 1`] = `
-<Provider
-  store={
+<Connect(ConnectedRouterWithContext)
+  history={
     Object {
-      "dispatch": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
-      Symbol(observable): [Function],
+      "action": "POP",
+      "block": [Function],
+      "createHref": [Function],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "length": 1,
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      "push": [Function],
+      "replace": [Function],
     }
   }
 >
   <div>
-    <InputForm
-      initialValue=""
-      onSubmit={[Function]}
-    />
+    <Switch>
+      <Route
+        path="/login"
+      >
+        <LoginForm />
+      </Route>
+      <Route
+        path="/"
+      >
+        <Redirect
+          to="/login"
+        />
+      </Route>
+    </Switch>
   </div>
-</Provider>
+  ;
+</Connect(ConnectedRouterWithContext)>
 `;

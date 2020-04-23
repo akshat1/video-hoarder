@@ -1,4 +1,5 @@
 import { makeActionF, makeReducer } from './boilerplate';
+import { connectRouter } from 'connected-react-router'
 import { combineReducers } from 'redux';
 
 const User = 'User';
@@ -27,10 +28,20 @@ export const setUser = makeActionF(User);
 /**
  * @function
  * @memberof module:client/redux
- * @param {State} - The current store state
- * @param {Action}
- * @returns {State} - The new store state
+ * @param {History} -
+ * @returns {Function} - The new store state
  */
-export const rootReducer = combineReducers({
-  user: makeReducer(User, {}),
-});
+export const getRootReducer = history => {
+  /**
+   * @function
+   * @param {State} - The current store state
+   * @param {Action}
+   * @returns {State} - The new store state
+   */
+  const rootReducer = combineReducers({
+    router: connectRouter(history),
+    user: makeReducer(User, {}),
+  });
+
+  return rootReducer;
+};

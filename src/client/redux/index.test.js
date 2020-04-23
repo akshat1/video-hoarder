@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import assert from 'assert';
 import { getStore } from './index';
 
