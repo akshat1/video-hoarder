@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { getStore } from './redux';
 import App from './App.jsx';
 import { appRoot } from './App.less';
 
@@ -10,5 +12,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   root.setAttribute('class', appRoot);
-  ReactDOM.render(React.createElement(App), root);
+  ReactDOM.render(<Provider store={getStore()}><App /></Provider>, root);
 });

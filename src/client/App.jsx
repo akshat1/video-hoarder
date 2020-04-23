@@ -1,16 +1,17 @@
 import { hot } from 'react-hot-loader';
-import React from 'react';
-import { Provider } from 'react-redux';
-import { getStore } from './redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import InputForm from './components/InputForm';
 import * as Style from './App.less';
+import { handleRoute } from './redux/actions-and-reducers';
 
-const App = () =>
-  <Provider store={getStore()}>
-    <div id={Style.App}>
+const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(handleRoute()));
+  return <div id={Style.App}>
       <InputForm onSubmit={() => 0}/>
-    </div>
-  </Provider>;
+    </div>;
+};
 
 /**
  * @private
