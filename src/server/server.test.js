@@ -38,7 +38,9 @@ You have to explicitly call `startServer()` in such a situation. */
 describe('server/start-server', () => {
   test('should start the express server without webpack by default', async () => {
     const app = {
+      get: jest.fn(),
       listen: jest.fn(),
+      post: jest.fn(),
       use: jest.fn(),
     };
     express.static.mockReturnValue('static');
@@ -47,11 +49,14 @@ describe('server/start-server', () => {
     assert.equal(express.mock.calls.length, 1);
     assert.equal(app.listen.mock.calls.length, 1);  // TODO: assert correct port once we have the config system up.
     assert.ok(!!app.use.mock.calls.find(([middleware]) => middleware === 'static'));
+    // TODO check that we are handling /* route.
   });
 
   test('should start the express server with webpack when so instructed', async () => {
     const app = {
+      get: jest.fn(),
       listen: jest.fn(),
+      post: jest.fn(),
       use: jest.fn(),
     };
     webpack.mockImplementation(config => ({ config }));  // This is what makes our assertions on dev and hotmiddleware work.

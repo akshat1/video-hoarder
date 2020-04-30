@@ -28,17 +28,12 @@ exports[`App App matches snapshot 1`] = `
       <Route
         path="/login"
       >
-        <LoginForm />
+        <Connect(LoginForm) />
       </Route>
       <Route
         path="/"
-      >
-        <Redirect
-          to="/login"
-        />
-      </Route>
+      />
     </Switch>
   </div>
-  ;
 </Connect(ConnectedRouterWithContext)>
 `;
