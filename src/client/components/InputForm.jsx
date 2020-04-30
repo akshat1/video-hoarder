@@ -85,13 +85,3 @@ InputForm.defaultProps = {
 };
 
 export default InputForm;
-
-/*
-<div className={Style.inputContainer}>
-          
-          
-        </div>
-        <If condition={isInvalid}>
-          <label className={Style.errorMessageDesktop} id="inp-err-desktop">Please enter a valid URL.</label>
-        </If>
-*/

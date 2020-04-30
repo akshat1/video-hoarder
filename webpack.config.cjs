@@ -14,7 +14,8 @@ const getDevServer = () => {
       port: 7200,
       host: '0.0.0.0',  // because remote development is neat.
       publicPath: '/',
-      contentBase: './dist/'
+      contentBase: './dist/',
+      historyApiFallback: true,
     };
   }
 

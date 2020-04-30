@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { doLogIn } from '../redux/actions-and-reducers';
 
-const LoginForm = () => {
+const LoginForm = ({ doLogin }) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const onSubmit = e => e.preventDefault();  // TODO: Implement the login
+  const onSubmit = e => {
+    e.preventDefault();
+    doLogin(userName, password);
+  }
   const onUserNameChanged = e => setUserName(e.currentTarget.value);
   const onPasswordChanged = e => setPassword(e.currentTarget.value);
   return (
@@ -37,4 +43,11 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+LoginForm.propTypes = {
+  doLogin: PropTypes.func,
+};
+
+const stateToProps = () => ({});
+const dispatchToProps = { doLogin: doLogIn };
+
+export default connect(stateToProps, dispatchToProps)(LoginForm);

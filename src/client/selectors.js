@@ -13,3 +13,7 @@ export const getUser = state => state.user;
  * @returns {boolean}
  */
 export const isLoggedIn = state => !!getUser(state).loggedIn;
+
+export const isFetchingUser = state => !!state.fetchingUser;
+
+export const isUserFetchDone = state => !!state.userFetchDone;
