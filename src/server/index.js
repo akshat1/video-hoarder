@@ -16,11 +16,28 @@ import getPassport from './getPassport.js';
 export const startServer = async (startDevServer) => {
   const app = express();
   app.use(bodyParser.urlencoded({ extended: true }));
+
+  // Auth
   app.use(expressSession({
     secret: 'nyan cat',
     resave: false,
     saveUninitialized: false,
   }));
+  const passport = getPassport();
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.post('/getProfile', (req, res) => {
+    if (req.isAuthenticated()) {
+      res.json(req.user);
+    } else {
+      res.status(401).send('Not logged in');
+    }
+  });
+  app.post('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
+
   if (startDevServer) {
     const webpack = (await import('webpack')).default;
     const webpackDevMiddleware = (await import('webpack-dev-middleware')).default;
@@ -35,7 +52,6 @@ export const startServer = async (startDevServer) => {
     app.use(express.static('./dist'));
   }
 
-  // Because I can't get react-dev server to serve index.html for all paths even though historyApiFallback is true :(
   const serveIndex = (req, res) =>
     res.sendFile(
       path.resolve(process.cwd(), './dist/index.html'),
@@ -43,40 +59,8 @@ export const startServer = async (startDevServer) => {
     );
   app.get('/*', serveIndex);
 
-  // TODO: Move the following into an api.js file.
-  // See https://github.com/passport/express-4.x-local-example/blob/master/server.js
-  const passport = getPassport();
-  app.use(passport.initialize());
-  app.use(passport.session());
-  // app.post('/login', (req, res, next) => {
-  //   passport.authenticate('local', (err, user, info) => {
-  //     console.log('info', info);
-  //     if (err) { return next(err); }
-  //     if (!user) { return res.redirect('/login'); }
-  //     req.login(user, function(err) {
-  //       if (err) {
-  //         console.error('Error occurred!!!', err);
-  //         return next(err);
-  //       }
-  //       return res.json(user);
-  //     });
-  //   })(req, res, next);
-  // });
   app.post('/login', passport.authenticate('local'), (req, res) => {
     res.json(req.user);
-  });
-
-  app.post('/getProfile', (req, res) => {
-    if (req.isAuthenticated()) {
-      res.json(req.user);
-    } else {
-      res.status(401).send('Not logged in');
-    }
-  });
-
-  app.post('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
   });
 
   app.listen(
