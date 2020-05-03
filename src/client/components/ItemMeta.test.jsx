@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { getFakeItem } from '../fixtures/item';
-import Status from '../../Status';
-import ItemMeta from './ItemMeta';
+import { Status } from '../../Status';
+import ItemMeta from './ItemMeta.jsx';
 
 describe('components/ItemMeta', () => {
   Object.values(Status).forEach((status) => {

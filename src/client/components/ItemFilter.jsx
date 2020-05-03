@@ -4,8 +4,8 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Status from '../../Status';
-import ButtonGrid from './ButtonGrid';
+import { Status } from '../../Status';
+import ButtonGrid from './ButtonGrid.jsx';
 import Style from './ItemFilter.less';
 
 const ItemFilter = ({ value, onChange }) => {
@@ -43,5 +43,4 @@ ItemFilter.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.oneOf(Object.values(Status)),
 };
-
 export default ItemFilter;

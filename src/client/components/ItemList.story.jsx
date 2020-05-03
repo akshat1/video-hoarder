@@ -1,6 +1,6 @@
 import React from 'react';
-import ItemList from './ItemList';
-import Status from '../../Status';
+import ItemList from './ItemList.jsx';
+import { Status } from '../../Status';
 import { getFakeItem} from '../fixtures/item';
 
 const items = [

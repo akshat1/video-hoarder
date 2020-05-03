@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner, faDizzy, faHourglass, faCheck, faQuestion } from '@fortawesome/free-solid-svg-icons'
-import Status from '../../Status';
+import { Status } from '../../Status';
 import Style from './ItemStatus.less';
 
 const ItemStatus = ({ status }) =>

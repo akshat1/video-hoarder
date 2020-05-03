@@ -5,10 +5,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import ItemStatus from './ItemStatus';
+import ItemStatus from './ItemStatus.jsx';
 import Style from './Item.less';
-import Status from '../../Status';
-import ItemMeta from './ItemMeta';
+import { Status } from '../../Status';
+import ItemMeta from './ItemMeta.jsx';
 
 const getWrapperClass = status => classNames(Style.wrapper, {
   [Style.failed]: status === Status.Failed,

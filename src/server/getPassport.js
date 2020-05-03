@@ -1,39 +1,87 @@
+/**
+ * @module server/getPassport
+ */
+import _ from 'lodash';
 import passport from 'passport';
 import Strategy from 'passport-local';
+import Base64 from 'Base64';
+import { db, getCollection, Collection, findOne } from './db.js';
+import { hash } from './crypto.js';
+import { getLogger } from '../logger.js';
 
-/** @type {User} */
-const DummyUser = {
-  id: 999999,
-  name: 'Dummy User',
+const rootLogger = getLogger('getPassport');
+
+const getReturnableUser = user => ({
+  ..._.pick(user, 'userName'),
   loggedIn: true,
+})
+
+/**
+ * Called by passport.js to verify the current user during log-in.
+ *
+ * @func
+ * @param {string} userName 
+ * @param {string} password - unencrypted password
+ * @param {Function} cb -
+ * @returns {Promise}
+ */
+const verifyUser = async (userName, password, cb) => {
+  const logger = getLogger('verifyUser', rootLogger);
+  try {
+    logger.debug('verifyUser called', userName, password);
+    const users = await getCollection(db, Collection.users);
+    logger.debug('Got users collection');
+    const user = await findOne(users, { userName });
+    logger.debug('Done finding user', user);
+    if (user && (await hash(password, user.salt)) === user.password) {
+      logger.debug('Calling cb');
+      cb(null, getReturnableUser(user));
+    } else {
+      logger.debug('Indicate login-error.');
+      cb(null, false, { message: 'Incorrect username or password.' });
+    }
+  } catch (err) {
+    logger.error(err);
+    cb(err);
+  }
 };
 
-const verifyUser = (username, password, cb) => {
-  console.log('verifyUser called', username, password);
-  if(password === 'sample') {
-    console.log('Log in!');
-    cb(null, DummyUser);
-   } else {
-    console.log('ERROR! ERROR!')
-    cb(new Error('User not found'));
-   }
+/**
+ * Given a user object, calls `cb` with a single memoizable identifier to be placed in cookie.
+ *
+ * @func
+ * @private
+ * @param {User} user
+ * @param {Function} cb
+ */
+export const serializeUser = (user, cb) => {
+  rootLogger.debug('serialize user')
+  cb(null, Base64.btoa(user.userName));
 }
 
-const serializeUser = (user, cb) => {
-  console.log('serialize user')
-  cb(null, user.id);
-}
-
-const deserializeUser = (id, cb) => {
-  console.log(`deserializeUser: ${id}`);
-  cb(null, DummyUser);
+/**
+ * Given a memoizable identifier, return the corresponding User object.
+ *
+ * @func
+ * @private
+ * @param {string} id
+ * @param {Function} cb
+ * @returns {Promise}
+ */
+export const deserializeUser = async (id, cb) => {
+  rootLogger.debug(`deserializeUser: ${id}`);
+  const userName = Base64.atob(id);
+  const users = await getCollection(db, Collection.users);
+  const user = await findOne(users, { userName });
+  cb(null, getReturnableUser(user));
 }
 
 /**
  * @function
  * @alias getPassport
+ * @returns {Object} - passport.js instance.
  */
-export default () => {
+export const getPassport = () => {
   const localStrategy = new Strategy({
     usernameField: 'username',
     passwordField: 'password',

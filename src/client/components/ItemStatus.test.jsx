@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ItemStatus from './ItemStatus';
-import Status from '../../Status';
+import ItemStatus from './ItemStatus.jsx';
+import { Status } from '../../Status';
 
 describe('components/ItemStatus', () => {
   Object.values(Status).forEach((status) =>

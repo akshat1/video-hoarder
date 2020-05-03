@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ItemList from './ItemList';
-import Status from '../../Status';
+import ItemList from './ItemList.jsx';
+import { Status } from '../../Status';
 import { getFakeItem } from '../fixtures/item';
 
 describe('components/ItemList', () => {

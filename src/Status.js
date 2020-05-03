@@ -1,14 +1,17 @@
 /**
- * @enum {string} Status
+ * Job statuses.
+ * @module Status
  */
-const Status = {
+
+/**
+ * @enum {string}
+ */
+export const Status = {
   Pending: 'pending',
   Running: 'running',
   Failed: 'failed',
   Succeeded: 'succeeded'
 };
-
-export default Status;
 
 export const hasStarted = status =>
   status === Status.Running || status === Status.Failed || status === Status.Succeeded;

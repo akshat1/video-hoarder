@@ -1,6 +1,11 @@
 import { makeActionF, makeReducer } from './boilerplate';
 import { connectRouter } from 'connected-react-router'
 import { combineReducers } from 'redux';
+import { getLogger } from '../../logger';
+import { getCurrentPath, isFetchingUser, isUserFetchDone, isLoggedIn } from '../selectors';
+import { getHistory } from '../history';
+
+const rootLogger = getLogger('actions-and-reducers');
 
 const User = 'User';
 const FetchingUser = 'FetchingUser';
@@ -28,13 +33,15 @@ const FetchOpts = {
   cache: 'no-cache',
   credentials: 'same-origin',
 };
+
 export const doLogIn = (username, password) =>
   async (dispatch) => {
+    const logger = getLogger('doLogin', rootLogger);
     try {
       const form = new URLSearchParams()
       form.append('username', username);
       form.append('password', password);
-      console.log(form)
+      logger.debug(form)
       const response = await fetch(
         '/login',
         {
@@ -52,12 +59,13 @@ export const doLogIn = (username, password) =>
       dispatch(setUser(user));
       location.href = '/';
      } catch(err) {
-       console.error(err);
+       logger.error(err);
      }
   }
 
 export const fetchUser = () =>
   async (dispatch) => {
+    const logger = getLogger('fetchUser');
     try {
       dispatch(setFetchingUser(true));
       const response = await fetch('/getProfile', {...FetchOpts });
@@ -67,12 +75,51 @@ export const fetchUser = () =>
       const user = await response.json();
       dispatch(setUser(user));
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       dispatch(setUser({}));
     }
     dispatch(setFetchingUser(false));
     dispatch(setUserFetchDone(true));
   }
+
+export const doLogOut = () =>
+  async dispatch => {
+    await fetch('/logout', FetchOpts);
+    dispatch(setUser({}));
+  }
+
+export const initializeClient = () =>
+  async (dispatch, getState) => {
+    const logger = getLogger('initializeClient', rootLogger);
+    logger.debug('begin');
+    const state = getState();
+    if (isFetchingUser(state)) {
+      logger.debug('Still fetching user. Bail.');
+      return;
+    }
+
+    if (isUserFetchDone(state)) {
+      const loggedIn = isLoggedIn(getState());
+      const onLoginScreen = getCurrentPath(getState()) === '/login';
+      logger.debug('We have already fetched a user.', { loggedIn, onLoginScreen });
+      if (loggedIn && onLoginScreen) {
+        logger.debug('User is logged-in and on /login. Redirect to /.');
+        getHistory().push('/');
+      } else if(!loggedIn && !onLoginScreen) {
+        logger.debug('User is not logged-in and not on the login page. Redirect to /login.');
+        getHistory().push('/login');
+      }
+    } else {
+      logger.debug("We have't fetched a user yet. Fetch it now.");
+      try {
+        await dispatch(fetchUser());
+      } catch (err) {
+        logger.error('Error in fetchUser; eating it.');
+      }
+      logger.debug('fetchUser() done.');
+      // State has now been updated
+    }
+  };
 
 /**
  * The redux store.

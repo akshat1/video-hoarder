@@ -15,6 +15,6 @@
 
 /**
  * @typedef User
- * @property {string} [name]
- * @property {boolean} [loggedIn]
+ * @property {string} userName
+ * @property {boolean} loggedIn
  */

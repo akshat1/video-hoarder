@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ButtonGrid from './ButtonGrid';
+import ButtonGrid from './ButtonGrid.jsx';
 
 describe('components/ButtonGrid', () => {
   const options = [{

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import InputForm from './InputForm';
+import InputForm from './InputForm.jsx';
 
 describe('components/InputForm', () => {
   test('InputForm matches snapshot', () => {

@@ -1,7 +1,8 @@
+/* eslint-disable import/no-default-export */
 import React from 'react';
 import { withKnobs, radios } from '@storybook/addon-knobs';
-import ItemStatus from './ItemStatus';
-import Status from '../../Status';
+import ItemStatus from './ItemStatus.jsx';
+import { Status } from '../../Status';
 
 export default {
   title: 'ItemStatus',

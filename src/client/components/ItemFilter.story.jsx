@@ -1,8 +1,8 @@
 import React from 'react';
-import ItemFilter from './ItemFilter';
+import ItemFilter from './ItemFilter.jsx';
 import { action } from '@storybook/addon-actions';
 import { radios } from '@storybook/addon-knobs';
-import Status from '../../Status';
+import { Status } from '../../Status';
 
 export default {
   title: 'ItemFilter',

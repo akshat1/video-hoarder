@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ItemFilter from './ItemFilter';
-import Status from '../../Status';
+import ItemFilter from './ItemFilter.jsx';
+import { Status } from '../../Status';
 
 describe('components/ItemFilter', () => {
   test('should render and match snapshot', () => {

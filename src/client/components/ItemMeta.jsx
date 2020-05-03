@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './ItemMeta.less';
-import Status, { hasStarted } from '../../Status';
+import { Status, hasStarted } from '../../Status';
 
 const ItemMeta = ({ item }) => {
   const {

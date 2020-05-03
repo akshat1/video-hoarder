@@ -1,4 +1,5 @@
 /** @module client/selectors */
+import _ from 'lodash';
 
 /**
  * @function
@@ -17,3 +18,5 @@ export const isLoggedIn = state => !!getUser(state).loggedIn;
 export const isFetchingUser = state => !!state.fetchingUser;
 
 export const isUserFetchDone = state => !!state.userFetchDone;
+
+export const getCurrentPath = state => _.get(state, 'router.location.pathname');

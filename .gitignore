@@ -6,3 +6,4 @@ docs/
 download/*
 node_modules/
 storybook-static/
+db-data/

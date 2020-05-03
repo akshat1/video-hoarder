@@ -3,7 +3,11 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
-import getPassport from './getPassport.js';
+import { getPassport } from './getPassport.js';
+import { db, initialize as initializeDB } from './db.js';
+import { getLogger } from '../logger.js';
+
+const rootLogger = getLogger('db');
 
 /**
  * Wraps the server starting logic inside a function for ease of testing (also because we don't
@@ -14,6 +18,8 @@ import getPassport from './getPassport.js';
  * @param {boolean} startDevServer
  */
 export const startServer = async (startDevServer) => {
+  const logger = getLogger('startServer', rootLogger);
+  await initializeDB(db);
   const app = express();
   app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -33,6 +39,7 @@ export const startServer = async (startDevServer) => {
       res.status(401).send('Not logged in');
     }
   });
+
   app.post('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
@@ -66,7 +73,7 @@ export const startServer = async (startDevServer) => {
   app.listen(
     7200,
     /* istanbul ignore next because we are not testing whether this callback is called */
-    () => console.log('App listening on port 7200'
+    () => logger.info('App listening on port 7200'
     )
   );
 };
