@@ -14,7 +14,7 @@
     "lint": "eslint --ext .js --ext .jsx --ext .cjs src/",
     "build-dev-docker": "docker build -t vh-dev-img .",
     "run-dev-docker": "docker run --rm -it --name vh-dev --network=\"host\" -v $PWD:/app/ vh-dev-img -v $PWD/db:/data/db/ -p 7200:7200",
-    "test": "TZ=UTC NODE_ENV=test jest --coverage",
+    "test": "npm run mkdir; TZ=UTC NODE_ENV=test jest --coverage",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o docs/storybook"
   },
