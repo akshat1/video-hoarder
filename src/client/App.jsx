@@ -1,15 +1,15 @@
-import { hot } from 'react-hot-loader';
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { ConnectedRouter } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
-import { InputForm } from './components/InputForm.jsx';
-import * as Style from './App.less';
-import { Switch, Route } from 'react-router';
-import { isLoggedIn, isFetchingUser, isUserFetchDone, } from './selectors';
 import { connect } from 'react-redux';
-import LoginForm from './components/LoginForm.jsx';
+import { ConnectedRouter } from 'connected-react-router';
+import { getHistory } from './history';
+import { hot } from 'react-hot-loader';
 import { initializeClient } from './redux/actions-and-reducers';
+import InputForm from './components/InputForm.jsx';
+import { isLoggedIn, isFetchingUser, isUserFetchDone, } from './selectors';
+import { Switch, Route } from 'react-router';
+import Style from './App.less';
+import LoginForm from './components/LoginForm.jsx';
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 
 const App = (props) => {
   const {
@@ -25,12 +25,12 @@ const App = (props) => {
   );
 
   return (
-    <ConnectedRouter history={createBrowserHistory()}>
+    <ConnectedRouter history={getHistory()}>
       <div id={Style.App}>
         <If condition={!fetchingUser}>
           <Switch>
             <Route path="/login">
-              <LoginForm />
+              <LoginForm className={Style.loginForm} />
             </Route>
             <Route path="/">
               <Choose>

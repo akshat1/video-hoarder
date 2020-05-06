@@ -24,11 +24,6 @@ const InputForm = ({ initialValue, onSubmit }) => {
     if (!isInvalid) onSubmit(url);
   }
 
-  const onClear = (e) => {
-    e.preventDefault();
-    setURL('');
-  }
-
   return (
     <div className={Style.wrapper}>
       <form onSubmit={onFormSubmit} className={Style.form}>
@@ -44,15 +39,6 @@ const InputForm = ({ initialValue, onSubmit }) => {
           required
           pattern={InputPattern}
         />
-        <div
-          className={Style.clear}
-          onClick={onClear}
-          title="Clear"
-          role="button"
-          tabIndex={0}
-        >
-          <span>+</span>
-        </div>
         <If condition={isInvalid}>
           <label className={Style.errorMessage} id="inp-err-mobile">Please enter a valid URL.</label>
         </If>

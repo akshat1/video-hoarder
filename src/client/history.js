@@ -4,6 +4,7 @@
  * @module client/history
  */
 import { createBrowserHistory } from 'history';
+import { getLogger } from '../logger';
 
 let history;
 
@@ -13,6 +14,7 @@ let history;
  */
 export const getHistory = () => {
   if (!history) {
+    getLogger('getHistory').debug('Going to create new history');
     history = createBrowserHistory();
   }
 

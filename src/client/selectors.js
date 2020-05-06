@@ -20,3 +20,5 @@ export const isFetchingUser = state => !!state.fetchingUser;
 export const isUserFetchDone = state => !!state.userFetchDone;
 
 export const getCurrentPath = state => _.get(state, 'router.location.pathname');
+
+export const getLoginError = state => state.loginError;

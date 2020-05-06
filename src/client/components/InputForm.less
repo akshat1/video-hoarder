@@ -1,66 +1,37 @@
 @import (reference) "../style/vars.less";
 
+@grid-gap: @space-medium;
 .wrapper {
-  padding: @space-small @space-small 0 @space-small; // bottom padding gets added by the grid row gap.
-  border: 1px solid gray;
+  padding: @grid-gap;
 }
 
 .form {
-  display: grid;
-  grid-template-columns: auto;
-  grid-column-gap: @space-small;
-  grid-row-gap: @space-small;
-  grid-template-areas:
-    "urlInput clearButton"
-    "validationMessage validationMessage"
-    "submitButton submitButton";
-
-  @media @desktop {
-    grid-template-columns: auto 2.5rem 10rem;
-    grid-template-areas:
-    "urlInput clearButton submitButton"
-    "validationMessage validationMessage validationMessage";
-  }
+  display:flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .input {
-  display: inline-block;
-  .font-size-large;
+  display: block;
   padding: @space-small;
-}
-
-@sizeClear: 1.5rem;
-.clear {
-  .button;
-  width: @sizeClear;
-  height: @sizeClear;
-  line-height: @sizeClear;
-  border-radius: 1rem;
-  .font-size-large;
-  place-self: center;
-  align-self: center;
-  padding: 0;
-  font-size: 2.1rem;
-  position: relative;
-  text-align: center;
-
-  >span {
-    display: inline-block;
-    height: @sizeClear;
-    width: @sizeClear;
-    line-height: @sizeClear;
-    transform: rotate(45deg);
-    transform-origin: center center;
-    // font-size: 2.5rem;
+  flex: 0 0;
+  margin-bottom: @grid-gap;
+  .font-size-medium;
+  @media @desktop {
+    .font-size-large;
   }
 }
 
 .submit {
-  display: inline-block;
-  .font-size-large;
-  grid-area: submitButton;
+  display: block;
+  flex: 0 0;
+  margin: 0 auto @grid-gap auto;
+  padding: @space-small;
+  .font-size-medium;
+  @media @desktop {
+    .font-size-large;
+  }
 }
 
 .errorMessage {
-  grid-area: validationMessage
 }

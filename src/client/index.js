@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { getStore } from './redux';
 import App from './App.jsx';
-import { appRoot } from './App.less';
+import Style from './App.less';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('AppRoot');
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     throw new Error('Missing AppRoot element.');
   }
 
-  root.setAttribute('class', appRoot);
+  root.setAttribute('class', Style.appRoot);
   ReactDOM.render(
     <Provider store={getStore()}>
       <App />

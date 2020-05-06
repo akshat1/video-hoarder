@@ -1,9 +1,8 @@
 import { makeActionF, makeReducer } from './boilerplate';
-import { connectRouter } from 'connected-react-router'
+import { connectRouter, push } from 'connected-react-router'
 import { combineReducers } from 'redux';
 import { getLogger } from '../../logger';
 import { getCurrentPath, isFetchingUser, isUserFetchDone, isLoggedIn } from '../selectors';
-import { getHistory } from '../history';
 
 const rootLogger = getLogger('actions-and-reducers');
 
@@ -12,6 +11,8 @@ const FetchingUser = 'FetchingUser';
 const setFetchingUser = makeActionF(FetchingUser);
 const UserFetchDone = 'UserFetchDone';
 const setUserFetchDone = makeActionF(UserFetchDone);
+const LoginError = 'LoginError';
+const setLoginError = makeActionF(LoginError);
 
 /**
  * @function
@@ -52,12 +53,20 @@ export const doLogIn = (username, password) =>
       );
 
       if (!response.ok) {
-        throw new Error('Error occurred');
+        if (response.status === 401) {
+          dispatch(setLoginError('Incorrect username or password.'));
+        } else {
+          dispatch(setLoginError('Login error.'));
+        }
+
+        return;
       }
 
       const user = await response.json();
+      dispatch(setLoginError(null));
       dispatch(setUser(user));
-      location.href = '/';
+      // location.href = '/';
+      dispatch(push('/'));
      } catch(err) {
        logger.error(err);
      }
@@ -104,10 +113,10 @@ export const initializeClient = () =>
       logger.debug('We have already fetched a user.', { loggedIn, onLoginScreen });
       if (loggedIn && onLoginScreen) {
         logger.debug('User is logged-in and on /login. Redirect to /.');
-        getHistory().push('/');
+        dispatch(push('/'));
       } else if(!loggedIn && !onLoginScreen) {
         logger.debug('User is not logged-in and not on the login page. Redirect to /login.');
-        getHistory().push('/login');
+        dispatch(push('/login'));
       }
     } else {
       logger.debug("We have't fetched a user yet. Fetch it now.");
@@ -125,10 +134,14 @@ export const initializeClient = () =>
  * The redux store.
  * @typedef State
  * @memberof module:client/redux
+ * @property {boolean} fetchingUser - are we currently fetching a user?
+ * @property {boolean} userFetchDone - true if we have made an attempt to fetch the user profile.
+ * @property {Object} router - from connected-react-router.
+ * @property {string|null} loginError - error from the most recent login attempt, or null if the attempt was successful.
  * @property {User} user - currently logged in user; or `{}` when not logged in.
  */
 
-/**
+ /**
  * @function
  * @memberof module:client/redux
  * @param {History} -
@@ -142,8 +155,9 @@ export const getRootReducer = history => {
    * @returns {State} - The new store state
    */
   const rootReducer = combineReducers({
-    router: connectRouter(history),
     fetchingUser: makeReducer(FetchingUser, false),
+    loginError: makeReducer(LoginError, null),
+    router: connectRouter(history),
     user: makeReducer(User, {}),
     userFetchDone: makeReducer(UserFetchDone, false),
   });
