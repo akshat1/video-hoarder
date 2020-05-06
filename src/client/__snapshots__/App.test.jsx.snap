@@ -23,12 +23,16 @@ exports[`App App matches snapshot 1`] = `
     }
   }
 >
-  <div>
+  <div
+    id="App"
+  >
     <Switch>
       <Route
         path="/login"
       >
-        <Connect(LoginForm) />
+        <Connect(LoginForm)
+          className="loginForm"
+        />
       </Route>
       <Route
         path="/"

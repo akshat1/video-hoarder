@@ -16,16 +16,6 @@ exports[`components/InputForm InputForm matches snapshot 1`] = `
       type="url"
       value=""
     />
-    <div
-      onClick={[Function]}
-      role="button"
-      tabIndex={0}
-      title="Clear"
-    >
-      <span>
-        +
-      </span>
-    </div>
     <button
       disabled={true}
       role="button"
