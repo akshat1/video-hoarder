@@ -95,6 +95,7 @@ export const doLogOut = () =>
   async dispatch => {
     await fetch('/logout', FetchOpts);
     dispatch(setUser({}));
+    dispatch(push('/login'));
   }
 
 export const initializeClient = () =>

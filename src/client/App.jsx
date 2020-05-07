@@ -3,18 +3,30 @@ import { ConnectedRouter } from 'connected-react-router';
 import { getHistory } from './history';
 import { hot } from 'react-hot-loader';
 import { initializeClient } from './redux/actions-and-reducers';
-import InputForm from './components/InputForm.jsx';
 import { isLoggedIn, isFetchingUser, isUserFetchDone, } from './selectors';
 import { Switch, Route } from 'react-router';
-import Style from './App.less';
+import { Theme } from './theme';
 import LoginForm from './components/LoginForm.jsx';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
+import { makeStyles, ThemeProvider } from '@material-ui/styles';
+import { CssBaseline } from '@material-ui/core';
+import Main from './components/Main.jsx';
+
+const useStyles = makeStyles(() => ({
+  container: {},
+  loginForm: {
+    position: 'absolute',
+    top: '20%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+}));
 
 const App = (props) => {
+  const classes = useStyles();
   const {
     userFetchDone,
-    fetchingUser,
     initializeClient,
     loggedIn,
   } = props;
@@ -26,22 +38,21 @@ const App = (props) => {
 
   return (
     <ConnectedRouter history={getHistory()}>
-      <div id={Style.App}>
-        <If condition={!fetchingUser}>
-          <Switch>
-            <Route path="/login">
-              <LoginForm className={Style.loginForm} />
-            </Route>
-            <Route path="/">
-              <Choose>
-                <When condition={loggedIn}>
-                  <InputForm onSubmit={() => 0}/>
-                </When>
-              </Choose>
-            </Route>
-          </Switch>
-        </If>
-      </div>
+      <ThemeProvider theme={Theme}>
+        <CssBaseline />
+        <Switch>
+          <Route path="/login">
+            <LoginForm className={classes.loginForm}/>
+          </Route>
+          <Route path="/">
+            <Choose>
+              <When condition={loggedIn}>
+                <Main />
+              </When>
+            </Choose>
+          </Route>
+        </Switch>
+      </ThemeProvider>
     </ConnectedRouter>
   );
 };

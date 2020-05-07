@@ -1,5 +1,6 @@
 import React from 'react';
-import LoginForm from './LoginForm.jsx';
+import { text } from '@storybook/addon-knobs';
+import { LoginForm } from './LoginForm.jsx';
 
 export default {
   title: 'LoginForm',
@@ -7,4 +8,6 @@ export default {
 };
 
 export const Default = () =>
-  <LoginForm />
+  <LoginForm
+    loginError={text('Login error', '')}
+  />
