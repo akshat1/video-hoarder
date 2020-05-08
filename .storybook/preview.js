@@ -12,9 +12,7 @@ import { getStore } from '../src/client/redux';
 const withProvider = story =>
   <Provider store={getStore()}>
     <ThemeProvider theme={Theme}>
-      <Paper>
-        {story()}
-      </Paper>
+      {story()}
     </ThemeProvider>
   </Provider>;
 

@@ -94,7 +94,6 @@ export const LoginForm = (props) => {
               id="password"
               label="Password"
               name="password"
-              autoFocus
               value={password}
               onChange={onPasswordChanged}
             />
