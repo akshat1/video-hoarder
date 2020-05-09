@@ -41,6 +41,7 @@ const FetchOpts = {
 /**
  * Action used by the login form.
  *
+ * @func
  * @param {string} username 
  * @param {string} password 
  * @returns {ActionCreator} -
@@ -85,6 +86,7 @@ export const doLogIn = (username, password) =>
 /**
  * Fetch the currently logged-in user (or clear state.user if the user session is expired).
  *
+ * @func
  * @returns {ActionCreator}
  */
 export const fetchUser = () =>
@@ -109,6 +111,7 @@ export const fetchUser = () =>
 /**
  * Perform a logout.
  *
+ * @func
  * @returns {ActionCreator}
  */
 export const doLogOut = () =>
@@ -121,6 +124,7 @@ export const doLogOut = () =>
 /**
  * Called on every page view. Fetches the current user or clears state.user based on wether the user is logged-in and the session is valid or not.
  *
+ * @func
  * @returns {ActionCreator}
  */
 export const initializeClient = () =>
@@ -160,6 +164,7 @@ export const initializeClient = () =>
  * Cancel the current download.
  * @todo Implement me.
  *
+ * @func
  * @returns {ActionCreator}
  */
 export const doCancelDownload = () =>

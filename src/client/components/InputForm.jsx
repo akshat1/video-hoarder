@@ -6,7 +6,7 @@
  * the moment. The component is meant to send information only outwards through the `onSubmit`
  * prop.
  *
- * @module src/client/components/InputForm
+ * @module client/components/InputForm
  */
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';

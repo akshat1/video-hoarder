@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 /**
+ * @func
  * @param {Object} args -
  * @param {string} args.username -
  * @param {string} args.password -

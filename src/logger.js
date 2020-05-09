@@ -21,8 +21,9 @@
 /**
  * Get a new Logger instance.
  *
+ * @func
  * @param {string} name
- * @param {module:logger~Logger} parentLogger
+ * @param {module:logger~Logger} [parentLogger]
  * @returns {Logger}
  */
 export const getLogger = (name, parentLogger) => {

@@ -15,6 +15,7 @@ const rootLogger = getLogger('db');
  * During testing, we explicitly call this function and set the single boolean param according to
  * which branch we are currently testing.
  *
+ * @func
  * @param {boolean} startDevServer
  */
 export const startServer = async (startDevServer) => {
