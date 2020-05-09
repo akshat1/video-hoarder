@@ -1,3 +1,6 @@
+/**
+ * Renders the application toolbar.
+ */
 import React, { useState } from 'react';
 import { Menu as MenuIcon, ExitToApp, AccountCircle, Settings } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';

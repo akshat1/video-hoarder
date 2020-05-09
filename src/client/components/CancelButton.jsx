@@ -1,6 +1,5 @@
 /**
- * Renders a single download-task, and displays metadata and status of the same.
- * Also provides controls to abort the download.
+ * Renders a cancel button which will cancel a download (the item prop) after showing a confirmation dialog.
  */
 import React, { Fragment, useState } from "react";
 import PropTypes from 'prop-types';
@@ -45,6 +44,7 @@ export const CancelButton = (props) => {
 };
 
 CancelButton.propTypes = {
+  /** @property {Item} */
   item: PropTypes.shape({
     addedAt: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
