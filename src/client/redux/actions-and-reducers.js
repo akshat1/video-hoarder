@@ -131,6 +131,10 @@ export const initializeClient = () =>
     }
   };
 
+// Dummy action.
+export const doCancelDownload = () =>
+  () => 0;
+
 /**
  * The redux store.
  * @typedef State

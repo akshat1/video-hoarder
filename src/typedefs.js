@@ -11,6 +11,8 @@
  * @property {string} url
  * @property {TimeStamp} addedAt
  * @property {TimeStamp} updatedAt
+ * @property {string} thumbnail
+ * @property {string} description
  */
 
 /**

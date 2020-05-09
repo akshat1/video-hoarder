@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/ItemStatus ItemStatus matches snapshot for failed 1`] = `
+exports[`components/DeleteConfirmationDialog DeleteConfirmationDialog matches snapshot 1`] = `
 <ContextProvider
   value={
     Object {
@@ -294,13 +294,13 @@ exports[`components/ItemStatus ItemStatus matches snapshot for failed 1`] = `
     }
   }
 >
-  <ItemStatus
-    status="failed"
+  <LoginForm
+    className=""
   />
 </ContextProvider>
 `;
 
-exports[`components/ItemStatus ItemStatus matches snapshot for pending 1`] = `
+exports[`components/DeleteConfirmationDialog DeleteConfirmationDialog matches snapshot 2`] = `
 <ContextProvider
   value={
     Object {
@@ -594,13 +594,14 @@ exports[`components/ItemStatus ItemStatus matches snapshot for pending 1`] = `
     }
   }
 >
-  <ItemStatus
-    status="pending"
+  <LoginForm
+    className=""
+    fetchingUser={true}
   />
 </ContextProvider>
 `;
 
-exports[`components/ItemStatus ItemStatus matches snapshot for running 1`] = `
+exports[`components/DeleteConfirmationDialog DeleteConfirmationDialog matches snapshot 3`] = `
 <ContextProvider
   value={
     Object {
@@ -894,13 +895,14 @@ exports[`components/ItemStatus ItemStatus matches snapshot for running 1`] = `
     }
   }
 >
-  <ItemStatus
-    status="running"
+  <LoginForm
+    className=""
+    loggedIn={true}
   />
 </ContextProvider>
 `;
 
-exports[`components/ItemStatus ItemStatus matches snapshot for succeeded 1`] = `
+exports[`components/DeleteConfirmationDialog DeleteConfirmationDialog matches snapshot 4`] = `
 <ContextProvider
   value={
     Object {
@@ -1194,8 +1196,9 @@ exports[`components/ItemStatus ItemStatus matches snapshot for succeeded 1`] = `
     }
   }
 >
-  <ItemStatus
-    status="succeeded"
+  <LoginForm
+    className=""
+    loginError="Omlette du Fromage'"
   />
 </ContextProvider>
 `;

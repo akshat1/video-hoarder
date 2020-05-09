@@ -1,3 +1,8 @@
+/**
+ * Renders the login form.
+ *
+ * @module client/components/LoginForm
+ */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -35,7 +40,7 @@ const useStyles = makeStyles(theme => ({
  * @param {boolean} args.loggedIn -
  * @returns {boolean}
  */
-const isSubmitDisabled = ({ userName, password, fetchingUser, loggedIn, }) =>
+export const isSubmitDisabled = ({ userName, password, fetchingUser, loggedIn, }) =>
   loggedIn || fetchingUser || !(userName && password);
 
 export const LoginForm = (props) => {

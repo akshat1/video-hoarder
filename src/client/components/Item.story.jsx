@@ -1,4 +1,3 @@
-/* eslint-disable import/no-default-export */
 import React from 'react';
 import Item from './Item.jsx';
 import { Status } from '../../Status';

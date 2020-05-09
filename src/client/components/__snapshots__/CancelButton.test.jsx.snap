@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Item Item matches snapshot for failed 1`] = `
+exports[`components/CancelButton CancelButton matches snapshot for failed 1`] = `
 <ContextProvider
   value={
     Object {
@@ -294,7 +294,8 @@ exports[`components/Item Item matches snapshot for failed 1`] = `
     }
   }
 >
-  <Item
+  <CancelButton
+    doCancel={[Function]}
     item={
       Object {
         "addedAt": "2020-03-29T14:30:45.000Z",
@@ -308,11 +309,10 @@ exports[`components/Item Item matches snapshot for failed 1`] = `
       }
     }
   />
-  )
 </ContextProvider>
 `;
 
-exports[`components/Item Item matches snapshot for pending 1`] = `
+exports[`components/CancelButton CancelButton matches snapshot for pending 1`] = `
 <ContextProvider
   value={
     Object {
@@ -606,7 +606,8 @@ exports[`components/Item Item matches snapshot for pending 1`] = `
     }
   }
 >
-  <Item
+  <CancelButton
+    doCancel={[Function]}
     item={
       Object {
         "addedAt": "2020-03-29T14:30:45.000Z",
@@ -620,11 +621,10 @@ exports[`components/Item Item matches snapshot for pending 1`] = `
       }
     }
   />
-  )
 </ContextProvider>
 `;
 
-exports[`components/Item Item matches snapshot for running 1`] = `
+exports[`components/CancelButton CancelButton matches snapshot for running 1`] = `
 <ContextProvider
   value={
     Object {
@@ -918,7 +918,8 @@ exports[`components/Item Item matches snapshot for running 1`] = `
     }
   }
 >
-  <Item
+  <CancelButton
+    doCancel={[Function]}
     item={
       Object {
         "addedAt": "2020-03-29T14:30:45.000Z",
@@ -932,11 +933,10 @@ exports[`components/Item Item matches snapshot for running 1`] = `
       }
     }
   />
-  )
 </ContextProvider>
 `;
 
-exports[`components/Item Item matches snapshot for succeeded 1`] = `
+exports[`components/CancelButton CancelButton matches snapshot for succeeded 1`] = `
 <ContextProvider
   value={
     Object {
@@ -1230,7 +1230,8 @@ exports[`components/Item Item matches snapshot for succeeded 1`] = `
     }
   }
 >
-  <Item
+  <CancelButton
+    doCancel={[Function]}
     item={
       Object {
         "addedAt": "2020-03-29T14:30:45.000Z",
@@ -1244,6 +1245,5 @@ exports[`components/Item Item matches snapshot for succeeded 1`] = `
       }
     }
   />
-  )
 </ContextProvider>
 `;

@@ -2,55 +2,109 @@
  * Renders a single download-task, and displays metadata and status of the same.
  * Also provides controls to abort the download.
  */
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { Card, CardContent, CardMedia, Grid, CardHeader, Typography, Link, Button } from '@material-ui/core';
+import { CancelOutlined } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/styles';
 import ItemStatus from './ItemStatus.jsx';
-import Style from './Item.less';
-import { Status } from '../../Status';
-import ItemMeta from './ItemMeta.jsx';
+import { hasStarted, Status } from "../../Status.js";
+import CancelButton from './CancelButton.jsx';
 
-const getWrapperClass = status => classNames(Style.wrapper, {
-  [Style.failed]: status === Status.Failed,
-  [Style.pending]: status === Status.Pending,
-  [Style.running]: status === Status.Running,
-  [Style.succeeded]: status === Status.Succeeded,
-});
+const useStyle = makeStyles(theme => ({
+  root: {},
 
-const Item = ({ item }) => {
+  thumbnail: {
+    height: '202px',
+    margin: theme.spacing(2)
+  },
+
+  url: {},
+  meta: {
+    marginLeft: theme.spacing(1),
+  }
+}));
+
+const Item = (props) => {
+  const classes = useStyle();
+  const { item } = props;
   const {
+    description,
     status,
+    thumbnail,
     title,
     url,
+    updatedAt,
   } = item;
+  const dtUpdatedAt = new Date(updatedAt);
+  const mediaTitle = `${title} thumbnail`;
 
   return (
-    <div className={getWrapperClass(status)}>
-      <div className={Style.title}>{title}</div>
-      <div className={Style.url}>
-        <div className={Style.value} title={url}>
-          <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
-        </div>
-      </div>
-      <div className={Style.status}>
-        <ItemStatus status={status} />
-      </div>
-      <div className={Style.meta}>
-        <ItemMeta item={item} />
-      </div>
-    </div>
+    <Card className={classes.root}>
+      <Grid container>
+        <Grid item xs={12} sm={2}>
+          <CardMedia
+          image={thumbnail}
+          title={mediaTitle}
+          className={classes.thumbnail}
+        />
+        </Grid>
+        <Grid item xs={12} sm={10}>
+          <CardHeader
+            title={title}
+          />
+          <CardContent>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography className={classes.description}>{description}</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography className={classes.url}>
+                  <Link href={url}>{url}</Link>
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <ItemStatus status={status} />
+                <Choose>
+                  <When condition={hasStarted(status)}>
+                    <Typography display="inline" className={classes.meta}>
+                      <Choose>
+                        <When condition={status === Status.Failed}>Failed</When>
+                        <When condition={status === Status.Running}>Updated</When>
+                        <When condition={status === Status.Succeeded}>Completed</When>
+                      </Choose>
+                      {` at ${dtUpdatedAt.toLocaleTimeString()} on ${dtUpdatedAt.toLocaleDateString()}`}
+                    </Typography>
+                  </When>
+                  <Otherwise>
+                    <Typography display="inline" className={classes.meta}>
+                      {`Queued at ${dtUpdatedAt.toLocaleTimeString()} on ${dtUpdatedAt.toLocaleDateString()}`}
+                    </Typography>
+                  </Otherwise>
+                </Choose>
+              </Grid>
+              <Grid item xs={12}>
+                <CancelButton item={item}/>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Grid>
+      </Grid>
+    </Card>
   );
 };
 
 Item.propTypes = {
   item: PropTypes.shape({
     addedAt: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-  })
+  }),
 };
 
 export default Item;
