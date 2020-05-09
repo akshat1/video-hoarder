@@ -77,8 +77,7 @@ export const deserializeUser = async (id, cb) => {
 }
 
 /**
- * @function
- * @alias getPassport
+ * @func
  * @returns {Object} - passport.js instance.
  */
 export const getPassport = () => {
