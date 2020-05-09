@@ -4,10 +4,12 @@
  * @module Event
  */
 
+/** @typedef {string} Event */
+
 /**
  * An enumeration of event names.
  *
- * @enum {string}
+ * @enum {Event}
  */
 export const Event = {
   ItemAdded: 'ItemAdded',

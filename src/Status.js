@@ -3,8 +3,10 @@
  * @module Status
  */
 
+/** @typedef {string} Status */
+
 /**
- * @enum {string}
+ * @enum {Status}
  */
 export const Status = {
   Pending: 'pending',
