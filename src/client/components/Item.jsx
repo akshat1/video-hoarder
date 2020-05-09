@@ -2,10 +2,9 @@
  * Renders a single download-task, and displays metadata and status of the same.
  * Also provides controls to abort the download.
  */
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
-import { Card, CardContent, CardMedia, Grid, CardHeader, Typography, Link, Button } from '@material-ui/core';
-import { CancelOutlined } from '@material-ui/icons';
+import { Card, CardContent, CardMedia, Grid, CardHeader, Typography, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import ItemStatus from './ItemStatus.jsx';
 import { hasStarted, Status } from "../../Status.js";

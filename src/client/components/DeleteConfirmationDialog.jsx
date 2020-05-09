@@ -4,7 +4,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Button, Dialog, DialogTitle } from '@material-ui/core';
+import { Button, Dialog, DialogTitle } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
