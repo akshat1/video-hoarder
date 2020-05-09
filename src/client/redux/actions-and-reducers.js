@@ -1,3 +1,7 @@
+/**
+ * Actions and reducers. Together at last (we'll split them if required down the road).
+ * @module client/redux/actions-and-reducers
+ */
 import { makeActionF, makeReducer } from './boilerplate';
 import { connectRouter, push } from 'connected-react-router'
 import { combineReducers } from 'redux';
@@ -16,7 +20,6 @@ const setLoginError = makeActionF(LoginError);
 
 /**
  * @function
- * @memberof module:client/redux
  * @param {User} user
  * @returns {Action}
  */
@@ -35,6 +38,13 @@ const FetchOpts = {
   credentials: 'same-origin',
 };
 
+/**
+ * Action used by the login form.
+ *
+ * @param {string} username 
+ * @param {string} password 
+ * @returns {ActionCreator} -
+ */
 export const doLogIn = (username, password) =>
   async (dispatch) => {
     const logger = getLogger('doLogin', rootLogger);
@@ -70,8 +80,13 @@ export const doLogIn = (username, password) =>
      } catch(err) {
        logger.error(err);
      }
-  }
+  };
 
+/**
+ * Fetch the currently logged-in user (or clear state.user if the user session is expired).
+ *
+ * @returns {ActionCreator}
+ */
 export const fetchUser = () =>
   async (dispatch) => {
     const logger = getLogger('fetchUser');
@@ -89,15 +104,25 @@ export const fetchUser = () =>
     }
     dispatch(setFetchingUser(false));
     dispatch(setUserFetchDone(true));
-  }
+  };
 
+/**
+ * Perform a logout.
+ *
+ * @returns {ActionCreator}
+ */
 export const doLogOut = () =>
   async dispatch => {
     await fetch('/logout', FetchOpts);
     dispatch(setUser({}));
     dispatch(push('/login'));
-  }
+  };
 
+/**
+ * Called on every page view. Fetches the current user or clears state.user based on wether the user is logged-in and the session is valid or not.
+ *
+ * @returns {ActionCreator}
+ */
 export const initializeClient = () =>
   async (dispatch, getState) => {
     const logger = getLogger('initializeClient', rootLogger);
@@ -131,14 +156,18 @@ export const initializeClient = () =>
     }
   };
 
-// Dummy action.
+/**
+ * Cancel the current download.
+ * @todo Implement me.
+ *
+ * @returns {ActionCreator}
+ */
 export const doCancelDownload = () =>
   () => 0;
 
 /**
  * The redux store.
  * @typedef State
- * @memberof module:client/redux
  * @property {boolean} fetchingUser - are we currently fetching a user?
  * @property {boolean} userFetchDone - true if we have made an attempt to fetch the user profile.
  * @property {Object} router - from connected-react-router.
@@ -148,7 +177,6 @@ export const doCancelDownload = () =>
 
  /**
  * @function
- * @memberof module:client/redux
  * @param {History} -
  * @returns {Function} - The new store state
  */
