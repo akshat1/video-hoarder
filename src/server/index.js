@@ -4,10 +4,10 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
 import { getPassport } from './getPassport.js';
-import { db, initialize as initializeDB } from './db';
+import { initialize as initializeDB } from './db';
 import { getLogger } from '../logger.js';
 
-const rootLogger = getLogger('db');
+const rootLogger = getLogger('server');
 
 /**
  * Wraps the server starting logic inside a function for ease of testing (also because we don't
@@ -20,7 +20,7 @@ const rootLogger = getLogger('db');
  */
 export const startServer = async (startDevServer) => {
   const logger = getLogger('startServer', rootLogger);
-  await initializeDB(db);
+  await initializeDB();
   const app = express();
   app.use(bodyParser.urlencoded({ extended: true }));
 

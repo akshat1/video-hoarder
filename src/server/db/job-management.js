@@ -1,4 +1,4 @@
-import { db, stub, Collection, getCollection, insert } from './util.js';
+import { getDb, stub, Collection, getCollection, insert } from './util.js';
 import { Status } from '../../Status.js';
 
 const {
@@ -12,7 +12,7 @@ const {
  * @returns {Promise}
  */
 export const addJob = async (item) => {
-  const jobs = getCollection(db, Jobs);
+  const jobs = await getCollection(getDb, Jobs);
   return insert(jobs, {
     ...item,
     status: Status.Pending,
