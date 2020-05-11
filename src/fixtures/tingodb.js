@@ -1,5 +1,7 @@
+
 /**
  * A fake cursor.
+ * @private
  * @func
  */
 export const fakeCursor = () => {
@@ -10,6 +12,7 @@ export const fakeCursor = () => {
 
 /**
  * A fake collection object comprising a bunch of jest.fn instances. Add more mocks as required.
+ * @private
  * @func
  */
 export const fakeCollection = () => {
@@ -24,6 +27,7 @@ export const fakeCollection = () => {
 
 /**
  * A fake DB instance.
+ * @private
  * @func
  */
 export function FakeDB() {
@@ -34,6 +38,7 @@ export function FakeDB() {
 
 /**
  * A fake Tingo module.
+ * @private
  * @func
  */
 export const fakeTingoDB = () => {

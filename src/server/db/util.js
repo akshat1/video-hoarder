@@ -10,6 +10,7 @@ const rootLogger = getLogger('db');
 
 /**
  * @func
+ * @memberof module:server/db
  * @enum {CollectionName}
  */
 export const Collection = {
