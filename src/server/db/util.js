@@ -7,7 +7,9 @@ import { getLogger } from '../../logger.js';
 const rootLogger = getLogger('db');
 
 /** @typedef {string} CollectionName */
+
 /**
+ * @func
  * @enum {CollectionName}
  */
 export const Collection = {
@@ -29,7 +31,7 @@ export const getCollection = (db, collectionName) =>
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/queries.html#making-queries-with-find
  * @func
- * @memberof module:server/dbollection}
+ * @memberof module:server/db
  * @param {module:server/db~Collection} collection
  * @param {module:server/db~Query} query
  * @param {module:server/db~Fields} fields
@@ -42,7 +44,7 @@ export const findOne = (collection, query, fields, options) =>
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/queries.html#making-queries-with-find
  * @func
- * @memberof module:server/dbollection}
+ * @memberof module:server/db
  * @param {module:server/db~Collection} collection
  * @param {module:server/db~Query} query
  * @param {module:server/db~Fields} fields
@@ -55,7 +57,7 @@ export const find = (collection, query, fields, options) =>
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/insert.html#insert
  * @func
- * @memberof module:server/dbollection}
+ * @memberof module:server/db
  * @param {module:server/db~Collection} collection
  * @param {Object|Object[]} docs
  * @param {Object} [options]
@@ -69,7 +71,7 @@ export const insert = (collection, docs, options) =>
  *
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/insert.html#save
  * @func
- * @memberof module:server/dbollection}
+ * @memberof module:server/db
  * @param {module:server/db~Collection} collection
  * @param {Object|Object[]} docs
  * @param {Object} [options]
@@ -83,7 +85,7 @@ export const save = (collection, docs, options) =>
  *
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/insert.html#update
  * @func
- * @memberof module:server/dbollection}
+ * @memberof module:server/db
  * @param {module:server/db~Collection} collection
  * @param {module:server/db~Query} criteria
  * @param {Object} update
@@ -96,7 +98,7 @@ export const update = (collection, criteria, update, options) =>
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#toarray
  * @func
- * @memberof module:server/dbollection}
+ * @memberof module:server/db
  * @param {module:server/db~Cursor} cursor
  * @returns {Promise.<Array>}
  */
@@ -109,7 +111,7 @@ let db;
  * Initialize the database. Creates user collection and the default user.
  *
  * @func
- * @memberof module:server/dbollection}
+ * @memberof module:server/db
  * @param {DB} db
  * @returns {Promise}
  */
@@ -137,8 +139,15 @@ export const initialize = async () => {
   }
 };
 
+/**
+ * Returns the singleton db instance.
+ * @func
+ * @memberof module:server/db
+ * @returns {Object}
+ */
 export const getDb = () => db;
 
+/** @private */
 export const stub = name => (arg) => {
   rootLogger(`stub ${name}() called`);
   return Promise.resolve(arg);
