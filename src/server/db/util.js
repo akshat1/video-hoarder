@@ -1,64 +1,24 @@
-/**
- * The database module. Because I don't want to spin up a whole database server (while still getting the benefits of a
- * database), I'm using [TingoDB](https://github.com/sergeyksv/tingodb) which is _"an embedded JavaScript in-process
- * filesystem or in-memory database upwards compatible with MongoDB"_. Unfortunately TingoDB is only compatible with
- * Mongo v1.4, is quite old, and never learnt about Promises. So you will see many wrappers in this module.
- *
- * @module server/db
- */
 import Tingo from 'tingodb';
 import path from 'path';
-import { encrypt } from './crypto.js';
-import { inPromiseCallback } from '../util.js';
-import { getLogger } from '../logger.js';
+import { encrypt } from '../crypto.js';
+import { inPromiseCallback } from '../../util.js';
+import { getLogger } from '../../logger.js';
 
 const rootLogger = getLogger('db');
-
-/**
- * The database object.
- * @typedef {Object} DB
- * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/db.html#id1
- */
-/**
- * @typedef {Object} Collection
- * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/collections.html
- */
-
-/**
- * @typedef {Object} Query
- * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/queries.html#query-object
- */
-
-/**
- * A field projection, when you want to retreive a subset of the document's properties.
- *
- * @typedef {Object} Fields
- * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/queries.html#making-queries-with-find
- */
-
-/**
- * A cursor object.
- * @typedef {Object} Cursor
- * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html
- */
-
-const dbLocation = path.resolve(process.cwd(), 'db-data');
-const tingo = Tingo();
-const Db = tingo.Db;
-export const db = new Db(dbLocation, { name: 'video-hoarder-dev' });
 
 /** @typedef {string} CollectionName */
 /**
  * @enum {CollectionName}
  */
 export const Collection = {
-  users: 'users',
-  jobs: 'jobs',
+  Users: 'users',
+  Jobs: 'jobs',
 };
 
 /**
  * Get the indicated collection (or create one if it doesn't exist).
  * @func
+ * @memberof module:server/db
  * @param {module:server/db~DB} db
  * @param {module:server/db~CollectionName} collectionName
  * @returns {Promise.<module:server/db~Collection>}
@@ -69,6 +29,7 @@ export const getCollection = (db, collectionName) =>
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/queries.html#making-queries-with-find
  * @func
+ * @memberof module:server/dbollection}
  * @param {module:server/db~Collection} collection
  * @param {module:server/db~Query} query
  * @param {module:server/db~Fields} fields
@@ -81,6 +42,7 @@ export const findOne = (collection, query, fields, options) =>
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/queries.html#making-queries-with-find
  * @func
+ * @memberof module:server/dbollection}
  * @param {module:server/db~Collection} collection
  * @param {module:server/db~Query} query
  * @param {module:server/db~Fields} fields
@@ -93,6 +55,7 @@ export const find = (collection, query, fields, options) =>
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/insert.html#insert
  * @func
+ * @memberof module:server/dbollection}
  * @param {module:server/db~Collection} collection
  * @param {Object|Object[]} docs
  * @param {Object} [options]
@@ -106,6 +69,7 @@ export const insert = (collection, docs, options) =>
  *
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/insert.html#save
  * @func
+ * @memberof module:server/dbollection}
  * @param {module:server/db~Collection} collection
  * @param {Object|Object[]} docs
  * @param {Object} [options]
@@ -119,6 +83,7 @@ export const save = (collection, docs, options) =>
  *
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/insert.html#update
  * @func
+ * @memberof module:server/dbollection}
  * @param {module:server/db~Collection} collection
  * @param {module:server/db~Query} criteria
  * @param {Object} update
@@ -131,26 +96,34 @@ export const update = (collection, criteria, update, options) =>
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#toarray
  * @func
+ * @memberof module:server/dbollection}
  * @param {module:server/db~Cursor} cursor
  * @returns {Promise.<Array>}
  */
 export const toArray = cursor =>
   new Promise((resolve, reject) => cursor.toArray(inPromiseCallback(resolve, reject)));
 
+let db;
+
 /**
  * Initialize the database. Creates user collection and the default user.
  *
  * @func
+ * @memberof module:server/dbollection}
  * @param {DB} db
  * @returns {Promise}
  */
-export const initialize = async (db) => {
+export const initialize = async () => {
   const logger = getLogger('initialize', rootLogger);
-  if (!db) {
-    throw new Error('Missing db in call to initialize()');
+  if (!db || process.env.NODE_ENV === 'test') {
+    const dbLocation = path.resolve(process.cwd(), 'db-data');
+    const tingo = Tingo();
+    const Db = tingo.Db;
+    db = new Db(dbLocation, { name: 'video-hoarder-dev' });
   }
+
   let users;
-  users = await getCollection(db, Collection.users);
+  users = await getCollection(db, Collection.Users);
   const admin = await findOne(users, { userName: 'admin' });
   if (!admin) {
     // Create admin user with default password
@@ -162,4 +135,11 @@ export const initialize = async (db) => {
       password: hash,
     });
   }
+};
+
+export const getDb = () => db;
+
+export const stub = name => (arg) => {
+  rootLogger(`stub ${name}() called`);
+  return Promise.resolve(arg);
 };

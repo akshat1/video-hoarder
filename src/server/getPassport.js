@@ -5,7 +5,7 @@ import _ from 'lodash';
 import passport from 'passport';
 import Strategy from 'passport-local';
 import Base64 from 'Base64';
-import { db, getCollection, Collection, findOne } from './db.js';
+import { getDb, getCollection, Collection, findOne } from './db';
 import { hash } from './crypto.js';
 import { getLogger } from '../logger.js';
 
@@ -29,7 +29,7 @@ const verifyUser = async (userName, password, cb) => {
   const logger = getLogger('verifyUser', rootLogger);
   try {
     logger.debug('verifyUser called', userName, password);
-    const users = await getCollection(db, Collection.users);
+    const users = await getCollection(getDb(), Collection.users);
     logger.debug('Got users collection');
     const user = await findOne(users, { userName });
     logger.debug('Done finding user', user);
@@ -71,7 +71,7 @@ export const serializeUser = (user, cb) => {
 export const deserializeUser = async (id, cb) => {
   rootLogger.debug(`deserializeUser: ${id}`);
   const userName = Base64.atob(id);
-  const users = await getCollection(db, Collection.users);
+  const users = await getCollection(getDb(), Collection.users);
   const user = await findOne(users, { userName });
   cb(null, getReturnableUser(user));
 }

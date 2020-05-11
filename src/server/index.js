@@ -4,7 +4,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
 import { getPassport } from './getPassport.js';
-import { db, initialize as initializeDB } from './db.js';
+import { db, initialize as initializeDB } from './db';
 import { getLogger } from '../logger.js';
 
 const rootLogger = getLogger('db');
