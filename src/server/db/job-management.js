@@ -12,7 +12,7 @@ const {
  * @returns {Promise}
  */
 export const addJob = async (item) => {
-  const jobs = await getCollection(getDb, Jobs);
+  const jobs = await getCollection(getDb(), Jobs);
   return insert(jobs, {
     ...item,
     status: Status.Pending,
