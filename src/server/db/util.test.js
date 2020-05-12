@@ -1,6 +1,6 @@
 import Tingo from 'tingodb';
 import { FakeDB, fakeTingoDB, fakeCollection, fakeCursor } from '../../fixtures/tingodb.js';
-import { initialize, getDb, getCollection, findOne, find, insert, save, update, toArray } from './util.js';
+import { initialize, getDb, getCollection, findOne, find, insert, save, update, toArray, remove, getJobsCollection, Collection } from './util.js';
 
 jest.mock('tingodb', () => {
   return {
@@ -182,6 +182,32 @@ describe('db/util', () => {
     expect(actualError).toBe(expectedError);
   });
 
+  test('remove', async () => {
+    const collection = fakeCollection();
+    let actualCriteria, actualOptions;
+    const expectedResult = {};
+    collection.remove.mockImplementation((criteria, options, callback) => {
+      actualCriteria = criteria;
+      actualOptions = options;
+      callback(null, expectedResult)
+    });
+    const result = await remove(collection, 'criteria', 'options');
+    expect(collection.remove).toHaveBeenCalled();
+    expect(actualCriteria).toEqual('criteria');
+    expect(actualOptions).toEqual('options');
+    expect(result).toBe(expectedResult);
+
+    const expectedError = new Error('fubar');
+    let actualError;
+    try {
+      collection.remove.mockImplementation((criteria, options, callback) => callback(expectedError));
+      await remove(collection, 'criteria', 'options');
+    } catch (err) {
+      actualError = err;
+    }
+    expect(actualError).toBe(expectedError);
+  });
+
   test('toArray', async () => {
     const cursor = fakeCursor();
     const expectedResult = {};
@@ -199,4 +225,5 @@ describe('db/util', () => {
     }
     expect(actualError).toBe(expectedError);
   });
+  
 });

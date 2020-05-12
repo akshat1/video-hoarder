@@ -20,6 +20,7 @@ export const fakeCollection = () => {
     find: jest.fn(),
     findOne: jest.fn(),
     insert: jest.fn(),
+    remove: jest.fn(),
     save: jest.fn(),
     update: jest.fn(),
   };

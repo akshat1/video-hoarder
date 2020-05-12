@@ -97,6 +97,20 @@ export const update = (collection, criteria, update, options) =>
   new Promise((resolve, reject) => collection.update(criteria, update, options, inPromiseCallback(resolve, reject)));
 
 /**
+ * A wrapper around collection.remove.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/collection.html#remove
+ * @func
+ * @memberof module:server/db
+ * @param {module:server/db~Collection} collection
+ * @param {module:server/db~Query} criteria
+ * @param {Object} [options]
+ * @returns {Promise.<number>} - Number of records removed.
+ */
+export const remove = (collection, criteria, options) =>
+  new Promise((resolve, reject) => collection.remove(criteria, options, inPromiseCallback(resolve, reject)));
+
+/**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#toarray
  * @func
  * @memberof module:server/db
@@ -107,6 +121,25 @@ export const toArray = cursor =>
   new Promise((resolve, reject) => cursor.toArray(inPromiseCallback(resolve, reject)));
 
 let db;
+
+/**
+ * Returns the singleton db instance.
+ * @func
+ * @memberof module:server/db
+ * @returns {Object}
+ */
+export const getDb = () => db;
+
+// Not really sure how to test the following two. Immutable modules. Mmmm hmm. Lovely.
+/**
+ * @returns {Collection} - the jobs collection.
+ */
+export const getJobsCollection = () => getCollection(getDb(), Collection.Jobs);
+
+/**
+ * @returns {Collection} - the users collection.
+ */
+export const getUsersCollection = () => getCollection(getDb(), Collection.Users);
 
 /**
  * Initialize the database. Creates user collection and the default user.
@@ -125,8 +158,7 @@ export const initialize = async () => {
     db = new Db(dbLocation, { name: 'video-hoarder-dev' });
   }
 
-  let users;
-  users = await getCollection(db, Collection.Users);
+  const users = await getUsersCollection();
   const admin = await findOne(users, { userName: 'admin' });
   if (!admin) {
     // Create admin user with default password
@@ -138,18 +170,4 @@ export const initialize = async () => {
       password: hash,
     });
   }
-};
-
-/**
- * Returns the singleton db instance.
- * @func
- * @memberof module:server/db
- * @returns {Object}
- */
-export const getDb = () => db;
-
-/** @private */
-export const stub = name => (arg) => {
-  rootLogger(`stub ${name}() called`);
-  return Promise.resolve(arg);
 };

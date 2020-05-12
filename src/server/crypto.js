@@ -6,9 +6,10 @@
 import bcrypt from 'bcrypt';
 
 /**
+ * @private
  * @const {number}
  */
-const DefaultNumberOfSaltRounds = 10;  // When changing this value, remember to update JSDoc wherever used.
+export const DefaultNumberOfSaltRounds = 10;  // When changing this value, remember to update JSDoc wherever used.
 
 /**
  * Wrapper around bcrypt.genSalt.
@@ -18,7 +19,7 @@ const DefaultNumberOfSaltRounds = 10;  // When changing this value, remember to 
  * @param {number} [saltRounds=10]
  * @return {Promise.<string>}
  */
-export const genSalt = (saltRounds = DefaultNumberOfSaltRounds) => bcrypt.genSalt(saltRounds);
+export const genSalt = async (saltRounds = DefaultNumberOfSaltRounds) => bcrypt.genSalt(saltRounds);
 
 /**
  * bcrypt.hash
@@ -41,7 +42,7 @@ export const hash = (plainText, salt) => bcrypt.hash(plainText, salt);
  * @returns {Promise.<Object>} - Object containing encrypted hash and corresponding salt.
  */
 export const encrypt = async (plainText, saltRounds=DefaultNumberOfSaltRounds) => {
-  const salt = await genSalt(saltRounds, DefaultNumberOfSaltRounds);
+  const salt = await genSalt(saltRounds);
   return {
     salt,
     hash: await hash(plainText, salt),

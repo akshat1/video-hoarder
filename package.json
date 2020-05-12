@@ -15,6 +15,7 @@
     "build-dev-docker": "docker build -t vh-dev-img .",
     "run-dev-docker": "docker run --rm -it --name vh-dev --network=\"host\" -v $PWD:/app/ vh-dev-img -v $PWD/db:/data/db/ -p 7200:7200",
     "test": "npm run mkdir; TZ=UTC NODE_ENV=test DEBUG=jest jest --coverage --silent=false",
+    "test-watch": "npm run test -- --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o docs/storybook"
   },
@@ -38,6 +39,7 @@
     "@material-ui/icons": "^4.9.1",
     "Base64": "^1.1.0",
     "bcrypt": "^4.0.1",
+    "blueimp-md5": "^2.15.0",
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
@@ -93,6 +95,7 @@
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.9.0",
     "react-hot-loader": "^4.12.20",
+    "sinon": "^9.0.2",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.1.3",
     "toast-jsdoc": "^1.0.2",

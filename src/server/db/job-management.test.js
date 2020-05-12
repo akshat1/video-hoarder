@@ -1,25 +1,85 @@
-import { Collection, getDb, insert, getCollection } from './util.js';
-import { addJob } from './job-management';
+import { getDb, insert, update, findOne, remove, find, getJobsCollection } from './util.js';
+import { addJob, cancelJob, removeJob, getJob, getJobsForUser } from './job-management';
+import { makeItem } from '../../model/Item.js';
 import { Status } from '../../Status.js';
+import assert from 'assert';
+import sinon from 'sinon';
 
 jest.mock('./util');
+jest.mock('../../model/Item.js');
 
 describe('db/job-management', () => {
-  test('addJob', async () => {
-    const job = { jo: 'b' };
-    const collection = {  col: 'lection' };
-    const expectedResult = { expected: 'result' };
-    const options = { op: 'tions' };
-    const db = { d: 'b' };
+  const db = { d: 'b' };
+  const jobsCollection = {  col: 'lection' };
+
+  beforeEach(() => {
+    getDb.mockReset();
+    getJobsCollection.mockReset();
     getDb.mockReturnValue(db);
+    getJobsCollection.mockResolvedValue(jobsCollection);
+  });
+
+  test('addJob', async () => {
+    const url = 'bar';
+    const job = { jo: 'b' };
+    const addedBy = 'foo';
+    makeItem.mockReturnValue(job);
+    const expectedResult = { expected: 'result' };
     insert.mockResolvedValue(expectedResult);
-    getCollection.mockResolvedValue(collection);
-    const result = await addJob(job, options);
+    const result = await addJob({ url, addedBy });
     expect(result).toBe(expectedResult);
-    expect(getCollection).toHaveBeenCalledWith(db, Collection.Jobs);
-    expect(insert).toHaveBeenCalledWith(collection, {
-      ...job,
-      status: Status.Pending,
-    });
+    expect(insert).toHaveBeenCalledWith(jobsCollection, job);
+  });
+
+  test('cancelJob', async () => {
+    const id = 'some-item-id';
+    const item = { id: id };
+    update.mockResolvedValue([1]);
+    findOne.mockResolvedValue(item);
+    const expectedTime = 'foo';
+    const updatedBy = 'bar';
+    sinon.stub(Date.prototype, 'toISOString').returns(expectedTime);
+    const expectedItem = {
+      ...item,
+      status: Status.Failed,
+      updatedAt: expectedTime,
+      updatedBy,
+    };
+    const updatedItem = await cancelJob({ id, updatedBy });
+    /*
+    assert we updated item document with status canceled
+      assert we called update with jobs collection, right query, and right update
+    */
+    assert.deepEqual(updatedItem, expectedItem);
+    expect(update).toHaveBeenCalledWith(jobsCollection, { id: id }, expectedItem);
+    sinon.restore();
+  });
+
+  test('removeJob', async () => {
+    const id = 'some-item-id';
+    const item = { id: id };
+    remove.mockResolvedValue(1);
+    findOne.mockResolvedValue(item);
+    const numRecordsRemoved = await removeJob(id);
+    expect(remove).toHaveBeenCalledWith(jobsCollection, { id });
+    expect(numRecordsRemoved).toBe(1);
+  });
+
+  test('getJob', async () => {
+    const id = 'baz';
+    const expectedItem = { foo: 'bar' };
+    findOne.mockResolvedValue(expectedItem);
+    const item = await getJob(id);
+    expect(item).toBe(expectedItem);
+    expect(findOne).toHaveBeenCalledWith(jobsCollection, { id });
+  });
+
+  test('getJobsForUser', async () => {
+    const expectedItems = [ { a: 'aye' }, { b: 'bee '}];
+    find.mockResolvedValue(expectedItems);
+    const userName = 'foo';
+    const items = await getJobsForUser(userName);
+    expect(items).toBe(expectedItems);
+    expect(find).toHaveBeenCalledWith(jobsCollection, { addedBy: userName });
   });
 });
