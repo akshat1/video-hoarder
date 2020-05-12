@@ -1,13 +1,9 @@
 import { getLogger } from '../../logger.js';
-import { getDb, stub, Collection, getCollection, insert, findOne, update, remove, find, getJobsCollection } from './util.js';
+import { insert, findOne, update, remove, find, getJobsCollection } from './util.js';
 import { Status } from '../../Status.js';
 import { makeItem } from '../../model/Item.js';
 
 const rootLogger = getLogger('job-management');
-
-const {
-  Jobs,
-} = Collection;
 
 /**
  * This will emit 'ItemAdded' event.
