@@ -5,12 +5,12 @@ import { hot } from 'react-hot-loader';
 import { initializeClient } from './redux/actions-and-reducers';
 import { isLoggedIn, isFetchingUser, isUserFetchDone, } from './selectors';
 import { Switch, Route } from 'react-router';
-import { Theme } from './theme';
+import { getTheme } from './theme';
 import LoginForm from './components/LoginForm.jsx';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { makeStyles, ThemeProvider } from '@material-ui/styles';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, useMediaQuery } from '@material-ui/core';
 import Main from './components/Main.jsx';
 
 const useStyles = makeStyles(() => ({
@@ -24,6 +24,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const App = (props) => {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const classes = useStyles();
   const {
     userFetchDone,
@@ -38,7 +39,7 @@ const App = (props) => {
 
   return (
     <ConnectedRouter history={getHistory()}>
-      <ThemeProvider theme={Theme}>
+      <ThemeProvider theme={getTheme(prefersDarkMode)}>
         <CssBaseline />
         <Switch>
           <Route path="/login">

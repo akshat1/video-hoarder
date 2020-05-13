@@ -4,7 +4,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
 import { getPassport } from './getPassport.js';
-import { initialize as initializeDB } from './db';
+import { initialize as initializeDB } from './db/index.js';  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
 import { getLogger } from '../logger.js';
 
 const rootLogger = getLogger('server');

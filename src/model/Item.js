@@ -2,7 +2,7 @@
  * @module model/Item
  */
 
-import { Status } from '../Status';
+import { Status } from '../Status.js';
 import md5 from 'blueimp-md5';
 
 /**

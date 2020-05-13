@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ThemeProvider } from '@material-ui/styles';
-import { Theme } from '../theme';
+import { getTheme } from '../theme';
 import { LoginForm, isSubmitDisabled } from './LoginForm.jsx';
 
 describe('components/DeleteConfirmationDialog', () => {
   test('DeleteConfirmationDialog matches snapshot', () => {
     expect(
       shallow(
-        <ThemeProvider theme={Theme}>
+        <ThemeProvider theme={getTheme()}>
           <LoginForm />
         </ThemeProvider>
       )
@@ -16,7 +16,7 @@ describe('components/DeleteConfirmationDialog', () => {
 
     expect(
       shallow(
-        <ThemeProvider theme={Theme}>
+        <ThemeProvider theme={getTheme()}>
           <LoginForm fetchingUser/>
         </ThemeProvider>
       )
@@ -24,7 +24,7 @@ describe('components/DeleteConfirmationDialog', () => {
 
     expect(
       shallow(
-        <ThemeProvider theme={Theme}>
+        <ThemeProvider theme={getTheme()}>
           <LoginForm loggedIn/>
         </ThemeProvider>
       )
@@ -32,7 +32,7 @@ describe('components/DeleteConfirmationDialog', () => {
 
     expect(
       shallow(
-        <ThemeProvider theme={Theme}>
+        <ThemeProvider theme={getTheme()}>
           <LoginForm loginError="Omlette du Fromage'"/>
         </ThemeProvider>
       )
