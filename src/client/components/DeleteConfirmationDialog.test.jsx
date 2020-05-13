@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ThemeProvider } from '@material-ui/styles';
-import { Theme } from '../theme';
+import { getTheme } from '../theme';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog.jsx';
 
 describe('components/DeleteConfirmationDialog', () => {
   test('DeleteConfirmationDialog matches snapshot', () => {
     const instance = 
-      <ThemeProvider theme={Theme}>
+      <ThemeProvider theme={getTheme()}>
         <DeleteConfirmationDialog
           jobTitle="Sample job"
           onCancel={() => 0}

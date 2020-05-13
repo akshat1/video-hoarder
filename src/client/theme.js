@@ -1,5 +1,10 @@
+import _ from 'lodash';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-const Theme = createMuiTheme({});
-
-export { Theme };
+export const getTheme = _.memoize(darkMode =>
+  createMuiTheme({
+    palette: {
+      type: darkMode ? 'dark' : 'light',
+    },
+  })
+);
