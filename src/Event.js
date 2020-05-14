@@ -6,6 +6,7 @@
 
 /** @typedef {string} Event */
 
+/* istanbul ignore next */
 /**
  * An enumeration of event names.
  *

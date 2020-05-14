@@ -11,6 +11,7 @@
 
 /**
  * @typedef {Object} Logger
+ * @property {Function<string>} getName
  * @property {module:logger~LogFunction} debug
  * @property {module:logger~LogFunction} error
  * @property {module:logger~LogFunction} info
@@ -28,12 +29,13 @@
  */
 export const getLogger = (name, parentLogger) => {
   const fullName = parentLogger ? `${parentLogger.getName()}:${name}` : name;
+  const stub = `[${fullName}]`;
   return {
     getName: () => fullName,
-    debug: (...messages) => console.debug(`[${fullName}]`, ...messages),
-    error: (...messages) => console.error(`[${fullName}]`, ...messages),
-    info: (...messages) => console.info(`[${fullName}]`, ...messages),
-    log: (...messages) => console.log(`[${fullName}]`, ...messages),
-    warn: (...messages) => console.warn(`[${fullName}]`, ...messages),
+    debug: (...messages) => console.debug(stub, ...messages),
+    error: (...messages) => console.error(stub, ...messages),
+    info: (...messages) => console.info(stub, ...messages),
+    log: (...messages) => console.log(stub, ...messages),
+    warn: (...messages) => console.warn(stub, ...messages),
   }
 };
