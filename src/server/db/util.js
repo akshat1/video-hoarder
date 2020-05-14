@@ -132,11 +132,13 @@ export const getDb = () => db;
 
 // Not really sure how to test the following two. Immutable modules. Mmmm hmm. Lovely.
 /**
+ * @memberof module:server/db
  * @returns {Collection} - the jobs collection.
  */
 export const getJobsCollection = () => getCollection(getDb(), Collection.Jobs);
 
 /**
+ * @memberof module:server/db
  * @returns {Collection} - the users collection.
  */
 export const getUsersCollection = () => getCollection(getDb(), Collection.Users);
