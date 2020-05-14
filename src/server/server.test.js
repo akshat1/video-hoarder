@@ -1,6 +1,7 @@
 import assert from 'assert';
 import express from 'express';
 import webpack from 'webpack';
+import https from 'https';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../../webpack.config.cjs';
@@ -21,6 +22,13 @@ jest.mock('webpack', () => ({
   default: jest.fn(),
 }));
 
+jest.mock('https', () => ({
+  __esModule: true,
+  default: {
+    createServer: jest.fn()
+  },
+}));
+
 jest.mock('webpack-dev-middleware', () => ({
   __esModule: true,
   default: jest.fn(),
@@ -39,15 +47,18 @@ describe('server/start-server', () => {
   test('should start the express server without webpack by default', async () => {
     const app = {
       get: jest.fn(),
-      listen: jest.fn(),
       post: jest.fn(),
       use: jest.fn(),
     };
+    const server = {
+      listen: jest.fn(),
+    };
+    https.createServer.mockReturnValue(server);
     express.static.mockReturnValue('static');
     express.mockReturnValue(app);
     await startServer();
     assert.equal(express.mock.calls.length, 1);
-    assert.equal(app.listen.mock.calls.length, 1);  // TODO: assert correct port once we have the config system up.
+    assert.equal(server.listen.mock.calls.length, 1);  // TODO: assert correct port once we have the config system up.
     assert.ok(!!app.use.mock.calls.find(([middleware]) => middleware === 'static'));
     // TODO check that we are handling /* route.
   });
@@ -55,17 +66,20 @@ describe('server/start-server', () => {
   test('should start the express server with webpack when so instructed', async () => {
     const app = {
       get: jest.fn(),
-      listen: jest.fn(),
       post: jest.fn(),
       use: jest.fn(),
     };
+    const server = {
+      listen: jest.fn(),
+    };
+    https.createServer.mockReturnValue(server);
     webpack.mockImplementation(config => ({ config }));  // This is what makes our assertions on dev and hotmiddleware work.
     express.mockReturnValue(app);
     webpackDevMiddleware.mockReturnValue('webpackDevMiddleware');
     webpackHotMiddleware.mockReturnValue('webpackHotMiddleware');
     await startServer(true);
     assert.equal(express.mock.calls.length, 1);
-    assert.equal(app.listen.mock.calls.length, 1);  // TODO: assert correct port once we have the config system up.
+    assert.equal(server.listen.mock.calls.length, 1);  // TODO: assert correct port once we have the config system up.
     assert.ok(!!app.use.mock.calls.find(([middleware]) => middleware === 'webpackDevMiddleware'));
     assert.ok(!!app.use.mock.calls.find(([middleware]) => middleware === 'webpackHotMiddleware'));
     assert.ok(!!webpackDevMiddleware.mock.calls.find(([compiler]) => compiler && compiler.config === webpackConfig));
