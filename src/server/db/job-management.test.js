@@ -2,11 +2,14 @@ import { getDb, insert, update, findOne, remove, find, getJobsCollection } from 
 import { addJob, cancelJob, removeJob, getJob, getJobsForUser } from './job-management';
 import { makeItem } from '../../model/Item.js';
 import { Status } from '../../Status.js';
+import { emit } from '../event-bus';
 import assert from 'assert';
 import sinon from 'sinon';
+import { Event } from '../../Event.js';
 
 jest.mock('./util');
 jest.mock('../../model/Item.js');
+jest.mock('../event-bus');
 
 describe('db/job-management', () => {
   const db = { d: 'b' };
@@ -17,6 +20,7 @@ describe('db/job-management', () => {
     getJobsCollection.mockReset();
     getDb.mockReturnValue(db);
     getJobsCollection.mockResolvedValue(jobsCollection);
+    emit.mockReset();
   });
 
   test('addJob', async () => {
@@ -29,6 +33,7 @@ describe('db/job-management', () => {
     const result = await addJob({ url, addedBy });
     expect(result).toBe(expectedResult);
     expect(insert).toHaveBeenCalledWith(jobsCollection, job);
+    expect(emit).toHaveBeenCalledWith(Event.ItemAdded, result);
   });
 
   test('cancelJob', async () => {
@@ -52,6 +57,7 @@ describe('db/job-management', () => {
     */
     assert.deepEqual(updatedItem, expectedItem);
     expect(update).toHaveBeenCalledWith(jobsCollection, { id: id }, expectedItem);
+    expect(emit).toHaveBeenCalledWith(Event.ItemUpdated, expectedItem);
     sinon.restore();
   });
 
@@ -63,6 +69,7 @@ describe('db/job-management', () => {
     const numRecordsRemoved = await removeJob(id);
     expect(remove).toHaveBeenCalledWith(jobsCollection, { id });
     expect(numRecordsRemoved).toBe(1);
+    expect(emit).toHaveBeenCalledWith(Event.ItemRemoved, item);
   });
 
   test('getJob', async () => {

@@ -2,6 +2,8 @@ import { getLogger } from '../../logger.js';
 import { insert, findOne, update, remove, find, getJobsCollection } from './util.js';
 import { Status } from '../../Status.js';
 import { makeItem } from '../../model/Item.js';
+import { emit } from '../event-bus.js';
+import { Event } from '../../Event.js';
 
 const rootLogger = getLogger('job-management');
 
@@ -17,7 +19,9 @@ const rootLogger = getLogger('job-management');
 export const addJob = async ({ url, addedBy }) => {
   const item = makeItem({ url, addedBy });
   const jobs = await getJobsCollection()
-  return insert(jobs, item);
+  const newJob = await insert(jobs, item);
+  emit(Event.ItemAdded, newJob);
+  return newJob;
 };
 
 /**
@@ -52,6 +56,7 @@ export const cancelJob = async ({ id, updatedBy }) => {
     const [numUpdatedRecords, opStatus] = await update(jobs, { id }, item);
     /* istanbul ignore else */
     if (numUpdatedRecords === 1) {
+      emit(Event.ItemUpdated, item);
       return item;
     } else {
       logger.error('Something went wrong in the update', {
@@ -85,6 +90,7 @@ export const removeJob = async (id) => {
         numUpdatedRecords: numRecordsRemoved,
       });
     }
+    emit(Event.ItemRemoved, item);
     return numRecordsRemoved;
   } else {
     logger.warn(`Job ${id} not found. Ignoring call.`);
