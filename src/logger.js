@@ -11,7 +11,7 @@
 
 /**
  * @typedef {Object} Logger
- * @property {Function<string>} getName
+ * @property {Function} getName
  * @property {module:logger~LogFunction} debug
  * @property {module:logger~LogFunction} error
  * @property {module:logger~LogFunction} info
