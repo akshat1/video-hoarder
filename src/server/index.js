@@ -77,12 +77,12 @@ export const startServer = async (startDevServer) => {
   });
 
   // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
-  const pKey = await fs.promises.readFile(path.resolve(process.cwd(), `cert/vhoarder.key`));
-  const pCert = await fs.promises.readFile(path.resolve(process.cwd(), `cert/vhoarder.crt`));
-  const server = http.createServer({
-    key: pKey,
-    cert: pCert,
-  }, app);
+  /* istanbul ignore next */
+  const options = process.env.NODE_ENV === 'test' ? {} : {
+    key: await fs.promises.readFile(path.resolve(process.cwd(), `cert/vhoarder.key`)),
+    cert: await fs.promises.readFile(path.resolve(process.cwd(), `cert/vhoarder.crt`)),
+  };
+  const server = http.createServer(options, app);
   // const io = SocketIO(server);
   const onServerStart = () => {
     /* istanbul ignore next because we are not testing whether this callback is called */
