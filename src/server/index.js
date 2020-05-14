@@ -1,8 +1,13 @@
+/* @todo: support both http and https; make https optional */
+/* @todo: base URL ()for working behing reverse proxy */
 /** @module server */
+import http from 'https';
 import express from 'express';
+import fs from 'fs';
 import path from 'path';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
+// import SocketIO from 'socket.io';
 import { getPassport } from './getPassport.js';
 import { initialize as initializeDB } from './db/index.js';  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
 import { getLogger } from '../logger.js';
@@ -71,12 +76,19 @@ export const startServer = async (startDevServer) => {
     res.json(req.user);
   });
 
-  app.listen(
-    7200,
+  // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
+  const pKey = await fs.promises.readFile(path.resolve(process.cwd(), `cert/vhoarder.key`));
+  const pCert = await fs.promises.readFile(path.resolve(process.cwd(), `cert/vhoarder.crt`));
+  const server = http.createServer({
+    key: pKey,
+    cert: pCert,
+  }, app);
+  // const io = SocketIO(server);
+  const onServerStart = () => {
     /* istanbul ignore next because we are not testing whether this callback is called */
-    () => logger.info('App listening on port 7200'
-    )
-  );
+    logger.info('App listening on port 7200');
+  };
+  server.listen(7200, onServerStart);
 };
 
 /* istanbul ignore next */

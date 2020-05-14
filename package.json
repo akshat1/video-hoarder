@@ -9,7 +9,7 @@
     "mkdir": "mkdir -p db-data",
     "dev": "npm run mkdir; NODE_ENV=development node --inspect=0.0.0.0 src/server/index.js",
     "dev-brk": "npm run mkdir; NODE_ENV=development node --inspect-brk=0.0.0.0 src/server/index.js",
-    "start": "npm run mkdir; npm run clean; npm run build; NODE_ENV=production node src/server/index.js",
+    "start": "npm run clean; npm run mkdir; npm run build; NODE_ENV=production node src/server/index.js",
     "build": "NODE_ENV=production webpack --config webpack.config.cjs",
     "lint": "eslint --ext .js --ext .jsx --ext .cjs src/",
     "build-dev-docker": "docker build -t vh-dev-img .",
@@ -54,6 +54,7 @@
     "react-router": "^5.1.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "socket.io": "^2.3.0",
     "tingodb": "^0.6.1",
     "typeface-roboto": "0.0.75"
   },

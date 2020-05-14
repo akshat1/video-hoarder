@@ -7,3 +7,9 @@ download/*
 node_modules/
 storybook-static/
 db-data/
+cert/*.csr
+cert/*.key
+cert/*.pem
+cert/*.srl
+cert/*.crt
+cert/*.ext
