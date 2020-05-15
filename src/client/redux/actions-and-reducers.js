@@ -7,6 +7,7 @@ import { connectRouter, push } from 'connected-react-router'
 import { combineReducers } from 'redux';
 import { getLogger } from '../../logger';
 import { getCurrentPath, isFetchingUser, isUserFetchDone, isLoggedIn } from '../selectors';
+import { reconnect, disconnect } from '../socketio';
 
 const rootLogger = getLogger('actions-and-reducers');
 
@@ -78,6 +79,7 @@ export const doLogIn = (username, password) =>
       dispatch(setUser(user));
       // location.href = '/';
       dispatch(push('/'));
+      reconnect();
      } catch(err) {
        logger.error(err);
      }
@@ -117,6 +119,7 @@ export const fetchUser = () =>
 export const doLogOut = () =>
   async dispatch => {
     await fetch('/logout', FetchOpts);
+    disconnect();
     dispatch(setUser({}));
     dispatch(push('/login'));
   };

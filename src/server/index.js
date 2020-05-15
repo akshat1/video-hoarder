@@ -7,10 +7,12 @@ import fs from 'fs';
 import path from 'path';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
-// import SocketIO from 'socket.io';
 import { getPassport } from './getPassport.js';
 import { initialize as initializeDB } from './db/index.js';  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
 import { getLogger } from '../logger.js';
+import { bootstrapApp } from './socketio.js';
+import MemoryStore from 'memorystore';
+import cookieParser from 'cookie-parser';
 
 const rootLogger = getLogger('server');
 
@@ -24,16 +26,19 @@ const rootLogger = getLogger('server');
  * @param {boolean} startDevServer
  */
 export const startServer = async (startDevServer) => {
+  const secret = 'dogs for me please';
   const logger = getLogger('startServer', rootLogger);
   await initializeDB();
   const app = express();
   app.use(bodyParser.urlencoded({ extended: true }));
 
   // Auth
+  const sessionStore = new (MemoryStore(expressSession))({ checkPeriod: 24 * 60 * 60 * 10000 });
+  app.use(cookieParser(secret));
   app.use(expressSession({
-    secret: 'nyan cat',
-    resave: false,
-    saveUninitialized: false,
+    cookie: { maxAge: 24 * 60 * 60 * 10000 },
+    secret,
+    store: sessionStore,
   }));
   const passport = getPassport();
   app.use(passport.initialize());
@@ -83,7 +88,7 @@ export const startServer = async (startDevServer) => {
     cert: await fs.promises.readFile(path.resolve(process.cwd(), `cert/vhoarder.crt`)),
   };
   const server = http.createServer(options, app);
-  // const io = SocketIO(server);
+  bootstrapApp({ server, sessionStore, secret });
   const onServerStart = () => {
     /* istanbul ignore next because we are not testing whether this callback is called */
     logger.info('App listening on port 7200');

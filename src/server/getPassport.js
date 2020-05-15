@@ -37,7 +37,7 @@ export const getReturnableUser = user => ({
 export const verifyUser = async (userName, password, cb) => {
   const logger = getLogger('verifyUser', rootLogger);
   try {
-    logger.debug('verifyUser called', userName, password);
+    logger.debug('verifyUser called', userName, '*********');
     const users = await getUsersCollection();
     logger.debug('Got users collection');
     const user = await findOne(users, { userName });

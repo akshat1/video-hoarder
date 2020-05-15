@@ -6,6 +6,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../../webpack.config.cjs';
 import { startServer } from './index';
+// import { bootstrapApp } from './socketio.js';
 
 jest.mock('express', () => {
   const mockExpress = jest.fn();
@@ -40,6 +41,8 @@ jest.mock('webpack-hot-middleware', () => ({
 }));
 
 jest.mock('../../webpack.config.cjs', () => 'webpack-config');
+
+jest.mock('./socketio.js');
 
 /* Note that server/index.js doesn't automatically start the express server when NODE_ENV is test.
 You have to explicitly call `startServer()` in such a situation. */
