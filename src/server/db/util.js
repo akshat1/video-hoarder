@@ -120,6 +120,58 @@ export const remove = (collection, criteria, options) =>
 export const toArray = cursor =>
   new Promise((resolve, reject) => cursor.toArray(inPromiseCallback(resolve, reject)));
 
+/**
+ * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#count
+ * @func
+ * @param {module:server/db~Cursor} cursor 
+ * @param {boolean} applySkipLimit
+ * @returns {Promise.<number>}
+ */
+export const count = (cursor, applySkipLimit) =>
+  new Promise((resolve, reject) => cursor.count(applySkipLimit, inPromiseCallback(resolve, reject)));
+
+/**
+ * An array of arrays, such that each sub-array contains a string field name and anumber direction.
+ * @typedef {Array} SortList
+ * @example
+ * ```
+ * [
+ *   ['wheels', -1],
+ *   ['model_year', '-1'],
+ *   ['name', 1],
+ * ]
+ * ```
+ */
+/**
+ * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#sort
+ * @func
+ * @param {module:server/db~Cursor} cursor
+ * @param {string|SortList} keyOrList
+ * @returns {Promise.<module:server/db~Cursor>}
+ */
+export const sort = (cursor, keyOrList) =>
+  new Promise((resolve, reject) => cursor.sor(keyOrList, inPromiseCallback(resolve, reject)));
+
+/**
+ * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#limit
+ * @func
+ * @param {module:server/db~Cursor} cursor
+ * @param {number} numLimit - number of docs to limit to.
+ * @returns {Promise.<module:server/db~Cursor>}
+ */
+export const limit = (cursor, numLimit) =>
+  new Promise((resolve, reject) => cursor.limit(numLimit, inPromiseCallback(resolve, reject)));
+
+/**
+ * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#skip
+ * @func
+ * @param {module:server/db~Cursor} cursor
+ * @param {number} numSkip - number of records to skip.
+ * @returns {Promise.<module:server/db~Cursor>}
+ */
+export const skip = (cursor, numSkip) =>
+  new Promise((resolve, reject) => cursor.skip(numSkip, inPromiseCallback(resolve, reject)));
+
 let db;
 
 /**

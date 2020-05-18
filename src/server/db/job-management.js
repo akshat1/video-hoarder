@@ -98,14 +98,15 @@ export const removeJob = async (id) => {
 }
 
 /**
- * Returns all jobs added by this user.
+ * Find jobs added by this user filtered by this query.
  *
  * @func
  * @memberof module:server/db
  * @param {string} userName
- * @returns {Promise<Item[]>}
+ * @param {Query} [query]
+ * @returns {Promise<Cursor[]>}
  */
-export const getJobsForUser = async (userName) => {
+export const getJobsForUser = async (userName, query = {}) => {
   const jobs = await getJobsCollection()
-  return find(jobs, { addedBy: userName });
+  return find(jobs, { ...query, addedBy: userName });
 };

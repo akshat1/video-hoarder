@@ -11,6 +11,7 @@ import { getPassport } from './getPassport.js';
 import { initialize as initializeDB } from './db/index.js';  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
 import { getLogger } from '../logger.js';
 import { bootstrapApp } from './socketio.js';
+import { getRouter as getAPI } from './api.js';
 import MemoryStore from 'memorystore';
 import cookieParser from 'cookie-parser';
 
@@ -80,6 +81,8 @@ export const startServer = async (startDevServer) => {
   app.post('/login', passport.authenticate('local'), (req, res) => {
     res.json(req.user);
   });
+
+  app.use('/api', getAPI);
 
   // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
   /* istanbul ignore next */

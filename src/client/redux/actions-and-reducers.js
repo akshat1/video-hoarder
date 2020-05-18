@@ -18,6 +18,13 @@ const UserFetchDone = 'UserFetchDone';
 const setUserFetchDone = makeActionF(UserFetchDone);
 const LoginError = 'LoginError';
 const setLoginError = makeActionF(LoginError);
+const FetchingJobs = 'FetchingJobs';
+const setFetchingJobs = makeActionF(FetchingJobs);
+const Jobs = 'Jobs';
+const setJobs = makeActionF(Jobs);
+const AddingJob = 'AddingJob';
+const setAddingJob = makeActionF(AddingJob);
+
 
 /**
  * @function
@@ -38,6 +45,56 @@ const FetchOpts = {
   cache: 'no-cache',
   credentials: 'same-origin',
 };
+
+/**
+ * @func
+ * @returns {ActionCreator}
+ */
+export const fetchJobs = () =>
+  async (dispatch) => {
+    const logger = getLogger('fetchJobs', rootLogger);
+    try {
+      logger.debug('fetchJobs');
+      dispatch(setFetchingJobs(true));
+      const response = await fetch(
+        '/api/jobs',
+        {
+          ...FetchOpts,
+          method: 'get',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        },
+      );
+      const { data: jobs } = response.json();
+      dispatch(setJobs(jobs));
+      dispatch(setFetchingJobs(false));
+    } catch (err) {
+      dispatch(setFetchingJobs(false));
+      logger.error(err);
+    }
+  };
+
+export const addJob = (url) =>
+  async (dispatch) => {
+    const logger = getLogger('addJob', rootLogger);
+    try {
+      logger.debug('adding job', url);
+      dispatch(setAddingJob(true));
+      const response = await fetch(
+        '/api/job/add',
+        {
+          ...FetchOpts,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url }),
+        },
+      );
+      logger.debug('done adding job.', response);
+      dispatch(setAddingJob(false));
+    } catch (err) {
+      dispatch(setAddingJob(false));
+      logger.error(err);
+    }
+  };
 
 /**
  * Action used by the login form.
