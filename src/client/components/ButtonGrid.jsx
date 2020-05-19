@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Style from './ButtonGrid.less';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import Style from "./ButtonGrid.less";
 
 const getButtonClassName = option => classNames({
   [Style.selected]: option.selected,

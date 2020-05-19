@@ -1,30 +1,30 @@
-import { connect } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import { getHistory } from './history';
-import { hot } from 'react-hot-loader';
-import { initializeClient } from './redux/actions-and-reducers';
-import { isLoggedIn, isFetchingUser, isUserFetchDone, } from './selectors';
-import { Switch, Route } from 'react-router';
-import { getTheme } from './theme';
-import LoginForm from './components/LoginForm.jsx';
-import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import { makeStyles, ThemeProvider } from '@material-ui/styles';
-import { CssBaseline, useMediaQuery } from '@material-ui/core';
-import Main from './components/Main.jsx';
+import { connect } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { getHistory } from "./history";
+import { hot } from "react-hot-loader";
+import { initializeClient } from "./redux/actions-and-reducers";
+import { isLoggedIn, isFetchingUser, isUserFetchDone, } from "./selectors";
+import { Switch, Route } from "react-router";
+import { getTheme } from "./theme";
+import LoginForm from "./components/LoginForm.jsx";
+import PropTypes from "prop-types";
+import React, { useEffect } from "react";
+import { makeStyles, ThemeProvider } from "@material-ui/styles";
+import { CssBaseline, useMediaQuery } from "@material-ui/core";
+import Main from "./components/Main.jsx";
 
 const useStyles = makeStyles(() => ({
   container: {},
   loginForm: {
-    position: 'absolute',
-    top: '20%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "20%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
   },
 }));
 
 const App = (props) => {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const classes = useStyles();
   const {
     userFetchDone,
@@ -69,7 +69,7 @@ App.propTypes = {
  * @private
  * @returns {boolean}
  */
-const isDevMode = () => process.env.NODE_ENV === 'development';
+const isDevMode = () => process.env.NODE_ENV === "development";
 
 const stateToProps = state => ({
   fetchingUser: isFetchingUser(state),

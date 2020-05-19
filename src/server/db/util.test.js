@@ -1,16 +1,16 @@
-import Tingo from 'tingodb';
-import { FakeDB, fakeTingoDB, fakeCollection, fakeCursor } from '../../fixtures/tingodb.js';
-import { initialize, getDb, getCollection, findOne, find, insert, save, update, toArray, remove, } from './util.js';
+import Tingo from "tingodb";
+import { FakeDB, fakeTingoDB, fakeCollection, fakeCursor } from "../../fixtures/tingodb.js";
+import { initialize, getDb, getCollection, findOne, find, insert, save, update, toArray, remove, } from "./util.js";
 
-jest.mock('tingodb', () => {
+jest.mock("tingodb", () => {
   return {
     __esModule: true,
     default: jest.fn(),
   }
 });
 
-describe('db/util', () => {
-  test('initialize', async () => {
+describe("db/util", () => {
+  test("initialize", async () => {
     const db = new FakeDB();
     const collection = fakeCollection();
     collection.findOne.mockImplementation((a, b, c, callback) => callback(null, {}));
@@ -22,7 +22,7 @@ describe('db/util', () => {
     expect(getDb()).toBe(db);
   });
 
-  test('getCollection', async () => {
+  test("getCollection", async () => {
     const db = new FakeDB();
     const expectedCollection = {};
     let actualName;
@@ -30,15 +30,15 @@ describe('db/util', () => {
       actualName = name;
       cb(null, expectedCollection);
     });
-    const actualCollection = await getCollection(db, 'fubar');
+    const actualCollection = await getCollection(db, "fubar");
     expect(actualCollection).toBe(expectedCollection);
-    expect(actualName).toBe('fubar');
+    expect(actualName).toBe("fubar");
 
     let actualError;
-    const expectedError = new Error('fake error');
+    const expectedError = new Error("fake error");
     try {
       db.collection.mockImplementation((name, cb) => cb(expectedError));
-      await getCollection(db, 'fubar');
+      await getCollection(db, "fubar");
     } catch (err) {
       actualError = err;
     }
@@ -46,7 +46,7 @@ describe('db/util', () => {
     expect(actualError).toBe(expectedError);
   });
 
-  test('findOne', async () => {
+  test("findOne", async () => {
     const collection = fakeCollection();
     let actualQuery, actualFields, actualOptions;
     const expectedResult = {};
@@ -56,25 +56,25 @@ describe('db/util', () => {
       actualOptions = options;
       callback(null, expectedResult)
     });
-    const result = await findOne(collection, 'query', 'fields', 'options');
+    const result = await findOne(collection, "query", "fields", "options");
     expect(collection.findOne).toHaveBeenCalled();
-    expect(actualQuery).toEqual('query');
-    expect(actualFields).toEqual('fields');
-    expect(actualOptions).toEqual('options');
+    expect(actualQuery).toEqual("query");
+    expect(actualFields).toEqual("fields");
+    expect(actualOptions).toEqual("options");
     expect(result).toBe(expectedResult);
 
-    const expectedError = new Error('fubar');
+    const expectedError = new Error("fubar");
     let actualError;
     try {
       collection.findOne.mockImplementation((query, fields, options, callback) => callback(expectedError));
-      await findOne(collection, 'query', 'fields', 'options');
+      await findOne(collection, "query", "fields", "options");
     } catch (err) {
       actualError = err;
     }
     expect(actualError).toBe(expectedError);
   });
 
-  test('find', async () => {
+  test("find", async () => {
     const collection = fakeCollection();
     let actualQuery, actualFields, actualOptions;
     const expectedResult = {};
@@ -84,25 +84,25 @@ describe('db/util', () => {
       actualOptions = options;
       callback(null, expectedResult)
     });
-    const result = await find(collection, 'query', 'fields', 'options');
+    const result = await find(collection, "query", "fields", "options");
     expect(collection.find).toHaveBeenCalled();
-    expect(actualQuery).toEqual('query');
-    expect(actualFields).toEqual('fields');
-    expect(actualOptions).toEqual('options');
+    expect(actualQuery).toEqual("query");
+    expect(actualFields).toEqual("fields");
+    expect(actualOptions).toEqual("options");
     expect(result).toBe(expectedResult);
 
-    const expectedError = new Error('fubar');
+    const expectedError = new Error("fubar");
     let actualError;
     try {
       collection.find.mockImplementation((query, fields, options, callback) => callback(expectedError));
-      await find(collection, 'query', 'fields', 'options');
+      await find(collection, "query", "fields", "options");
     } catch (err) {
       actualError = err;
     }
     expect(actualError).toBe(expectedError);
   });
 
-  test('insert', async () => {
+  test("insert", async () => {
     const collection = fakeCollection();
     let actualDocs, actualOptions;
     const expectedResult = {};
@@ -111,24 +111,24 @@ describe('db/util', () => {
       actualOptions = options;
       callback(null, expectedResult)
     });
-    const result = await insert(collection, 'docs', 'options');
+    const result = await insert(collection, "docs", "options");
     expect(collection.insert).toHaveBeenCalled();
-    expect(actualDocs).toEqual('docs');
-    expect(actualOptions).toEqual('options');
+    expect(actualDocs).toEqual("docs");
+    expect(actualOptions).toEqual("options");
     expect(result).toBe(expectedResult);
 
-    const expectedError = new Error('fubar');
+    const expectedError = new Error("fubar");
     let actualError;
     try {
       collection.insert.mockImplementation((docs, options, callback) => callback(expectedError));
-      await insert(collection, 'docs', 'options');
+      await insert(collection, "docs", "options");
     } catch (err) {
       actualError = err;
     }
     expect(actualError).toBe(expectedError);
   });
 
-  test('save', async () => {
+  test("save", async () => {
     const collection = fakeCollection();
     let actualDocs, actualOptions;
     const expectedResult = {};
@@ -137,24 +137,24 @@ describe('db/util', () => {
       actualOptions = options;
       callback(null, expectedResult)
     });
-    const result = await save(collection, 'docs', 'options');
+    const result = await save(collection, "docs", "options");
     expect(collection.save).toHaveBeenCalled();
-    expect(actualDocs).toEqual('docs');
-    expect(actualOptions).toEqual('options');
+    expect(actualDocs).toEqual("docs");
+    expect(actualOptions).toEqual("options");
     expect(result).toBe(expectedResult);
 
-    const expectedError = new Error('fubar');
+    const expectedError = new Error("fubar");
     let actualError;
     try {
       collection.save.mockImplementation((docs, options, callback) => callback(expectedError));
-      await save(collection, 'docs', 'options');
+      await save(collection, "docs", "options");
     } catch (err) {
       actualError = err;
     }
     expect(actualError).toBe(expectedError);
   });
 
-  test('update', async () => {
+  test("update", async () => {
     const collection = fakeCollection();
     let actualCriteria, actualUpdate, actualOptions;
     const expectedResult = {};
@@ -164,25 +164,25 @@ describe('db/util', () => {
       actualOptions = options;
       callback(null, expectedResult)
     });
-    const result = await update(collection, 'criteria', 'update', 'options');
+    const result = await update(collection, "criteria", "update", "options");
     expect(collection.update).toHaveBeenCalled();
-    expect(actualCriteria).toEqual('criteria');
-    expect(actualUpdate).toEqual('update');
-    expect(actualOptions).toEqual('options');
+    expect(actualCriteria).toEqual("criteria");
+    expect(actualUpdate).toEqual("update");
+    expect(actualOptions).toEqual("options");
     expect(result).toBe(expectedResult);
 
-    const expectedError = new Error('fubar');
+    const expectedError = new Error("fubar");
     let actualError;
     try {
       collection.update.mockImplementation((criteria, update, options, callback) => callback(expectedError));
-      await update(collection, 'criteria', 'update', 'options');
+      await update(collection, "criteria", "update", "options");
     } catch (err) {
       actualError = err;
     }
     expect(actualError).toBe(expectedError);
   });
 
-  test('remove', async () => {
+  test("remove", async () => {
     const collection = fakeCollection();
     let actualCriteria, actualOptions;
     const expectedResult = {};
@@ -191,31 +191,31 @@ describe('db/util', () => {
       actualOptions = options;
       callback(null, expectedResult)
     });
-    const result = await remove(collection, 'criteria', 'options');
+    const result = await remove(collection, "criteria", "options");
     expect(collection.remove).toHaveBeenCalled();
-    expect(actualCriteria).toEqual('criteria');
-    expect(actualOptions).toEqual('options');
+    expect(actualCriteria).toEqual("criteria");
+    expect(actualOptions).toEqual("options");
     expect(result).toBe(expectedResult);
 
-    const expectedError = new Error('fubar');
+    const expectedError = new Error("fubar");
     let actualError;
     try {
       collection.remove.mockImplementation((criteria, options, callback) => callback(expectedError));
-      await remove(collection, 'criteria', 'options');
+      await remove(collection, "criteria", "options");
     } catch (err) {
       actualError = err;
     }
     expect(actualError).toBe(expectedError);
   });
 
-  test('toArray', async () => {
+  test("toArray", async () => {
     const cursor = fakeCursor();
     const expectedResult = {};
     cursor.toArray.mockImplementation((callback) => callback(null, expectedResult));
     const actualResult = await toArray(cursor);
     expect(actualResult).toBe(expectedResult);
 
-    const expectedError = new Error('fubar');
+    const expectedError = new Error("fubar");
     let actualError;
     try {
       cursor.toArray.mockImplementation(callback => callback(expectedError));

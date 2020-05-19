@@ -9,10 +9,10 @@
  * @enum {Status}
  */
 export const Status = {
-  Pending: 'pending',
-  Running: 'running',
-  Failed: 'failed',
-  Succeeded: 'succeeded'
+  Pending: "pending",
+  Running: "running",
+  Failed: "failed",
+  Succeeded: "succeeded"
 };
 
 /**

@@ -3,18 +3,18 @@
  * Also provides controls to abort the download.
  */
 import React from "react";
-import PropTypes from 'prop-types';
-import { Card, CardContent, CardMedia, Grid, CardHeader, Typography, Link } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import ItemStatus from './ItemStatus.jsx';
+import PropTypes from "prop-types";
+import { Card, CardContent, CardMedia, Grid, CardHeader, Typography, Link } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import ItemStatus from "./ItemStatus.jsx";
 import { hasStarted, Status } from "../../Status.js";
-import CancelButton from './CancelButton.jsx';
+import CancelButton from "./CancelButton.jsx";
 
 const useStyle = makeStyles(theme => ({
   root: {},
 
   thumbnail: {
-    height: '202px',
+    height: "202px",
     margin: theme.spacing(2)
   },
 

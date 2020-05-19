@@ -9,8 +9,8 @@
 
 // import { getLogger } from '../../logger.js';
 
-export * from './util.js';
-export * from './job-management.js';
+export * from "./util.js";
+export * from "./job-management.js";
 
 /**
  * The database object.

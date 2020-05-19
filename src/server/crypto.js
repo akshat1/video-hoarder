@@ -3,7 +3,7 @@
  * @see https://www.npmjs.com/package/bcrypt
  * @module server/crypto
  */
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 /**
  * @private

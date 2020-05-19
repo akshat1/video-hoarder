@@ -2,8 +2,8 @@
  * @module model/Item
  */
 
-import { Status } from '../Status.js';
-import md5 from 'blueimp-md5';
+import { Status } from "../Status.js";
+import md5 from "blueimp-md5";
 
 /**
  * @typedef Item

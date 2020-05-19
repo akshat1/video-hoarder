@@ -9,35 +9,35 @@
  * @module client/components/InputForm
  */
 import React, { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
-import { Grid, Container, OutlinedInput, Button, InputAdornment, IconButton, FormControl, InputLabel, FormHelperText, } from '@material-ui/core';
-import { ClearOutlined } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/styles';
+import PropTypes from "prop-types";
+import { Grid, Container, OutlinedInput, Button, InputAdornment, IconButton, FormControl, InputLabel, FormHelperText, } from "@material-ui/core";
+import { ClearOutlined } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/styles";
 //  import * as Style from "./InputForm.less";
 
 const useStyle = makeStyles(theme => ({
   submitContainer: {
-    textAlign: 'center'
+    textAlign: "center"
   },
   submitButton: {
-    [theme.breakpoints.up('md')]: {
-      marginTop: '11px',
+    [theme.breakpoints.up("md")]: {
+      marginTop: "11px",
     },
-    [theme.breakpoints.down('xs')]: {
-      width: '100%'
+    [theme.breakpoints.down("xs")]: {
+      width: "100%"
     }
   }
 }));
 
-const InputPattern = '^(https?:\\/\\/.+)?$';
+const InputPattern = "^(https?:\\/\\/.+)?$";
 export const InputForm = ({ initialValue, onSubmit }) => {
   const classes = useStyle();
   const [url, setURL] = useState(initialValue);
   useEffect(() => setURL(initialValue), [initialValue]);
   const onChange = e => setURL(e.currentTarget.value);
-  const clearURL = () => setURL('');
+  const clearURL = () => setURL("");
   const isInvalid = !new RegExp(InputPattern).test(url);
-  const validationErrorMessage = isInvalid ? 'Invalid URL' : null;
+  const validationErrorMessage = isInvalid ? "Invalid URL" : null;
   const isSubmitDisabled = url ? isInvalid : true;
   console.log(`!!url? ${Boolean(url)} // url? ${url} // isInvalid? ${isInvalid} // isSubmitDisabled? ${isSubmitDisabled}`);
   const onFormSubmit = (e) => {
@@ -107,7 +107,7 @@ InputForm.propTypes = {
 };
 
 InputForm.defaultProps = {
-  initialValue: ''
+  initialValue: ""
 };
 
 export default InputForm;

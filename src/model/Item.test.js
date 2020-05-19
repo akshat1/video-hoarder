@@ -1,15 +1,15 @@
-import sinon from 'sinon';
-import assert from 'assert';
-import md5 from 'blueimp-md5';
-import { makeItem } from './Item';
-import { Status } from '../Status';
+import sinon from "sinon";
+import assert from "assert";
+import md5 from "blueimp-md5";
+import { makeItem } from "./Item";
+import { Status } from "../Status";
 
-describe('model/Item', () => {
-  test('makeItem', () => {
+describe("model/Item", () => {
+  test("makeItem", () => {
     const now = new Date();
     sinon.useFakeTimers(now.getTime());
-    const url = 'https://footube/dkjkdfjdk';
-    const addedBy = 'le-influencer';
+    const url = "https://footube/dkjkdfjdk";
+    const addedBy = "le-influencer";
     const item = makeItem({ url, addedBy });
     assert.deepEqual(item, {
       addedAt: now.toISOString(),

@@ -3,19 +3,19 @@
  *
  * @module client/components/LoginForm
  */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { doLogIn } from '../redux/actions-and-reducers';
-import { TextField, Button, Container, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import { getLoginError, isFetchingUser, isLoggedIn } from '../selectors';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { doLogIn } from "../redux/actions-and-reducers";
+import { TextField, Button, Container, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import { getLoginError, isFetchingUser, isLoggedIn } from "../selectors";
 
 const useStyles = makeStyles(theme => ({
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
 
   submit: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   form: {
-    width: '100%',
+    width: "100%",
   },
 
   loginError: {
@@ -55,13 +55,13 @@ export const LoginForm = (props) => {
     loginError,
   } = props;
 
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const onSubmit = e => {
     e.preventDefault();
     doLogin(userName, password);
-    setUserName('');
-    setPassword('');
+    setUserName("");
+    setPassword("");
   }
   const onUserNameChanged = e => setUserName(e.currentTarget.value);
   const onPasswordChanged = e => setPassword(e.currentTarget.value);
@@ -134,7 +134,7 @@ LoginForm.propTypes = {
 };
 
 LoginForm.defaultProps = {
-  className: '',
+  className: "",
 };
 
 const stateToProps = state => ({

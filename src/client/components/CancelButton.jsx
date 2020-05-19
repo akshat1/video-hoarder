@@ -2,12 +2,12 @@
  * Renders a cancel button which will cancel a download (the item prop) after showing a confirmation dialog.
  */
 import React, { Fragment, useState } from "react";
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { doCancelDownload } from '../redux/actions-and-reducers';
-import { Button } from '@material-ui/core';
-import DeleteConfirmationDialog from './DeleteConfirmationDialog.jsx';
-import { CancelOutlined } from '@material-ui/icons';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { doCancelDownload } from "../redux/actions-and-reducers";
+import { Button } from "@material-ui/core";
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog.jsx";
+import { CancelOutlined } from "@material-ui/icons";
 import { hasConcluded } from "../../Status";
 
 export const CancelButton = (props) => {

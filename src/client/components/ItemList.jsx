@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Item from './Item.jsx';
-import Style from './ItemList.less';
+import React from "react";
+import PropTypes from "prop-types";
+import Item from "./Item.jsx";
+import Style from "./ItemList.less";
 
 const ItemList = ({ items }) => (
   <div className={Style.wrapper}>

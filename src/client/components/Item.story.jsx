@@ -1,10 +1,10 @@
-import React from 'react';
-import Item from './Item.jsx';
-import { Status } from '../../Status';
-import { getFakeItem } from '../fixtures/item';
+import React from "react";
+import Item from "./Item.jsx";
+import { Status } from "../../Status";
+import { getFakeItem } from "../fixtures/item";
 
 export default {
-  title: 'Item',
+  title: "Item",
   component: Item,
 };
 

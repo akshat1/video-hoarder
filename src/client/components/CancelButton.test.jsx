@@ -1,12 +1,12 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { ThemeProvider } from '@material-ui/styles';
-import { getTheme } from '../theme';
-import { CancelButton } from './CancelButton.jsx';
-import { Status } from '../../Status';
-import { getFakeItem } from '../fixtures/item';
+import React from "react";
+import { shallow } from "enzyme";
+import { ThemeProvider } from "@material-ui/styles";
+import { getTheme } from "../theme";
+import { CancelButton } from "./CancelButton.jsx";
+import { Status } from "../../Status";
+import { getFakeItem } from "../fixtures/item";
 
-describe('components/CancelButton', () => {
+describe("components/CancelButton", () => {
   Object.values(Status).forEach((status) =>
     test(`CancelButton matches snapshot for ${status}`, () => {
       const instance =

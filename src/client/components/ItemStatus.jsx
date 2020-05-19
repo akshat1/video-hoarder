@@ -1,12 +1,12 @@
 /**
  * Renders an icon appropriate to the given item status.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
-import { CircularProgress, colors } from '@material-ui/core';
-import { CheckCircleOutline, ErrorOutline, WarningOutlined } from '@material-ui/icons';
-import { Status } from '../../Status';
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/styles";
+import { CircularProgress, colors } from "@material-ui/core";
+import { CheckCircleOutline, ErrorOutline, WarningOutlined } from "@material-ui/icons";
+import { Status } from "../../Status";
 
 const useStyle = makeStyles((theme) => {
   return {
@@ -22,7 +22,7 @@ const useStyle = makeStyles((theme) => {
     [Status.Succeeded]: {
       color: theme.palette.success.main
     },
-    'unknown': { color: theme.palette.info.main },
+    "unknown": { color: theme.palette.info.main },
   };
 });
 

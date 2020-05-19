@@ -1,10 +1,10 @@
-import Tingo from 'tingodb';
-import path from 'path';
-import { encrypt } from '../crypto.js';
-import { inPromiseCallback } from '../../util.js';
-import { getLogger } from '../../logger.js';
+import Tingo from "tingodb";
+import path from "path";
+import { encrypt } from "../crypto.js";
+import { inPromiseCallback } from "../../util.js";
+import { getLogger } from "../../logger.js";
 
-const rootLogger = getLogger('db');
+const rootLogger = getLogger("db");
 
 /** @typedef {string} CollectionName */
 
@@ -14,8 +14,8 @@ const rootLogger = getLogger('db');
  * @enum {CollectionName}
  */
 export const Collection = {
-  Users: 'users',
-  Jobs: 'jobs',
+  Users: "users",
+  Jobs: "jobs",
 };
 
 /**
@@ -204,22 +204,22 @@ export const getUsersCollection = () => getCollection(getDb(), Collection.Users)
  * @returns {Promise}
  */
 export const initialize = async () => {
-  const logger = getLogger('initialize', rootLogger);
-  if (!db || process.env.NODE_ENV === 'test') {
-    const dbLocation = path.resolve(process.cwd(), 'db-data');
+  const logger = getLogger("initialize", rootLogger);
+  if (!db || process.env.NODE_ENV === "test") {
+    const dbLocation = path.resolve(process.cwd(), "db-data");
     const tingo = Tingo();
     const Db = tingo.Db;
-    db = new Db(dbLocation, { name: 'video-hoarder-dev' });
+    db = new Db(dbLocation, { name: "video-hoarder-dev" });
   }
 
   const users = await getUsersCollection();
-  const admin = await findOne(users, { userName: 'admin' });
+  const admin = await findOne(users, { userName: "admin" });
   if (!admin) {
     // Create admin user with default password
-    logger.debug('Create new admin user');
-    const { salt, hash } = await encrypt('GottaHoardEmAll');
+    logger.debug("Create new admin user");
+    const { salt, hash } = await encrypt("GottaHoardEmAll");
     await insert(users, {
-      userName: 'admin',
+      userName: "admin",
       salt,
       password: hash,
     });

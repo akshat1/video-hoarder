@@ -13,7 +13,7 @@
  * @enum {Event}
  */
 export const Event = {
-  ItemAdded: 'ItemAdded',
-  ItemRemoved: 'ItemRemoved',
-  ItemUpdated: 'ItemUpdated',
+  ItemAdded: "ItemAdded",
+  ItemRemoved: "ItemRemoved",
+  ItemUpdated: "ItemUpdated",
 };

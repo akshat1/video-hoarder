@@ -1,5 +1,5 @@
 /** @module client/selectors */
-import _ from 'lodash';
+import _ from "lodash";
 
 /**
  * @function
@@ -34,7 +34,7 @@ export const isUserFetchDone = state => !!state.userFetchDone;
  * @param {module:client/redux.State} state
  * @returns {string}
  */
-export const getCurrentPath = state => _.get(state, 'router.location.pathname');
+export const getCurrentPath = state => _.get(state, "router.location.pathname");
 
 /**
  * @function

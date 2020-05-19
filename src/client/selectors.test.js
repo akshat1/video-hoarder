@@ -1,21 +1,21 @@
-import assert from 'assert';
-import * as Selectors from './selectors';
+import assert from "assert";
+import * as Selectors from "./selectors";
 
-describe('client/selectors', () => {
-  test('getUser should return store.user', () => {
-    const user = { foo: 'bar' };
+describe("client/selectors", () => {
+  test("getUser should return store.user", () => {
+    const user = { foo: "bar" };
     assert.strictEqual(Selectors.getUser({ user }), user);
   });
 
-  describe('isLoggedIn', () => {
+  describe("isLoggedIn", () => {
     const { isLoggedIn } = Selectors;
-    test('isLoggedIn returns true when the user is logged in', () => {
+    test("isLoggedIn returns true when the user is logged in", () => {
       assert.equal(isLoggedIn({
         user: { loggedIn: true },
       }), true);
     });
 
-    test('isLoggedIn returns false when the user is not logged in', () => {
+    test("isLoggedIn returns false when the user is not logged in", () => {
       assert.equal(isLoggedIn({
         user: { loggedIn: false }
       }), false);

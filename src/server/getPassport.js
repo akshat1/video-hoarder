@@ -1,16 +1,16 @@
 /**
  * @module server/getPassport
  */
-import _ from 'lodash';
-import passport from 'passport';
-import Strategy from 'passport-local';
-import Base64 from 'Base64';
-import { findOne, getUsersCollection } from './db/index.js';
-import { hash } from './crypto.js';
-import { getLogger } from '../logger.js';
+import _ from "lodash";
+import passport from "passport";
+import Strategy from "passport-local";
+import Base64 from "Base64";
+import { findOne, getUsersCollection } from "./db/index.js";
+import { hash } from "./crypto.js";
+import { getLogger } from "../logger.js";
 
-const rootLogger = getLogger('getPassport');
-export const MessageIncorrectLogin = 'Incorrect username or password.';
+const rootLogger = getLogger("getPassport");
+export const MessageIncorrectLogin = "Incorrect username or password.";
 
 /**
  * Takes a user as returned from the database and sets the loggedIn flag while removing the password and salt fields.
@@ -20,7 +20,7 @@ export const MessageIncorrectLogin = 'Incorrect username or password.';
  * @returns {User}
  */
 export const getReturnableUser = user => ({
-  ..._.pick(user, 'userName'),
+  ..._.pick(user, "userName"),
   loggedIn: true,
 })
 
@@ -35,18 +35,18 @@ export const getReturnableUser = user => ({
  * @returns {Promise}
  */
 export const verifyUser = async (userName, password, cb) => {
-  const logger = getLogger('verifyUser', rootLogger);
+  const logger = getLogger("verifyUser", rootLogger);
   try {
-    logger.debug('verifyUser called', userName, '*********');
+    logger.debug("verifyUser called", userName, "*********");
     const users = await getUsersCollection();
-    logger.debug('Got users collection');
+    logger.debug("Got users collection");
     const user = await findOne(users, { userName });
-    logger.debug('Done finding user');
+    logger.debug("Done finding user");
     if (user && (await hash(password, user.salt)) === user.password) {
-      logger.debug('Calling cb');
+      logger.debug("Calling cb");
       cb(null, getReturnableUser(user));
     } else {
-      logger.debug('Indicate login-error.');
+      logger.debug("Indicate login-error.");
       cb(null, false, { message: MessageIncorrectLogin });
     }
   } catch (err) {
@@ -64,7 +64,7 @@ export const verifyUser = async (userName, password, cb) => {
  * @param {Function} cb
  */
 export const serializeUser = (user, cb) => {
-  rootLogger.debug('serialize user')
+  rootLogger.debug("serialize user")
   cb(null, Base64.btoa(user.userName));
 }
 
@@ -78,7 +78,7 @@ export const serializeUser = (user, cb) => {
  * @returns {Promise}
  */
 export const deserializeUser = async (id, cb) => {
-  const logger = getLogger('deserializeUser', rootLogger);
+  const logger = getLogger("deserializeUser", rootLogger);
   logger.debug(id);
   try {
     const userName = Base64.atob(id);
@@ -88,7 +88,7 @@ export const deserializeUser = async (id, cb) => {
     logger.debug(user);
     cb(null, getReturnableUser(user));
   } catch (err) {
-    logger.debug('error trying to deserialize user.', err);
+    logger.debug("error trying to deserialize user.", err);
     cb(err);
   }
 }
@@ -98,11 +98,11 @@ export const deserializeUser = async (id, cb) => {
  * @returns {Object} - passport.js instance.
  */
 export const getPassport = () => {
-  const logger = getLogger('getPassport', rootLogger);
-  logger.debug('Create passport instance');
+  const logger = getLogger("getPassport", rootLogger);
+  logger.debug("Create passport instance");
   const localStrategy = new Strategy({
-    usernameField: 'username',
-    passwordField: 'password',
+    usernameField: "username",
+    passwordField: "password",
   }, verifyUser);
   passport.use(localStrategy);
   passport.serializeUser(serializeUser);

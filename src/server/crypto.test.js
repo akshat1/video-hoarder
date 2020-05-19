@@ -1,8 +1,8 @@
-import assert from 'assert';
-import bcrypt from 'bcrypt';
-import { genSalt, hash, encrypt, DefaultNumberOfSaltRounds } from './crypto';
+import assert from "assert";
+import bcrypt from "bcrypt";
+import { genSalt, hash, encrypt, DefaultNumberOfSaltRounds } from "./crypto";
 
-jest.mock('bcrypt', () => ({
+jest.mock("bcrypt", () => ({
   __esModule: true,
   default: {
     genSalt: jest.fn(),
@@ -10,37 +10,37 @@ jest.mock('bcrypt', () => ({
   },
 }));
 
-describe('server/crypto', () => {
-  test('genSalt', async () => {
-    bcrypt.genSalt.mockResolvedValue('expectedSalt');
+describe("server/crypto", () => {
+  test("genSalt", async () => {
+    bcrypt.genSalt.mockResolvedValue("expectedSalt");
     let actualSalt = await genSalt();
-    assert.equal(actualSalt, 'expectedSalt');
+    assert.equal(actualSalt, "expectedSalt");
     expect(bcrypt.genSalt).toHaveBeenCalledWith(DefaultNumberOfSaltRounds);
 
     actualSalt = await genSalt(22);
-    assert.equal(actualSalt, 'expectedSalt');
+    assert.equal(actualSalt, "expectedSalt");
     expect(bcrypt.genSalt).toHaveBeenCalledWith(22);
   });
 
-  test('hash', async () => {
-    bcrypt.hash.mockResolvedValue('crispy');
-    let actualHash = await hash('foo', 'bar');
-    assert.equal(actualHash, 'crispy');
-    expect(bcrypt.hash).toHaveBeenCalledWith('foo', 'bar');
+  test("hash", async () => {
+    bcrypt.hash.mockResolvedValue("crispy");
+    let actualHash = await hash("foo", "bar");
+    assert.equal(actualHash, "crispy");
+    expect(bcrypt.hash).toHaveBeenCalledWith("foo", "bar");
   });
 
-  test('encrypt', async () => {
-    bcrypt.genSalt.mockResolvedValue('expectedSalt');
-    bcrypt.hash.mockResolvedValue('crispy');
-    const result = await encrypt('foo', 22);
+  test("encrypt", async () => {
+    bcrypt.genSalt.mockResolvedValue("expectedSalt");
+    bcrypt.hash.mockResolvedValue("crispy");
+    const result = await encrypt("foo", 22);
     assert.deepEqual(result, {
-      salt: 'expectedSalt',
-      hash: 'crispy',
+      salt: "expectedSalt",
+      hash: "crispy",
     });
-    expect(bcrypt.hash).toHaveBeenCalledWith('foo', 'expectedSalt');
+    expect(bcrypt.hash).toHaveBeenCalledWith("foo", "expectedSalt");
     expect(bcrypt.genSalt).toHaveBeenCalledWith(22);
 
-    await encrypt('foo');
+    await encrypt("foo");
     expect(bcrypt.genSalt).toHaveBeenCalledWith(DefaultNumberOfSaltRounds);
   });
 });

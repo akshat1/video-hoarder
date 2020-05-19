@@ -1,13 +1,13 @@
 /**
  * Renders the application toolbar.
  */
-import React, { useState } from 'react';
-import { Menu as MenuIcon, ExitToApp, AccountCircle, Settings } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/styles';
-import { doLogOut } from '../redux/actions-and-reducers';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { isLoggedIn, getUserName } from '../selectors';
+import React, { useState } from "react";
+import { Menu as MenuIcon, ExitToApp, AccountCircle, Settings } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/styles";
+import { doLogOut } from "../redux/actions-and-reducers";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { isLoggedIn, getUserName } from "../selectors";
 import {
   Box,
   AppBar,
@@ -23,7 +23,7 @@ import {
   MenuItem,
   Toolbar as MuiToolbar,
   Typography,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => {
       color: theme.palette.primary.contrastText,
     },
     appMenu: {
-      minWidth: '15vw',
+      minWidth: "15vw",
     },
   };
 });
@@ -88,7 +88,7 @@ export const Toolbar = (props) => {
           </Drawer>
         </If>
         <div className={classes.title} >
-          <Box display={{xs: 'none', sm: 'inline-block'}}>
+          <Box display={{xs: "none", sm: "inline-block"}}>
             <Typography variant="h6">
               Video Hoarder
             </Typography>

@@ -1,11 +1,11 @@
-import { getLogger } from '../../logger.js';
-import { insert, findOne, update, remove, find, getJobsCollection } from './util.js';
-import { Status } from '../../Status.js';
-import { makeItem } from '../../model/Item.js';
-import { emit } from '../event-bus.js';
-import { Event } from '../../Event.js';
+import { getLogger } from "../../logger.js";
+import { insert, findOne, update, remove, find, getJobsCollection } from "./util.js";
+import { Status } from "../../Status.js";
+import { makeItem } from "../../model/Item.js";
+import { emit } from "../event-bus.js";
+import { Event } from "../../Event.js";
 
-const rootLogger = getLogger('job-management');
+const rootLogger = getLogger("job-management");
 
 /**
  * This will emit 'ItemAdded' event.
@@ -45,7 +45,7 @@ export const getJob = async (id) => {
  * @returns {Promise<Item>}
  */
 export const cancelJob = async ({ id, updatedBy }) => {
-  const logger = getLogger('cancelJob', rootLogger);
+  const logger = getLogger("cancelJob", rootLogger);
   const item = await getJob(id);
   /* istanbul ignore else */
   if (item) {
@@ -59,7 +59,7 @@ export const cancelJob = async ({ id, updatedBy }) => {
       emit(Event.ItemUpdated, item);
       return item;
     } else {
-      logger.error('Something went wrong in the update', {
+      logger.error("Something went wrong in the update", {
         numUpdatedRecords,
         opStatus,
       });
@@ -78,7 +78,7 @@ export const cancelJob = async ({ id, updatedBy }) => {
  * @returns {Promise}
  */
 export const removeJob = async (id) => {
-  const logger = getLogger('removeJob', rootLogger);
+  const logger = getLogger("removeJob", rootLogger);
   const item = await getJob(id);
   /* istanbul ignore else */
   if (item) {
@@ -86,7 +86,7 @@ export const removeJob = async (id) => {
     const numRecordsRemoved = await remove(jobs, { id });
     /* istanbul ignore if */
     if (numRecordsRemoved !== 1) {
-      logger.error('Something went wrong in remove()', {
+      logger.error("Something went wrong in remove()", {
         numUpdatedRecords: numRecordsRemoved,
       });
     }

@@ -2,13 +2,13 @@
  * Renders a deletion confirmation dialog.
  */
 import React from "react";
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
-import { Button, Dialog, DialogTitle } from '@material-ui/core';
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/styles";
+import { Button, Dialog, DialogTitle } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: theme.spacing(5),
   },
   yesButton: {

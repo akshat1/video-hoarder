@@ -1,19 +1,19 @@
-import { getDb, insert, update, findOne, remove, find, getJobsCollection } from './util.js';
-import { addJob, cancelJob, removeJob, getJob, getJobsForUser } from './job-management';
-import { makeItem } from '../../model/Item.js';
-import { Status } from '../../Status.js';
-import { emit } from '../event-bus';
-import assert from 'assert';
-import sinon from 'sinon';
-import { Event } from '../../Event.js';
+import { getDb, insert, update, findOne, remove, find, getJobsCollection } from "./util.js";
+import { addJob, cancelJob, removeJob, getJob, getJobsForUser } from "./job-management";
+import { makeItem } from "../../model/Item.js";
+import { Status } from "../../Status.js";
+import { emit } from "../event-bus";
+import assert from "assert";
+import sinon from "sinon";
+import { Event } from "../../Event.js";
 
-jest.mock('./util');
-jest.mock('../../model/Item.js');
-jest.mock('../event-bus');
+jest.mock("./util");
+jest.mock("../../model/Item.js");
+jest.mock("../event-bus");
 
-describe('db/job-management', () => {
-  const db = { d: 'b' };
-  const jobsCollection = {  col: 'lection' };
+describe("db/job-management", () => {
+  const db = { d: "b" };
+  const jobsCollection = {  col: "lection" };
 
   beforeEach(() => {
     getDb.mockReset();
@@ -23,12 +23,12 @@ describe('db/job-management', () => {
     emit.mockReset();
   });
 
-  test('addJob', async () => {
-    const url = 'bar';
-    const job = { jo: 'b' };
-    const addedBy = 'foo';
+  test("addJob", async () => {
+    const url = "bar";
+    const job = { jo: "b" };
+    const addedBy = "foo";
     makeItem.mockReturnValue(job);
-    const expectedResult = { expected: 'result' };
+    const expectedResult = { expected: "result" };
     insert.mockResolvedValue(expectedResult);
     const result = await addJob({ url, addedBy });
     expect(result).toBe(expectedResult);
@@ -36,14 +36,14 @@ describe('db/job-management', () => {
     expect(emit).toHaveBeenCalledWith(Event.ItemAdded, result);
   });
 
-  test('cancelJob', async () => {
-    const id = 'some-item-id';
+  test("cancelJob", async () => {
+    const id = "some-item-id";
     const item = { id: id };
     update.mockResolvedValue([1]);
     findOne.mockResolvedValue(item);
-    const expectedTime = 'foo';
-    const updatedBy = 'bar';
-    sinon.stub(Date.prototype, 'toISOString').returns(expectedTime);
+    const expectedTime = "foo";
+    const updatedBy = "bar";
+    sinon.stub(Date.prototype, "toISOString").returns(expectedTime);
     const expectedItem = {
       ...item,
       status: Status.Failed,
@@ -61,8 +61,8 @@ describe('db/job-management', () => {
     sinon.restore();
   });
 
-  test('removeJob', async () => {
-    const id = 'some-item-id';
+  test("removeJob", async () => {
+    const id = "some-item-id";
     const item = { id: id };
     remove.mockResolvedValue(1);
     findOne.mockResolvedValue(item);
@@ -72,19 +72,19 @@ describe('db/job-management', () => {
     expect(emit).toHaveBeenCalledWith(Event.ItemRemoved, item);
   });
 
-  test('getJob', async () => {
-    const id = 'baz';
-    const expectedItem = { foo: 'bar' };
+  test("getJob", async () => {
+    const id = "baz";
+    const expectedItem = { foo: "bar" };
     findOne.mockResolvedValue(expectedItem);
     const item = await getJob(id);
     expect(item).toBe(expectedItem);
     expect(findOne).toHaveBeenCalledWith(jobsCollection, { id });
   });
 
-  test('getJobsForUser', async () => {
-    const expectedItems = [ { a: 'aye' }, { b: 'bee '}];
+  test("getJobsForUser", async () => {
+    const expectedItems = [ { a: "aye" }, { b: "bee "}];
     find.mockResolvedValue(expectedItems);
-    const userName = 'foo';
+    const userName = "foo";
     const items = await getJobsForUser(userName);
     expect(items).toBe(expectedItems);
     expect(find).toHaveBeenCalledWith(jobsCollection, { addedBy: userName });
