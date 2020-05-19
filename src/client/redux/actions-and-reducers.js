@@ -3,10 +3,10 @@
  * @module client/redux/actions-and-reducers
  */
 import { makeActionF, makeReducer } from './boilerplate';
-import { connectRouter, push } from 'connected-react-router'
+import { connectRouter, push, getLocation } from 'connected-react-router'
 import { combineReducers } from 'redux';
 import { getLogger } from '../../logger';
-import { getCurrentPath, isFetchingUser, isUserFetchDone, isLoggedIn } from '../selectors';
+import { getCurrentPath, isFetchingUser, isUserFetchDone, isLoggedIn, getUser } from '../selectors';
 import { reconnect, disconnect } from '../socketio';
 
 const rootLogger = getLogger('actions-and-reducers');
@@ -62,7 +62,6 @@ export const fetchJobs = () =>
           ...FetchOpts,
           method: 'get',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({}),
         },
       );
       const { data: jobs } = response.json();
@@ -113,7 +112,7 @@ export const doLogIn = (username, password) =>
       form.append('password', password);
       logger.debug(form)
       const response = await fetch(
-        '/login',
+        '/api/user/login',
         {
           ...FetchOpts,
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -134,9 +133,9 @@ export const doLogIn = (username, password) =>
       const user = await response.json();
       dispatch(setLoginError(null));
       dispatch(setUser(user));
-      // location.href = '/';
-      dispatch(push('/'));
-      reconnect();
+      location.href = '/';
+      // dispatch(push('/'));
+      // reconnect();
      } catch(err) {
        logger.error(err);
      }
@@ -153,7 +152,13 @@ export const fetchUser = () =>
     const logger = getLogger('fetchUser');
     try {
       dispatch(setFetchingUser(true));
-      const response = await fetch('/getProfile', {...FetchOpts });
+      const response = await fetch(
+        '/api/user/me',
+        {
+          ...FetchOpts,
+          method: 'GET'
+        }
+      );
       if (!response.ok) {
         throw new Error('Error occurred');
       }
@@ -175,10 +180,37 @@ export const fetchUser = () =>
  */
 export const doLogOut = () =>
   async dispatch => {
-    await fetch('/logout', FetchOpts);
+    await fetch('/api/user/logout', FetchOpts);
     disconnect();
     dispatch(setUser({}));
     dispatch(push('/login'));
+  };
+
+const initLoginPage = () =>
+  (dispatch, getState) => {
+    const logger = getLogger('initLoginPage', rootLogger);
+    logger.debug('initLoginPage');
+    if (isLoggedIn(getState())) {
+      logger.debug('User is logged-in, redirect to /');
+      dispatch(push('/'));
+      return;
+    }
+    logger.debug('not logged-in. do nothing.');
+  };
+
+const initNonLoginPage = () =>
+  async (dispatch, getState) => {
+    const logger = getLogger('initializeClient', rootLogger);
+    logger.debug('initNonLoginPage');
+    if (isLoggedIn(getState())) {
+      logger.debug('we are logged in. time to fetch other data.');
+      dispatch(fetchJobs());
+      return;
+    } else {
+      logger.debug('We are not logged-in and we are not on the login page. Redirect to /login');
+      dispatch(push('/login'));
+      return;
+    }
   };
 
 /**
@@ -190,33 +222,18 @@ export const doLogOut = () =>
 export const initializeClient = () =>
   async (dispatch, getState) => {
     const logger = getLogger('initializeClient', rootLogger);
-    logger.debug('begin');
     const state = getState();
-    if (isFetchingUser(state)) {
-      logger.debug('Still fetching user. Bail.');
-      return;
+    logger.debug('begin', state);
+    if (!isUserFetchDone(state)) {
+      logger.debug('Fetch user');
+      await dispatch(fetchUser());
+      logger.debug('Done fetching user');
     }
 
-    if (isUserFetchDone(state)) {
-      const loggedIn = isLoggedIn(getState());
-      const onLoginScreen = getCurrentPath(getState()) === '/login';
-      logger.debug('We have already fetched a user.', { loggedIn, onLoginScreen });
-      if (loggedIn && onLoginScreen) {
-        logger.debug('User is logged-in and on /login. Redirect to /.');
-        dispatch(push('/'));
-      } else if(!loggedIn && !onLoginScreen) {
-        logger.debug('User is not logged-in and not on the login page. Redirect to /login.');
-        dispatch(push('/login'));
-      }
+    if (getLocation(state) === '/login') {
+      await dispatch(initLoginPage());
     } else {
-      logger.debug("We have't fetched a user yet. Fetch it now.");
-      try {
-        await dispatch(fetchUser());
-      } catch (err) {
-        logger.error('Error in fetchUser; eating it.');
-      }
-      logger.debug('fetchUser() done.');
-      // State has now been updated
+      await dispatch(initNonLoginPage());
     }
   };
 

@@ -78,13 +78,17 @@ export const serializeUser = (user, cb) => {
  * @returns {Promise}
  */
 export const deserializeUser = async (id, cb) => {
-  rootLogger.debug(`deserializeUser: ${id}`);
+  const logger = getLogger('deserializeUser', rootLogger);
+  logger.debug(id);
   try {
     const userName = Base64.atob(id);
+    logger.debug(userName);
     const users = await getUsersCollection();
     const user = await findOne(users, { userName });
+    logger.debug(user);
     cb(null, getReturnableUser(user));
   } catch (err) {
+    logger.debug('error trying to deserialize user.', err);
     cb(err);
   }
 }
@@ -94,6 +98,8 @@ export const deserializeUser = async (id, cb) => {
  * @returns {Object} - passport.js instance.
  */
 export const getPassport = () => {
+  const logger = getLogger('getPassport', rootLogger);
+  logger.debug('Create passport instance');
   const localStrategy = new Strategy({
     usernameField: 'username',
     passwordField: 'password',

@@ -27,35 +27,9 @@ const rootLogger = getLogger('server');
  * @param {boolean} startDevServer
  */
 export const startServer = async (startDevServer) => {
-  const secret = 'dogs for me please';
   const logger = getLogger('startServer', rootLogger);
   await initializeDB();
   const app = express();
-  app.use(bodyParser.urlencoded({ extended: true }));
-
-  // Auth
-  const sessionStore = new (MemoryStore(expressSession))({ checkPeriod: 24 * 60 * 60 * 10000 });
-  app.use(cookieParser(secret));
-  app.use(expressSession({
-    cookie: { maxAge: 24 * 60 * 60 * 10000 },
-    secret,
-    store: sessionStore,
-  }));
-  const passport = getPassport();
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.post('/getProfile', (req, res) => {
-    if (req.isAuthenticated()) {
-      res.json(req.user);
-    } else {
-      res.status(401).send('Not logged in');
-    }
-  });
-
-  app.post('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
-  });
 
   if (startDevServer) {
     const webpack = (await import('webpack')).default;
@@ -71,18 +45,35 @@ export const startServer = async (startDevServer) => {
     app.use(express.static('./dist'));
   }
 
-  const serveIndex = (req, res) =>
+  const serveIndex = (req, res) => {
+    logger.debug('serveIndex...');
     res.sendFile(
       path.resolve(process.cwd(), './dist/index.html'),
       err => err && res.status(500).send(err)
     );
-  app.get('/*', serveIndex);
+  }
 
-  app.post('/login', passport.authenticate('local'), (req, res) => {
-    res.json(req.user);
-  });
+  // Other middlewares can create problems with session middleware. So, we place session middleware at the end
+  // See https://www.airpair.com/express/posts/expressjs-and-passportjs-sessions-deep-dive for some great info
+  const secret = 'dogs for me please';
+  const SessionDuration = 24 * 60 * 60 * 1000;
+  const sessionStore = new (MemoryStore(expressSession))({ checkPeriod: SessionDuration });
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(cookieParser(secret));
+  app.use(expressSession({
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: SessionDuration },
+    secret,
+    store: sessionStore,
+  }));
+  const passport = getPassport();
+  app.use(passport.initialize());
+  app.use(passport.session());
 
-  app.use('/api', getAPI);
+  app.get('/', serveIndex);
+  app.get('/login', serveIndex);
+  app.use('/api', getAPI(passport));
 
   // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
   /* istanbul ignore next */

@@ -26,7 +26,6 @@ import {
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => {
-  console.log(theme);
   return {
     appBar: {
       margin: 0,

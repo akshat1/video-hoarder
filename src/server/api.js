@@ -3,11 +3,17 @@ import { emit } from './event-bus.js';
 import { Event } from '../Event.js';
 import { getLogger } from '../logger.js';
 import express from 'express';
-import connectEnsureLogin from 'connect-ensure-login';
 
-const { ensureLoggedIn } = connectEnsureLogin;
 const rootLogger = getLogger('api');
 const { Router } = express;
+
+const ensureLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.status(401).send('NOT AUTHORIZED');
+}
 
 /**
  * @func
@@ -82,8 +88,31 @@ export const addJob = async (req, res, next) => {
   }
 };
 
-export const getRouter = () => {
-  const router = new Router();
-  router.get('/jobs', ensureLoggedIn(), getJobs);
-  router.post('/job/add', ensureLoggedIn(), addJob);
+export const getProfile = (req, res) => {
+  const logger = getLogger('getProfile', rootLogger);
+  logger.debug('getProfile', req.user, req.isAuthenticated());
+  res.json(req.user);
 };
+
+export const logout = (req, res) => {
+  const logger = getLogger('logout', rootLogger);
+  logger.debug('logout');
+  req.logout();
+  res.status(200).send('OK');
+};
+
+export const login = (req, res) => {
+  const logger = getLogger('login', rootLogger);
+  logger.debug('login');
+  res.json(req.user);
+};
+
+export const getRouter = (passport) => {
+  const router = new Router();
+  router.get('/jobs', ensureLoggedIn, getJobs);
+  router.post('/job/add', ensureLoggedIn, addJob);
+  router.get('/user/me', ensureLoggedIn, getProfile);
+  router.post('/user/logout', logout);
+  router.post('/user/login', passport.authenticate('local'), login);
+  return router;
+}
