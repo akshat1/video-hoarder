@@ -1,19 +1,19 @@
 /* @todo: support both http and https; make https optional */
 /* @todo: base URL ()for working behing reverse proxy */
 /** @module server */
-import http from "https";
-import express from "express";
-import fs from "fs";
-import path from "path";
-import bodyParser from "body-parser";
-import expressSession from "express-session";
-import { getPassport } from "./getPassport.js";
-import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
 import { getLogger } from "../logger.js";
-import { bootstrapApp } from "./socketio.js";
 import { getRouter as getAPI } from "./api.js";
-import MemoryStore from "memorystore";
+import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
+import { getPassport } from "./getPassport.js";
+import { bootstrapApp } from "./socketio.js";
+import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import express from "express";
+import expressSession from "express-session";
+import fs from "fs";
+import http from "https";
+import MemoryStore from "memorystore";
+import path from "path";
 
 const rootLogger = getLogger("server");
 

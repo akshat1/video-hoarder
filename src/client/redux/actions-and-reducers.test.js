@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import { getRootReducer,setUser,  } from "./actions-and-reducers";
 import assert from "assert";
-import { setUser, getRootReducer, } from "./actions-and-reducers";
 import { createBrowserHistory } from "history";
 
 describe("actions", () => {

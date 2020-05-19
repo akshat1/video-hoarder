@@ -1,10 +1,10 @@
-import React from "react";
-import { shallow } from "enzyme";
-import { ThemeProvider } from "@material-ui/styles";
-import { getTheme } from "../theme";
-import { CancelButton } from "./CancelButton.jsx";
 import { Status } from "../../Status";
 import { getFakeItem } from "../fixtures/item";
+import { getTheme } from "../theme";
+import { CancelButton } from "./CancelButton.jsx";
+import { ThemeProvider } from "@material-ui/styles";
+import { shallow } from "enzyme";
+import React from "react";
 
 describe("components/CancelButton", () => {
   Object.values(Status).forEach((status) =>

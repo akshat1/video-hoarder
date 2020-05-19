@@ -1,11 +1,11 @@
-import { getDb, insert, update, findOne, remove, find, getJobsCollection } from "./util.js";
-import { addJob, cancelJob, removeJob, getJob, getJobsForUser } from "./job-management";
+import { Event } from "../../Event.js";
 import { makeItem } from "../../model/Item.js";
 import { Status } from "../../Status.js";
 import { emit } from "../event-bus";
+import { addJob, cancelJob, getJob, getJobsForUser,removeJob } from "./job-management";
+import { find, findOne, getDb, getJobsCollection,insert, remove, update } from "./util.js";
 import assert from "assert";
 import sinon from "sinon";
-import { Event } from "../../Event.js";
 
 jest.mock("./util");
 jest.mock("../../model/Item.js");

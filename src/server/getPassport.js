@@ -1,13 +1,13 @@
 /**
  * @module server/getPassport
  */
+import { getLogger } from "../logger.js";
+import { hash } from "./crypto.js";
+import { findOne, getUsersCollection } from "./db/index.js";
+import Base64 from "Base64";
 import _ from "lodash";
 import passport from "passport";
 import Strategy from "passport-local";
-import Base64 from "Base64";
-import { findOne, getUsersCollection } from "./db/index.js";
-import { hash } from "./crypto.js";
-import { getLogger } from "../logger.js";
 
 const rootLogger = getLogger("getPassport");
 export const MessageIncorrectLogin = "Incorrect username or password.";

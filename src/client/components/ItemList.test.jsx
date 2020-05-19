@@ -1,8 +1,8 @@
-import React from "react";
-import { shallow } from "enzyme";
-import ItemList from "./ItemList.jsx";
 import { Status } from "../../Status";
 import { getFakeItem } from "../fixtures/item";
+import ItemList from "./ItemList.jsx";
+import { shallow } from "enzyme";
+import React from "react";
 
 describe("components/ItemList", () => {
   test("ItemList should match snapshot", () => {

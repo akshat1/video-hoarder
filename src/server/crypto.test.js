@@ -1,6 +1,6 @@
+import { DefaultNumberOfSaltRounds,encrypt, genSalt, hash } from "./crypto";
 import assert from "assert";
 import bcrypt from "bcrypt";
-import { genSalt, hash, encrypt, DefaultNumberOfSaltRounds } from "./crypto";
 
 jest.mock("bcrypt", () => ({
   __esModule: true,

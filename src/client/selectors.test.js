@@ -1,5 +1,5 @@
-import assert from "assert";
 import * as Selectors from "./selectors";
+import assert from "assert";
 
 describe("client/selectors", () => {
   test("getUser should return store.user", () => {

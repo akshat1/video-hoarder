@@ -2,11 +2,11 @@
  * This component renders a drop-down on mobile, or a button group on desktop, letting the user
  * pick one of the item statuses.
  */
-import React from "react";
-import PropTypes from "prop-types";
 import { Status } from "../../Status";
 import ButtonGrid from "./ButtonGrid.jsx";
 import Style from "./ItemFilter.less";
+import PropTypes from "prop-types";
+import React from "react";
 
 const ItemFilter = ({ value, onChange }) => {
   const options = Object.values(Status).sort().map(status => ({

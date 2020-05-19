@@ -1,11 +1,11 @@
 /**
  * @module client/redux
  */
+import { getHistory } from "../history";
+import { getRootReducer,setUser } from "./actions-and-reducers";
+import { routerMiddleware } from "connected-react-router"
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
-import { routerMiddleware } from "connected-react-router"
-import { setUser, getRootReducer } from "./actions-and-reducers";
-import { getHistory } from "../history";
 export { setUser };
 
 let store;

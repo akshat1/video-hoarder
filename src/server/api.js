@@ -1,7 +1,7 @@
-import * as db from "./db/index.js";
-import { emit } from "./event-bus.js";
 import { Event } from "../Event.js";
 import { getLogger } from "../logger.js";
+import * as db from "./db/index.js";
+import { emit } from "./event-bus.js";
 import express from "express";
 
 const rootLogger = getLogger("api");

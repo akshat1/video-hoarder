@@ -2,13 +2,13 @@
  * Renders a single download-task, and displays metadata and status of the same.
  * Also provides controls to abort the download.
  */
-import React from "react";
-import PropTypes from "prop-types";
-import { Card, CardContent, CardMedia, Grid, CardHeader, Typography, Link } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import ItemStatus from "./ItemStatus.jsx";
 import { hasStarted, Status } from "../../Status.js";
 import CancelButton from "./CancelButton.jsx";
+import ItemStatus from "./ItemStatus.jsx";
+import { Card, CardContent, CardHeader, CardMedia, Grid, Link,Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
+import React from "react";
 
 const useStyle = makeStyles(theme => ({
   root: {},

@@ -1,6 +1,6 @@
+import { emit, getSubscribersMap,once, subscribe, unsubscribe } from "./event-bus.js";
 import assert from "assert";
 import sinon from "sinon";
-import { subscribe, unsubscribe, emit, once, getSubscribersMap } from "./event-bus.js";
 
 describe("event-bus", () => {
   test("subscribe", () => {

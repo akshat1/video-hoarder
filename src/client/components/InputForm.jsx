@@ -8,11 +8,11 @@
  *
  * @module client/components/InputForm
  */
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { Grid, Container, OutlinedInput, Button, InputAdornment, IconButton, FormControl, InputLabel, FormHelperText, } from "@material-ui/core";
+import { Button, Container, FormControl, FormHelperText,Grid, IconButton, InputAdornment, InputLabel, OutlinedInput,  } from "@material-ui/core";
 import { ClearOutlined } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
+import React, { useEffect,useState } from "react";
 //  import * as Style from "./InputForm.less";
 
 const useStyle = makeStyles(theme => ({

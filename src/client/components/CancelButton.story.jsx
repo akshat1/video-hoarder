@@ -1,8 +1,8 @@
-import React from "react";
-import { action } from "@storybook/addon-actions";
-import { CancelButton } from "./CancelButton.jsx";
 import { Status } from "../../Status";
 import { getFakeItem } from "../fixtures/item";
+import { CancelButton } from "./CancelButton.jsx";
+import { action } from "@storybook/addon-actions";
+import React from "react";
 
 export default {
   title: "CancelButton",

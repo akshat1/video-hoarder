@@ -1,7 +1,7 @@
-import React from "react";
-import ItemList from "./ItemList.jsx";
 import { Status } from "../../Status";
 import { getFakeItem} from "../fixtures/item";
+import ItemList from "./ItemList.jsx";
+import React from "react";
 
 const items = [
   getFakeItem(Status.Succeeded),

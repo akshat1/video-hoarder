@@ -1,10 +1,10 @@
-import _ from "lodash";
-import SocketIO from "socket.io";
-import { subscribe } from "./event-bus.js";
 import { Event } from "../Event.js";
 import { getLogger } from "../logger.js"
+import { subscribe } from "./event-bus.js";
 import cookieParser from "cookie-parser";
+import _ from "lodash";
 import passportSocketIO from "passport.socketio";
+import SocketIO from "socket.io";
 
 const rootLogger = getLogger("socketio");
 

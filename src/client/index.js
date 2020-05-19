@@ -1,9 +1,9 @@
+import App from "./App.jsx";
+import { getStore } from "./redux";
+import { bootstrapClient } from "./socketio";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { getStore } from "./redux";
-import App from "./App.jsx";
-import { bootstrapClient } from "./socketio";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const root = document.getElementById("AppRoot");

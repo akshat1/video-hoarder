@@ -3,13 +3,13 @@
  *
  * @module client/components/LoginForm
  */
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { doLogIn } from "../redux/actions-and-reducers";
-import { TextField, Button, Container, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import { getLoginError, isFetchingUser, isLoggedIn } from "../selectors";
+import { Button, Container, TextField, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   container: {

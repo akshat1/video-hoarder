@@ -1,16 +1,11 @@
 /**
  * Renders the application toolbar.
  */
-import React, { useState } from "react";
-import { Menu as MenuIcon, ExitToApp, AccountCircle, Settings } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/styles";
 import { doLogOut } from "../redux/actions-and-reducers";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { isLoggedIn, getUserName } from "../selectors";
+import { getUserName,isLoggedIn } from "../selectors";
 import {
-  Box,
   AppBar,
+  Box,
   Button,
   Drawer,
   Fade,
@@ -24,6 +19,11 @@ import {
   Toolbar as MuiToolbar,
   Typography,
 } from "@material-ui/core";
+import { AccountCircle, ExitToApp, Menu as MenuIcon, Settings } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
   return {

@@ -1,7 +1,7 @@
-import React from "react";
-import { action } from "@storybook/addon-actions";
-import { withKnobs, text } from "@storybook/addon-knobs";
 import InputForm from "./InputForm.jsx";
+import { action } from "@storybook/addon-actions";
+import { text,withKnobs } from "@storybook/addon-knobs";
+import React from "react";
 
 export default {
   title: "InputForm",

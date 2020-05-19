@@ -2,12 +2,12 @@
  * Actions and reducers. Together at last (we'll split them if required down the road).
  * @module client/redux/actions-and-reducers
  */
+import { getLogger } from "../../logger";
+import { getCurrentPath,isLoggedIn, isUserFetchDone,  } from "../selectors";
+import { disconnect } from "../socketio";
 import { makeActionF, makeReducer } from "./boilerplate";
 import { connectRouter, push } from "connected-react-router"
 import { combineReducers } from "redux";
-import { getLogger } from "../../logger";
-import { isUserFetchDone, isLoggedIn, getCurrentPath, } from "../selectors";
-import { disconnect } from "../socketio";
 
 const rootLogger = getLogger("actions-and-reducers");
 

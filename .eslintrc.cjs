@@ -12,6 +12,7 @@ module.exports = {
     "jsx-control-statements",
     "jest",
     "import",
+    "simple-import-sort",
   ],
   extends: [
     "eslint:recommended",
@@ -32,7 +33,7 @@ module.exports = {
     }
   },
   rules: {
-    "quotes": ["error", "double"],  // because it's silly twisting ourselves into knots whenever we need to use an apostrophe (yes fine a single quote).
+    quotes: ["error", "double"],  // because it's silly twisting ourselves into knots whenever we need to use an apostrophe (yes fine a single quote).
     "react/jsx-no-undef": [2, { allowGlobals: true }],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
@@ -43,6 +44,7 @@ module.exports = {
     "import/named": "error",
     "import/default": "error",
     "import/no-absolute-path": "error",
+    "simple-import-sort/sort": ["error", { groups: [] }],
   },
   overrides: [{
     files: ["*.story.jsx", "*.jsx"],

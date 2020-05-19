@@ -1,5 +1,5 @@
+import { hasConcluded, hasStarted, Status} from "./Status.js";
 import assert from "assert";
-import { hasStarted, hasConcluded, Status} from "./Status.js";
 
 describe("Status", () => {
   test("hasStarted", () => {

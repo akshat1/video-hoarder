@@ -1,7 +1,7 @@
-import React from "react";
-import { withKnobs, radios } from "@storybook/addon-knobs";
-import ItemStatus from "./ItemStatus.jsx";
 import { Status } from "../../Status";
+import ItemStatus from "./ItemStatus.jsx";
+import { radios,withKnobs } from "@storybook/addon-knobs";
+import React from "react";
 
 export default {
   title: "ItemStatus",

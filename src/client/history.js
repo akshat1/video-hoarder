@@ -3,8 +3,8 @@
  *
  * @module client/history
  */
-import { createBrowserHistory } from "history";
 import { getLogger } from "../logger";
+import { createBrowserHistory } from "history";
 
 let history;
 

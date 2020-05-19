@@ -1,8 +1,8 @@
-import React from "react";
-import { shallow } from "enzyme";
-import { ThemeProvider } from "@material-ui/styles";
 import { getTheme } from "../theme";
 import InputForm from "./InputForm.jsx";
+import { ThemeProvider } from "@material-ui/styles";
+import { shallow } from "enzyme";
+import React from "react";
 
 describe("components/InputForm", () => {
   test("InputForm matches snapshot", () => {

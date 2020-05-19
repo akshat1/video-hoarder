@@ -1,13 +1,13 @@
 /**
  * This is the entire logged-in user interface.
  */
+import InputForm from "./InputForm.jsx";
+import Toolbar from "./Toolbar.jsx";
+import { Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import React from "react";
 // import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/styles";
-import { Container } from "@material-ui/core";
-import Toolbar from "./Toolbar.jsx";
-import InputForm from "./InputForm.jsx";
 
 const useStyles = makeStyles((theme) => ({
   container: {

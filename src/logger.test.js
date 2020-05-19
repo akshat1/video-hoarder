@@ -1,6 +1,6 @@
-import sinon from "sinon";
-import assert from "assert";
 import { getLogger } from "./logger.js";
+import assert from "assert";
+import sinon from "sinon";
 
 describe("logger", () => {
   beforeAll(() => {

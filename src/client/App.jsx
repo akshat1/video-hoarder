@@ -1,17 +1,17 @@
-import { connect } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
-import { getHistory } from "./history";
-import { hot } from "react-hot-loader";
-import { initializeClient } from "./redux/actions-and-reducers";
-import { isLoggedIn, isFetchingUser, isUserFetchDone, } from "./selectors";
-import { Switch, Route } from "react-router";
-import { getTheme } from "./theme";
 import LoginForm from "./components/LoginForm.jsx";
+import Main from "./components/Main.jsx";
+import { getHistory } from "./history";
+import { initializeClient } from "./redux/actions-and-reducers";
+import { isFetchingUser, isLoggedIn, isUserFetchDone, } from "./selectors";
+import { getTheme } from "./theme";
+import { CssBaseline, useMediaQuery } from "@material-ui/core";
+import { makeStyles, ThemeProvider } from "@material-ui/styles";
+import { ConnectedRouter } from "connected-react-router";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
-import { makeStyles, ThemeProvider } from "@material-ui/styles";
-import { CssBaseline, useMediaQuery } from "@material-ui/core";
-import Main from "./components/Main.jsx";
+import { hot } from "react-hot-loader";
+import { connect } from "react-redux";
+import { Route,Switch } from "react-router";
 
 const useStyles = makeStyles(() => ({
   container: {},

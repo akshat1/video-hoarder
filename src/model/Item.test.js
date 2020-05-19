@@ -1,8 +1,8 @@
-import sinon from "sinon";
+import { Status } from "../Status";
+import { makeItem } from "./Item";
 import assert from "assert";
 import md5 from "blueimp-md5";
-import { makeItem } from "./Item";
-import { Status } from "../Status";
+import sinon from "sinon";
 
 describe("model/Item", () => {
   test("makeItem", () => {

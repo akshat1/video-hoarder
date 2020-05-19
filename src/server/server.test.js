@@ -1,11 +1,11 @@
-import assert from "assert";
-import express from "express";
-import webpack from "webpack";
-import https from "https";
-import webpackDevMiddleware from "webpack-dev-middleware";
-import webpackHotMiddleware from "webpack-hot-middleware";
 import webpackConfig from "../../webpack.config.cjs";
 import { startServer } from "./index";
+import assert from "assert";
+import express from "express";
+import https from "https";
+import webpack from "webpack";
+import webpackDevMiddleware from "webpack-dev-middleware";
+import webpackHotMiddleware from "webpack-hot-middleware";
 // import { bootstrapApp } from './socketio.js';
 
 jest.mock("express", () => {

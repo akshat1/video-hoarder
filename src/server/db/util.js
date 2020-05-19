@@ -1,8 +1,8 @@
-import Tingo from "tingodb";
-import path from "path";
-import { encrypt } from "../crypto.js";
-import { inPromiseCallback } from "../../util.js";
 import { getLogger } from "../../logger.js";
+import { inPromiseCallback } from "../../util.js";
+import { encrypt } from "../crypto.js";
+import path from "path";
+import Tingo from "tingodb";
 
 const rootLogger = getLogger("db");
 

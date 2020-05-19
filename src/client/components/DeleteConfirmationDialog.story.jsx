@@ -1,7 +1,7 @@
-import React from "react";
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog.jsx";
 import { action } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
-import DeleteConfirmationDialog from "./DeleteConfirmationDialog.jsx";
+import React from "react";
 
 export default {
   title: "DeleteConfirmationDialog",

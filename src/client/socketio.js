@@ -1,6 +1,6 @@
-import ioClient from "socket.io-client";
 import { Event } from "../Event";
 import { getLogger } from "../logger";
+import ioClient from "socket.io-client";
 
 const rootLogger = getLogger("socketio");
 

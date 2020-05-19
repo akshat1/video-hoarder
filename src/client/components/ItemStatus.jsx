@@ -1,12 +1,12 @@
 /**
  * Renders an icon appropriate to the given item status.
  */
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/styles";
+import { Status } from "../../Status";
 import { CircularProgress, colors } from "@material-ui/core";
 import { CheckCircleOutline, ErrorOutline, WarningOutlined } from "@material-ui/icons";
-import { Status } from "../../Status";
+import { makeStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
+import React from "react";
 
 const useStyle = makeStyles((theme) => {
   return {

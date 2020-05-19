@@ -1,10 +1,10 @@
 /**
  * Renders a deletion confirmation dialog.
  */
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/styles";
 import { Button, Dialog, DialogTitle } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
