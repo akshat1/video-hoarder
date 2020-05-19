@@ -11,6 +11,13 @@ import webpackHotMiddleware from "webpack-hot-middleware";
 jest.mock("express", () => {
   const mockExpress = jest.fn();
   mockExpress.static = jest.fn();
+  const mockRouter = {
+    post: jest.fn(),
+    get: jest.fn(),
+  };
+  mockExpress.Router = function() {
+    return mockRouter;
+  }
 
   return {
     __esModule: true,
