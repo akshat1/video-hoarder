@@ -26,11 +26,11 @@ const useStyle = makeStyles((theme) => {
   };
 });
 
-const ItemStatus = ({ status }) => {
+const ItemStatus = ({ status, className }) => {
   const classes = useStyle();
 
   return (
-    <span className={classes[status] || classes.unknown}>
+    <span className={`${className} ${classes[status] || classes.unknown}`}>
       <Choose>
         <When condition={status === Status.Failed}>
           <ErrorOutline color="inherit"/>
@@ -53,6 +53,7 @@ const ItemStatus = ({ status }) => {
 };
 
 ItemStatus.propTypes = {
+  className: PropTypes.string,
   status: PropTypes.oneOf(Object.values(Status)),
 };
 

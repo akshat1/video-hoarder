@@ -21,6 +21,10 @@ const useStyle = makeStyles(theme => ({
   url: {},
   meta: {
     marginLeft: theme.spacing(1),
+  },
+
+  statusIcon: {
+    verticalAlign: "middle",
   }
 }));
 
@@ -39,14 +43,14 @@ const Item = (props) => {
   const mediaTitle = `${title} thumbnail`;
 
   return (
-    <Card className={classes.root}>
+    <Card raised className={classes.root}>
       <Grid container>
         <Grid item xs={12} sm={2}>
           <CardMedia
-          image={thumbnail}
-          title={mediaTitle}
-          className={classes.thumbnail}
-        />
+            image={thumbnail}
+            title={mediaTitle}
+            className={classes.thumbnail}
+          />
         </Grid>
         <Grid item xs={12} sm={10}>
           <CardHeader
@@ -63,12 +67,13 @@ const Item = (props) => {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <ItemStatus status={status} />
+                <ItemStatus status={status} className={classes.statusIcon}/>
                 <Choose>
                   <When condition={hasStarted(status)}>
                     <Typography display="inline" className={classes.meta}>
                       <Choose>
                         <When condition={status === Status.Failed}>Failed</When>
+                        <When condition={status === Status.Paused}>Paused</When>
                         <When condition={status === Status.Running}>Updated</When>
                         <When condition={status === Status.Succeeded}>Completed</When>
                       </Choose>

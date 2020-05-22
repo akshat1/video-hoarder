@@ -58,6 +58,7 @@ export const startServer = async (startDevServer) => {
   const secret = "dogs for me please";
   const SessionDuration = 24 * 60 * 60 * 1000;
   const sessionStore = new (MemoryStore(expressSession))({ checkPeriod: SessionDuration });
+  app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser(secret));
   app.use(expressSession({
@@ -82,6 +83,7 @@ export const startServer = async (startDevServer) => {
     cert: await fs.promises.readFile(path.resolve(process.cwd(), "cert/vhoarder.crt")),
   };
   const server = http.createServer(options, app);
+  logger.debug("call bootstrap app");
   bootstrapApp({ server, sessionStore, secret });
   const onServerStart = () => {
     /* istanbul ignore next because we are not testing whether this callback is called */

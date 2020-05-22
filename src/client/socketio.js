@@ -1,5 +1,7 @@
 import { Event } from "../Event";
 import { getLogger } from "../logger";
+import { getStore } from "./redux";
+import { fetchJobs, updateJobInStore } from "./redux/actions";
 import ioClient from "socket.io-client";
 
 const rootLogger = getLogger("socketio");
@@ -18,13 +20,28 @@ export const getSocket = () => {
   return socket;
 };
 
+const onItemAdded = () => {
+  getLogger("onItemAdded", rootLogger).debug("ItemAdded");
+  getStore().dispatch(fetchJobs());
+};
+
+const onItemRemoved = () => {
+  getLogger("onItemRemoved", rootLogger).debug("ItemRemoved");
+  getStore().dispatch(fetchJobs());
+};
+
+const onItemUpdated = (item) => {
+  getLogger("onItemUpdated", rootLogger).debug(item);
+  getStore().dispatch(updateJobInStore(item));
+};
+
 export const bootstrapClient = () => {
   const logger = getLogger("bootstrapClient", rootLogger);
   const socket = getSocket();
   logger.debug("got a client", !!socket);
-  socket.on(Event.ItemAdded, item => logger.debug("ItemAdded", item));
-  socket.on(Event.ItemRemoved, item => logger.debug("ItemRemoved", item));
-  socket.on(Event.ItemUpdated, item => logger.debug("ItemUpdated", item));
+  socket.on(Event.ItemAdded, onItemAdded);
+  socket.on(Event.ItemRemoved, onItemRemoved);
+  socket.on(Event.ItemUpdated, onItemUpdated);
   window.ioClient = socket;
 };
 

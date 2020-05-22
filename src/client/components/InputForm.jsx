@@ -8,11 +8,13 @@
  *
  * @module client/components/InputForm
  */
-import { Button, Container, FormControl, FormHelperText,Grid, IconButton, InputAdornment, InputLabel, OutlinedInput,  } from "@material-ui/core";
+import { addJob } from "../redux/actions";
+import { Button, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput,  } from "@material-ui/core";
 import { ClearOutlined } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 //  import * as Style from "./InputForm.less";
 
 const useStyle = makeStyles(theme => ({
@@ -110,4 +112,6 @@ InputForm.defaultProps = {
   initialValue: ""
 };
 
-export default InputForm;
+const stateToProps = () => ({});
+const dispatchToProps = { onSubmit: addJob };
+export default connect(stateToProps, dispatchToProps)(InputForm);

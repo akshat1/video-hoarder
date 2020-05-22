@@ -2,36 +2,44 @@
  * Renders a cancel button which will cancel a download (the item prop) after showing a confirmation dialog.
  */
 import { hasConcluded } from "../../Status";
-import { doCancelDownload } from "../redux/actions-and-reducers";
+import { cancelJob, deleteJob } from "../redux/actions";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog.jsx";
 import { Button } from "@material-ui/core";
-import { CancelOutlined } from "@material-ui/icons";
+import { CancelOutlined, DeleteOutline } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 
 export const CancelButton = (props) => {
   const [ isDialogOpen, setDialogOpen ] = useState(false);
-  const { item, doCancel } = props;
+  const { item, doCancel, doDelete } = props;
   const { status, title } = item;
 
+  const canDelete = hasConcluded(status);
   const openDialog = () => setDialogOpen(true);
   const closeDialog = () => setDialogOpen(false);
   const onConfirm = () => {
-    doCancel(item);
+    if (canDelete) {
+      doDelete(item);
+    } else {
+      doCancel(item);
+    }
     closeDialog();
   };
+
+  // eslint-disable-next-line jsx-control-statements/jsx-use-if-tag
+  const icon = canDelete ? <DeleteOutline /> : <CancelOutlined />;
+  const label = canDelete ? "Delete" : "Cancel";
 
   return (
     <Fragment>
       <Button
-        startIcon={<CancelOutlined />}
+        startIcon={icon}
         variant="contained"
         color="secondary"
-        disabled={hasConcluded(status)}
         onClick={openDialog}
       >
-        Cancel
+        {label}
       </Button>
       <DeleteConfirmationDialog
         onCancel={closeDialog}
@@ -56,8 +64,12 @@ CancelButton.propTypes = {
     url: PropTypes.string.isRequired,
   }).isRequired,
   doCancel: PropTypes.func.isRequired,
+  doDelete: PropTypes.func.isRequired,
 };
 
-const dispatchToProps = { doCancelDownload };
+const dispatchToProps = {
+  doCancel: cancelJob,
+  doDelete: deleteJob,
+};
 
 export default connect(null, dispatchToProps)(CancelButton);

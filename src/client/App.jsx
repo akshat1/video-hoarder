@@ -1,7 +1,7 @@
 import LoginForm from "./components/LoginForm.jsx";
 import Main from "./components/Main.jsx";
 import { getHistory } from "./history";
-import { initializeClient } from "./redux/actions-and-reducers";
+import { initializeClient } from "./redux/actions";
 import { isFetchingUser, isLoggedIn, isUserFetchDone, } from "./selectors";
 import { getTheme } from "./theme";
 import { CssBaseline, useMediaQuery } from "@material-ui/core";

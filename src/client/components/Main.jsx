@@ -1,12 +1,14 @@
 /**
  * This is the entire logged-in user interface.
  */
+import { getJobs } from "../selectors.js";
 import InputForm from "./InputForm.jsx";
+import Item from "./Item.jsx";
 import Toolbar from "./Toolbar.jsx";
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
 import React from "react";
-// import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Main = () => {
+const Main = ({ jobs }) => {
   const classes = useStyles();
 
   return (
@@ -31,11 +33,24 @@ const Main = () => {
       <Toolbar />
       <div className={classes.body}>
         <InputForm />
+        <Grid container spacing={3}  className={classes.jobs}>
+          <For each="job" of={jobs}>
+            <Grid item xs={12}>
+              <Item key={job.id} item={job}/>
+            </Grid>
+          </For>
+        </Grid>
       </div>
     </Container>
   );
 };
 
-Main.propTypes = {};
+Main.propTypes = {
+  jobs: PropTypes.object,
+};
 
-export default connect()(Main);
+const stateToProps = state => ({
+  jobs: getJobs(state),
+})
+
+export default connect(stateToProps)(Main);

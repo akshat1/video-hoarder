@@ -21,11 +21,12 @@ const useStyles = makeStyles((theme) => ({
 
 const DeleteConfirmationDialog = ({ onCancel, onConfirm, open, jobTitle }) => {
   const classes = useStyles();
+  const jobName = jobTitle ? `"${jobTitle}"` : "this download";
   return (
     <Dialog onClose={onCancel} aria-labelledby="delete-confirmation-dialog-title" open={open}>
-      <DialogTitle id="delete-confirmation-dialog-title">{`Cancel ${jobTitle}?`}</DialogTitle>
+      <DialogTitle id="delete-confirmation-dialog-title">{`Cancel ${jobName}?`}</DialogTitle>
       <div className={classes.body}>
-        <div>{`Are you sure you want to cancel "${jobTitle}"?`}</div>
+        <div>{`Are you sure you want to cancel ${jobName}?`}</div>
         <div className={classes.buttonContainer}>
           <Button onClick={onConfirm} variant="contained" className={classes.yesButton} color="primary">Yes</Button>
           <Button onClick={onCancel} variant="contained" color="secondary">No</Button>

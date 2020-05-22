@@ -9,10 +9,11 @@
  * @enum {Status}
  */
 export const Status = {
+  Failed: "failed",
+  Paused: "paused",
   Pending: "pending",
   Running: "running",
-  Failed: "failed",
-  Succeeded: "succeeded"
+  Succeeded: "succeeded",
 };
 
 /**
@@ -21,7 +22,7 @@ export const Status = {
  * @returns {bool}
  */
 export const hasStarted = status =>
-  status === Status.Running || status === Status.Failed || status === Status.Succeeded;
+  status === Status.Running || status === Status.Failed || status === Status.Succeeded || status === Status.Paused;
 
 /**
  * @func

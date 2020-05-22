@@ -3,7 +3,7 @@
  *
  * @module client/components/LoginForm
  */
-import { doLogIn } from "../redux/actions-and-reducers";
+import { doLogIn } from "../redux/actions";
 import { getLoginError, isFetchingUser, isLoggedIn } from "../selectors";
 import { Button, Container, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";

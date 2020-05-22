@@ -19,7 +19,7 @@ const rootLogger = getLogger("job-management");
 export const addJob = async ({ url, addedBy }) => {
   const item = makeItem({ url, addedBy });
   const jobs = await getJobsCollection()
-  const newJob = await insert(jobs, item);
+  const newJob = await insert(jobs, item, { w: 1 });
   emit(Event.ItemAdded, newJob);
   return newJob;
 };

@@ -1,7 +1,5 @@
-import { Event } from "../Event.js";
 import { getLogger } from "../logger.js";
 import * as db from "./db/index.js";
-import { emit } from "./event-bus.js";
 import express from "express";
 
 const rootLogger = getLogger("api");
@@ -52,8 +50,9 @@ export const getJobs = async (req, res, next) => {
       }
     }
 
-    const count = await db.count(cursor);
     const data = await db.toArray(cursor);
+    // count() closes the cursor. Always make to call it _after_ toArray (which fails if the cursor is closed).
+    const count = await db.count(cursor);
     const responseData = {
       count,
       data,
@@ -76,13 +75,43 @@ export const addJob = async (req, res, next) => {
   try {
     const { userName: addedBy } = req.user;
     const { url } = req.body;
-    logger.debug("Adding new job", url);
-    const newJob = await db.addJob({ url, userName: addedBy });
-    // We emit an event (which will eventually be emitted on the socket) so that ALL Clients know a new item has been added.
-    emit(Event.ItemAdded, newJob);
+    logger.debug("Adding new job", url, addedBy);
+    const newJob = await db.addJob({ url, addedBy });
+    logger.debug("send 200");
+    res.status(200).send(newJob);
+  } catch (err) {
+    logger.error(err);
+    res.status(500);
+    next(err);
+  }
+};
+
+export const stopJob = async (req, res, next) => {
+  const logger = getLogger("stopJob", rootLogger);
+  try {
+    const { userName: updatedBy } = req.user;
+    const { itemId: id } = req.body;
+    logger.debug("stopping job", id, updatedBy);
+    await db.cancelJob({ id, updatedBy });
     logger.debug("send 200");
     res.status(200).send("OK");
   } catch (err) {
+    logger.error(err);
+    res.status(500);
+    next(err);
+  }
+};
+
+export const deleteJob = async (req, res, next) => {
+  const logger = getLogger("deleteJob", rootLogger);
+  try {
+    const { itemId: id } = req.body;
+    logger.debug("Deleting job", id);
+    await db.removeJob(id);
+    logger.debug("send 200");
+    res.status(200).send("OK");
+  } catch (err) {
+    logger.error(err);
     res.status(500);
     next(err);
   }
@@ -111,6 +140,8 @@ export const getRouter = (passport) => {
   const router = new Router();
   router.get("/jobs", ensureLoggedIn, getJobs);
   router.post("/job/add", ensureLoggedIn, addJob);
+  router.post("/job/stop", ensureLoggedIn, stopJob);
+  router.post("/job/delete", ensureLoggedIn, deleteJob);
   router.get("/user/me", ensureLoggedIn, getProfile);
   router.post("/user/logout", logout);
   router.post("/user/login", passport.authenticate("local"), login);

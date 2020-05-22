@@ -49,3 +49,10 @@ export const getLoginError = state => state.loginError;
  * @returns {string}
  */
 export const getUserName = state => (getUser(state) || {}).userName;
+
+/**
+ * @function
+ * @param {module:client/redux.State} state
+ * @returns {string}
+ */
+export const getJobs = state => state.jobs || [];

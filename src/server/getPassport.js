@@ -10,6 +10,8 @@ import passport from "passport";
 import Strategy from "passport-local";
 
 const rootLogger = getLogger("getPassport");
+rootLogger.setLevel("warn");
+
 export const MessageIncorrectLogin = "Incorrect username or password.";
 
 /**

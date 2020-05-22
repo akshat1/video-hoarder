@@ -1,7 +1,7 @@
 /**
  * Renders the application toolbar.
  */
-import { doLogOut } from "../redux/actions-and-reducers";
+import { doLogOut } from "../redux/actions";
 import { getUserName,isLoggedIn } from "../selectors";
 import {
   AppBar,

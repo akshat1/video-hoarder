@@ -8,7 +8,12 @@ import SocketIO from "socket.io";
 
 const rootLogger = getLogger("socketio");
 
-const onItemAdded = (io, item) => io.emit(Event.ItemAdded, item);
+const itemAddedLogger = getLogger("onItemAdded", rootLogger);
+const onItemAdded = (io, item) => {
+  itemAddedLogger.debug("ItemAdded");
+  io.emit(Event.ItemAdded, item);
+};
+
 const onItemRemoved = (io, item) => io.emit(Event.ItemRemoved, item);
 const onItemUpdated = (io, item) => io.emit(Event.ItemUpdated, item);
 
@@ -26,8 +31,6 @@ export const bootstrapApp = ({ server, sessionStore, secret }) => {
     cookieParser,
     secret,
     store: sessionStore,
-    success: () => logger.debug("auth success"),
-    fail: () => logger.debug("auth failure"),
   }));
   // Broadcast events.
   // TODO: Figure out how to restrict this to authenticated clients; look into a separate channel for authed clients.

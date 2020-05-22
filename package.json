@@ -38,6 +38,7 @@
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
     "Base64": "^1.1.0",
+    "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "blueimp-md5": "^2.15.0",
     "body-parser": "^1.19.0",
