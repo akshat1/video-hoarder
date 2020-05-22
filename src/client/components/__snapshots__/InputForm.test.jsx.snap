@@ -294,8 +294,7 @@ exports[`components/InputForm InputForm matches snapshot 1`] = `
     }
   }
 >
-  <InputForm
-    initialValue=""
+  <Connect(InputForm)
     onSubmit={[Function]}
   />
 </ContextProvider>

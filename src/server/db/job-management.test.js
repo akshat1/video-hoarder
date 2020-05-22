@@ -32,7 +32,7 @@ describe("db/job-management", () => {
     insert.mockResolvedValue(expectedResult);
     const result = await addJob({ url, addedBy });
     expect(result).toBe(expectedResult);
-    expect(insert).toHaveBeenCalledWith(jobsCollection, job);
+    expect(insert).toHaveBeenCalledWith(jobsCollection, job, { w: 1 });
     expect(emit).toHaveBeenCalledWith(Event.ItemAdded, result);
   });
 

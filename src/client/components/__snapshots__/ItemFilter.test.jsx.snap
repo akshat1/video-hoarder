@@ -9,13 +9,19 @@ exports[`components/ItemFilter should render and match snapshot 1`] = `
   >
     <select
       onChange={[Function]}
-      value="pending"
+      value="failed"
     >
       <option
         key="failed"
         value="failed"
       >
         failed
+      </option>
+      <option
+        key="paused"
+        value="paused"
+      >
+        paused
       </option>
       <option
         key="pending"
@@ -46,12 +52,17 @@ exports[`components/ItemFilter should render and match snapshot 1`] = `
         Array [
           Object {
             "label": "failed",
-            "selected": false,
+            "selected": true,
             "value": "failed",
           },
           Object {
+            "label": "paused",
+            "selected": false,
+            "value": "paused",
+          },
+          Object {
             "label": "pending",
-            "selected": true,
+            "selected": false,
             "value": "pending",
           },
           Object {
@@ -80,13 +91,19 @@ exports[`components/ItemFilter should render and match snapshot 2`] = `
   >
     <select
       onChange={[Function]}
-      value="running"
+      value="paused"
     >
       <option
         key="failed"
         value="failed"
       >
         failed
+      </option>
+      <option
+        key="paused"
+        value="paused"
+      >
+        paused
       </option>
       <option
         key="pending"
@@ -121,13 +138,18 @@ exports[`components/ItemFilter should render and match snapshot 2`] = `
             "value": "failed",
           },
           Object {
+            "label": "paused",
+            "selected": true,
+            "value": "paused",
+          },
+          Object {
             "label": "pending",
             "selected": false,
             "value": "pending",
           },
           Object {
             "label": "running",
-            "selected": true,
+            "selected": false,
             "value": "running",
           },
           Object {
@@ -151,13 +173,19 @@ exports[`components/ItemFilter should render and match snapshot 3`] = `
   >
     <select
       onChange={[Function]}
-      value="failed"
+      value="pending"
     >
       <option
         key="failed"
         value="failed"
       >
         failed
+      </option>
+      <option
+        key="paused"
+        value="paused"
+      >
+        paused
       </option>
       <option
         key="pending"
@@ -188,12 +216,17 @@ exports[`components/ItemFilter should render and match snapshot 3`] = `
         Array [
           Object {
             "label": "failed",
-            "selected": true,
+            "selected": false,
             "value": "failed",
           },
           Object {
-            "label": "pending",
+            "label": "paused",
             "selected": false,
+            "value": "paused",
+          },
+          Object {
+            "label": "pending",
+            "selected": true,
             "value": "pending",
           },
           Object {
@@ -222,13 +255,19 @@ exports[`components/ItemFilter should render and match snapshot 4`] = `
   >
     <select
       onChange={[Function]}
-      value="succeeded"
+      value="running"
     >
       <option
         key="failed"
         value="failed"
       >
         failed
+      </option>
+      <option
+        key="paused"
+        value="paused"
+      >
+        paused
       </option>
       <option
         key="pending"
@@ -261,6 +300,93 @@ exports[`components/ItemFilter should render and match snapshot 4`] = `
             "label": "failed",
             "selected": false,
             "value": "failed",
+          },
+          Object {
+            "label": "paused",
+            "selected": false,
+            "value": "paused",
+          },
+          Object {
+            "label": "pending",
+            "selected": false,
+            "value": "pending",
+          },
+          Object {
+            "label": "running",
+            "selected": true,
+            "value": "running",
+          },
+          Object {
+            "label": "succeeded",
+            "selected": false,
+            "value": "succeeded",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`components/ItemFilter should render and match snapshot 5`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="mobile"
+  >
+    <select
+      onChange={[Function]}
+      value="succeeded"
+    >
+      <option
+        key="failed"
+        value="failed"
+      >
+        failed
+      </option>
+      <option
+        key="paused"
+        value="paused"
+      >
+        paused
+      </option>
+      <option
+        key="pending"
+        value="pending"
+      >
+        pending
+      </option>
+      <option
+        key="running"
+        value="running"
+      >
+        running
+      </option>
+      <option
+        key="succeeded"
+        value="succeeded"
+      >
+        succeeded
+      </option>
+    </select>
+  </div>
+  <div
+    className="desktop"
+  >
+    <ButtonGrid
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "failed",
+            "selected": false,
+            "value": "failed",
+          },
+          Object {
+            "label": "paused",
+            "selected": false,
+            "value": "paused",
           },
           Object {
             "label": "pending",
