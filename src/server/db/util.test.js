@@ -109,7 +109,7 @@ describe("db/util", () => {
     collection.insert.mockImplementation((docs, options, callback) => {
       actualDocs = docs;
       actualOptions = options;
-      callback(null, expectedResult)
+      callback(null, [expectedResult])
     });
     const result = await insert(collection, "docs", "options");
     expect(collection.insert).toHaveBeenCalled();

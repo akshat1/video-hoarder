@@ -14,10 +14,8 @@ describe("model/Item", () => {
     assert.deepEqual(item, {
       addedAt: now.toISOString(),
       addedBy,
-      description: null,
       id: md5(`${url}-${now.getTime()}`),
-      thumbnail: null,
-      title: null,
+      metadata: null,
       status: Status.Pending,
       updatedAt: now.toISOString(),
       url,

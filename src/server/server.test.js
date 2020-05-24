@@ -1,5 +1,6 @@
 import webpackConfig from "../../webpack.config.cjs";
 import { startServer } from "./index";
+import { initializeYTDL } from "./ytdl";
 import assert from "assert";
 import express from "express";
 import https from "https";
@@ -51,6 +52,10 @@ jest.mock("../../webpack.config.cjs", () => "webpack-config");
 
 jest.mock("./socketio.js");
 
+jest.mock("./ytdl", () => ({
+  initializeYTDL: jest.fn(),
+}));
+
 /* Note that server/index.js doesn't automatically start the express server when NODE_ENV is test.
 You have to explicitly call `startServer()` in such a situation. */
 describe("server/start-server", () => {
@@ -70,6 +75,7 @@ describe("server/start-server", () => {
     assert.equal(express.mock.calls.length, 1);
     assert.equal(server.listen.mock.calls.length, 1);  // TODO: assert correct port once we have the config system up.
     assert.ok(!!app.use.mock.calls.find(([middleware]) => middleware === "static"));
+    assert.equal(initializeYTDL.mock.calls.length, 1);
     // TODO check that we are handling /* route.
   });
 
@@ -94,5 +100,6 @@ describe("server/start-server", () => {
     assert.ok(!!app.use.mock.calls.find(([middleware]) => middleware === "webpackHotMiddleware"));
     assert.ok(!!webpackDevMiddleware.mock.calls.find(([compiler]) => compiler && compiler.config === webpackConfig));
     assert.ok(!!webpackHotMiddleware.mock.calls.find(([compiler]) => compiler && compiler.config === webpackConfig));
+    assert.equal(initializeYTDL.mock.calls.length, 1);
   });
 });
