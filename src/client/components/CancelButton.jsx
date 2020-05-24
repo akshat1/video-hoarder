@@ -1,6 +1,7 @@
 /**
  * Renders a cancel button which will cancel a download (the item prop) after showing a confirmation dialog.
  */
+import { getTitle } from "../../model/Item";
 import { hasConcluded } from "../../Status";
 import { cancelJob, deleteJob } from "../redux/actions";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog.jsx";
@@ -13,7 +14,7 @@ import { connect } from "react-redux";
 export const CancelButton = (props) => {
   const [ isDialogOpen, setDialogOpen ] = useState(false);
   const { item, doCancel, doDelete } = props;
-  const { status, title } = item;
+  const { status } = item;
 
   const canDelete = hasConcluded(status);
   const openDialog = () => setDialogOpen(true);
@@ -44,7 +45,7 @@ export const CancelButton = (props) => {
       <DeleteConfirmationDialog
         onCancel={closeDialog}
         onConfirm={onConfirm}
-        jobTitle={title}
+        jobTitle={getTitle(item)}
         open={isDialogOpen}
       />
     </Fragment>

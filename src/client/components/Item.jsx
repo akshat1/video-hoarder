@@ -2,6 +2,7 @@
  * Renders a single download-task, and displays metadata and status of the same.
  * Also provides controls to abort the download.
  */
+import { getThumbnail,getTitle } from "../../model/Item.js";
 import { hasStarted, Status } from "../../Status.js";
 import CancelButton from "./CancelButton.jsx";
 import ItemStatus from "./ItemStatus.jsx";
@@ -34,11 +35,12 @@ const Item = (props) => {
   const {
     description,
     status,
-    thumbnail,
-    title,
     url,
     updatedAt,
   } = item;
+
+  const title = getTitle(item);
+  const thumbnail = getThumbnail(item);
   const dtUpdatedAt = new Date(updatedAt);
   const mediaTitle = `${title} thumbnail`;
 
@@ -103,6 +105,7 @@ Item.propTypes = {
     addedAt: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    metadata: PropTypes.object,
     status: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,

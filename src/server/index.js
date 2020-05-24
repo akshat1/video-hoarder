@@ -6,6 +6,7 @@ import { getRouter as getAPI } from "./api.js";
 import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
 import { getPassport } from "./getPassport.js";
 import { bootstrapApp } from "./socketio.js";
+import { initializeYTDL } from "./ytdl.js";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import express from "express";
@@ -90,6 +91,7 @@ export const startServer = async (startDevServer) => {
     logger.info("App listening on port 7200");
   };
   server.listen(7200, onServerStart);
+  await initializeYTDL();
 };
 
 /* istanbul ignore next */

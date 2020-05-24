@@ -46,18 +46,25 @@ export const getJob = async (id) => {
  */
 export const cancelJob = async ({ id, updatedBy }) => {
   const logger = getLogger("cancelJob", rootLogger);
+  logger.debug("Cancelling", id);
   const item = await getJob(id);
+  logger.debug("Found", item);
   /* istanbul ignore else */
   if (item) {
-    item.status = Status.Failed;
-    item.updatedAt = new Date().toISOString();
-    item.updatedBy = updatedBy;
     const jobs = await getJobsCollection()
-    const [numUpdatedRecords, opStatus] = await update(jobs, { id }, item);
+    const updatedItem = {
+      ...item,
+      status: Status.Failed,
+      updatedAt: new Date().toISOString(),
+      updatedBy: updatedBy,
+    };
+    const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
+    logger.debug("Updated job", { numUpdatedRecords, opStatus });
     /* istanbul ignore else */
     if (numUpdatedRecords === 1) {
-      emit(Event.ItemUpdated, item);
-      return item;
+      logger.debug("Emit bus event for ItemUpdated");
+      emit(Event.ItemUpdated, updatedItem);
+      return updatedItem;
     } else {
       logger.error("Something went wrong in the update", {
         numUpdatedRecords,
@@ -66,6 +73,69 @@ export const cancelJob = async ({ id, updatedBy }) => {
     }
   } else {
     logger.warn(`Job ${id} not found. Ignoring call.`);
+  }
+};
+
+/**
+ * Mark an item failed and associate the given error with it.
+ *
+ * @param {Object} args
+ * @param {Item} args.item
+ * @param {string} args.errorMessage
+ * @return {Promise}
+ */
+export const failJob = async ({ item, errorMessage }) => {
+  const logger = getLogger("failJob", rootLogger);
+  const { id } = item;
+  const jobs = await getJobsCollection();
+  logger.debug("Got jobs collection", !!jobs);
+  const updatedItem = {
+    ...item,
+    status: Status.Failed,
+    updatedAt: new Date().toISOString(),
+    errorMessage,
+  };
+  logger.debug("Update to", item);
+  const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
+
+  if (numUpdatedRecords === 1) {
+    emit(Event.ItemUpdated, updatedItem);
+    return updatedItem;
+  } else {
+    logger.error("Something went wrong in the update", {
+      numUpdatedRecords,
+      opStatus,
+    });
+  }
+};
+
+/**
+ * Associate the given metadata with the given item.
+ * @param {Object} args
+ * @param {ItemMetadata} args.metadata
+ * @param {Item} args.item
+ */
+export const addMetadata = async (args) => {
+  const logger = getLogger("addMetadata", rootLogger);
+  logger.debug("begin", args);
+  const { item, metadata } = args;
+  const { id } = item;
+  const jobs = await getJobsCollection();
+  const updatedItem = {
+    ...item,
+    updatedAt: new Date().toISOString(),
+    metadata,
+  };
+  const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
+
+  if (numUpdatedRecords === 1) {
+    emit(Event.ItemUpdated, updatedItem);
+    return updatedItem;
+  } else {
+    logger.error("Something went wrong in the update", {
+      numUpdatedRecords,
+      opStatus,
+    });
   }
 };
 
@@ -97,6 +167,20 @@ export const removeJob = async (id) => {
   }
 }
 
+
+/**
+ * Find jobs filtered by this query.
+ *
+ * @func
+ * @memberof module:server/db
+ * @param {Query} [query]
+ * @returns {Promise<Cursor[]>}
+ */
+export const getJobs = async (query) => {
+  const jobs = await getJobsCollection()
+  return find(jobs, query);
+};
+
 /**
  * Find jobs added by this user filtered by this query.
  *
@@ -107,6 +191,7 @@ export const removeJob = async (id) => {
  * @returns {Promise<Cursor[]>}
  */
 export const getJobsForUser = async (userName, query = {}) => {
-  const jobs = await getJobsCollection()
-  return find(jobs, { ...query, addedBy: userName });
+  return getJobs({ ...query, addedBy: userName });
 };
+
+

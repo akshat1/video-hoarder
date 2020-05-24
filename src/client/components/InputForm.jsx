@@ -45,6 +45,7 @@ export const InputForm = ({ initialValue, onSubmit }) => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     if (!isInvalid) onSubmit(url);
+    clearURL();
   }
 
   const clearButton = (

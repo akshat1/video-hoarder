@@ -64,8 +64,18 @@ export const find = (collection, query, fields, options) =>
  * @param {Object} [options]
  * @returns {Promise.<Object|Object[]>}
  */
-export const insert = (collection, docs, options) =>
-  new Promise((resolve, reject) => collection.insert(docs, options, inPromiseCallback(resolve, reject)));
+export const insert = (collection, docs, options) => {
+  const logger = getLogger("insert", rootLogger);
+  return new Promise((resolve, reject) => collection.insert(docs, options, (err, data) => {
+    if (err) {
+      logger.error(err);
+      reject(err);
+    } else {
+      logger.debug(data);
+      resolve(data[0]);
+    }
+  }));
+};
 
 /**
  * A wrapper around collection.save.
