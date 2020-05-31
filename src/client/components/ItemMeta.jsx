@@ -1,48 +1,56 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Style from './ItemMeta.less';
-import { Status, hasStarted } from '../../Status';
+import { ItemShape } from "../../model/Item.js";
+import { hasStarted, Status } from "../../Status.js";
+import ItemStatus from "./ItemStatus.jsx";
+import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import React, { Fragment } from "react";
 
-const ItemMeta = ({ item }) => {
+const useStyle = makeStyles(theme => ({
+  meta: {
+    marginLeft: theme.spacing(1),
+  },
+
+  statusIcon: {
+    verticalAlign: "middle",
+  },
+}));
+
+const ItemMeta = (props) => {
+  const classes = useStyle();
+  const { item } = props;
   const {
-    addedAt,
     status,
     updatedAt,
   } = item;
+  const dtUpdatedAt = new Date(updatedAt);
 
   return (
-    <table className={Style.wrapper}>
-      <tbody>
-        <tr>
-          <td>Added</td>
-          <td>{new Date(addedAt).toLocaleString()}</td>
-        </tr>
-        <If condition={hasStarted(status)}>
-          <tr>
-            <td>
+    <Fragment>
+      <ItemStatus status={status} className={classes.statusIcon}/>
+        <Choose>
+          <When condition={hasStarted(status)}>
+            <Typography display="inline" className={classes.meta}>
               <Choose>
                 <When condition={status === Status.Failed}>Failed</When>
+                <When condition={status === Status.Paused}>Paused</When>
                 <When condition={status === Status.Running}>Updated</When>
                 <When condition={status === Status.Succeeded}>Completed</When>
               </Choose>
-            </td>
-            <td>{new Date(updatedAt).toLocaleString()}</td>
-          </tr>
-        </If>
-      </tbody>
-    </table>
+              {` at ${dtUpdatedAt.toLocaleTimeString()} on ${dtUpdatedAt.toLocaleDateString()}`}
+            </Typography>
+          </When>
+          <Otherwise>
+            <Typography display="inline" className={classes.meta}>
+              {`Queued at ${dtUpdatedAt.toLocaleTimeString()} on ${dtUpdatedAt.toLocaleDateString()}`}
+            </Typography>
+          </Otherwise>
+        </Choose>
+    </Fragment>
   );
 };
 
 ItemMeta.propTypes = {
-  item: PropTypes.shape({
-    addedAt: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  })
+  item: ItemShape,
 };
 
 export default ItemMeta;

@@ -1,18 +1,28 @@
 /**
  * @module server/getPassport
  */
-import _ from 'lodash';
-import passport from 'passport';
-import Strategy from 'passport-local';
-import Base64 from 'Base64';
-import { db, getCollection, Collection, findOne } from './db.js';
-import { hash } from './crypto.js';
-import { getLogger } from '../logger.js';
+import { getLogger } from "../logger.js";
+import { hash } from "./crypto.js";
+import { findOne, getUsersCollection } from "./db/index.js";
+import Base64 from "Base64";
+import _ from "lodash";
+import passport from "passport";
+import Strategy from "passport-local";
 
-const rootLogger = getLogger('getPassport');
+const rootLogger = getLogger("getPassport");
+rootLogger.setLevel("warn");
 
-const getReturnableUser = user => ({
-  ..._.pick(user, 'userName'),
+export const MessageIncorrectLogin = "Incorrect username or password.";
+
+/**
+ * Takes a user as returned from the database and sets the loggedIn flag while removing the password and salt fields.
+ * @func
+ * @private
+ * @param {User} user -
+ * @returns {User}
+ */
+export const getReturnableUser = user => ({
+  ..._.pick(user, "userName"),
   loggedIn: true,
 })
 
@@ -20,25 +30,26 @@ const getReturnableUser = user => ({
  * Called by passport.js to verify the current user during log-in.
  *
  * @func
+ * @private
  * @param {string} userName 
  * @param {string} password - unencrypted password
  * @param {Function} cb -
  * @returns {Promise}
  */
-const verifyUser = async (userName, password, cb) => {
-  const logger = getLogger('verifyUser', rootLogger);
+export const verifyUser = async (userName, password, cb) => {
+  const logger = getLogger("verifyUser", rootLogger);
   try {
-    logger.debug('verifyUser called', userName, password);
-    const users = await getCollection(db, Collection.users);
-    logger.debug('Got users collection');
+    logger.debug("verifyUser called", userName, "*********");
+    const users = await getUsersCollection();
+    logger.debug("Got users collection");
     const user = await findOne(users, { userName });
-    logger.debug('Done finding user', user);
+    logger.debug("Done finding user");
     if (user && (await hash(password, user.salt)) === user.password) {
-      logger.debug('Calling cb');
+      logger.debug("Calling cb");
       cb(null, getReturnableUser(user));
     } else {
-      logger.debug('Indicate login-error.');
-      cb(null, false, { message: 'Incorrect username or password.' });
+      logger.debug("Indicate login-error.");
+      cb(null, false, { message: MessageIncorrectLogin });
     }
   } catch (err) {
     logger.error(err);
@@ -55,7 +66,7 @@ const verifyUser = async (userName, password, cb) => {
  * @param {Function} cb
  */
 export const serializeUser = (user, cb) => {
-  rootLogger.debug('serialize user')
+  rootLogger.debug("serialize user")
   cb(null, Base64.btoa(user.userName));
 }
 
@@ -69,22 +80,31 @@ export const serializeUser = (user, cb) => {
  * @returns {Promise}
  */
 export const deserializeUser = async (id, cb) => {
-  rootLogger.debug(`deserializeUser: ${id}`);
-  const userName = Base64.atob(id);
-  const users = await getCollection(db, Collection.users);
-  const user = await findOne(users, { userName });
-  cb(null, getReturnableUser(user));
+  const logger = getLogger("deserializeUser", rootLogger);
+  logger.debug(id);
+  try {
+    const userName = Base64.atob(id);
+    logger.debug(userName);
+    const users = await getUsersCollection();
+    const user = await findOne(users, { userName });
+    logger.debug(user);
+    cb(null, getReturnableUser(user));
+  } catch (err) {
+    logger.debug("error trying to deserialize user.", err);
+    cb(err);
+  }
 }
 
 /**
- * @function
- * @alias getPassport
+ * @func
  * @returns {Object} - passport.js instance.
  */
 export const getPassport = () => {
+  const logger = getLogger("getPassport", rootLogger);
+  logger.debug("Create passport instance");
   const localStrategy = new Strategy({
-    usernameField: 'username',
-    passwordField: 'password',
+    usernameField: "username",
+    passwordField: "password",
   }, verifyUser);
   passport.use(localStrategy);
   passport.serializeUser(serializeUser);

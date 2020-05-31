@@ -1,36 +1,36 @@
-import { makeActionF, makeReducer } from './boilerplate';
-import assert from 'assert';
+import { makeActionF, makeReducer } from "./boilerplate";
+import assert from "assert";
 
-describe('redux/boilerplate', () => {
-  describe('makeActionF', () => {
-    test('should return a function', () => {
-      assert.equal(typeof makeActionF('foo'), 'function');
+describe("redux/boilerplate", () => {
+  describe("makeActionF", () => {
+    test("should return a function", () => {
+      assert.equal(typeof makeActionF("foo"), "function");
     });
 
-    test('returned function should return the expected action', () => {
-      assert.deepEqual(makeActionF('foo')('bar'), { type: 'foo', value: 'bar' });
+    test("returned function should return the expected action", () => {
+      assert.deepEqual(makeActionF("foo")("bar"), { type: "foo", value: "bar" });
     });
   });
 
-  describe('makeReducer', () => {
-    const actionType = 'FOO';
-    const defaultVal = 'FOO-DEFAULT';
+  describe("makeReducer", () => {
+    const actionType = "FOO";
+    const defaultVal = "FOO-DEFAULT";
     let reducer;
     beforeAll(() => {
       reducer = makeReducer(actionType, defaultVal);
     });
 
-    test('reducer should be a function', () => {
-      assert.equal(typeof reducer, 'function');
+    test("reducer should be a function", () => {
+      assert.equal(typeof reducer, "function");
     });
 
-    test('reducer should ignore actions without the target-type', () => {
-      assert.equal(reducer('baz', { type: 'qux', value: 'quux' }), 'baz');
-      assert.equal(reducer(undefined, { type: 'qux', value: 'quux' }), defaultVal);
+    test("reducer should ignore actions without the target-type", () => {
+      assert.equal(reducer("baz", { type: "qux", value: "quux" }), "baz");
+      assert.equal(reducer(undefined, { type: "qux", value: "quux" }), defaultVal);
     });
 
-    test('given the right action-type, action should return the action value', () => {
-      assert.equal(reducer('baz', { type: actionType, value: 'quux' }), 'quux');
+    test("given the right action-type, action should return the action value", () => {
+      assert.equal(reducer("baz", { type: actionType, value: "quux" }), "quux");
     });
   });
 });

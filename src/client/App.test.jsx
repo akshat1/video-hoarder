@@ -1,11 +1,13 @@
 /** @jest-environment jsdom */
-import React from 'react';
-import { shallow } from 'enzyme';
-import { App } from './App.jsx';
+import { App } from "./App.jsx";
+import { getTheme } from "./theme";
+import { ThemeProvider } from "@material-ui/styles";
+import { shallow } from "enzyme";
+import React from "react";
 
-describe('App', () => {
-  test('App matches snapshot', () => {
-    const component = shallow(<App />);
-    expect(component).toMatchSnapshot();
+describe("App", () => {
+  test("App matches snapshot", () => {
+    const instance = shallow(<ThemeProvider theme={getTheme()}><App /></ThemeProvider>);
+    expect(instance).toMatchSnapshot();
   });
 });

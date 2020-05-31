@@ -6,55 +6,98 @@
  * the moment. The component is meant to send information only outwards through the `onSubmit`
  * prop.
  *
- * @module src/client/components/InputForm
+ * @module client/components/InputForm
  */
-import React, { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
-import * as Style from "./InputForm.less";
+import { addJob } from "../redux/actions";
+import { Button, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput,  } from "@material-ui/core";
+import { ClearOutlined } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+//  import * as Style from "./InputForm.less";
 
-const InputPattern = '^(https?:\\/\\/.+)?$';
+const useStyle = makeStyles(theme => ({
+  submitContainer: {
+    textAlign: "center"
+  },
+  submitButton: {
+    [theme.breakpoints.up("md")]: {
+      marginTop: "11px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%"
+    }
+  }
+}));
 
-const InputForm = ({ initialValue, onSubmit }) => {
+const InputPattern = "^(https?:\\/\\/.+)?$";
+export const InputForm = ({ className, initialValue, onSubmit }) => {
+  const classes = useStyle();
   const [url, setURL] = useState(initialValue);
   useEffect(() => setURL(initialValue), [initialValue]);
   const onChange = e => setURL(e.currentTarget.value);
+  const clearURL = () => setURL("");
   const isInvalid = !new RegExp(InputPattern).test(url);
+  const validationErrorMessage = isInvalid ? "Invalid URL" : null;
+  const isSubmitDisabled = url ? isInvalid : true;
+  console.log(`!!url? ${Boolean(url)} // url? ${url} // isInvalid? ${isInvalid} // isSubmitDisabled? ${isSubmitDisabled}`);
   const onFormSubmit = (e) => {
     e.preventDefault();
     if (!isInvalid) onSubmit(url);
+    clearURL();
   }
 
-  return (
-    <div className={Style.wrapper}>
-      <form onSubmit={onFormSubmit} className={Style.form}>
-        <input
-          title="Enter the URL of the video here"
-          type="url"
-          placeholder="Enter the URL of the video here"
-          className={Style.input}
-          onChange={onChange}
-          id="urlInput"
-          value={url}
-          spellCheck={false}
-          required
-          pattern={InputPattern}
-        />
-        <If condition={isInvalid}>
-          <label className={Style.errorMessage} id="inp-err-mobile">Please enter a valid URL.</label>
-        </If>
-        <button
-          className={Style.submit}
-          type="submit"
-          role="button"
-          title="Submit URL for download"
-          disabled={isInvalid || !url}
-        >
-          Download
-        </button>
-      </form>
-    </div>
+  const clearButton = (
+    <InputAdornment position="end">
+      <IconButton
+        aria-label="clear"
+        onClick={clearURL}
+      >
+        <ClearOutlined />
+      </IconButton>
+    </InputAdornment>
   );
-};
+
+  return (
+    <Container className={className}>
+      <form onSubmit={onFormSubmit}>
+      <Grid container spacing={3} alignItems="stretch">
+        <Grid item xs={12} md={10}>
+          <FormControl
+            fullWidth
+            variant="outlined"
+            required
+            helperText={validationErrorMessage}
+          >
+            <InputLabel htmlFor="url-input">Enter URL</InputLabel>
+            <OutlinedInput
+              id="url-input"
+              onChange={onChange}
+              value={url}
+              endAdornment={clearButton}
+              labelWidth={90}
+              error={isInvalid}
+            />
+            <FormHelperText id="url-error-text">{validationErrorMessage}</FormHelperText>
+          </FormControl>
+        </Grid>
+        <Grid item md xs={12} className={classes.submitContainer}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isSubmitDisabled}
+            className={classes.submitButton}
+          >
+            Download
+          </Button>
+        </Grid>
+      </Grid>  
+      </form>
+    </Container>
+  );
+}
 
 InputForm.propTypes = {
   /**
@@ -64,10 +107,13 @@ InputForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   /** @type {string} */
   initialValue: PropTypes.string,
+  className: PropTypes.string,
 };
 
 InputForm.defaultProps = {
-  initialValue: ''
+  initialValue: ""
 };
 
-export default InputForm;
+const stateToProps = () => ({});
+const dispatchToProps = { onSubmit: addJob };
+export default connect(stateToProps, dispatchToProps)(InputForm);

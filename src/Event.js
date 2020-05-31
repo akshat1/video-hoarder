@@ -4,13 +4,16 @@
  * @module Event
  */
 
+/** @typedef {string} Event */
+
+/* istanbul ignore next */
 /**
  * An enumeration of event names.
  *
- * @enum {string}
+ * @enum {Event}
  */
 export const Event = {
-  ItemAdded: 'ItemAdded',
-  ItemRemoved: 'ItemRemoved',
-  ItemUpdated: 'ItemUpdated',
+  ItemAdded: "ItemAdded",
+  ItemRemoved: "ItemRemoved",
+  ItemUpdated: "ItemUpdated",
 };

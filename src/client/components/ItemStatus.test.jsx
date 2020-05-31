@@ -1,12 +1,15 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import ItemStatus from './ItemStatus.jsx';
-import { Status } from '../../Status';
+import { Status } from "../../Status";
+import { getTheme } from "../theme";
+import ItemStatus from "./ItemStatus.jsx";
+import { ThemeProvider } from "@material-ui/styles";
+import { shallow } from "enzyme";
+import React from "react";
 
-describe('components/ItemStatus', () => {
+describe("components/ItemStatus", () => {
   Object.values(Status).forEach((status) =>
-    test(`ItemStatus matches snapshot for ${status}`, () =>
-      expect(shallow(<ItemStatus status={status} />)).toMatchSnapshot()
-    )
+    test(`ItemStatus matches snapshot for ${status}`, () => {
+      const instance = <ThemeProvider theme={getTheme()}><ItemStatus status={status} /></ThemeProvider>;
+      expect(shallow(instance)).toMatchSnapshot();
+    })
   );
 });

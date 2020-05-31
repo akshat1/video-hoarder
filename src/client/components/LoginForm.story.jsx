@@ -1,10 +1,13 @@
-import React from 'react';
-import LoginForm from './LoginForm.jsx';
+import { LoginForm } from "./LoginForm.jsx";
+import { text } from "@storybook/addon-knobs";
+import React from "react";
 
 export default {
-  title: 'LoginForm',
+  title: "LoginForm",
   component: LoginForm,
 };
 
 export const Default = () =>
-  <LoginForm />
+  <LoginForm
+    loginError={text("Login error", "")}
+  />

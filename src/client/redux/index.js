@@ -1,12 +1,11 @@
 /**
  * @module client/redux
  */
-import { applyMiddleware, compose, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import { routerMiddleware } from 'connected-react-router'
-import { setUser, getRootReducer } from './actions-and-reducers';
-import { getHistory } from '../history';
-export { setUser };
+import { getHistory } from "../history";
+import { getRootReducer } from "./reducers";
+import { routerMiddleware } from "connected-react-router"
+import { applyMiddleware, compose, createStore } from "redux";
+import thunk from "redux-thunk";
 
 let store;
 export const getStore = () => {
@@ -19,7 +18,7 @@ export const getStore = () => {
     /* istanbul ignore next. We'll figure out the devtools branch when we mock the window. */
     const composeArgs = [
       applyMiddleware(...middlewares),
-      typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f  // TODO: Fake window for testing.
+      typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f  // TODO: Fake window for testing.
     ];
 
     store = compose(...composeArgs)(createStore)(getRootReducer(history));

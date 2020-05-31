@@ -1,20 +1,33 @@
-import { connect } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import { getHistory } from './history';
-import { hot } from 'react-hot-loader';
-import { initializeClient } from './redux/actions-and-reducers';
-import InputForm from './components/InputForm.jsx';
-import { isLoggedIn, isFetchingUser, isUserFetchDone, } from './selectors';
-import { Switch, Route } from 'react-router';
-import Style from './App.less';
-import LoginForm from './components/LoginForm.jsx';
-import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import LoginForm from "./components/LoginForm.jsx";
+import Main from "./components/Main.jsx";
+import { getHistory } from "./history";
+import { initializeClient } from "./redux/actions";
+import { isFetchingUser, isLoggedIn, isUserFetchDone, } from "./selectors";
+import { getTheme } from "./theme";
+import { CssBaseline, useMediaQuery } from "@material-ui/core";
+import { makeStyles, ThemeProvider } from "@material-ui/styles";
+import { ConnectedRouter } from "connected-react-router";
+import PropTypes from "prop-types";
+import React, { useEffect } from "react";
+import { hot } from "react-hot-loader";
+import { connect } from "react-redux";
+import { Route,Switch } from "react-router";
+
+const useStyles = makeStyles(() => ({
+  container: {},
+  loginForm: {
+    position: "absolute",
+    top: "20%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+}));
 
 const App = (props) => {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const classes = useStyles();
   const {
     userFetchDone,
-    fetchingUser,
     initializeClient,
     loggedIn,
   } = props;
@@ -26,22 +39,21 @@ const App = (props) => {
 
   return (
     <ConnectedRouter history={getHistory()}>
-      <div id={Style.App}>
-        <If condition={!fetchingUser}>
-          <Switch>
-            <Route path="/login">
-              <LoginForm className={Style.loginForm} />
-            </Route>
-            <Route path="/">
-              <Choose>
-                <When condition={loggedIn}>
-                  <InputForm onSubmit={() => 0}/>
-                </When>
-              </Choose>
-            </Route>
-          </Switch>
-        </If>
-      </div>
+      <ThemeProvider theme={getTheme(prefersDarkMode)}>
+        <CssBaseline />
+        <Switch>
+          <Route path="/login">
+            <LoginForm className={classes.loginForm}/>
+          </Route>
+          <Route path="/">
+            <Choose>
+              <When condition={loggedIn}>
+                <Main />
+              </When>
+            </Choose>
+          </Route>
+        </Switch>
+      </ThemeProvider>
     </ConnectedRouter>
   );
 };
@@ -57,7 +69,7 @@ App.propTypes = {
  * @private
  * @returns {boolean}
  */
-const isDevMode = () => process.env.NODE_ENV === 'development';
+const isDevMode = () => process.env.NODE_ENV === "development";
 
 const stateToProps = state => ({
   fetchingUser: isFetchingUser(state),

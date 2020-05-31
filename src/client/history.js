@@ -3,8 +3,8 @@
  *
  * @module client/history
  */
-import { createBrowserHistory } from 'history';
-import { getLogger } from '../logger';
+import { getLogger } from "../logger";
+import { createBrowserHistory } from "history";
 
 let history;
 
@@ -14,7 +14,7 @@ let history;
  */
 export const getHistory = () => {
   if (!history) {
-    getLogger('getHistory').debug('Going to create new history');
+    getLogger("getHistory").debug("Going to create new history");
     history = createBrowserHistory();
   }
 
