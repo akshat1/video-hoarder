@@ -95,7 +95,7 @@ export const failJob = async ({ item, errorMessage }) => {
     updatedAt: new Date().toISOString(),
     errorMessage,
   };
-  logger.debug("Update to", item);
+  logger.debug("Update to", updatedItem);
   const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
 
   if (numUpdatedRecords === 1) {
@@ -126,6 +126,7 @@ export const addMetadata = async (args) => {
     updatedAt: new Date().toISOString(),
     metadata,
   };
+  logger.debug("Update to", updatedItem);
   const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
 
   if (numUpdatedRecords === 1) {
@@ -138,6 +139,36 @@ export const addMetadata = async (args) => {
     });
   }
 };
+
+/**
+ * Mark a job as complete.
+ * @param {Item} item
+ * @returns {Promise}
+ */
+export const completeJob = async (item) => {
+  const logger = getLogger('completeJob', rootLogger);
+  logger.debug(item);
+  const { id } = item;
+  const jobs = await getJobsCollection();
+  logger.debug("Got jobs collection", !!jobs);
+  const updatedItem = {
+    ...item,
+    status: Status.Succeeded,
+    updatedAt: new Date().toISOString(),
+  };
+  logger.debug("Update to", updatedItem);
+  const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
+
+  if (numUpdatedRecords === 1) {
+    emit(Event.ItemUpdated, updatedItem);
+    return updatedItem;
+  } else {
+    logger.error("Something went wrong in the update", {
+      numUpdatedRecords,
+      opStatus,
+    });
+  }
+}
 
 /**
  * This will emit 'ItemRemoved' event.
