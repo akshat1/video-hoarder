@@ -4,6 +4,7 @@
 
 import { Status } from "../Status.js";
 import md5 from "blueimp-md5";
+import PropTypes from "prop-types";
 
 /**
  * @typedef {Object} ItemMetadata
@@ -42,6 +43,22 @@ export const makeItem = (args) => {
 };
 
 /**
+ * For use in React prop-type declarations.
+ * @const {Object}
+ */
+export const ItemShape = PropTypes.shape({
+  addedAt: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  metadata: PropTypes.object,
+  status: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+});
+
+/**
  * 
  * @param {Item} item 
  * @returns {string} - video title, or URL (as a fallback).
@@ -54,3 +71,10 @@ export const getTitle = item => (item.metadata && item.metadata.title) || item.u
  * @returns {string} - thumbnail URL or null.
  */
 export const getThumbnail = item => (item.metadata && item.metadata.thumbnail) || null;
+
+/**
+ * 
+ * @param {Item} item 
+ * @returns {string} - video description.
+ */
+export const getDescription = item => (item.metadata && item.metadata.description);

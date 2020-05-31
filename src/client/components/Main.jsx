@@ -5,13 +5,13 @@ import { getJobs } from "../selectors.js";
 import InputForm from "./InputForm.jsx";
 import Item from "./Item.jsx";
 import Toolbar from "./Toolbar.jsx";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Divider, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     flexGrow: 1,
     maxWidth: "100%",
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   body: {
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
   }
 }));
 
@@ -37,6 +37,7 @@ const Main = ({ jobs }) => {
           <For each="job" of={jobs}>
             <Grid item xs={12}>
               <Item key={job.id} item={job}/>
+              <Divider />
             </Grid>
           </For>
         </Grid>
