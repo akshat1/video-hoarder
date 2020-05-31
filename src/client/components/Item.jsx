@@ -2,9 +2,10 @@
  * Renders a single download-task, and displays metadata and status of the same.
  * Also provides controls to abort the download.
  */
-import { getDescription,getThumbnail,getTitle, ItemShape } from "../../model/Item.js";
+import { getDescription, getThumbnail, getTitle, ItemShape } from "../../model/Item.js";
+import CancelButton from "./CancelButton.jsx";
 import ItemMeta from "./ItemMeta.jsx";
-import { Collapse, Grid, IconButton,Link,Typography, useMediaQuery, } from "@material-ui/core";
+import { Button, Collapse, Grid, Link, Typography, useMediaQuery, } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { makeStyles, useTheme, } from "@material-ui/styles";
 import ANSIToHTML from "ansi-to-html";
@@ -24,17 +25,10 @@ const useStyle = makeStyles(theme => {
 
     thumbnail: {
       width: "100%",
-      // width: "160px",
-      // float: "left",
-      // marginRight: theme.spacing(1),
-      // [theme.breakpoints.up("md")]: {
-      //   height: "202px",
-      // }
     },
 
-    expand: {
+    expandIcon: {
       transform: "rotate(0deg)",
-      padding: "2px 12px",
       transition: theme.transitions.create("transform", {
         duration: theme.transitions.duration.shortest,
       }),
@@ -51,6 +45,12 @@ const useStyle = makeStyles(theme => {
       }
     },
     url: {},
+    cancelButton: {
+      marginTop: theme.spacing(2),
+      [theme.breakpoints.down("xs")]: {
+        float: "right"
+      }
+    }
   };
 });
 
@@ -69,6 +69,11 @@ const Item = (props) => {
   const title = getTitle(item);
   const thumbnail = getThumbnail(item);
   const mediaTitle = `${title} thumbnail`;
+  const expandIcon = <ExpandMoreIcon
+    className={classnames(classes.expandIcon, {
+      [classes.expandOpen]: expanded,
+    })}
+  />;
 
   return (
     <Grid container className={classes.root} spacing={1}>
@@ -82,25 +87,27 @@ const Item = (props) => {
           <Typography className={classes.url}>
             <Link href={url}>{url}</Link>
           </Typography>
+          <CancelButton item={item} className={classes.cancelButton} />
         </If>
       </Grid>
       <If condition={isMobile}>
         <Grid item xs={12}>
           <ItemMeta item={item} />
         </Grid>
+        <Grid item xs={12}>
+          <CancelButton item={item} className={classes.cancelButton} />
+        </Grid>
       </If>
       <Grid item xs={12}>
-        <Typography className={classes.descriptionLabel} component="span">Description</Typography>
-        <IconButton
-          className={classnames(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
+        <Button
+          className={classes.expand}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
+          endIcon={expandIcon}
         >
-          <ExpandMoreIcon />
-        </IconButton>
+          <Typography className={classes.descriptionLabel} component="span">Description</Typography>
+        </Button>
         <Collapse in={expanded} unmountOnExit>
           <If condition={isMobile}>
             <Typography className={classes.url}>

@@ -11,19 +11,30 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-const useStyles = makeStyles(() => ({
-  container: {
-    flexGrow: 1,
-    maxWidth: "100%",
-    // width: '100%'
-    margin: 0,
-    padding: 0,
-  },
+const useStyles = makeStyles((theme) => {
+  const spacing = theme.spacing(2);
+  return {
+    container: {
+      flexGrow: 1,
+      maxWidth: "100%",
+      // width: '100%'
+      margin: 0,
+      padding: 0,
+    },
 
-  body: {
-    // padding: theme.spacing(3),
+    body: {
+      paddingTop: spacing,
+    },
+
+    inputForm: {
+      paddingBottom: spacing,
+    },
+
+    jobs: {
+      paddingTop: spacing,
+    }
   }
-}));
+});
 
 const Main = ({ jobs }) => {
   const classes = useStyles();
@@ -32,7 +43,8 @@ const Main = ({ jobs }) => {
     <Container className={classes.container}>
       <Toolbar />
       <div className={classes.body}>
-        <InputForm />
+        <InputForm className={classes.inputForm} />
+        <Divider />
         <Grid container spacing={3}  className={classes.jobs}>
           <For each="job" of={jobs}>
             <Grid item xs={12}>

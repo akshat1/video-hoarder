@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 
 export const CancelButton = (props) => {
   const [ isDialogOpen, setDialogOpen ] = useState(false);
-  const { item, doCancel, doDelete } = props;
+  const { item, doCancel, doDelete, className } = props;
   const { status } = item;
 
   const canDelete = hasConcluded(status);
@@ -39,6 +39,7 @@ export const CancelButton = (props) => {
         variant="contained"
         color="secondary"
         onClick={openDialog}
+        className={className}
       >
         {label}
       </Button>
@@ -66,6 +67,7 @@ CancelButton.propTypes = {
   }).isRequired,
   doCancel: PropTypes.func.isRequired,
   doDelete: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 const dispatchToProps = {

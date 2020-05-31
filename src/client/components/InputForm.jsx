@@ -32,7 +32,7 @@ const useStyle = makeStyles(theme => ({
 }));
 
 const InputPattern = "^(https?:\\/\\/.+)?$";
-export const InputForm = ({ initialValue, onSubmit }) => {
+export const InputForm = ({ className, initialValue, onSubmit }) => {
   const classes = useStyle();
   const [url, setURL] = useState(initialValue);
   useEffect(() => setURL(initialValue), [initialValue]);
@@ -60,7 +60,7 @@ export const InputForm = ({ initialValue, onSubmit }) => {
   );
 
   return (
-    <Container>
+    <Container className={className}>
       <form onSubmit={onFormSubmit}>
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={10}>
@@ -107,6 +107,7 @@ InputForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   /** @type {string} */
   initialValue: PropTypes.string,
+  className: PropTypes.string,
 };
 
 InputForm.defaultProps = {

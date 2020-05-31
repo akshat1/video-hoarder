@@ -146,7 +146,7 @@ export const addMetadata = async (args) => {
  * @returns {Promise}
  */
 export const completeJob = async (item) => {
-  const logger = getLogger('completeJob', rootLogger);
+  const logger = getLogger("completeJob", rootLogger);
   logger.debug(item);
   const { id } = item;
   const jobs = await getJobsCollection();
