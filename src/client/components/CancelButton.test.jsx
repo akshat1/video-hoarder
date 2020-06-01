@@ -14,6 +14,6 @@ describe("components/CancelButton", () => {
           <CancelButton item={getFakeItem(status)} doCancel={() => 0}/>
         </ThemeProvider>;
       expect(shallow(instance)).toMatchSnapshot();
-    })
+    }),
   );
 });

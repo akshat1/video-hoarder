@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <Provider store={getStore()}>
       <App />
     </Provider>,
-    root
+    root,
   );
   bootstrapClient();
 });

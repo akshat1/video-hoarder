@@ -9,7 +9,7 @@
  * @module client/components/InputForm
  */
 import { addJob } from "../redux/actions";
-import { Button, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput,  } from "@material-ui/core";
+import { Button, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput  } from "@material-ui/core";
 import { ClearOutlined } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
@@ -19,16 +19,16 @@ import { connect } from "react-redux";
 
 const useStyle = makeStyles(theme => ({
   submitContainer: {
-    textAlign: "center"
+    textAlign: "center",
   },
   submitButton: {
     [theme.breakpoints.up("md")]: {
       marginTop: "11px",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "100%"
-    }
-  }
+      width: "100%",
+    },
+  },
 }));
 
 const InputPattern = "^(https?:\\/\\/.+)?$";
@@ -111,7 +111,7 @@ InputForm.propTypes = {
 };
 
 InputForm.defaultProps = {
-  initialValue: ""
+  initialValue: "",
 };
 
 const stateToProps = () => ({});

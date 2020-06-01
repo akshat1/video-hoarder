@@ -11,6 +11,6 @@ describe("components/Item", () => {
     test(`Item matches snapshot for ${status}`, () => {
       const instance = <ThemeProvider theme={getTheme()}><Item item={getFakeItem(status)} />)</ThemeProvider>
       expect(shallow(instance)).toMatchSnapshot();
-    })
+    }),
   );
 });

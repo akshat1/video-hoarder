@@ -5,9 +5,9 @@
 import { getDescription, getThumbnail, getTitle, ItemShape } from "../../model/Item.js";
 import CancelButton from "./CancelButton.jsx";
 import ItemMeta from "./ItemMeta.jsx";
-import { Button, Collapse, Grid, Link, Typography, useMediaQuery, } from "@material-ui/core";
+import { Button, Collapse, Grid, Link, Typography, useMediaQuery } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { makeStyles, useTheme, } from "@material-ui/styles";
+import { makeStyles, useTheme } from "@material-ui/styles";
 import ANSIToHTML from "ansi-to-html";
 import classnames from "classnames";
 import React from "react";
@@ -17,11 +17,8 @@ const convert = new ANSIToHTML({
 });
 
 const useStyle = makeStyles(theme => {
-  console.log(theme);
   return {
-    root: {
-      padding: theme.spacing(1),
-    },
+    root: {},
 
     thumbnail: {
       width: "100%",
@@ -41,16 +38,19 @@ const useStyle = makeStyles(theme => {
     title: {
       fontSize: "1.25em",
       [theme.breakpoints.up("md")]: {
-        fontSize: "2em"
-      }
+        fontSize: "2em",
+      },
     },
     url: {},
     cancelButton: {
       marginTop: theme.spacing(2),
       [theme.breakpoints.down("xs")]: {
-        float: "right"
-      }
-    }
+        float: "right",
+      },
+    },
+    description: {
+      marginBottom: theme.spacing(2),
+    },
   };
 });
 
@@ -114,7 +114,9 @@ const Item = (props) => {
               <Link href={url}>{url}</Link>
             </Typography>
           </If>
-          <Typography className={classes.description} dangerouslySetInnerHTML={{ __html: convert.toHtml(getDescription(item)) }} />
+          <If condition={getDescription(item)}>
+            <Typography className={classes.description} dangerouslySetInnerHTML={{ __html: convert.toHtml(getDescription(item)) }} />
+          </If>
         </Collapse>
       </Grid>
     </Grid>

@@ -1,16 +1,14 @@
 import { getLogger } from "../../../logger";
-import { getJobs } from "../../selectors";
+import { getJobs, getStatusFilterValue } from "../../selectors";
+import { StatusFilterValue } from "../../StatusFilterValue";
 import { makeActionF } from "../boilerplate";
 import { getInstance } from "../net";
 import _ from "lodash";
 
 const rootLogger = getLogger("actions");
 
-/**
- * @typedef {Object} Action
- * @property {string} type
- * @property {*} value
- */
+export const StatusFilter = "StatusFilter";
+export const setStatusFilter = makeActionF(StatusFilter);
 
 export const FetchingJobs = "FetchingJobs";
 const setFetchingJobs = makeActionF(FetchingJobs);
@@ -29,15 +27,22 @@ const setDeletingJob = makeActionF(DeletingJob);
 
 /**
  * @func
- * @returns {ActionCreator}
+ * @returns {ActionCreator}a
  */
 export const fetchJobs = () =>
-  async (dispatch) => {
+  async (dispatch, getState) => {
     const logger = getLogger("fetchJobs", rootLogger);
     try {
       logger.debug("fetchJobs");
       dispatch(setFetchingJobs(true));
-      const response = await getInstance().get("/api/jobs");
+      const state = getState();
+      const query = {};
+      const statusFilterValue = getStatusFilterValue(state);
+      if (statusFilterValue !== StatusFilterValue.All) {
+        _.set(query, "status", statusFilterValue);
+      }
+
+      const response = await getInstance().post("/api/jobs", { query });
       const { data: jobs } = response.data;
       dispatch(setJobs(jobs));
       dispatch(setFetchingJobs(false));
@@ -135,4 +140,10 @@ export const updateJobInStore = (item) =>
       logger.debug("Done");
     }
     logger.debug(`${itemId} is currently not in our store.`);
+  };
+
+export const changeStatusFilter = (filterValue) =>
+  (dispatch) => {
+    dispatch(setStatusFilter(filterValue));
+    dispatch(fetchJobs());
   };

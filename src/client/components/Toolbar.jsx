@@ -50,7 +50,7 @@ const getMenuStyle = anchorEl => ({
 export const Toolbar = (props) => {
   const [state, setState] = useState({
     appMenuAnchor: null,
-    userMenuAnchor: null
+    userMenuAnchor: null,
   });
   const {
     userMenuAnchor,

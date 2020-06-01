@@ -6,5 +6,5 @@ export const getTheme = _.memoize(darkMode =>
     palette: {
       type: darkMode ? "dark" : "light",
     },
-  })
+  }),
 );

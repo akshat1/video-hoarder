@@ -10,32 +10,32 @@ describe("components/DeleteConfirmationDialog", () => {
       shallow(
         <ThemeProvider theme={getTheme()}>
           <LoginForm />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toMatchSnapshot();
 
     expect(
       shallow(
         <ThemeProvider theme={getTheme()}>
           <LoginForm fetchingUser/>
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toMatchSnapshot();
 
     expect(
       shallow(
         <ThemeProvider theme={getTheme()}>
           <LoginForm loggedIn/>
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toMatchSnapshot();
 
     expect(
       shallow(
         <ThemeProvider theme={getTheme()}>
           <LoginForm loginError="Omlette du Fromage'"/>
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -48,7 +48,7 @@ describe("components/DeleteConfirmationDialog", () => {
       };
 
       expect(isSubmitDisabled({
-        ...args
+        ...args,
       })).toBeTruthy();
 
       expect(isSubmitDisabled({
@@ -70,7 +70,7 @@ describe("components/DeleteConfirmationDialog", () => {
       };
 
       expect(isSubmitDisabled({
-        ...args
+        ...args,
       })).toBeTruthy();
 
       expect(isSubmitDisabled({

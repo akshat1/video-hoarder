@@ -17,7 +17,7 @@ describe("client/selectors", () => {
 
     test("isLoggedIn returns false when the user is not logged in", () => {
       assert.equal(isLoggedIn({
-        user: { loggedIn: false }
+        user: { loggedIn: false },
       }), false);
       // Following assertion will most likely break once we enforce an actual schema; we'll remove it then.
       assert.equal(isLoggedIn({ user: {} }), false);

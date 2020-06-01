@@ -34,7 +34,7 @@ jest.mock("webpack", () => ({
 jest.mock("https", () => ({
   __esModule: true,
   default: {
-    createServer: jest.fn()
+    createServer: jest.fn(),
   },
 }));
 

@@ -11,16 +11,16 @@ import React from "react";
 const useStyle = makeStyles((theme) => {
   return {
     [Status.Failed]: {
-      color: theme.palette.success.main
+      color: theme.palette.success.main,
     },
     [Status.Pending]: {
-      color: colors.amber[500]
+      color: colors.amber[500],
     },
     [Status.Running]: {
-      color: theme.palette.success.main
+      color: theme.palette.success.main,
     },
     [Status.Succeeded]: {
-      color: theme.palette.success.main
+      color: theme.palette.success.main,
     },
     "unknown": { color: theme.palette.info.main },
   };

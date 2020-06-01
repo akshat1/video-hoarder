@@ -45,6 +45,7 @@ module.exports = {
     "import/default": "error",
     "import/no-absolute-path": "error",
     "simple-import-sort/sort": ["error", { groups: [] }],
+    "comma-dangle": ["error", "always-multiline"]
   },
   overrides: [{
     files: ["*.story.jsx", "*.jsx"],

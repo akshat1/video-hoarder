@@ -48,6 +48,7 @@ export const CancelButton = (props) => {
         onConfirm={onConfirm}
         jobTitle={getTitle(item)}
         open={isDialogOpen}
+        status={status}
       />
     </Fragment>
   );

@@ -1,5 +1,5 @@
 import { getLogger } from "../../../logger";
-import { getCurrentPath,isLoggedIn, isUserFetchDone,  } from "../../selectors";
+import { getCurrentPath,isLoggedIn, isUserFetchDone  } from "../../selectors";
 import { disconnect, reconnect } from "../../socketio";
 import { makeActionF } from "../boilerplate";
 import { getInstance } from "../net";

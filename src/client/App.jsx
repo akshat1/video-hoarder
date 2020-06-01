@@ -2,7 +2,7 @@ import LoginForm from "./components/LoginForm.jsx";
 import Main from "./components/Main.jsx";
 import { getHistory } from "./history";
 import { initializeClient } from "./redux/actions";
-import { isFetchingUser, isLoggedIn, isUserFetchDone, } from "./selectors";
+import { isFetchingUser, isLoggedIn, isUserFetchDone } from "./selectors";
 import { getTheme } from "./theme";
 import { CssBaseline, useMediaQuery } from "@material-ui/core";
 import { makeStyles, ThemeProvider } from "@material-ui/styles";
@@ -34,7 +34,7 @@ const App = (props) => {
 
   useEffect(
     () => { initializeClient(); },
-    [userFetchDone]
+    [userFetchDone],
   );
 
   return (

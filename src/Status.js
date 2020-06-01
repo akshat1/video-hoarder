@@ -31,3 +31,9 @@ export const hasStarted = status =>
  */
 export const hasConcluded = status =>
   status === Status.Failed || status === Status.Succeeded;
+
+/**
+ * @param {Status} status 
+ * @returns {bool}
+ */
+export const isPending = status => status === Status.Pending;

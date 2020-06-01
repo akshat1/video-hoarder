@@ -160,7 +160,7 @@ export const count = (cursor, applySkipLimit) =>
  * @returns {Promise.<module:server/db~Cursor>}
  */
 export const sort = (cursor, keyOrList) =>
-  new Promise((resolve, reject) => cursor.sor(keyOrList, inPromiseCallback(resolve, reject)));
+  new Promise((resolve, reject) => cursor.sort(keyOrList, inPromiseCallback(resolve, reject)));
 
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#limit

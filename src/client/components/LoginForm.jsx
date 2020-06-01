@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 
   loginError: {
     margin: theme.spacing[2],
-  }
+  },
 }));
 
 /**
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
  * @param {boolean} args.loggedIn -
  * @returns {boolean}
  */
-export const isSubmitDisabled = ({ userName, password, fetchingUser, loggedIn, }) =>
+export const isSubmitDisabled = ({ userName, password, fetchingUser, loggedIn }) =>
   loggedIn || fetchingUser || !(userName && password);
 
 export const LoginForm = (props) => {

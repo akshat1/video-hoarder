@@ -13,6 +13,8 @@ const ensureLoggedIn = (req, res, next) => {
   res.status(401).send("NOT AUTHORIZED");
 }
 
+const DefaultSort = [["updatedAt", -1]];
+
 /**
  * @func
  * @param {Request} req 
@@ -22,20 +24,19 @@ export const getJobs = async (req, res, next) => {
   const logger = getLogger("getJobs", rootLogger);
   // @todo avoid dupes.
   try {
+    logger.debug(req.body);
     const {
       query = {},
       pagination = {},
-      sort,
+      sort = DefaultSort,
     } = req.body;
     const { userName } = req.user;
     const cursor = await db.getJobsForUser(userName, query);
     if (sort) {
-      logger.debug(sort);
       await db.sort(cursor, sort);
     }
 
     if (pagination) {
-      logger.debug(pagination);
       const {
         skip,
         limit,
@@ -138,7 +139,7 @@ export const login = (req, res) => {
 
 export const getRouter = (passport) => {
   const router = new Router();
-  router.get("/jobs", ensureLoggedIn, getJobs);
+  router.post("/jobs", ensureLoggedIn, getJobs);
   router.post("/job/add", ensureLoggedIn, addJob);
   router.post("/job/stop", ensureLoggedIn, stopJob);
   router.post("/job/delete", ensureLoggedIn, deleteJob);

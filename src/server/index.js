@@ -50,7 +50,7 @@ export const startServer = async (startDevServer) => {
     logger.debug("serveIndex...");
     res.sendFile(
       path.resolve(process.cwd(), "./dist/index.html"),
-      err => err && res.status(500).send(err)
+      err => err && res.status(500).send(err),
     );
   }
 

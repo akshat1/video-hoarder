@@ -11,7 +11,7 @@ export const getInstance = () => {
       timeout: 5000,
       headers: {
         "Cache-Control": "no-cache",
-      }
+      },
     });
   }
 

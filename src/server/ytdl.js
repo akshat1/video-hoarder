@@ -118,7 +118,7 @@ const downloadVideo = async (item) => {
   const args = [
     "--config-location",
     configThunk.pathName,
-    item.url
+    item.url,
   ];
   logger.debug("download args", args);
 
@@ -167,7 +167,7 @@ export const initializeYTDL = async () => {
     },
     metadata: {
       $eq: null,
-    }
+    },
   }));
   logger.debug("metadataJobs", metadataJobs);
   metadataJobs.forEach(item => metadataQ.add(() => downloadMeta(item)));
@@ -179,7 +179,7 @@ export const initializeYTDL = async () => {
     metadata: {
       $exists: true,
       $ne: null,
-    }
+    },
   }));
   logger.debug("videoJobs", videoJobs);
   videoJobs.forEach(item => videoQ.add(() => downloadVideo(item)));

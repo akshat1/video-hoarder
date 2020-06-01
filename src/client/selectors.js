@@ -56,3 +56,10 @@ export const getUserName = state => (getUser(state) || {}).userName;
  * @returns {string}
  */
 export const getJobs = state => state.jobs || [];
+
+/**
+ * @function
+ * @param {module:client/redux.State} state
+ * @returns {StatusFilterValue}
+ */
+export const getStatusFilterValue = state => state.statusFilter;

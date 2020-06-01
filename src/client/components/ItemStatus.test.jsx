@@ -10,6 +10,6 @@ describe("components/ItemStatus", () => {
     test(`ItemStatus matches snapshot for ${status}`, () => {
       const instance = <ThemeProvider theme={getTheme()}><ItemStatus status={status} /></ThemeProvider>;
       expect(shallow(instance)).toMatchSnapshot();
-    })
+    }),
   );
 });

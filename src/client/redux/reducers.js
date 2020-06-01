@@ -2,7 +2,8 @@
  * Actions and reducers. Together at last (we'll split them if required down the road).
  * @module client/redux/actions-and-reducers
  */
-import { AddingJob,FetchingJobs, FetchingUser, Jobs, LoginError, User, UserFetchDone } from "./actions";
+import { StatusFilterValue } from "../StatusFilterValue.js";
+import * as Actions from "./actions";
 import { makeReducer } from "./boilerplate";
 import { connectRouter } from "connected-react-router"
 import { combineReducers } from "redux";
@@ -30,14 +31,15 @@ export const getRootReducer = history => {
    * @returns {State} - The new store state
    */
   const rootReducer = combineReducers({
-    fetchingUser: makeReducer(FetchingUser, false),
-    loginError: makeReducer(LoginError, null),
+    fetchingUser: makeReducer(Actions.FetchingUser, false),
+    loginError: makeReducer(Actions.LoginError, null),
     router: connectRouter(history),
-    user: makeReducer(User, {}),
-    userFetchDone: makeReducer(UserFetchDone, false),
-    jobs: makeReducer(Jobs, []),
-    fetchingJobs: makeReducer(FetchingJobs, false),
-    addingJob: makeReducer(AddingJob, false),
+    user: makeReducer(Actions.User, {}),
+    userFetchDone: makeReducer(Actions.UserFetchDone, false),
+    jobs: makeReducer(Actions.Jobs, []),
+    fetchingJobs: makeReducer(Actions.FetchingJobs, false),
+    addingJob: makeReducer(Actions.AddingJob, false),
+    statusFilter: makeReducer(Actions.StatusFilter, StatusFilterValue.All),
   });
 
   return rootReducer;

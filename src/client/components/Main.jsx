@@ -4,6 +4,7 @@
 import { getJobs } from "../selectors.js";
 import InputForm from "./InputForm.jsx";
 import Item from "./Item.jsx";
+import ItemFilter from "./ItemFilter.jsx";
 import Toolbar from "./Toolbar.jsx";
 import { Container, Divider, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => {
     },
 
     body: {
-      paddingTop: spacing,
+      padding: spacing,
     },
 
     inputForm: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => {
 
     jobs: {
       paddingTop: spacing,
-    }
+    },
   }
 });
 
@@ -45,7 +46,10 @@ const Main = ({ jobs }) => {
       <div className={classes.body}>
         <InputForm className={classes.inputForm} />
         <Divider />
-        <Grid container spacing={3}  className={classes.jobs}>
+        <Grid container spacing={3} className={classes.jobs}>
+          <Grid item>
+            <ItemFilter />
+          </Grid>
           <For each="job" of={jobs}>
             <Grid item xs={12}>
               <Item key={job.id} item={job}/>

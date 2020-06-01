@@ -13,12 +13,12 @@ export const getStore = () => {
     const history = getHistory();
     const middlewares = [
       thunk,
-      routerMiddleware(history)
+      routerMiddleware(history),
     ];
     /* istanbul ignore next. We'll figure out the devtools branch when we mock the window. */
     const composeArgs = [
       applyMiddleware(...middlewares),
-      typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f  // TODO: Fake window for testing.
+      typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,  // TODO: Fake window for testing.
     ];
 
     store = compose(...composeArgs)(createStore)(getRootReducer(history));
