@@ -5,13 +5,23 @@ import express from "express";
 const rootLogger = getLogger("api");
 const { Router } = express;
 
+/* This is for use only with log-in and password reset APIs. */
 const ensureLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
 
   res.status(401).send("NOT AUTHORIZED");
-}
+};
+
+/* This is for use with everything else. */
+const ensureValidUser = (req, res, next) => {
+  if (req.isAuthenticated() && req.user && !req.user.passwordExpired) {
+    return next();
+  }
+
+  res.status(401).send("NOT AUTHORIZED");
+};
 
 const DefaultSort = [["updatedAt", -1]];
 
@@ -139,12 +149,20 @@ export const login = (req, res) => {
 
 export const getRouter = (passport) => {
   const router = new Router();
-  router.post("/jobs", ensureLoggedIn, getJobs);
-  router.post("/job/add", ensureLoggedIn, addJob);
-  router.post("/job/stop", ensureLoggedIn, stopJob);
-  router.post("/job/delete", ensureLoggedIn, deleteJob);
-  router.get("/user/me", ensureLoggedIn, getProfile);
-  router.post("/user/logout", logout);
-  router.post("/user/login", passport.authenticate("local"), login);
+  const user = new Router();
+
+  user.get("/user/me", ensureLoggedIn, getProfile);
+  user.post("/user/logout", logout);
+  user.post("/user/login", passport.authenticate("local"), login);
+
+  const jobs = new Router();
+  jobs.use(ensureValidUser);
+  jobs.post("/jobs", getJobs);
+  jobs.post("/job/add", addJob);
+  jobs.post("/job/stop", stopJob);
+  jobs.post("/job/delete", deleteJob);
+
+  router.use(user);
+  router.use(jobs);
   return router;
 }

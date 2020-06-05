@@ -13,4 +13,5 @@
  * @typedef User
  * @property {string} userName
  * @property {boolean} loggedIn
+ * @property {boolean} passwordExpired
  */

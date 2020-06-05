@@ -3,7 +3,7 @@
  */
 import { getLogger } from "../logger.js";
 import { hash } from "./crypto.js";
-import { findOne, getUsersCollection } from "./db/index.js";
+import { getUserByUserName } from "./db/user-management.js";
 import Base64 from "Base64";
 import _ from "lodash";
 import passport from "passport";
@@ -22,9 +22,9 @@ export const MessageIncorrectLogin = "Incorrect username or password.";
  * @returns {User}
  */
 export const getReturnableUser = user => ({
-  ..._.pick(user, "userName"),
+  ..._.pick(user, "userName", "passwordExpired"),
   loggedIn: true,
-})
+});
 
 /**
  * Called by passport.js to verify the current user during log-in.
@@ -40,9 +40,7 @@ export const verifyUser = async (userName, password, cb) => {
   const logger = getLogger("verifyUser", rootLogger);
   try {
     logger.debug("verifyUser called", userName, "*********");
-    const users = await getUsersCollection();
-    logger.debug("Got users collection");
-    const user = await findOne(users, { userName });
+    const user = await getUserByUserName(userName);
     logger.debug("Done finding user");
     if (user && (await hash(password, user.salt)) === user.password) {
       logger.debug("Calling cb");
@@ -68,7 +66,7 @@ export const verifyUser = async (userName, password, cb) => {
 export const serializeUser = (user, cb) => {
   rootLogger.debug("serialize user")
   cb(null, Base64.btoa(user.userName));
-}
+};
 
 /**
  * Given a memoizable identifier, return the corresponding User object.
@@ -85,15 +83,14 @@ export const deserializeUser = async (id, cb) => {
   try {
     const userName = Base64.atob(id);
     logger.debug(userName);
-    const users = await getUsersCollection();
-    const user = await findOne(users, { userName });
+    const user = await getUserByUserName(userName);
     logger.debug(user);
     cb(null, getReturnableUser(user));
   } catch (err) {
     logger.debug("error trying to deserialize user.", err);
     cb(err);
   }
-}
+};
 
 /**
  * @func

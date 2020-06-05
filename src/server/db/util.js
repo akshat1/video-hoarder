@@ -1,12 +1,30 @@
 import { getLogger } from "../../logger.js";
 import { inPromiseCallback } from "../../util.js";
-import { encrypt } from "../crypto.js";
 import path from "path";
 import Tingo from "tingodb";
 
 const rootLogger = getLogger("db");
 
 /** @typedef {string} CollectionName */
+
+let db;
+
+/**
+ * Returns the singleton db instance.
+ * @func
+ * @memberof module:server/db
+ * @returns {Object}
+ */
+export const getDb = () => db;
+
+export const createDB = () => {
+  if (!db || process.env.NODE_ENV === "test") {
+    const dbLocation = path.resolve(process.cwd(), "db-data");
+    const tingo = Tingo();
+    const Db = tingo.Db;
+    db = new Db(dbLocation, { name: "video-hoarder-dev" });
+  }
+}
 
 /**
  * @func
@@ -56,6 +74,24 @@ export const find = (collection, query, fields, options) =>
   new Promise((resolve, reject) => collection.find(query, fields, options, inPromiseCallback(resolve, reject)));
 
 /**
+ * Extremely basic for now, will only go one level deep. Built specifically for debugging while inserting
+ * users. Might write a better version in the future if required.
+ */
+const redact = src => {
+  if (Array.isArray(src)) {
+    return src.map(redact);
+  }
+
+  if (src.password) {
+    const dest = { ...src };
+    dest.password = "XXXXXXXX";
+    return dest;
+  }
+
+  return src;
+};
+
+/**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/insert.html#insert
  * @func
  * @memberof module:server/db
@@ -71,7 +107,7 @@ export const insert = (collection, docs, options) => {
       logger.error(err);
       reject(err);
     } else {
-      logger.debug(data);
+      logger.debug(redact(data));
       resolve(data[0]);
     }
   }));
@@ -182,16 +218,6 @@ export const limit = (cursor, numLimit) =>
 export const skip = (cursor, numSkip) =>
   new Promise((resolve, reject) => cursor.skip(numSkip, inPromiseCallback(resolve, reject)));
 
-let db;
-
-/**
- * Returns the singleton db instance.
- * @func
- * @memberof module:server/db
- * @returns {Object}
- */
-export const getDb = () => db;
-
 // Not really sure how to test the following two. Immutable modules. Mmmm hmm. Lovely.
 /**
  * @memberof module:server/db
@@ -204,34 +230,3 @@ export const getJobsCollection = () => getCollection(getDb(), Collection.Jobs);
  * @returns {Collection} - the users collection.
  */
 export const getUsersCollection = () => getCollection(getDb(), Collection.Users);
-
-/**
- * Initialize the database. Creates user collection and the default user.
- *
- * @func
- * @memberof module:server/db
- * @param {DB} db
- * @returns {Promise}
- */
-export const initialize = async () => {
-  const logger = getLogger("initialize", rootLogger);
-  if (!db || process.env.NODE_ENV === "test") {
-    const dbLocation = path.resolve(process.cwd(), "db-data");
-    const tingo = Tingo();
-    const Db = tingo.Db;
-    db = new Db(dbLocation, { name: "video-hoarder-dev" });
-  }
-
-  const users = await getUsersCollection();
-  const admin = await findOne(users, { userName: "admin" });
-  if (!admin) {
-    // Create admin user with default password
-    logger.debug("Create new admin user");
-    const { salt, hash } = await encrypt("GottaHoardEmAll");
-    await insert(users, {
-      userName: "admin",
-      salt,
-      password: hash,
-    });
-  }
-};

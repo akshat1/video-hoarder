@@ -7,8 +7,7 @@
  * @module server/db
  */
 
-// import { getLogger } from '../../logger.js';
-
+export { initialize } from "./initialize.js";
 export * from "./util.js";
 export * from "./job-management.js";
 
