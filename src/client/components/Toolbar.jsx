@@ -1,7 +1,7 @@
 /**
  * Renders the application toolbar.
  */
-import { doLogOut } from "../redux/actions";
+import { doLogOut, goToAccountScreen, goToHome } from "../redux/actions";
 import { getUserName,isLoggedIn } from "../selectors";
 import {
   AppBar,
@@ -10,6 +10,7 @@ import {
   Drawer,
   Fade,
   IconButton,
+  Link,
   List,
   ListItem,
   ListItemIcon,
@@ -59,6 +60,8 @@ export const Toolbar = (props) => {
   const classes = useStyles();
   const {
     doLogOut,
+    goToAccountScreen,
+    goToHome,
     loggedIn,
     userName,
   } = props;
@@ -89,9 +92,9 @@ export const Toolbar = (props) => {
         </If>
         <div className={classes.title} >
           <Box display={{xs: "none", sm: "inline-block"}}>
-            <Typography variant="h6">
+            <Link variant="h6" onClick={goToHome} color="inherit">
               Video Hoarder
-            </Typography>
+            </Link>
           </Box>
         </div>
         <If condition={loggedIn}>
@@ -110,7 +113,7 @@ export const Toolbar = (props) => {
             TransitionComponent={Fade}
             style={getMenuStyle(userMenuAnchor)}
           >
-            <MenuItem onClick={doLogOut}>
+            <MenuItem onClick={goToAccountScreen}>
               <ListItemIcon>
                 <AccountCircle />
               </ListItemIcon>
@@ -120,7 +123,7 @@ export const Toolbar = (props) => {
               <ListItemIcon>
                 <ExitToApp/>
               </ListItemIcon>
-              <Typography variant="inherit">Sign out</Typography>
+              <Typography variant="inherit">Sign Out</Typography>
             </MenuItem>
           </Menu>
         </If>
@@ -131,6 +134,8 @@ export const Toolbar = (props) => {
 
 Toolbar.propTypes = {
   doLogOut: PropTypes.func,
+  goToAccountScreen: PropTypes.func,
+  goToHome: PropTypes.func,
   loggedIn: PropTypes.bool,
   userName: PropTypes.string,
 };
@@ -140,6 +145,10 @@ const dispatchToState = (state) => ({
   userName: getUserName(state),
 });
 
-const dispatchToProps = { doLogOut };
+const dispatchToProps = {
+  doLogOut,
+  goToAccountScreen,
+  goToHome,
+};
 
 export default connect(dispatchToState, dispatchToProps)(Toolbar);

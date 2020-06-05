@@ -56,7 +56,7 @@ export const doLogIn = (username, password) =>
       const user = response.data
       dispatch(setLoginError(null));
       dispatch(setUser(user));
-      location.href = "/";
+      dispatch(initializeClient());
      } catch(err) {
        logger.error(err);
      }
@@ -106,7 +106,7 @@ const initLoginPage = () =>
   (dispatch, getState) => {
     const logger = getLogger("initLoginPage", rootLogger);
     logger.debug("initLoginPage");
-    if (isLoggedIn(getState())) {
+    if (isLoggedIn(getState()) && getCurrentPath(getState()) === "/login") {
       logger.debug("User is logged-in, redirect to /");
       dispatch(push("/"));
       return;
@@ -137,6 +137,9 @@ const initNonLoginPage = () =>
  */
 export const initializeClient = () =>
   async (dispatch, getState) => {
+    // if (getCurrentPath(getState()) === "/account") {
+    //   debugger
+    // }
     const logger = getLogger("initializeClient", rootLogger);
     const state = getState();
     logger.debug("begin", state);

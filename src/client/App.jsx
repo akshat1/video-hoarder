@@ -45,7 +45,7 @@ const App = (props) => {
           <Route path="/login">
             <LoginForm className={classes.loginForm}/>
           </Route>
-          <Route path="/">
+          <Route path="*">
             <Choose>
               <When condition={loggedIn}>
                 <Main />

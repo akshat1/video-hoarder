@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
+import { Route,Switch } from "react-router";
 
 const useStyles = makeStyles((theme) => {
   const spacing = theme.spacing(2);
@@ -18,7 +19,6 @@ const useStyles = makeStyles((theme) => {
     container: {
       flexGrow: 1,
       maxWidth: "100%",
-      // width: '100%'
       margin: 0,
       padding: 0,
     },
@@ -43,21 +43,28 @@ const Main = ({ jobs }) => {
   return (
     <Container className={classes.container}>
       <Toolbar />
-      <div className={classes.body}>
-        <InputForm className={classes.inputForm} />
-        <Divider />
-        <Grid container spacing={3} className={classes.jobs}>
-          <Grid item>
-            <ItemFilter />
-          </Grid>
-          <For each="job" of={jobs}>
-            <Grid item xs={12}>
-              <Item key={job.id} item={job}/>
-              <Divider />
+      <Switch>
+        <Route exact path="/">
+          <div className={classes.body}>
+            <InputForm className={classes.inputForm} />
+            <Divider />
+            <Grid container spacing={3} className={classes.jobs}>
+              <Grid item>
+                <ItemFilter />
+              </Grid>
+              <For each="job" of={jobs}>
+                <Grid item xs={12}>
+                  <Item key={job.id} item={job}/>
+                  <Divider />
+                </Grid>
+              </For>
             </Grid>
-          </For>
-        </Grid>
-      </div>
+          </div>
+        </Route>
+        <Route path="/account">
+          <h1>Account</h1>
+        </Route>
+      </Switch>
     </Container>
   );
 };

@@ -72,10 +72,8 @@ export const startServer = async (startDevServer) => {
   const passport = getPassport();
   app.use(passport.initialize());
   app.use(passport.session());
-
-  app.get("/", serveIndex);
-  app.get("/login", serveIndex);
   app.use("/api", getAPI(passport));
+  app.get("*", serveIndex);
 
   // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
   /* istanbul ignore next */
