@@ -15,6 +15,7 @@ jest.mock("express", () => {
   const mockRouter = {
     post: jest.fn(),
     get: jest.fn(),
+    use: jest.fn(),
   };
   mockExpress.Router = function() {
     return mockRouter;

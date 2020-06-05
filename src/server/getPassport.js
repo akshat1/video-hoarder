@@ -3,7 +3,7 @@
  */
 import { getLogger } from "../logger.js";
 import { hash } from "./crypto.js";
-import { getUserByUserName } from "./db/user-management.js";
+import { getUserByUserName } from "./db/index.js";
 import Base64 from "Base64";
 import _ from "lodash";
 import passport from "passport";

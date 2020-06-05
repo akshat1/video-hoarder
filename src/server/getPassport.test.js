@@ -1,6 +1,5 @@
-import { fakeCollection } from "../fixtures/tingodb";
 import { encrypt } from "./crypto";
-import { findOne, getUsersCollection } from "./db";
+import { getUserByUserName } from "./db";
 import { deserializeUser, getPassport,getReturnableUser, MessageIncorrectLogin, serializeUser, verifyUser } from "./getPassport";
 import assert from "assert";
 import Base64 from "Base64";
@@ -19,8 +18,7 @@ jest.mock("passport", () => ({
 jest.mock("passport-local");
 
 jest.mock("./db", () => ({
-  getUsersCollection: jest.fn(),
-  findOne: jest.fn(),
+  getUserByUserName: jest.fn(),
 }));
 
 describe("server/getPassport", () => {
@@ -39,7 +37,6 @@ describe("server/getPassport", () => {
 
   describe("verifyUser", () => {
     test("calls cb with user when user verified", async () => {
-      const usersCollection = fakeCollection();
       const userName = "test-user";
       const password = "test-password";
       const { salt, hash } = await encrypt(password);
@@ -48,15 +45,13 @@ describe("server/getPassport", () => {
         salt,
         password: hash,
       };
-      getUsersCollection.mockResolvedValue(usersCollection);
-      findOne.mockResolvedValue(user);
+      getUserByUserName.mockResolvedValue(user);
       const cb = jest.fn();
       await verifyUser(userName, password, cb);
       expect(cb).toHaveBeenCalledWith(null, getReturnableUser(user));
     });
 
     test("calls cb with message message when user not verified", async () => {
-      const usersCollection = fakeCollection();
       const userName = "test-user";
       const password = "test-password";
       const { salt, hash } = await encrypt("non-matching-password");
@@ -65,8 +60,7 @@ describe("server/getPassport", () => {
         salt,
         password: hash,
       };
-      getUsersCollection.mockResolvedValue(usersCollection);
-      findOne.mockResolvedValue(user);
+      getUserByUserName.mockResolvedValue(user);
       const cb = jest.fn();
       await verifyUser(userName, password, cb);
       expect(cb).toHaveBeenCalledWith(null, false, { message: MessageIncorrectLogin });
@@ -74,7 +68,7 @@ describe("server/getPassport", () => {
 
     test("calls cb with error when one occurs", async () => {
       const expectedError = new Error("test error");
-      getUsersCollection.mockImplementation(() => Promise.reject(expectedError));
+      getUserByUserName.mockImplementation(() => Promise.reject(expectedError));
       const cb = jest.fn();
       await verifyUser("foo", "bar", cb);
       expect(cb).toHaveBeenCalledWith(expectedError);
@@ -103,17 +97,15 @@ describe("server/getPassport", () => {
         password: "sooper secret",
         salt: "to taste",
       };
-      getUsersCollection.mockResolvedValue({});
-      findOne.mockResolvedValue(user);
+      getUserByUserName.mockResolvedValue(user);
       const cb = jest.fn();
       await deserializeUser(id, cb);
       expect(cb).toHaveBeenCalledWith(null, getReturnableUser(user));
     });
 
     test("yields error when one occurs", async () => {
-      getUsersCollection.mockResolvedValue({});
       const expectedError = new Error("expected error");
-      findOne.mockImplementation(Promise.reject(expectedError));
+      getUserByUserName.mockImplementation(Promise.reject(expectedError));
       const cb = jest.fn();
       await deserializeUser("foo", cb);
       expect(cb).toHaveBeenCalledWith(expectedError);

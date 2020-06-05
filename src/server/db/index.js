@@ -10,6 +10,7 @@
 export { initialize } from "./initialize.js";
 export * from "./util.js";
 export * from "./job-management.js";
+export * from "./user-management.js";
 
 /**
  * The database object.
