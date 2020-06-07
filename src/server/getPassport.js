@@ -2,8 +2,7 @@
  * @module server/getPassport
  */
 import { getLogger } from "../logger.js";
-import { hash } from "./crypto.js";
-import { getUserByUserName } from "./db/index.js";
+import { getUserByUserName,getVerifiedUser } from "./db/index.js";
 import Base64 from "Base64";
 import _ from "lodash";
 import passport from "passport";
@@ -40,15 +39,12 @@ export const verifyUser = async (userName, password, cb) => {
   const logger = getLogger("verifyUser", rootLogger);
   try {
     logger.debug("verifyUser called", userName, "*********");
-    const user = await getUserByUserName(userName);
-    logger.debug("Done finding user");
-    if (user && (await hash(password, user.salt)) === user.password) {
-      logger.debug("Calling cb");
-      cb(null, getReturnableUser(user));
-    } else {
-      logger.debug("Indicate login-error.");
-      cb(null, false, { message: MessageIncorrectLogin });
+    const user = await getVerifiedUser(userName, password);
+    if (user) {
+      return cb(null, getReturnableUser(user));
     }
+
+    return cb(null, false, { message: MessageIncorrectLogin });
   } catch (err) {
     logger.error(err);
     cb(err);

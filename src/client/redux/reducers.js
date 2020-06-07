@@ -16,6 +16,14 @@ import { combineReducers } from "redux";
  * @property {Object} router - from connected-react-router.
  * @property {string|null} loginError - error from the most recent login attempt, or null if the attempt was successful.
  * @property {User} user - currently logged in user; or `{}` when not logged in.
+ * @property {boolean} addingJob
+ * @property {boolean} fetchingJobs
+ * @property {Item[]} jobs
+ * @property {StatusFilterValue} statusFilter
+ * @property {string} updateUserErrorMessage
+ * @property {boolean} updateUserFailed
+ * @property {boolean} updateUserSucceeded
+ * @property {boolean} updatingUser
  */
 
  /**
@@ -31,15 +39,19 @@ export const getRootReducer = history => {
    * @returns {State} - The new store state
    */
   const rootReducer = combineReducers({
+    addingJob: makeReducer(Actions.AddingJob, false),
+    fetchingJobs: makeReducer(Actions.FetchingJobs, false),
     fetchingUser: makeReducer(Actions.FetchingUser, false),
+    jobs: makeReducer(Actions.Jobs, []),
     loginError: makeReducer(Actions.LoginError, null),
     router: connectRouter(history),
+    statusFilter: makeReducer(Actions.StatusFilter, StatusFilterValue.All),
+    updateUserErrorMessage: makeReducer(Actions.UpdateUserErrorMessage, ""),
+    updateUserFailed: makeReducer(Actions.UpdateUserFailed, false),
+    updateUserSucceeded: makeReducer(Actions.UpdateUserSucceeded, false),
+    updatingUser: makeReducer(Actions.UpdatingUser, false),
     user: makeReducer(Actions.User, {}),
     userFetchDone: makeReducer(Actions.UserFetchDone, false),
-    jobs: makeReducer(Actions.Jobs, []),
-    fetchingJobs: makeReducer(Actions.FetchingJobs, false),
-    addingJob: makeReducer(Actions.AddingJob, false),
-    statusFilter: makeReducer(Actions.StatusFilter, StatusFilterValue.All),
   });
 
   return rootReducer;

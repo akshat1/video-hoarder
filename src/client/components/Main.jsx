@@ -2,6 +2,7 @@
  * This is the entire logged-in user interface.
  */
 import { getJobs } from "../selectors.js";
+import AccountSettings from "./AccountSettings.jsx";
 import InputForm from "./InputForm.jsx";
 import Item from "./Item.jsx";
 import ItemFilter from "./ItemFilter.jsx";
@@ -44,8 +45,8 @@ const Main = ({ jobs }) => {
     <Container className={classes.container}>
       <Toolbar />
       <Switch>
-        <Route exact path="/">
-          <div className={classes.body}>
+        <div className={classes.body}>
+          <Route exact path="/">
             <InputForm className={classes.inputForm} />
             <Divider />
             <Grid container spacing={3} className={classes.jobs}>
@@ -59,18 +60,18 @@ const Main = ({ jobs }) => {
                 </Grid>
               </For>
             </Grid>
-          </div>
-        </Route>
-        <Route path="/account">
-          <h1>Account</h1>
-        </Route>
+          </Route>
+          <Route path="/account">
+            <AccountSettings />
+          </Route>
+        </div>
       </Switch>
     </Container>
   );
 };
 
 Main.propTypes = {
-  jobs: PropTypes.object,
+  jobs: PropTypes.arrayOf(PropTypes.object),
 };
 
 const stateToProps = state => ({

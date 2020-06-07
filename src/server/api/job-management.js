@@ -1,27 +1,9 @@
-import { getLogger } from "../logger.js";
-import * as db from "./db/index.js";
+import { getLogger } from "../../logger.js";
+import * as db from "../db/index.js";
+import { ensureValidUser } from "./middleware.js";
 import express from "express";
 
-const rootLogger = getLogger("api");
-const { Router } = express;
-
-/* This is for use only with log-in and password reset APIs. */
-const ensureLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-
-  res.status(401).send("NOT AUTHORIZED");
-};
-
-/* This is for use with everything else. */
-const ensureValidUser = (req, res, next) => {
-  if (req.isAuthenticated() && req.user && !req.user.passwordExpired) {
-    return next();
-  }
-
-  res.status(401).send("NOT AUTHORIZED");
-};
+const rootLogger = getLogger("api/job-management");
 
 const DefaultSort = [["updatedAt", -1]];
 
@@ -71,7 +53,7 @@ export const getJobs = async (req, res, next) => {
     logger.debug("send 200", responseData);
     res.status(200).send(responseData);
   } catch(err) {
-    res.status(500);
+    res.status(500).send("SERVER ERROR");
     next(err);
   }
 };
@@ -92,7 +74,7 @@ export const addJob = async (req, res, next) => {
     res.status(200).send(newJob);
   } catch (err) {
     logger.error(err);
-    res.status(500);
+    res.status(500).send("SERVER ERROR");
     next(err);
   }
 };
@@ -108,7 +90,7 @@ export const stopJob = async (req, res, next) => {
     res.status(200).send("OK");
   } catch (err) {
     logger.error(err);
-    res.status(500);
+    res.status(500).send("SERVER ERROR");
     next(err);
   }
 };
@@ -123,46 +105,17 @@ export const deleteJob = async (req, res, next) => {
     res.status(200).send("OK");
   } catch (err) {
     logger.error(err);
-    res.status(500);
+    res.status(500).send("SERVER ERROR");
     next(err);
   }
 };
 
-export const getProfile = (req, res) => {
-  const logger = getLogger("getProfile", rootLogger);
-  logger.debug("getProfile", req.user, req.isAuthenticated());
-  res.json(req.user);
-};
-
-export const logout = (req, res) => {
-  const logger = getLogger("logout", rootLogger);
-  logger.debug("logout");
-  req.logout();
-  res.status(200).send("OK");
-};
-
-export const login = (req, res) => {
-  const logger = getLogger("login", rootLogger);
-  logger.debug("login");
-  res.json(req.user);
-};
-
-export const getRouter = (passport) => {
-  const router = new Router();
-  const user = new Router();
-
-  user.get("/user/me", ensureLoggedIn, getProfile);
-  user.post("/user/logout", logout);
-  user.post("/user/login", passport.authenticate("local"), login);
-
-  const jobs = new Router();
+export const getRouter = () => {
+  const jobs = new express.Router();
   jobs.use(ensureValidUser);
   jobs.post("/jobs", getJobs);
   jobs.post("/job/add", addJob);
   jobs.post("/job/stop", stopJob);
   jobs.post("/job/delete", deleteJob);
-
-  router.use(user);
-  router.use(jobs);
-  return router;
+  return jobs;
 }

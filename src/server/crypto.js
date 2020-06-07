@@ -33,13 +33,19 @@ export const genSalt = async (saltRounds = DefaultNumberOfSaltRounds) => bcrypt.
 export const hash = (plainText, salt) => bcrypt.hash(plainText, salt);
 
 /**
+ * @typedef EncryptResult
+ * @property {string} salt
+ * @property {string} hash
+ */
+
+/**
  * Salts and hashes given plain text.
  *
  * @func
  * @see https://www.npmjs.com/package/bcrypt#to-hash-a-password
  * @param {string} plainText
  * @param {string} [saltRounds=10]
- * @returns {Promise.<Object>} - Object containing encrypted hash and corresponding salt.
+ * @returns {Promise.<EncryptResult>} - Object containing encrypted hash and corresponding salt.
  */
 export const encrypt = async (plainText, saltRounds=DefaultNumberOfSaltRounds) => {
   const salt = await genSalt(saltRounds);

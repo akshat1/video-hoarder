@@ -63,3 +63,18 @@ export const getJobs = state => state.jobs || [];
  * @returns {StatusFilterValue}
  */
 export const getStatusFilterValue = state => state.statusFilter;
+
+/**
+ * @function
+ * @param {module:client/redux.State} state
+ * @returns {boolean}
+ */
+export const isPasswordExpired = state => (getUser(state) || {}).passwordExpired;
+
+export const getUpdateUserErrorMessage = state => state.updateUserErrorMessage;
+
+export const isUpdateUserFailed = state => state.updateUserFailed;
+
+export const isUpdateUserSucceeded = state => state.updateUserSucceeded;
+
+export const isUpdatingUser = state => state.updatingUser;

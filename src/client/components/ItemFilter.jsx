@@ -60,7 +60,7 @@ const Itemfilter = (props) => {
             <Typography>Failed</Typography>
           </ToggleButton>
           <ToggleButton value={StatusFilterValue.Running} aria-label="Currently in-progress downloads">
-            <CircularProgress color="inherit" size="1.28rem" variant="statuc" value={50} className={classes.icon} />
+            <CircularProgress color="inherit" size="1.28rem" variant="static" value={50} className={classes.icon} />
             <Typography>In Progress</Typography>
           </ToggleButton>
           <ToggleButton value={StatusFilterValue.Pending} aria-label="Queued downloads">

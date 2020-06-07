@@ -2,7 +2,7 @@
 /* @todo: base URL ()for working behing reverse proxy */
 /** @module server */
 import { getLogger } from "../logger.js";
-import { getRouter as getAPI } from "./api.js";
+import { getRouter as getAPI } from "./api/index.js";
 import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
 import { getPassport } from "./getPassport.js";
 import { bootstrapApp } from "./socketio.js";

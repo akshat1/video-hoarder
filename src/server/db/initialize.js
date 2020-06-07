@@ -27,6 +27,6 @@ export const initialize = async () => {
       salt,
       password: hash,
       passwordExpired: true,
-    });
+    }, "system");
   }
 };

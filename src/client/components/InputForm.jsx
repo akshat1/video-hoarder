@@ -15,7 +15,6 @@ import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-//  import * as Style from "./InputForm.less";
 
 const useStyle = makeStyles(theme => ({
   submitContainer: {
