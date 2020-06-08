@@ -82,13 +82,16 @@ const redact = src => {
     return src.map(redact);
   }
 
-  if (src.password) {
-    const dest = { ...src };
+  const dest = { ...src };
+  if (dest.password) {
     dest.password = "XXXXXXXX";
-    return dest;
   }
 
-  return src;
+  if (dest.salt) {
+    dest.salt = "XXXXXXXX";
+  }
+
+  return dest;
 };
 
 /**

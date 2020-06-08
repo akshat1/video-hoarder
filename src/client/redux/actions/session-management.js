@@ -1,11 +1,10 @@
 import { getLogger } from "../../../logger";
-import { getCurrentPath,isLoggedIn, isUserFetchDone  } from "../../selectors";
+import { getCurrentPath,isLoggedIn, isPasswordExpired,isUserFetchDone  } from "../../selectors";
 import { disconnect, reconnect } from "../../socketio";
 import { makeActionF } from "../boilerplate";
 import { getInstance } from "../net";
 import { fetchJobs } from "./job-management";
-import { push } from "connected-react-router"
-
+import { goToAccountScreen, goToHome, goToLogin } from "./navigation";
 const rootLogger = getLogger("actions");
 
 export const User = "User";
@@ -24,43 +23,6 @@ const setUserFetchDone = makeActionF(UserFetchDone);
 
 export const LoginError = "LoginError";
 const setLoginError = makeActionF(LoginError);
-
-/**
- * Action used by the login form.
- *
- * @func
- * @param {string} username 
- * @param {string} password 
- * @returns {ActionCreator} -
- */
-export const doLogIn = (username, password) =>
-  async (dispatch) => {
-    const logger = getLogger("doLogin", rootLogger);
-    try {
-      const form = new URLSearchParams()
-      form.append("username", username);
-      form.append("password", password);
-      logger.debug(form)
-      const response = await getInstance().post("/api/user/login", form);
-
-      if (response.status !== 200) {
-        if (response.status === 401) {
-          dispatch(setLoginError("Incorrect username or password."));
-        } else {
-          dispatch(setLoginError("Login error."));
-        }
-
-        return;
-      }
-
-      const user = response.data
-      dispatch(setLoginError(null));
-      dispatch(setUser(user));
-      dispatch(initializeClient());
-     } catch(err) {
-       logger.error(err);
-     }
-  };
 
 /**
  * Fetch the currently logged-in user (or clear state.user if the user session is expired).
@@ -99,7 +61,7 @@ export const doLogOut = () =>
     await getInstance().post("/api/user/logout");
     disconnect();
     dispatch(setUser({}));
-    dispatch(push("/login"));
+    dispatch(goToLogin());
   };
 
 const initLoginPage = () =>
@@ -108,7 +70,7 @@ const initLoginPage = () =>
     logger.debug("initLoginPage");
     if (isLoggedIn(getState()) && getCurrentPath(getState()) === "/login") {
       logger.debug("User is logged-in, redirect to /");
-      dispatch(push("/"));
+      dispatch(goToHome());
       return;
     }
     logger.debug("not logged-in. do nothing.");
@@ -119,12 +81,15 @@ const initNonLoginPage = () =>
     const logger = getLogger("initializeClient", rootLogger);
     logger.debug("initNonLoginPage");
     if (isLoggedIn(getState())) {
-      logger.debug("we are logged in. time to fetch other data.");
-      await dispatch(fetchJobs());
-      return;
+      logger.debug("we are logged in.");
+      if (!isPasswordExpired(getState())) {
+        logger.debug("Fetch jobs.");
+        await dispatch(fetchJobs());
+        return;
+      }
     } else {
       logger.debug("We are not logged-in and we are not on the login page. Redirect to /login");
-      dispatch(push("/login"));
+      dispatch(goToLogin());
       return;
     }
   };
@@ -154,4 +119,46 @@ export const initializeClient = () =>
     } else {
       await dispatch(initNonLoginPage());
     }
+
+    if (isPasswordExpired(getState())) {
+      logger.debug("Go to account screen.");
+      dispatch(goToAccountScreen());
+    }
+  };
+
+/**
+ * Action used by the login form.
+ *
+ * @func
+ * @param {string} username 
+ * @param {string} password 
+ * @returns {ActionCreator} -
+ */
+export const doLogIn = (username, password) =>
+  async (dispatch) => {
+    const logger = getLogger("doLogin", rootLogger);
+    try {
+      const form = new URLSearchParams()
+      form.append("username", username);
+      form.append("password", password);
+      logger.debug(form)
+      const response = await getInstance().post("/api/user/login", form);
+
+      if (response.status !== 200) {
+        if (response.status === 401) {
+          dispatch(setLoginError("Incorrect username or password."));
+        } else {
+          dispatch(setLoginError("Login error."));
+        }
+
+        return;
+      }
+
+      const user = response.data
+      dispatch(setLoginError(null));
+      dispatch(setUser(user));
+      dispatch(initializeClient());
+     } catch(err) {
+       logger.error(err);
+     }
   };

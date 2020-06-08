@@ -44,8 +44,8 @@ const Main = ({ jobs }) => {
   return (
     <Container className={classes.container}>
       <Toolbar />
-      <Switch>
-        <div className={classes.body}>
+      <div className={classes.body}>
+        <Switch>
           <Route exact path="/">
             <InputForm className={classes.inputForm} />
             <Divider />
@@ -64,8 +64,8 @@ const Main = ({ jobs }) => {
           <Route path="/account">
             <AccountSettings />
           </Route>
-        </div>
-      </Switch>
+        </Switch>
+      </div>
     </Container>
   );
 };

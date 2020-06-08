@@ -67,7 +67,6 @@ export const InputForm = ({ className, initialValue, onSubmit }) => {
             fullWidth
             variant="outlined"
             required
-            helperText={validationErrorMessage}
           >
             <InputLabel htmlFor="url-input">Enter URL</InputLabel>
             <OutlinedInput

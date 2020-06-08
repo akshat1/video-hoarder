@@ -97,6 +97,7 @@ const PasswordChangeInput = (props) => {
             label="Enter current password"
             onChange={setter(setCurrentPassword)}
             required
+            type="password"
             value={currentPassword}
             variant="outlined"
           />
@@ -109,6 +110,7 @@ const PasswordChangeInput = (props) => {
             label="Enter new password"
             onChange={setter(setNewPasswordA)}
             required
+            type="password"
             value={newPasswordA}
             variant="outlined"
           />
@@ -121,6 +123,7 @@ const PasswordChangeInput = (props) => {
             label="Confirm new password"
             onChange={setter(setNewPasswordB)}
             required
+            type="password"
             value={newPasswordB}
             variant="outlined"
           />
