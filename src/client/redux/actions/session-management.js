@@ -70,7 +70,7 @@ const initLoginPage = () =>
   (dispatch, getState) => {
     const logger = getLogger("initLoginPage", rootLogger);
     logger.debug("initLoginPage");
-    if (isLoggedIn(getState()) && getCurrentPath(getState()) === "/login") {
+    if (isLoggedIn(getState()) && getCurrentPath(getState()).endsWith("/login")) {
       logger.debug("User is logged-in, redirect to /");
       dispatch(goToHome());
       return;
@@ -116,7 +116,7 @@ export const initializeClient = () =>
       logger.debug("Done fetching user");
     }
 
-    if (getCurrentPath(state) === "/login") {
+    if (getCurrentPath(state).endsWith("/login")) {
       await dispatch(initLoginPage());
     } else {
       await dispatch(initNonLoginPage());

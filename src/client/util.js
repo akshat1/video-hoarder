@@ -1,4 +1,6 @@
-const basePath = new URL(document.baseURI).pathname;
+import config from "../../config.json";
+
+const basePath = config.serverPath;
 
 /**
  * @func

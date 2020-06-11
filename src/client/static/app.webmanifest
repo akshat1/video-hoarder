@@ -3,11 +3,16 @@
   "short_name": "Video Hoarder",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#FFF",
+  "background_color": "#555",
+  "theme_color": "#555",
   "description": "Videos. we Hoard 'Em.",
   "icons": [{
-    "src": "icon.svg",
+    "src": "./icon.svg",
     "sizes": "512x512",
     "type": "image/svg"
+  }, {
+    "src": "./icon.png",
+    "sizes": "512x512",
+    "type": "image/png"
   }]
 }

@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     throw new Error("Missing AppRoot element.");
   }
 
-  // root.setAttribute('class', Style.appRoot);
   await ReactDOM.render(
     <Provider store={getStore()}>
       <App />
@@ -20,3 +19,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   );
   bootstrapClient();
 });
+
+if (process.env.NODE_ENV === "production") {
+  if("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js");
+  }
+}

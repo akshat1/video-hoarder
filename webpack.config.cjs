@@ -3,7 +3,10 @@ const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require("webpack");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
+const config = require("./config.json");
 
+const publicPath = `${config.serverPath}`;
 const isDevMode = () => process.env.NODE_ENV === "development";
 
 const getDevServer = () => {
@@ -14,7 +17,7 @@ const getDevServer = () => {
       https: true,
       port: 7200,
       host: "0.0.0.0",  // because remote development is neat.
-      publicPath: "/",
+      publicPath,
       contentBase: "./dist/",
       historyApiFallback: true,
     };
@@ -44,6 +47,15 @@ const getPlugins = () => {
   plugins.push(new HtmlWebPackPlugin({
     template: "./src/client/template.html",
     filename: "./index.html",
+  }));
+
+  plugins.push(new SWPrecacheWebpackPlugin({
+    cacheId: "video-hoarder",
+    dontCacheBustUrlsMatching: /\.\w{8}\./,
+    filename: "service-worker.js",
+    minify: true,
+    navigateFallback: publicPath + "index.html",
+    staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
   }));
 
   return plugins;
@@ -96,13 +108,13 @@ const getFontsRule = () => ({
   }],
 });
 
-const config = {
+const webpackConfig = {
   mode: isDevMode() ? "development" : "production",
   entry: getEntry(),
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "[name].js",
-    publicPath: "./",
+    publicPath,
   },
   devtool: isDevMode() ? "inline-source-map" : false,
   plugins: getPlugins(),
@@ -119,4 +131,4 @@ const config = {
   devServer: getDevServer(),
 };
 
-module.exports = config;
+module.exports = webpackConfig;

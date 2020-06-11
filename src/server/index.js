@@ -16,8 +16,10 @@ import http from "https";
 import MemoryStore from "memorystore";
 import path from "path";
 
+const config = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "config.json")).toString());
+
 const rootLogger = getLogger("server");
-const URLPath = "/video-hoarder";
+const URLPath = config.serverPath;
 
 /**
  * Wraps the server starting logic inside a function for ease of testing (also because we don't
@@ -44,7 +46,7 @@ export const startServer = async (startDevServer) => {
   } else {
     // In non-dev mode, we expect client files to already be present in /dist directory.
     // `npm run start` script is responsible for ensuring that.
-    app.use(URLPath, express.static("./dist"));
+    app.use(path.join(URLPath), express.static("./dist"));
   }
 
   const serveIndex = (req, res) => {
@@ -74,7 +76,10 @@ export const startServer = async (startDevServer) => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(path.join(URLPath, "/api"), getAPI(passport));
-  app.get(path.join(URLPath, "*"), serveIndex);
+  app.get(path.join(URLPath, "/"), serveIndex);
+  app.get(path.join(URLPath, "/index.html"), serveIndex);
+  app.get(path.join(URLPath, "/login"), serveIndex);
+  app.get(path.join(URLPath, "/account"), serveIndex);
 
   // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
   /* istanbul ignore next */
