@@ -2,6 +2,7 @@
  * This is the entire logged-in user interface.
  */
 import { getJobs } from "../selectors.js";
+import { getURL } from "../util.js";
 import AccountSettings from "./AccountSettings.jsx";
 import InputForm from "./InputForm.jsx";
 import Item from "./Item.jsx";
@@ -46,7 +47,7 @@ const Main = ({ jobs }) => {
       <Toolbar />
       <div className={classes.body}>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={getURL("/")}>
             <InputForm className={classes.inputForm} />
             <Divider />
             <Grid container spacing={3} className={classes.jobs}>
@@ -61,7 +62,7 @@ const Main = ({ jobs }) => {
               </For>
             </Grid>
           </Route>
-          <Route path="/account">
+          <Route path={getURL("/account")}>
             <AccountSettings />
           </Route>
         </Switch>

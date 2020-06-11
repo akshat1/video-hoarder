@@ -1,10 +1,12 @@
 import { getLogger } from "../../../logger";
 import { getCurrentPath,isLoggedIn, isPasswordExpired,isUserFetchDone  } from "../../selectors";
 import { disconnect, reconnect } from "../../socketio";
+import { getURL } from "../../util";
 import { makeActionF } from "../boilerplate";
 import { getInstance } from "../net";
 import { fetchJobs } from "./job-management";
 import { goToAccountScreen, goToHome, goToLogin } from "./navigation";
+
 const rootLogger = getLogger("actions");
 
 export const User = "User";
@@ -35,7 +37,7 @@ export const fetchUser = () =>
     const logger = getLogger("fetchUser");
     try {
       dispatch(setFetchingUser(true));
-      const response = await getInstance().get("/api/user/me");
+      const response = await getInstance().get(getURL("/api/user/me"));
       if (response.status !== 200) {
         throw new Error("Error occurred");
       }
@@ -58,7 +60,7 @@ export const fetchUser = () =>
  */
 export const doLogOut = () =>
   async dispatch => {
-    await getInstance().post("/api/user/logout");
+    await getInstance().post(getURL("./api/user/logout"));
     disconnect();
     dispatch(setUser({}));
     dispatch(goToLogin());
@@ -142,7 +144,7 @@ export const doLogIn = (username, password) =>
       form.append("username", username);
       form.append("password", password);
       logger.debug(form)
-      const response = await getInstance().post("/api/user/login", form);
+      const response = await getInstance().post(getURL("./api/user/login"), form);
 
       if (response.status !== 200) {
         if (response.status === 401) {

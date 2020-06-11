@@ -1,6 +1,7 @@
 import { getLogger } from "../../../logger";
 import { getJobs, getStatusFilterValue } from "../../selectors";
 import { StatusFilterValue } from "../../StatusFilterValue";
+import { getURL } from "../../util";
 import { makeActionF } from "../boilerplate";
 import { getInstance } from "../net";
 import _ from "lodash";
@@ -42,7 +43,7 @@ export const fetchJobs = () =>
         _.set(query, "status", statusFilterValue);
       }
 
-      const response = await getInstance().post("/api/jobs", { query });
+      const response = await getInstance().post(getURL("./api/jobs"), { query });
       const { data: jobs } = response.data;
       dispatch(setJobs(jobs));
       dispatch(setFetchingJobs(false));
@@ -58,7 +59,7 @@ export const addJob = (url) =>
     try {
       logger.debug("adding job", url);
       dispatch(setAddingJob(true));
-      const response = await getInstance().post("/api/job/add", { url });
+      const response = await getInstance().post(getURL("./api/job/add"), { url });
       logger.debug("done adding job.", response);
       dispatch(setAddingJob(false));
     } catch (err) {
@@ -82,7 +83,7 @@ export const cancelJob = (item) =>
       const { id: itemId } = item;
       logger.debug("canceling job", itemId);
       dispatch(setStoppingJob(true));
-      const response = await getInstance().post("/api/job/stop", { itemId });
+      const response = await getInstance().post(getURL("./api/job/stop"), { itemId });
       logger.debug("done cancelling job", response);
       dispatch(setStoppingJob(false));
     } catch(err) {
@@ -106,7 +107,7 @@ export const deleteJob = (item) =>
       const { id: itemId } = item;
       logger.debug("deleting job", itemId);
       dispatch(setDeletingJob(true));
-      const response = await getInstance().post("/api/job/delete", { itemId });
+      const response = await getInstance().post(getURL("./api/job/delete"), { itemId });
       logger.debug("done deleting job", response);
       dispatch(setStoppingJob(false));
     } catch(err) {

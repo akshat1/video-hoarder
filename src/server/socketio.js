@@ -4,6 +4,7 @@ import { subscribe } from "./event-bus.js";
 import cookieParser from "cookie-parser";
 import _ from "lodash";
 import passportSocketIO from "passport.socketio";
+import path from "path";
 import SocketIO from "socket.io";
 
 const rootLogger = getLogger("socketio");
@@ -22,9 +23,11 @@ const onClientConnected = () => {
   logger.debug("A client just connected");
 };
 
-export const bootstrapApp = ({ server, sessionStore, secret }) => {
+export const bootstrapApp = ({ server, sessionStore, secret, pathname = "/" }) => {
   const logger = getLogger("bootstrapApp", rootLogger);
-  const io = SocketIO(server);
+  const io = SocketIO(server, {
+    path: path.join(pathname, "socket.io"),
+  });
   logger.debug("io instance created");
   // See https://github.com/jfromaniello/passport.socketio
   io.use(passportSocketIO.authorize({

@@ -4,7 +4,9 @@ import { getHistory } from "./history";
 import { initializeClient } from "./redux/actions";
 import { isFetchingUser, isLoggedIn, isUserFetchDone } from "./selectors";
 import { getTheme } from "./theme";
-import { CssBaseline, useMediaQuery } from "@material-ui/core";
+import { getURL } from "./util.js";
+import { useMediaQuery } from "@material-ui/core";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles, ThemeProvider } from "@material-ui/styles";
 import { ConnectedRouter } from "connected-react-router";
 import PropTypes from "prop-types";
@@ -42,10 +44,10 @@ const App = (props) => {
       <ThemeProvider theme={getTheme(prefersDarkMode)}>
         <CssBaseline />
         <Switch>
-          <Route path="/login">
+          <Route path={getURL("/login")}>
             <LoginForm className={classes.loginForm}/>
           </Route>
-          <Route path="*">
+          <Route path={getURL("*")}>
             <Choose>
               <When condition={loggedIn}>
                 <Main />

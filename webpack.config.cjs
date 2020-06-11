@@ -1,9 +1,10 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack');
-const path = require('path');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 
-const isDevMode = () => process.env.NODE_ENV === 'development';
+const isDevMode = () => process.env.NODE_ENV === "development";
 
 const getDevServer = () => {
   if (isDevMode()) {
@@ -12,9 +13,9 @@ const getDevServer = () => {
       inline: true,
       https: true,
       port: 7200,
-      host: '0.0.0.0',  // because remote development is neat.
-      publicPath: '/',
-      contentBase: './dist/',
+      host: "0.0.0.0",  // because remote development is neat.
+      publicPath: "/",
+      contentBase: "./dist/",
       historyApiFallback: true,
     };
   }
@@ -23,27 +24,35 @@ const getDevServer = () => {
 }
 
 const getPlugins = () => {
-  const plugins = [];
+  const plugins = [
+    new CopyPlugin({
+      patterns: [{
+        from: "src/client/static",
+        to: ".",
+      }],
+    }),
+  ];
+
   if (isDevMode()) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
   } else {
     plugins.push(new MiniCSSExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: "[name].css",
+      chunkFilename: "[id].css",
     }));
   }
   plugins.push(new HtmlWebPackPlugin({
     template: "./src/client/template.html",
-    filename: "./index.html"
+    filename: "./index.html",
   }));
 
   return plugins;
 }
 
 const getEntry = () => {
-  const app = ['./src/client/index.js'];
+  const app = ["./src/client/index.js"];
   if (isDevMode()) {
-    app.push('webpack-hot-middleware/client');
+    app.push("webpack-hot-middleware/client");
   }
 
   return { app };
@@ -52,25 +61,25 @@ const getEntry = () => {
 const getJSRule = () => ({
   test: /\.jsx?$/,
   exclude: /node_modules/,
-  use: { loader: "babel-loader" }
+  use: { loader: "babel-loader" },
 });
 
 const getLessRule = () => {
   const loaders = [];
   if (isDevMode()) {
-    loaders.push('style-loader');
+    loaders.push("style-loader");
   } else {
     loaders.push(MiniCSSExtractPlugin.loader);
   }
 
   loaders.push({
-    loader: 'css-loader',
+    loader: "css-loader",
     options: {
       sourceMap: isDevMode(),
-      modules: { localIdentName: '[local]__[hash:base64:5]' },
+      modules: { localIdentName: "[local]__[hash:base64:5]" },
     },
   },
-  'less-loader');
+  "less-loader");
 
   return {
     test: /\.less$/,
@@ -82,30 +91,30 @@ const getLessRule = () => {
 const getFontsRule = () => ({
   test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
   use: [{
-    loader: 'file-loader',
-    options: { name: 'static/[name].[ext]' },
+    loader: "file-loader",
+    options: { name: "static/[name].[ext]" },
   }],
 });
 
 const config = {
-  mode: isDevMode() ? 'development' : 'production',
+  mode: isDevMode() ? "development" : "production",
   entry: getEntry(),
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: '[name].js',
-    publicPath: '/',
+    path: path.resolve(__dirname, "./dist"),
+    filename: "[name].js",
+    publicPath: "./",
   },
-  devtool: isDevMode() ? 'inline-source-map' : false,
+  devtool: isDevMode() ? "inline-source-map" : false,
   plugins: getPlugins(),
   module: {
     rules: [
       getJSRule(),
       getLessRule(),
       getFontsRule(),
-    ]
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: [".js", ".jsx"],
   },
   devServer: getDevServer(),
 };

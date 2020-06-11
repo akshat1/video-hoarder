@@ -2,6 +2,7 @@ import { Event } from "../Event";
 import { getLogger } from "../logger";
 import { getStore } from "./redux";
 import { fetchJobs, updateJobInStore } from "./redux/actions";
+import { getURL } from "./util";
 import ioClient from "socket.io-client";
 
 const rootLogger = getLogger("socketio");
@@ -13,8 +14,8 @@ let socket;
  */
 export const getSocket = () => {
   if (!socket) {
-    getLogger("getLogger", rootLogger).debug("Creating a new instance of ioClient");
-    socket = ioClient("/");
+    getLogger("getLogger", rootLogger).debug("Creating a new instance of ioClient from", getURL("/"));
+    socket = ioClient("/", { path: getURL("socket.io") });
   }
 
   return socket;

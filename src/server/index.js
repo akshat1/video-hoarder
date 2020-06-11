@@ -17,6 +17,7 @@ import MemoryStore from "memorystore";
 import path from "path";
 
 const rootLogger = getLogger("server");
+const URLPath = "/video-hoarder";
 
 /**
  * Wraps the server starting logic inside a function for ease of testing (also because we don't
@@ -43,7 +44,7 @@ export const startServer = async (startDevServer) => {
   } else {
     // In non-dev mode, we expect client files to already be present in /dist directory.
     // `npm run start` script is responsible for ensuring that.
-    app.use(express.static("./dist"));
+    app.use(URLPath, express.static("./dist"));
   }
 
   const serveIndex = (req, res) => {
@@ -72,8 +73,8 @@ export const startServer = async (startDevServer) => {
   const passport = getPassport();
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use("/api", getAPI(passport));
-  app.get("*", serveIndex);
+  app.use(path.join(URLPath, "/api"), getAPI(passport));
+  app.get(path.join(URLPath, "*"), serveIndex);
 
   // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
   /* istanbul ignore next */
@@ -83,7 +84,7 @@ export const startServer = async (startDevServer) => {
   };
   const server = http.createServer(options, app);
   logger.debug("call bootstrap app");
-  bootstrapApp({ server, sessionStore, secret });
+  bootstrapApp({ server, sessionStore, secret, pathname: URLPath });
   const onServerStart = () => {
     /* istanbul ignore next because we are not testing whether this callback is called */
     logger.info("App listening on port 7200");

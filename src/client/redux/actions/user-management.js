@@ -1,5 +1,6 @@
 import { getLogger } from "../../../logger";
 import { getUserName } from "../../selectors";
+import { getURL } from "../../util";
 import { makeActionF } from "../boilerplate";
 import { getInstance } from "../net";
 import { fetchUser } from "./session-management";
@@ -66,7 +67,7 @@ export const updatePassword = (args) =>
 
     dispatch(setUpdatingUser(true));
     try {
-      const response = await getInstance().post("/api/user/change-password", {
+      const response = await getInstance().post(getURL("./api/user/change-password"), {
         userName,
         currentPassword,
         newPassword,
