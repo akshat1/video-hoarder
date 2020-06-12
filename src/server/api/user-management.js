@@ -1,7 +1,7 @@
 import { getLogger } from "../../logger.js";
 import { encrypt } from "../crypto.js";
 import { getUserByUserName, getVerifiedUser, updateUser } from "../db/index.js";
-import { ensureLoggedIn } from "./middleware.js";
+import { ensureLoggedIn } from "../express-middleware/index.js";
 import express from "express";
 
 const rootLogger = getLogger("api/user-management");

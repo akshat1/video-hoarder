@@ -5,6 +5,7 @@ import { getConfig } from "../config.js";
 import { getLogger } from "../logger.js";
 import { getRouter as getAPI } from "./api/index.js";
 import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
+import { requestLogger } from "./express-middleware/index.js";
 import { getPassport } from "./getPassport.js";
 import { bootstrapApp } from "./socketio.js";
 import { initializeYTDL } from "./ytdl.js";
@@ -19,18 +20,6 @@ import MemoryStore from "memorystore";
 import path from "path";
 
 const rootLogger = getLogger("server");
-
-const rlLogger = getLogger("requestLogger", rootLogger);
-/**
- * 
- * @param {Http2ServerRequest} req 
- * @param {*} res 
- * @param {*} next 
- */
-const requestLogger = (req, res, next) => {
-  rlLogger.debug(`${req.method} ${req.url}`);
-  next();
-};
 
 /**
  * Wraps the server starting logic inside a function for ease of testing (also because we don't

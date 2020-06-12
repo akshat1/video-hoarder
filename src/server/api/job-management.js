@@ -1,6 +1,6 @@
 import { getLogger } from "../../logger.js";
 import * as db from "../db/index.js";
-import { ensureValidUser } from "./middleware.js";
+import { ensureValidUser } from "../express-middleware/index.js";
 import express from "express";
 
 const rootLogger = getLogger("api/job-management");
