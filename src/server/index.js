@@ -12,7 +12,8 @@ import cookieParser from "cookie-parser";
 import express from "express";
 import expressSession from "express-session";
 import fs from "fs";
-import http from "https";
+import http from "http";
+import https from "https";
 import MemoryStore from "memorystore";
 import path from "path";
 
@@ -20,6 +21,18 @@ const config = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "config.js
 
 const rootLogger = getLogger("server");
 const URLPath = config.serverPath;
+
+const rlLogger = getLogger("requestLogger", rootLogger);
+/**
+ * 
+ * @param {Http2ServerRequest} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+const requestLogger = (req, res, next) => {
+  rlLogger.debug(`${req.method} ${req.url}`);
+  next();
+};
 
 /**
  * Wraps the server starting logic inside a function for ease of testing (also because we don't
@@ -34,6 +47,8 @@ export const startServer = async (startDevServer) => {
   const logger = getLogger("startServer", rootLogger);
   await initializeDB();
   const app = express();
+
+  app.use("*", requestLogger);
 
   if (startDevServer) {
     const webpack = (await import("webpack")).default;
@@ -76,6 +91,7 @@ export const startServer = async (startDevServer) => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(path.join(URLPath, "/api"), getAPI(passport));
+  app.get(URLPath, serveIndex);
   app.get(path.join(URLPath, "/"), serveIndex);
   app.get(path.join(URLPath, "/index.html"), serveIndex);
   app.get(path.join(URLPath, "/login"), serveIndex);
@@ -83,11 +99,12 @@ export const startServer = async (startDevServer) => {
 
   // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
   /* istanbul ignore next */
-  const options = process.env.NODE_ENV === "test" ? {} : {
-    key: await fs.promises.readFile(path.resolve(process.cwd(), "cert/vhoarder.key")),
-    cert: await fs.promises.readFile(path.resolve(process.cwd(), "cert/vhoarder.crt")),
-  };
-  const server = http.createServer(options, app);
+  const options = {};
+  if (config.https) {
+    options.key = await fs.promises.readFile(path.resolve(process.cwd(), "cert/vhoarder.key"));
+    options.cert = await fs.promises.readFile(path.resolve(process.cwd(), "cert/vhoarder.crt"));
+  }
+  const server = (config.https ? https : http).createServer(options, app);
   logger.debug("call bootstrap app");
   bootstrapApp({ server, sessionStore, secret, pathname: URLPath });
   const onServerStart = () => {
