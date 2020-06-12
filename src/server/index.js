@@ -1,6 +1,7 @@
 /* @todo: support both http and https; make https optional */
 /* @todo: base URL ()for working behing reverse proxy */
 /** @module server */
+import { getConfig } from "../config.js";
 import { getLogger } from "../logger.js";
 import { getRouter as getAPI } from "./api/index.js";
 import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
@@ -17,10 +18,7 @@ import https from "https";
 import MemoryStore from "memorystore";
 import path from "path";
 
-const config = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "config.json")).toString());
-
 const rootLogger = getLogger("server");
-const URLPath = config.serverPath;
 
 const rlLogger = getLogger("requestLogger", rootLogger);
 /**
@@ -45,6 +43,10 @@ const requestLogger = (req, res, next) => {
  */
 export const startServer = async (startDevServer) => {
   const logger = getLogger("startServer", rootLogger);
+  const config = await getConfig();
+  const serverPath = config.serverPath;
+  const serverPort = config.serverPort;
+  const useHTTPS = process.env.NODE_ENV === "development" ? true : config.https;
   await initializeDB();
   const app = express();
 
@@ -61,7 +63,7 @@ export const startServer = async (startDevServer) => {
   } else {
     // In non-dev mode, we expect client files to already be present in /dist directory.
     // `npm run start` script is responsible for ensuring that.
-    app.use(path.join(URLPath), express.static("./dist"));
+    app.use(path.join(serverPath), express.static("./dist"));
   }
 
   const serveIndex = (req, res) => {
@@ -90,26 +92,31 @@ export const startServer = async (startDevServer) => {
   const passport = getPassport();
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(path.join(URLPath, "/api"), getAPI(passport));
-  app.get(URLPath, serveIndex);
-  app.get(path.join(URLPath, "/"), serveIndex);
-  app.get(path.join(URLPath, "/index.html"), serveIndex);
-  app.get(path.join(URLPath, "/login"), serveIndex);
-  app.get(path.join(URLPath, "/account"), serveIndex);
+  app.use(path.join(serverPath, "/api"), getAPI(passport));
+  app.get(serverPath, serveIndex);
+  app.get(path.join(serverPath, "/"), serveIndex);
+  app.get(path.join(serverPath, "/index.html"), serveIndex);
+  app.get(path.join(serverPath, "/login"), serveIndex);
+  app.get(path.join(serverPath, "/account"), serveIndex);
 
   // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
   /* istanbul ignore next */
   const options = {};
-  if (config.https) {
+  let server;
+  if (useHTTPS) {
+    logger.debug("going to start HTTPS");
     options.key = await fs.promises.readFile(path.resolve(process.cwd(), "cert/vhoarder.key"));
     options.cert = await fs.promises.readFile(path.resolve(process.cwd(), "cert/vhoarder.crt"));
+    server = https.createServer(options, app);
+  } else {
+    logger.debug("going to start HTTP");
+    server = http.createServer(app);
   }
-  const server = (config.https ? https : http).createServer(options, app);
   logger.debug("call bootstrap app");
-  bootstrapApp({ server, sessionStore, secret, pathname: URLPath });
+  bootstrapApp({ server, sessionStore, secret, pathname: serverPath });
   const onServerStart = () => {
     /* istanbul ignore next because we are not testing whether this callback is called */
-    logger.info("App listening on port 7200");
+    logger.info(`App listening on port ${serverPort}, at "${serverPath}"`);
   };
   server.listen(7200, onServerStart);
   await initializeYTDL();

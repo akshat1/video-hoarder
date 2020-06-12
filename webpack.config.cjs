@@ -129,6 +129,9 @@ const webpackConfig = {
     extensions: [".js", ".jsx"],
   },
   devServer: getDevServer(),
+  node: {
+    fs: "empty",
+  },
 };
 
 module.exports = webpackConfig;
