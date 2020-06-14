@@ -1,22 +1,20 @@
-/* @todo: support both http and https; make https optional */
-/* @todo: base URL ()for working behing reverse proxy */
 /** @module server */
 import { getLogger } from "../logger.js";
 import { getRouter as getAPI } from "./api/index.js";
 import { getConfig } from "./config.js";
 import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
+import { boostrap as bootstrapDevServer } from "./dev-server.js";
 import { iff, requestLogger, unless } from "./express-middleware/index.js";
 import { getPassport } from "./getPassport.js";
-import { bootstrapApp } from "./socketio.js";
+import { bootstrap as bootstrapPassport, getSessionStore, Secret } from "./getPassport.js";
+import { serveIndex } from "./serve-index.js";
+import { bootstrap as bootstrapSocketIO } from "./socketio.js";
 import { initializeYTDL } from "./ytdl.js";
 import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
 import express from "express";
-import expressSession from "express-session";
 import fs from "fs";
 import http from "http";
 import https from "https";
-import MemoryStore from "memorystore";
 import path from "path";
 
 const rootLogger = getLogger("server");
@@ -41,29 +39,9 @@ export const startServer = async (startDevServer) => {
   const app = express();
 
   app.use("*", requestLogger);
-  
-  /**
-   * @param {express.Request} req 
-   * @param {express.Response} res
-   */
-  const serveIndex = (req, res) => {
-    console.log("serveIndex");
-    return res.sendFile(
-      path.resolve(process.cwd(), "./dist/index.html"),
-      err => err && res.status(500).send(err),
-    );
-  };
 
   if (startDevServer) {
-    logger.debug("start up dev server");
-    const webpack = (await import("webpack")).default;
-    const webpackDevMiddleware = (await import("webpack-dev-middleware")).default;
-    const webpackConfig = (await import("../../webpack.config.cjs")).default;
-    logger.debug("WebPack Config", webpackConfig);
-    const compiler = webpack(webpackConfig);
-    app.use(webpackDevMiddleware(compiler, {}));
-    const webpackHotMiddleware = (await import("webpack-hot-middleware")).default;
-    app.use(webpackHotMiddleware(compiler));
+    await bootstrapDevServer({ app })
     app.use("*", unless(/^\/+(index\.html|login|account|app\.js)?(\?.*)?$/, express.static("./dist")));
   } else {
     logger.debug("start up non-dev server");
@@ -71,34 +49,15 @@ export const startServer = async (startDevServer) => {
     // `npm run start` script is responsible for ensuring that.
     app.use("*", unless(/^\/+(index\.html|login|account)?(\?.*)?$/, express.static("./dist")));
   }
-
-  // Other middlewares can create problems with session middleware. So, we place session middleware at the end
-  // See https://www.airpair.com/express/posts/expressjs-and-passportjs-sessions-deep-dive for some great info
-  const secret = "dogs for me please";
-  const SessionDuration = 24 * 60 * 60 * 1000;
-  const sessionStore = new (MemoryStore(expressSession))({ checkPeriod: SessionDuration });
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(cookieParser(secret));
-  app.use(expressSession({
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: SessionDuration },
-    secret,
-    store: sessionStore,
-  }));
-  const passport = getPassport();
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  app.use(path.join(serverPath, "/api"), getAPI(passport));
+  app.use(path.join(serverPath, "/api"), getAPI(getPassport()));
   app.get("*", iff(/^\/+(index\.html|login|account)?(\?.*)?$/, serveIndex));
 
-  // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
   /* istanbul ignore next */
   const options = {};
   let server;
   if (useHTTPS) {
+    // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
     logger.debug("going to start HTTPS");
     options.key = await fs.promises.readFile(path.resolve(process.cwd(), "cert/vhoarder.key"));
     options.cert = await fs.promises.readFile(path.resolve(process.cwd(), "cert/vhoarder.crt"));
@@ -107,8 +66,17 @@ export const startServer = async (startDevServer) => {
     logger.debug("going to start HTTP");
     server = http.createServer(app);
   }
-  logger.debug("call bootstrap app");
-  bootstrapApp({ server, sessionStore, secret, pathname: serverPath });
+
+  logger.debug("bootstrap passport");
+  bootstrapPassport({ app });
+
+  logger.debug("boostrap sockets");
+  bootstrapSocketIO({
+    server,
+    sessionStore: getSessionStore(),
+    secret: Secret,
+    pathname: serverPath,
+  });
   const onServerStart = () => {
     /* istanbul ignore next because we are not testing whether this callback is called */
     logger.info(`App listening on port ${serverPort}, at "${serverPath}"`);

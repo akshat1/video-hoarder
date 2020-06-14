@@ -23,8 +23,8 @@ const onClientConnected = () => {
   logger.debug("A client just connected");
 };
 
-export const bootstrapApp = ({ server, sessionStore, secret, pathname = "/" }) => {
-  const logger = getLogger("bootstrapApp", rootLogger);
+export const bootstrap = ({ server, sessionStore, secret, pathname = "/" }) => {
+  const logger = getLogger("bootstrap", rootLogger);
   const io = SocketIO(server, {
     path: path.join(pathname, "socket.io"),
   });
