@@ -50,7 +50,6 @@ export const startServer = async (startDevServer) => {
     app.use("*", unless(/^\/+(index\.html|login|account)?(\?.*)?$/, express.static("./dist")));
   }
   app.use(bodyParser.json());
-  app.use(path.join(serverPath, "/api"), getAPI(getPassport()));
   app.get("*", iff(/^\/+(index\.html|login|account)?(\?.*)?$/, serveIndex));
 
   /* istanbul ignore next */
@@ -69,6 +68,7 @@ export const startServer = async (startDevServer) => {
 
   logger.debug("bootstrap passport");
   bootstrapPassport({ app });
+  app.use(path.join(serverPath, "/api"), getAPI(getPassport()));
 
   logger.debug("boostrap sockets");
   bootstrapSocketIO({
