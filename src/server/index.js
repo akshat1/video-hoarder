@@ -1,11 +1,11 @@
 /* @todo: support both http and https; make https optional */
 /* @todo: base URL ()for working behing reverse proxy */
 /** @module server */
-import { getConfig } from "../config.js";
 import { getLogger } from "../logger.js";
 import { getRouter as getAPI } from "./api/index.js";
+import { getConfig } from "./config.js";
 import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
-import { requestLogger } from "./express-middleware/index.js";
+import { iff, requestLogger, unless } from "./express-middleware/index.js";
 import { getPassport } from "./getPassport.js";
 import { bootstrapApp } from "./socketio.js";
 import { initializeYTDL } from "./ytdl.js";
@@ -32,35 +32,44 @@ const rootLogger = getLogger("server");
  */
 export const startServer = async (startDevServer) => {
   const logger = getLogger("startServer", rootLogger);
-  const config = await getConfig();
-  const serverPath = config.serverPath;
-  const serverPort = config.serverPort;
+  const config = getConfig();
+  logger.debug("Got config:", config);
+  const { serverPath, serverPort } = config;
+  logger.debug({ serverPath, serverPort });
   const useHTTPS = process.env.NODE_ENV === "development" ? true : config.https;
   await initializeDB();
   const app = express();
 
   app.use("*", requestLogger);
+  
+  /**
+   * @param {express.Request} req 
+   * @param {express.Response} res
+   */
+  const serveIndex = (req, res) => {
+    console.log("serveIndex");
+    return res.sendFile(
+      path.resolve(process.cwd(), "./dist/index.html"),
+      err => err && res.status(500).send(err),
+    );
+  };
 
   if (startDevServer) {
+    logger.debug("start up dev server");
     const webpack = (await import("webpack")).default;
     const webpackDevMiddleware = (await import("webpack-dev-middleware")).default;
     const webpackConfig = (await import("../../webpack.config.cjs")).default;
+    logger.debug("WebPack Config", webpackConfig);
     const compiler = webpack(webpackConfig);
     app.use(webpackDevMiddleware(compiler, {}));
     const webpackHotMiddleware = (await import("webpack-hot-middleware")).default;
     app.use(webpackHotMiddleware(compiler));
+    app.use("*", unless(/^\/+(index\.html|login|account|app\.js)?(\?.*)?$/, express.static("./dist")));
   } else {
+    logger.debug("start up non-dev server");
     // In non-dev mode, we expect client files to already be present in /dist directory.
     // `npm run start` script is responsible for ensuring that.
-    app.use(path.join(serverPath), express.static("./dist"));
-  }
-
-  const serveIndex = (req, res) => {
-    logger.debug("serveIndex...");
-    res.sendFile(
-      path.resolve(process.cwd(), "./dist/index.html"),
-      err => err && res.status(500).send(err),
-    );
+    app.use("*", unless(/^\/+(index\.html|login|account)?(\?.*)?$/, express.static("./dist")));
   }
 
   // Other middlewares can create problems with session middleware. So, we place session middleware at the end
@@ -81,12 +90,9 @@ export const startServer = async (startDevServer) => {
   const passport = getPassport();
   app.use(passport.initialize());
   app.use(passport.session());
+
   app.use(path.join(serverPath, "/api"), getAPI(passport));
-  app.get(serverPath, serveIndex);
-  app.get(path.join(serverPath, "/"), serveIndex);
-  app.get(path.join(serverPath, "/index.html"), serveIndex);
-  app.get(path.join(serverPath, "/login"), serveIndex);
-  app.get(path.join(serverPath, "/account"), serveIndex);
+  app.get("*", iff(/^\/+(index\.html|login|account)?(\?.*)?$/, serveIndex));
 
   // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
   /* istanbul ignore next */

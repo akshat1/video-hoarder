@@ -39,7 +39,7 @@ const onItemUpdated = (item) => {
 export const bootstrapClient = () => {
   const logger = getLogger("bootstrapClient", rootLogger);
   const socket = getSocket();
-  logger.debug("got a client", !!socket);
+  logger.debug("got a client", socket);
   socket.on(Event.ItemAdded, onItemAdded);
   socket.on(Event.ItemRemoved, onItemRemoved);
   socket.on(Event.ItemUpdated, onItemUpdated);

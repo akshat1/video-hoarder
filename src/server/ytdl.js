@@ -114,7 +114,7 @@ const downloadVideo = async (item) => {
     return;
   }
 
-  const configThunk = await getConfig(item);
+  const configThunk = getConfig(item);
   const args = [
     "--config-location",
     configThunk.pathName,

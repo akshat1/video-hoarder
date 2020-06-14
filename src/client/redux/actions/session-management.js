@@ -145,14 +145,9 @@ export const doLogIn = (username, password) =>
       form.append("password", password);
       logger.debug(form)
       const response = await getInstance().post(getURL("./api/user/login"), form);
-
+      logger.debug("status:", response.status);
       if (response.status !== 200) {
-        if (response.status === 401) {
-          dispatch(setLoginError("Incorrect username or password."));
-        } else {
-          dispatch(setLoginError("Login error."));
-        }
-
+        dispatch(setLoginError("Login error."));
         return;
       }
 
@@ -161,6 +156,12 @@ export const doLogIn = (username, password) =>
       dispatch(setUser(user));
       dispatch(initializeClient());
      } catch(err) {
+       logger.error("Log-in Failed!!!");
        logger.error(err);
+       if (err.response?.status === 401) {
+          dispatch(setLoginError("Incorrect username or password."));
+        } else {
+          dispatch(setLoginError("Login error."));
+        }
      }
   };

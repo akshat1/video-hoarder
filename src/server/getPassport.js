@@ -88,19 +88,23 @@ export const deserializeUser = async (id, cb) => {
   }
 };
 
+let instance;
 /**
  * @func
  * @returns {Object} - passport.js instance.
  */
 export const getPassport = () => {
   const logger = getLogger("getPassport", rootLogger);
-  logger.debug("Create passport instance");
-  const localStrategy = new Strategy({
-    usernameField: "username",
-    passwordField: "password",
-  }, verifyUser);
-  passport.use(localStrategy);
-  passport.serializeUser(serializeUser);
-  passport.deserializeUser(deserializeUser);
-  return passport;
+  if (!instance) {
+    logger.debug("Create passport instance");
+    const localStrategy = new Strategy({
+      usernameField: "username",
+      passwordField: "password",
+    }, verifyUser);
+    passport.use(localStrategy);
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+    instance = passport
+  }
+  return instance;
 };
