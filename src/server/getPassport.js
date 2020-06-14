@@ -5,26 +5,15 @@
 /* @todo: base URL ()for working behing reverse proxy */
 /** @module server */
 import { getLogger } from "../logger.js";
-import { getRouter as getAPI } from "./api/index.js";
-import { getConfig } from "./config.js";
-import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
 import { getUserByUserName,getVerifiedUser } from "./db/index.js";
-import { iff, requestLogger, unless } from "./express-middleware/index.js";
-import { bootstrap as bootstrapSocketIO } from "./socketio.js";
-import { initializeYTDL } from "./ytdl.js";
 import Base64 from "Base64";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import express from "express";
 import expressSession from "express-session";
-import fs from "fs";
-import http from "http";
-import https from "https";
 import _ from "lodash";
 import MemoryStore from "memorystore";
 import passport from "passport";
 import Strategy from "passport-local";
-import path from "path";
 
 const rootLogger = getLogger("getPassport");
 rootLogger.setLevel("warn");
