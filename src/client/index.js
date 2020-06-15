@@ -1,4 +1,5 @@
 import App from "./App.jsx";
+import { getConfig } from "./config.js";
 import { getStore } from "./redux";
 import { bootstrapClient } from "./socketio";
 import React from "react";
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   bootstrapClient();
 });
 
-if (process.env.NODE_ENV === "production") {
+if (getConfig().serviceWorkerInDev || process.env.NODE_ENV === "production") {
   if("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./service-worker.js");
   }

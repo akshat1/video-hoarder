@@ -33,20 +33,20 @@ const getPlugins = () => {
         to: ".",
       }],
     }),
-];
+  ];
 
   if (isDevMode()) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
-  } else {
-    plugins.push(new SWPrecacheWebpackPlugin({
-      cacheId: "video-hoarder",
-      dontCacheBustUrlsMatching: /\.\w{8}\./,
-      filename: "service-worker.js",
-      minify: true,
-      navigateFallback: publicPath + "index.html",
-      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-    }));
   }
+
+  plugins.push(new SWPrecacheWebpackPlugin({
+    cacheId: "video-hoarder",
+    dontCacheBustUrlsMatching: /\.\w{8}\./,
+    filename: "service-worker.js",
+    minify: true,
+    navigateFallback: publicPath + "index.html",
+    staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+  }));
 
   plugins.push(new HtmlWebPackPlugin({
     template: "./src/client/template.html",
