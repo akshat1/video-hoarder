@@ -43,7 +43,6 @@ export const fetchUser = () =>
       }
       const user = await response.data;
       dispatch(setUser(user));
-      reconnect();
     } catch (err) {
       logger.error(err);
       dispatch(setUser({}));
@@ -126,6 +125,9 @@ export const initializeClient = () =>
       logger.debug("Go to account screen.");
       dispatch(goToAccountScreen());
     }
+
+    logger.debug("reconnect the socket");
+    reconnect();
   };
 
 /**
