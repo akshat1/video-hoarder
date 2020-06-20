@@ -44,7 +44,7 @@ const App = (props) => {
       <ThemeProvider theme={getTheme(prefersDarkMode)}>
         <CssBaseline />
         <Switch>
-          <Route path={getURL("/login")}>
+          <Route exact path={getURL("/login")}>
             <LoginForm className={classes.loginForm}/>
           </Route>
           <Route path={getURL("*")}>

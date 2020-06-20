@@ -39,18 +39,17 @@ export const startServer = async (startDevServer) => {
   const app = express();
 
   app.use("*", requestLogger);
+  app.use(bodyParser.json());
 
   if (startDevServer) {
-    await bootstrapDevServer({ app })
-    app.use("*", unless(/^\/+(index\.html|login|account|app\.js)?(\?.*)?$/, express.static("./dist")));
+    await bootstrapDevServer({ app });
   } else {
     logger.debug("start up non-dev server");
     // In non-dev mode, we expect client files to already be present in /dist directory.
     // `npm run start` script is responsible for ensuring that.
     app.use("*", unless(/^\/+(index\.html|login|account)?(\?.*)?$/, express.static("./dist")));
+    app.get("*", iff(/^\/+(index\.html|login|account)?(\?.*)?$/, serveIndex));
   }
-  app.use(bodyParser.json());
-  app.get("*", iff(/^\/+(index\.html|login|account)?(\?.*)?$/, serveIndex));
 
   /* istanbul ignore next */
   const options = {};

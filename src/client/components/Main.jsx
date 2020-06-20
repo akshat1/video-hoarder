@@ -7,6 +7,7 @@ import AccountSettings from "./AccountSettings.jsx";
 import InputForm from "./InputForm.jsx";
 import Item from "./Item.jsx";
 import ItemFilter from "./ItemFilter.jsx";
+import NotFound from "./NotFound.jsx";
 import Toolbar from "./Toolbar.jsx";
 import { Container, Divider, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -62,8 +63,11 @@ const Main = ({ jobs }) => {
               </For>
             </Grid>
           </Route>
-          <Route path={getURL("/account")}>
+          <Route exact path={getURL("/account")}>
             <AccountSettings />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </div>
