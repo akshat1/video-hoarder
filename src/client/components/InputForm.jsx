@@ -8,7 +8,8 @@
  *
  * @module client/components/InputForm
  */
-import { addJob } from "../redux/actions";
+import { addJob, clearQuery } from "../redux/actions";
+import { getTargetURL } from "../selectors";
 import { Button, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput  } from "@material-ui/core";
 import { ClearOutlined } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
@@ -31,7 +32,7 @@ const useStyle = makeStyles(theme => ({
 }));
 
 const InputPattern = "^(https?:\\/\\/.+)?$";
-export const InputForm = ({ className, initialValue, onSubmit }) => {
+export const InputForm = ({ className, initialValue, onSubmit, clearQuery }) => {
   const classes = useStyle();
   const [url, setURL] = useState(initialValue);
   useEffect(() => setURL(initialValue), [initialValue]);
@@ -43,7 +44,10 @@ export const InputForm = ({ className, initialValue, onSubmit }) => {
   console.log(`!!url? ${Boolean(url)} // url? ${url} // isInvalid? ${isInvalid} // isSubmitDisabled? ${isSubmitDisabled}`);
   const onFormSubmit = (e) => {
     e.preventDefault();
-    if (!isInvalid) onSubmit(url);
+    if (!isInvalid) {
+      onSubmit(url);
+      clearQuery();
+    }
     clearURL();
   }
 
@@ -106,12 +110,18 @@ InputForm.propTypes = {
   /** @type {string} */
   initialValue: PropTypes.string,
   className: PropTypes.string,
+  clearQuery: PropTypes.func.isRequired,
 };
 
 InputForm.defaultProps = {
   initialValue: "",
 };
 
-const stateToProps = () => ({});
-const dispatchToProps = { onSubmit: addJob };
+const stateToProps = (state) => ({
+  initialValue: getTargetURL(state),
+});
+const dispatchToProps = {
+  onSubmit: addJob,
+  clearQuery,
+};
 export default connect(stateToProps, dispatchToProps)(InputForm);

@@ -78,3 +78,12 @@ export const isUpdateUserFailed = state => state.updateUserFailed;
 export const isUpdateUserSucceeded = state => state.updateUserSucceeded;
 
 export const isUpdatingUser = state => state.updatingUser;
+
+/**
+ * Gets the value of a particular query-param, "u". The <InputForm /> component auto-populates
+ * itself with the value of this param.
+ *
+ * @param {module:client/redux.State} state
+ * @returns {string}
+ */
+export const getTargetURL = state => decodeURIComponent(_.get(state, "router.location.query.u", ""));

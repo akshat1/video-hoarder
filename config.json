@@ -1,4 +1,4 @@
 {
   "https": true,
-  "serviceWorkerInDev": true
+  "serviceWorkerInDev": false
 }
