@@ -86,6 +86,8 @@ const initNonLoginPage = () =>
       if (!isPasswordExpired(getState())) {
         logger.debug("Fetch jobs.");
         await dispatch(fetchJobs());
+        logger.debug("reconnect the socket");
+        reconnect();
         return;
       }
     } else {
@@ -125,9 +127,6 @@ export const initializeClient = () =>
       logger.debug("Go to account screen.");
       dispatch(goToAccountScreen());
     }
-
-    logger.debug("reconnect the socket");
-    reconnect();
   };
 
 /**

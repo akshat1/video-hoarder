@@ -2,7 +2,7 @@ import LoginForm from "./components/LoginForm.jsx";
 import Main from "./components/Main.jsx";
 import { getHistory } from "./history";
 import { initializeClient } from "./redux/actions";
-import { isFetchingUser, isLoggedIn, isUserFetchDone } from "./selectors";
+import { isFetchingUser, isLoggedIn, isUserFetchDone, getPathname } from "./selectors";
 import { getTheme } from "./theme";
 import { getURL } from "./util.js";
 import { useMediaQuery } from "@material-ui/core";
@@ -32,11 +32,12 @@ const App = (props) => {
     userFetchDone,
     initializeClient,
     loggedIn,
+    pathname,
   } = props;
 
   useEffect(
     () => { initializeClient(); },
-    [userFetchDone],
+    [userFetchDone, pathname],
   );
 
   return (
@@ -65,6 +66,7 @@ App.propTypes = {
   initializeClient: PropTypes.func,
   loggedIn: PropTypes.bool,
   userFetchDone: PropTypes.bool,
+  pathname: PropTypes.string,
 };
 
 /**
@@ -77,6 +79,7 @@ const stateToProps = state => ({
   fetchingUser: isFetchingUser(state),
   loggedIn: isLoggedIn(state),
   userFetchDone: isUserFetchDone(state),
+  pathname: getPathname(state),
 });
 
 const dispatchToProps = { initializeClient };

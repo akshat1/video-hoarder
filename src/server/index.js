@@ -19,6 +19,11 @@ import path from "path";
 
 const rootLogger = getLogger("server");
 
+process.on("unhandledRejection", (reason, p) => {
+  getLogger("process.unhandledRejection", rootLogger)
+    .error("Possibly Unhandled Rejection at: Promise ", p, " reason: ", reason);
+});
+
 /**
  * Wraps the server starting logic inside a function for ease of testing (also because we don't
  * yet have top level async/await). This function is called automatically when NODE_ENV != test.

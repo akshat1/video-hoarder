@@ -1,7 +1,7 @@
 import { Event } from "../Event.js";
 import { getLogger } from "../logger.js";
 import { Status } from "../Status.js";
-import { addMetadata,completeJob,failJob, getJobs,toArray } from "./db/index.js";
+import { addMetadata, completeJob, failJob, getJobs, toArray } from "./db/index.js";
 import * as EventBus from "./event-bus.js";
 import { execFile } from "child_process";
 import { promises as fs } from "fs";
@@ -68,7 +68,7 @@ const downloadMeta = (item) => {
     });
     EventBus.subscribe(Event.ItemUpdated, itemCancelHandler);
   }).catch((error) => {
-    logger.error({ url: item.url, error });
+    logger.error("metadata download encountered an error", { url: item.url, error });
     failJob({ item, errorMessage: error.message });
   });
 };
@@ -149,7 +149,12 @@ const downloadVideo = async (item) => {
     });
 
     EventBus.subscribe(Event.ItemUpdated, itemCancelHandler);
-  }).finally(() => {
+  })
+  .catch((error) => {
+    logger.error("video download encountered an error", { url: item.url, error });
+    failJob({ item, errorMessage: error.message });
+  })
+  .finally(() => {
     return configThunk.cleanUp();
   });
 };

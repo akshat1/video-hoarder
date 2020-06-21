@@ -87,3 +87,9 @@ export const isUpdatingUser = state => state.updatingUser;
  * @returns {string}
  */
 export const getTargetURL = state => decodeURIComponent(_.get(state, "router.location.query.u", ""));
+
+/**
+ * @param {module:client/redux.State} state
+ * @returns {string}
+ */
+export const getPathname = state => _.get(state, "router.location.pathname", "");
