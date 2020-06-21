@@ -122,24 +122,34 @@ export const Secret = "dogs for me please";
 let sessionStore;
 export const getSessionStore = () => {
   if (!sessionStore) {
+    getLogger("getSessionStore", rootLogger).debug("Create new instance of MemoryStore");
     sessionStore = new (MemoryStore(expressSession))({ checkPeriod: SessionDuration });
   }
 
   return sessionStore;
 };
 
+let sessionMiddleware;
+export const getSessionMiddleware = () => {
+  if (!sessionMiddleware) {
+    sessionMiddleware = expressSession({
+      resave: true,
+      saveUninitialized: true,
+      cookie: { maxAge: SessionDuration },
+      secret: Secret,
+      store: getSessionStore(),
+    });
+  }
+
+  return sessionMiddleware;
+}
+
 export const bootstrap = ({ app }) => {
   // Other middlewares can create problems with session middleware. So, we place session middleware at the end
   // See https://www.airpair.com/express/posts/expressjs-and-passportjs-sessions-deep-dive for some great info
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser(Secret));
-  app.use(expressSession({
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: SessionDuration },
-    secret: Secret,
-    store: sessionStore,
-  }));
+  app.use(getSessionMiddleware());
   const passport = getPassport();
   app.use(passport.initialize());
   app.use(passport.session());

@@ -18,19 +18,14 @@ const onItemAdded = (io, item) => {
 const onItemRemoved = (io, item) => io.emit(Event.ItemRemoved, item);
 const onItemUpdated = (io, item) => io.emit(Event.ItemUpdated, item);
 
-const onClientConnected = () => {
+/**
+ * 
+ * @param {import("socket.io").Socket} socket 
+ */
+const onClientConnected = (socket) => {
   const logger = getLogger("onClientConnected", rootLogger);
   logger.debug("A client just connected");
-};
-
-const onAuthorizeSuccess = () => {
-  const logger = getLogger("onAuthorizeSuccess", rootLogger);
-  logger.debug("Success!!");
-};
-
-const onAuthorizeFailure = (data, message, error) => {
-  const logger = getLogger("onAuthorizeSuccess", rootLogger);
-  logger.debug("Failure", { data, message, error });
+  socket.emit("TEST EVENT", "HELLO");
 };
 
 export const bootstrap = ({ server, sessionStore, secret, pathname = "/" }) => {
@@ -41,11 +36,10 @@ export const bootstrap = ({ server, sessionStore, secret, pathname = "/" }) => {
   logger.debug("io instance created");
   // See https://github.com/jfromaniello/passport.socketio
   io.use(passportSocketIO.authorize({
+    key: "connect.sid",
     cookieParser,
     secret,
     store: sessionStore,
-    success: onAuthorizeSuccess,
-    fail: onAuthorizeFailure,
   }));
   // Broadcast events.
   // TODO: Figure out how to restrict this to authenticated clients; look into a separate channel for authed clients.
