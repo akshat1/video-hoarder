@@ -27,4 +27,5 @@ export const getStore = () => {
   return store;
 };
 
-window.getStore = getStore;
+if (typeof window!== "undefined")
+  window.getStore = getStore;

@@ -1,6 +1,6 @@
+import { getClientUser } from "../model/User";
 import { getUserByUserName } from "./db";
-import { deserializeUser, getPassport,getReturnableUser, serializeUser, verifyUser } from "./getPassport";
-import assert from "assert";
+import { deserializeUser, getPassport, serializeUser, verifyUser } from "./getPassport";
 import Base64 from "Base64";
 import passport from "passport";
 import Strategy from "passport-local";
@@ -21,19 +21,6 @@ jest.mock("./db", () => ({
 }));
 
 describe("server/getPassport", () => {
-  test("getReturnableUser", () => {
-    const user = {
-      userName: "foo",
-      password: "bar",
-      salt: "baz",
-    };
-
-    assert.deepEqual(getReturnableUser(user), {
-      userName: "foo",
-      loggedIn: true,
-    });
-  });
-
   // Need to refactor this test, now that the actual implementation calls db~getVerifiedUser.
   // describe("verifyUser", () => {
   //   test("calls cb with user when user verified", async () => {
@@ -100,7 +87,7 @@ describe("server/getPassport", () => {
       getUserByUserName.mockResolvedValue(user);
       const cb = jest.fn();
       await deserializeUser(id, cb);
-      expect(cb).toHaveBeenCalledWith(null, getReturnableUser(user));
+      expect(cb).toHaveBeenCalledWith(null, getClientUser(user));
     });
 
     test("yields error when one occurs", async () => {

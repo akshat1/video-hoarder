@@ -1,10 +1,10 @@
 import { Event } from "../../Event.js";
 import { getLogger } from "../../logger.js";
 import * as EventBus from "../event-bus.js";
+import { ensureAdminUser } from "../express-middleware/index.js";
 import { getGlobalConfig as getGlobalYTDLConfig, writeGlobalConfig } from "../ytdl.js";
 import { execFile } from "child_process";
 import express from "express";
-import { ensureAdminUser } from "../express-middleware/index.js";
 
 const { Router } = express;
 const rootLogger = getLogger("api/ytdl");
