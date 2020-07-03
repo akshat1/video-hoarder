@@ -9,14 +9,30 @@ export default {
   component: CancelButton,
 };
 
-export const Pending = () =>
-  <CancelButton item={getFakeItem(Status.Pending)} doCancel={action("Cancel download")}/>;
+export const Pending = () => (
+  <CancelButton
+    doCancel={action("Cancel download")}
+    item={getFakeItem(Status.Pending)}
+  />
+);
 
-export const Running = () =>
-  <CancelButton item={getFakeItem(Status.Running)} doCancel={action("Cancel download")}/>;
+export const Running = () => (
+  <CancelButton
+    doCancel={action("Cancel download")}
+    item={getFakeItem(Status.Running)}
+  />
+);
 
-export const Failed = () =>
-  <CancelButton item={getFakeItem(Status.Failed)} doCancel={action("Cancel download")}/>;
+export const Failed = () => (
+  <CancelButton
+    doCancel={action("Cancel download")}
+    item={getFakeItem(Status.Failed)}
+  />
+);
 
-export const Succeeded = () =>
-  <CancelButton item={getFakeItem(Status.Succeeded)} doCancel={action("Cancel download")}/>;
+export const Succeeded = () => (
+  <CancelButton
+    doCancel={action("Cancel download")}
+    item={getFakeItem(Status.Succeeded)}
+  />
+);

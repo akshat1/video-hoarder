@@ -91,7 +91,10 @@ const PasswordChangeInput = (props) => {
 
   return (
     <div className={classnames(classes.root, className)}>
-      <form disabled={submitDisabled} onSubmit={onSubmit}>
+      <form
+        disabled={submitDisabled}
+        onSubmit={onSubmit}
+      >
         <div className={classes.row}>
           <TextField
             label="Enter current password"

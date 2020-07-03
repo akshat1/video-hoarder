@@ -67,54 +67,70 @@ export const LoginForm = (props) => {
   const onPasswordChanged = e => setPassword(e.currentTarget.value);
 
   return (
-    <Container className={`${classes.container} ${className}`} maxWidth="xs">
+    <Container
+      className={`${classes.container} ${className}`}
+      maxWidth="xs"
+    >
       <Choose>
         <When condition={loggedIn}>
-          <Typography component="h1" variant="h5">
+          <Typography
+            component="h1"
+            variant="h5"
+          >
             Redirecting...
           </Typography>
         </When>
         <Otherwise>
-          <Typography component="h1" variant="h5">
+          <Typography
+            component="h1"
+            variant="h5"
+          >
             Sign In
           </Typography>
-          <form className={classes.form} noValidate onSubmit={onSubmit}>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={onSubmit}
+          >
             <TextField
-              variant="outlined"
-              margin="normal"
-              required
+              autoFocus
               fullWidth
               id="userName"
               label="Username"
+              margin="normal"
               name="username"
-              autoFocus
-              value={userName}
               onChange={onUserNameChanged}
+              required
+              value={userName}
+              variant="outlined"
             />
             <TextField
-              type="password"
-              variant="outlined"
-              margin="normal"
-              required
               fullWidth
               id="password"
               label="Password"
+              margin="normal"
               name="password"
-              value={password}
               onChange={onPasswordChanged}
+              required
+              type="password"
+              value={password}
+              variant="outlined"
             />
             <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
               className={classes.submit}
+              color="primary"
               disabled={isSubmitDisabled({ userName, password, fetchingUser, loggedIn })}
+              fullWidth
+              type="submit"
+              variant="contained"
             >
               Sign In
             </Button>
             <If condition={loginError}>
-              <Typography className={classes.loginError} color="error">
+              <Typography
+                className={classes.loginError}
+                color="error"
+              >
                 {loginError}
               </Typography>
             </If>

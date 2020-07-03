@@ -8,10 +8,11 @@ export default {
   component: DeleteConfirmationDialog,
 };
 
-export const Default = () =>
+export const Default = () => (
   <DeleteConfirmationDialog
     jobTitle="Awesome video"
     onCancel={action("onCancel")}
     onConfirm={action("onConfirm")}
     open={boolean("Dialog open", true)}
-  />;
+  />
+);

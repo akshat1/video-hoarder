@@ -12,11 +12,12 @@ export default {
 export const Default = () =>
   <ItemStatus status={radios("Status", Object.values(Status), Status.Pending)} />;
 
-export const SideBySide = () =>
+export const SideBySide = () => (
   <div>
-    <ItemStatus status={Status.Pending} />
-    <ItemStatus status={Status.Running} />
-    <ItemStatus status={Status.Succeeded} />
-    <ItemStatus status={Status.Failed} />
-    <ItemStatus status={"fubar"} />
+      <ItemStatus status={Status.Pending} />
+      <ItemStatus status={Status.Running} />
+      <ItemStatus status={Status.Succeeded} />
+      <ItemStatus status={Status.Failed} />
+      <ItemStatus status={"fubar"} />
   </div>
+);

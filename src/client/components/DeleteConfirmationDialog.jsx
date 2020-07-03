@@ -25,7 +25,11 @@ const DeleteConfirmationDialog = ({ onCancel, onConfirm, open, jobTitle, status 
   const jobName = jobTitle ? `"${jobTitle}"` : "this download";
   const cancelOrDelete = isPending(status) ? "Cancel" : "Delete";
   return (
-    <Dialog onClose={onCancel} aria-labelledby="delete-confirmation-dialog-title" open={open}>
+    <Dialog
+      aria-labelledby="delete-confirmation-dialog-title"
+      onClose={onCancel}
+      open={open}
+    >
       <DialogTitle id="delete-confirmation-dialog-title">{`${cancelOrDelete} ${jobName}?`}</DialogTitle>
       <div className={classes.body}>
         <Typography>{`Are you sure you want to ${cancelOrDelete.toLowerCase()} ${jobName}?`}</Typography>
@@ -33,8 +37,19 @@ const DeleteConfirmationDialog = ({ onCancel, onConfirm, open, jobTitle, status 
           <Typography>Remember, this will only remove this record from video-hoarder. It will not delete any downloaded files from disk.</Typography> 
         </If>
         <div className={classes.buttonContainer}>
-          <Button onClick={onConfirm} variant="contained" className={classes.yesButton} color="primary">Yes</Button>
-          <Button onClick={onCancel} variant="contained" color="secondary">No</Button>
+          <Button
+            className={classes.yesButton}
+            color="primary"
+            onClick={onConfirm}
+            variant="contained"
+          >Yes
+          </Button>
+          <Button
+            color="secondary"
+            onClick={onCancel}
+            variant="contained"
+          >No
+          </Button>
         </div>
       </div>
     </Dialog>

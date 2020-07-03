@@ -35,18 +35,18 @@ export const CancelButton = (props) => {
   return (
     <Fragment>
       <Button
-        startIcon={icon}
-        variant="contained"
+        className={className}
         color="secondary"
         onClick={openDialog}
-        className={className}
+        startIcon={icon}
+        variant="contained"
       >
         {label}
       </Button>
       <DeleteConfirmationDialog
+        jobTitle={getTitle(item)}
         onCancel={closeDialog}
         onConfirm={onConfirm}
-        jobTitle={getTitle(item)}
         open={isDialogOpen}
         status={status}
       />

@@ -49,25 +49,45 @@ const Main = ({ jobs }) => {
       <Toolbar />
       <div className={classes.body}>
         <Switch>
-          <Route exact path={getURL("/")}>
+          <Route
+            exact
+            path={getURL("/")}
+          >
             <InputForm className={classes.inputForm} />
             <Divider />
-            <Grid container spacing={3} className={classes.jobs}>
+            <Grid
+              className={classes.jobs}
+              container
+              spacing={3}
+            >
               <Grid item>
                 <ItemFilter />
               </Grid>
-              <For each="job" of={jobs}>
-                <Grid item xs={12} key={job.id} >
+              <For
+                each="job"
+                of={jobs}
+              >
+                <Grid
+                  item
+                  key={job.id}
+                  xs={12}
+                >
                   <Item item={job}/>
                   <Divider />
                 </Grid>
               </For>
             </Grid>
           </Route>
-          <Route exact path={getURL("/account")}>
+          <Route
+            exact
+            path={getURL("/account")}
+          >
             <AccountSettings />
           </Route>
-          <Route exact path={getURL("/settings")}>
+          <Route
+            exact
+            path={getURL("/settings")}
+          >
             <Settings />
           </Route>
           <Route path="*">

@@ -69,36 +69,54 @@ export const Toolbar = (props) => {
   const openUserMenu = event => setState({ userMenuAnchor: event.currentTarget});
   const closeUserMenu = () => setState({ userMenuAnchor: null });
   return (
-    <AppBar position="static" className={classes.appBar}>
+    <AppBar
+      className={classes.appBar}
+      position="static"
+    >
       <MuiToolbar>
         <If condition={loggedIn}>
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={goToSettings}>
+          <IconButton
+            aria-label="menu"
+            color="inherit"
+            edge="start"
+            onClick={goToSettings}
+          >
             <Settings />
           </IconButton>
         </If>
         <div className={classes.title} >
           <Box display={{xs: "none", sm: "inline-block"}}>
-            <Link variant="h6" onClick={goToHome} color="inherit" className={classes.homeLink}>
+            <Link
+              className={classes.homeLink}
+              color="inherit"
+              onClick={goToHome}
+              variant="h6"
+            >
               Video Hoarder
             </Link>
           </Box>
         </div>
         <If condition={loggedIn}>
           <Notifications />
-          <Button aria-controls="user-menu" aria-haspopup="true" onClick={openUserMenu} className={classes.userMenu}>
+          <Button
+            aria-controls="user-menu"
+            aria-haspopup="true"
+            className={classes.userMenu}
+            onClick={openUserMenu}
+          >
             <ListItemIcon>
               <AccountCircle className={classes.userMenu} />
             </ListItemIcon>
             <Typography variant="inherit">{userName}</Typography>
           </Button>
           <Menu
-            id="user-menu"
             anchorEl={userMenuAnchor}
+            id="user-menu"
             keepMounted
-            open={Boolean(userMenuAnchor)}
             onClose={closeUserMenu}
-            TransitionComponent={Fade}
+            open={Boolean(userMenuAnchor)}
             style={getMenuStyle(userMenuAnchor)}
+            TransitionComponent={Fade}
           >
             <MenuItem onClick={goToAccountScreen}>
               <ListItemIcon>

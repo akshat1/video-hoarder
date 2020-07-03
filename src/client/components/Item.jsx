@@ -69,53 +69,100 @@ const Item = (props) => {
   const title = getTitle(item);
   const thumbnail = getThumbnail(item);
   const mediaTitle = `${title} thumbnail`;
-  const expandIcon = <ExpandMoreIcon
-    className={classnames(classes.expandIcon, {
-      [classes.expandOpen]: expanded,
-    })}
-  />;
+  const expandIcon = (
+    <ExpandMoreIcon
+      className={classnames(classes.expandIcon, {
+        [classes.expandOpen]: expanded,
+      })}
+    />
+  );
 
   return (
-    <Grid container className={classes.root} spacing={1}>
-      <Grid item xs={4} md={2}>
-        <img src={thumbnail} title={mediaTitle} className={classes.thumbnail} />
+    <Grid
+      className={classes.root}
+      container
+      spacing={1}
+    >
+      <Grid
+        item
+        md={2}
+        xs={4}
+      >
+        <img
+          className={classes.thumbnail}
+          src={thumbnail}
+          title={mediaTitle}
+        />
       </Grid>
-      <Grid item xs={8} md={10}>
-        <Typography className={classes.title} variant="h2">{title}</Typography>
+      <Grid
+        item
+        md={10}
+        xs={8}
+      >
+        <Typography
+          className={classes.title}
+          variant="h2"
+        >{title}
+        </Typography>
         <If condition={!isMobile}>
           <ItemMeta item={item} />
           <Typography className={classes.url}>
             <Link href={url}>{url}</Link>
           </Typography>
-          <CancelButton item={item} className={classes.cancelButton} />
+          <CancelButton
+            className={classes.cancelButton}
+            item={item}
+          />
         </If>
       </Grid>
       <If condition={isMobile}>
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+        >
           <ItemMeta item={item} />
         </Grid>
-        <Grid item xs={12}>
-          <CancelButton item={item} className={classes.cancelButton} />
+        <Grid
+          item
+          xs={12}
+        >
+          <CancelButton
+            className={classes.cancelButton}
+            item={item}
+          />
         </Grid>
       </If>
-      <Grid item xs={12}>
+      <Grid
+        item
+        xs={12}
+      >
         <Button
-          className={classes.expand}
-          onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
+          className={classes.expand}
           endIcon={expandIcon}
+          onClick={handleExpandClick}
         >
-          <Typography className={classes.descriptionLabel} component="span">Description</Typography>
+          <Typography
+            className={classes.descriptionLabel}
+            component="span"
+          >Description
+          </Typography>
         </Button>
-        <Collapse in={expanded} unmountOnExit>
+        <Collapse
+          in={expanded}
+          unmountOnExit
+        >
           <If condition={isMobile}>
             <Typography className={classes.url}>
               <Link href={url}>{url}</Link>
             </Typography>
           </If>
           <If condition={getDescription(item)}>
-            <Typography className={classes.description} dangerouslySetInnerHTML={{ __html: convert.toHtml(getDescription(item)) }} />
+            <Typography
+              className={classes.description}
+              dangerouslySetInnerHTML={{ __html: convert.toHtml(getDescription(item)) }}
+            />
           </If>
         </Collapse>
       </Grid>

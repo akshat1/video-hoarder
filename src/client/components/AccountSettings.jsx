@@ -77,15 +77,22 @@ const AccountSettings = (props) => {
         </div>
         <div className={classes.label}>
           <Typography>Password</Typography>
-      </div>
+        </div>
         <div className={classes.value}>
           <Choose>
             <When condition={isPasswordChangeInputVisible}>
-              <PasswordChangeInput onCancel={hidePasswordChangeInput} onChange={updatePassword} />
+              <PasswordChangeInput
+                onCancel={hidePasswordChangeInput}
+                onChange={updatePassword}
+              />
             </When>
             <Otherwise>
               <Typography>********</Typography>
-              <Button variant="contained" onClick={showPasswordChangeInput}>Change password</Button>
+              <Button
+                onClick={showPasswordChangeInput}
+                variant="contained"
+              >Change password
+              </Button>
             </Otherwise>
           </Choose>
         </div>

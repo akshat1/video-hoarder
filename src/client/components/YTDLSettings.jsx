@@ -62,18 +62,28 @@ const YTDLSettings = (props) => {
       <If condition={isAdmin}>
         <div className={classes.label}></div>
         <div className={classes.value}>
-          <Button variant="contained" onClick={doUpgrade} disabled={isBusy}>Upgrade to latest version</Button>
+          <Button
+            disabled={isBusy}
+            onClick={doUpgrade}
+            variant="contained"
+          >Upgrade to latest version
+          </Button>
         </div>
       </If>
       <If condition={isAdmin}>
         <div className={classes.label}></div>
         <div className={classes.value}>
-          <Button variant="contained" onClick={openYTDLGlobalConfigEditor} disabled={isBusy}>Edit youtube-dl global config</Button>
+          <Button
+            disabled={isBusy}
+            onClick={openYTDLGlobalConfigEditor}
+            variant="contained"
+          >Edit youtube-dl global config
+          </Button>
           <If condition={ytdlConfigEditorOpen}>
             <ConfigurationEditor
               configText={ytdlGlobalConfig}
-              onCancel={closeYTDLGlobalConfigEditor}
               doSave={onGlobalConfigSave}
+              onCancel={closeYTDLGlobalConfigEditor}
               open
             />
           </If>

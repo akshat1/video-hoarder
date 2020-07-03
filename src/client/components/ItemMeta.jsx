@@ -26,10 +26,16 @@ const ItemMeta = (props) => {
 
   return (
     <Fragment>
-      <ItemStatus status={status} className={classes.statusIcon}/>
+      <ItemStatus
+        className={classes.statusIcon}
+        status={status}
+      />
         <Choose>
           <When condition={hasStarted(status)}>
-            <Typography display="inline" className={classes.meta}>
+            <Typography
+              className={classes.meta}
+              display="inline"
+            >
               <Choose>
                 <When condition={status === Status.Failed}>Failed</When>
                 <When condition={status === Status.Paused}>Paused</When>
@@ -40,7 +46,10 @@ const ItemMeta = (props) => {
             </Typography>
           </When>
           <Otherwise>
-            <Typography display="inline" className={classes.meta}>
+            <Typography
+              className={classes.meta}
+              display="inline"
+            >
               {`Queued at ${dtUpdatedAt.toLocaleTimeString()} on ${dtUpdatedAt.toLocaleDateString()}`}
             </Typography>
           </Otherwise>

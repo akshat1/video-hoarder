@@ -36,10 +36,16 @@ const ItemStatus = ({ status, className }) => {
           <ErrorOutline color="inherit"/>
         </When>
         <When condition={status === Status.Pending}>
-          <CircularProgress color="inherit" size="1.28rem" />
+          <CircularProgress
+            color="inherit"
+            size="1.28rem"
+          />
         </When>
         <When condition={status === Status.Running}>
-          <CircularProgress color="inherit" size="1.28rem"/>
+          <CircularProgress
+            color="inherit"
+            size="1.28rem"
+          />
         </When>
         <When condition={status === Status.Succeeded}>
           <CheckCircleOutline color="inherit"/>

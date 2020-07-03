@@ -37,7 +37,13 @@ const Itemfilter = (props) => {
       <When condition={isMobile}>
         <FormControl variant="outlined">
           <InputLabel id="statusFilterLabel">Status</InputLabel>
-          <Select labelId="statusFilterLabel" id="statusFilter" value={value} onChange={onSelectChange} label="Status">
+          <Select
+            id="statusFilter"
+            label="Status"
+            labelId="statusFilterLabel"
+            onChange={onSelectChange}
+            value={value}
+          >
             <MenuItem value={StatusFilterValue.All}>All</MenuItem>
             <MenuItem value={StatusFilterValue.Succeeded}>Complete</MenuItem>
             <MenuItem value={StatusFilterValue.Failed}>Failed</MenuItem>
@@ -47,24 +53,60 @@ const Itemfilter = (props) => {
         </FormControl>
       </When>
       <Otherwise>
-        <ToggleButtonGroup value={value} onChange={onTogglebuttonChange} aria-label="Download filter" exclusive>
-          <ToggleButton value={StatusFilterValue.All} aria-label="All downloads">
+        <ToggleButtonGroup
+          aria-label="Download filter"
+          exclusive
+          onChange={onTogglebuttonChange}
+          value={value}
+        >
+          <ToggleButton
+            aria-label="All downloads"
+            value={StatusFilterValue.All}
+          >
             <Typography>All</Typography>
           </ToggleButton>
-          <ToggleButton value={StatusFilterValue.Succeeded} aria-label="Successful downloads">
-            <CheckCircleOutline color="inherit" className={classes.icon} />
+          <ToggleButton
+            aria-label="Successful downloads"
+            value={StatusFilterValue.Succeeded}
+          >
+            <CheckCircleOutline
+              className={classes.icon}
+              color="inherit"
+            />
             <Typography>Complete</Typography>
           </ToggleButton>
-          <ToggleButton value={StatusFilterValue.Failed} aria-label="Failed downloads">
-            <ErrorOutline color="inherit" className={classes.icon} />
+          <ToggleButton
+            aria-label="Failed downloads"
+            value={StatusFilterValue.Failed}
+          >
+            <ErrorOutline
+              className={classes.icon}
+              color="inherit"
+            />
             <Typography>Failed</Typography>
           </ToggleButton>
-          <ToggleButton value={StatusFilterValue.Running} aria-label="Currently in-progress downloads">
-            <CircularProgress color="inherit" size="1.28rem" variant="static" value={50} className={classes.icon} />
+          <ToggleButton
+            aria-label="Currently in-progress downloads"
+            value={StatusFilterValue.Running}
+          >
+            <CircularProgress
+              className={classes.icon}
+              color="inherit"
+              size="1.28rem"
+              value={50}
+              variant="static"
+            />
             <Typography>In Progress</Typography>
           </ToggleButton>
-          <ToggleButton value={StatusFilterValue.Pending} aria-label="Queued downloads">
-            <HourglassEmptyRounded color="inherit" size="1.28rem" className={classes.icon} />
+          <ToggleButton
+            aria-label="Queued downloads"
+            value={StatusFilterValue.Pending}
+          >
+            <HourglassEmptyRounded
+              className={classes.icon}
+              color="inherit"
+              size="1.28rem"
+            />
             <Typography>Queued</Typography>
           </ToggleButton>
         </ToggleButtonGroup>

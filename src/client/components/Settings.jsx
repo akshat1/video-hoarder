@@ -26,16 +26,36 @@ const Settings = ({ isAdmin }) => {
 
   return (
     <div className={classes.root}>
-      <Tabs value={activeTab} onChange={switchTab} aria-label="tab panel">
-        <Tab value={TabId.YTDL} label="youtube-dl" id="tab-youtube-dl" aria-controls="Tab for YouTube-DL settings" />
+      <Tabs
+        aria-label="tab panel"
+        onChange={switchTab}
+        value={activeTab}
+      >
+        <Tab
+          aria-controls="Tab for YouTube-DL settings"
+          id="tab-youtube-dl"
+          label="youtube-dl"
+          value={TabId.YTDL}
+        />
         <If condition={isAdmin}>
-          <Tab value={TabId.UserManagement} label="User Management" id="tab-user-management" aria-controls="Tab for user management settings." />
+          <Tab
+            aria-controls="Tab for user management settings."
+            id="tab-user-management"
+            label="User Management"
+            value={TabId.UserManagement}
+          />
         </If>
       </Tabs>
-      <TabPanel activeTabId={activeTab} tabId={TabId.YTDL}>
+      <TabPanel
+        activeTabId={activeTab}
+        tabId={TabId.YTDL}
+      >
         <YTDLSettings />
       </TabPanel>
-      <TabPanel activeTabId={activeTab} tabId={TabId.UserManagement}>
+      <TabPanel
+        activeTabId={activeTab}
+        tabId={TabId.UserManagement}
+      >
         <UserManagementSettings />
       </TabPanel>
     </div>

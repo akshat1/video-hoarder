@@ -46,7 +46,14 @@ module.exports = {
     "import/default": "error",
     "import/no-absolute-path": "error",
     "simple-import-sort/sort": ["error", { groups: [] }],
-    "comma-dangle": ["error", "always-multiline"]
+    "comma-dangle": ["error", "always-multiline"],
+    "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "always" }],
+    "react/jsx-closing-tag-location": "error",
+    "react/jsx-closing-bracket-location": "error",
+    "react/jsx-sort-props": "error",
+    "react/jsx-wrap-multilines": ["error", { arrow: "parens", declaration: "parens-new-line" }],
   },
   overrides: [{
     files: ["*.story.jsx", "*.jsx"],

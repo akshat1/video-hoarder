@@ -9,9 +9,10 @@ export default {
   component: Toolbar,
 };
 
-export const Default = () =>
+export const Default = () => (
   <Toolbar
     doLogOut={action("doLogOut")}
     loggedIn={boolean("Logged in?", true)}
     userName={text("Username", "admin")}
-  />;
+  />
+);

@@ -37,10 +37,22 @@ const ConfigurationEditor = (props) => {
   const onSaveButtonClicked = () => doSave(tmpConfigText);
 
   return (
-    <Dialog open={open} onClose={onCancel} aria-labelledby="editor-dialog-title" className={classes.root} fullScreen={fullScreen} maxWidth={maxWidth} fullWidth={fullWidth}>
+    <Dialog
+      aria-labelledby="editor-dialog-title"
+      className={classes.root}
+      fullScreen={fullScreen}
+      fullWidth={fullWidth}
+      maxWidth={maxWidth}
+      onClose={onCancel}
+      open={open}
+    >
       <DialogTitle id="editor-dialog-title">
         <Typography variant="h6">{title}</Typography>
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onCancel}>
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={onCancel}
+        >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -49,18 +61,32 @@ const ConfigurationEditor = (props) => {
           <If condition={helperText}>
             <Typography>{helperText}</Typography>
           </If>
-          <Typography>See <Link target="_blank" href="https://github.com/ytdl-org/youtube-dl#configuration">youtube-dl documentation</Link> for syntax.</Typography>
+          <Typography>See <Link
+            href="https://github.com/ytdl-org/youtube-dl#configuration"
+            rel="noreferrer"
+            target="_blank"
+                          >youtube-dl documentation
+                          </Link> for syntax.
+          </Typography>
         </DialogContentText>
         <TextareaAutosize
-          value={tmpConfigText}
+          className={classes.textArea}
           onChange={onChange}
           rowsMin={5}
-          className={classes.textArea}
+          value={tmpConfigText}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCancel} color="primary">Cancel</Button>
-        <Button onClick={onSaveButtonClicked} color="primary">Save</Button>
+        <Button
+          color="primary"
+          onClick={onCancel}
+        >Cancel
+        </Button>
+        <Button
+          color="primary"
+          onClick={onSaveButtonClicked}
+        >Save
+        </Button>
       </DialogActions>
     </Dialog>
   );

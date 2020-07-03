@@ -9,8 +9,9 @@ export default {
   decorators: [withKnobs],
 };
 
-export const Default = () =>
+export const Default = () => (
   <InputForm
-    onSubmit={action("submit")}
     initialValue={text("Initial value (initialValue)", "https://www.youtube.com/watch?v=dQw4w9WgXcQ")}
-  />;
+    onSubmit={action("submit")}
+  />
+);

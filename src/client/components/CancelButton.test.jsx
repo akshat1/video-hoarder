@@ -10,9 +10,14 @@ describe("components/CancelButton", () => {
   Object.values(Status).forEach((status) =>
     test(`CancelButton matches snapshot for ${status}`, () => {
       const instance =
-        <ThemeProvider theme={getTheme()}>
-          <CancelButton item={getFakeItem(status)} doCancel={() => 0}/>
-        </ThemeProvider>;
+        (
+<ThemeProvider theme={getTheme()}>
+          <CancelButton
+            doCancel={() => 0}
+            item={getFakeItem(status)}
+          />
+</ThemeProvider>
+);
       expect(shallow(instance)).toMatchSnapshot();
     }),
   );

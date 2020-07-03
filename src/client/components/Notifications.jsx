@@ -17,9 +17,17 @@ const Notifications = ({ notification, hideNotification }) => {
     hideNotification(notification);
   };
   return (
-    <Snackbar anchorOrigin={AnchorOrigin} open={!!notification}>
+    <Snackbar
+      anchorOrigin={AnchorOrigin}
+      open={!!notification}
+    >
       <If condition={notification}>
-        <Alert elevation={6} variant="filled" severity={notification.severity} onClose={onClose}>
+        <Alert
+          elevation={6}
+          onClose={onClose}
+          severity={notification.severity}
+          variant="filled"
+        >
           {notification.message}
         </Alert>
       </If>

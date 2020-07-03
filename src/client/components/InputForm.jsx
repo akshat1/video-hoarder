@@ -65,32 +65,45 @@ export const InputForm = ({ className, initialValue, onSubmit, clearQuery }) => 
   return (
     <Container className={className}>
       <form onSubmit={onFormSubmit}>
-      <Grid container spacing={3} alignItems="stretch">
-        <Grid item xs={12} md={10}>
+      <Grid
+        alignItems="stretch"
+        container
+        spacing={3}
+      >
+        <Grid
+          item
+          md={10}
+          xs={12}
+        >
           <FormControl
             fullWidth
-            variant="outlined"
             required
+            variant="outlined"
           >
             <InputLabel htmlFor="url-input">Enter URL</InputLabel>
             <OutlinedInput
+              endAdornment={clearButton}
+              error={isInvalid}
               id="url-input"
+              labelWidth={90}
               onChange={onChange}
               value={url}
-              endAdornment={clearButton}
-              labelWidth={90}
-              error={isInvalid}
             />
             <FormHelperText id="url-error-text">{validationErrorMessage}</FormHelperText>
           </FormControl>
         </Grid>
-        <Grid item md xs={12} className={classes.submitContainer}>
+        <Grid
+          className={classes.submitContainer}
+          item
+          md
+          xs={12}
+        >
           <Button
-            type="submit"
-            variant="contained"
+            className={classes.submitButton}
             color="primary"
             disabled={isSubmitDisabled}
-            className={classes.submitButton}
+            type="submit"
+            variant="contained"
           >
             Download
           </Button>

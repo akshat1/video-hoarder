@@ -7,7 +7,8 @@ export default {
   component: LoginForm,
 };
 
-export const Default = () =>
+export const Default = () => (
   <LoginForm
     loginError={text("Login error", "")}
   />
+);
