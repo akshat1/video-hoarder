@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
  * @param {boolean} args.loggedIn -
  * @returns {boolean}
  */
-export const isSubmitDisabled = ({ userName, password, fetchingUser, loggedIn }) =>
+export const isSubmitDisabled = ({ fetchingUser, loggedIn, password, userName }) =>
   loggedIn || fetchingUser || !(userName && password);
 
 export const LoginForm = (props) => {

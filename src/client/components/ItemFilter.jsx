@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => {
 const Itemfilter = (props) => {
   const classes = useStyles();
   const {
-    value,
     changeStatusFilter,
+    value,
   } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));

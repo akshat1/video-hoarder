@@ -32,7 +32,7 @@ const useStyle = makeStyles(theme => ({
 }));
 
 const InputPattern = "^(https?:\\/\\/.+)?$";
-export const InputForm = ({ className, initialValue, onSubmit, clearQuery }) => {
+export const InputForm = ({ className, clearQuery, initialValue, onSubmit }) => {
   const classes = useStyle();
   const [url, setURL] = useState(initialValue);
   useEffect(() => setURL(initialValue), [initialValue]);

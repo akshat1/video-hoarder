@@ -14,6 +14,7 @@ module.exports = {
     "jest",
     "import",
     "simple-import-sort",
+    "sort-destructure-keys",
   ],
   extends: [
     "eslint:recommended",
@@ -55,6 +56,7 @@ module.exports = {
     "react/jsx-closing-bracket-location": "error",
     "react/jsx-sort-props": "error",
     "react/jsx-wrap-multilines": ["error", { arrow: "parens", declaration: "parens-new-line" }],
+    "sort-destructure-keys/sort-destructure-keys": "error"
   },
   overrides: [{
     files: ["*.story.jsx", "*.jsx"],

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DeleteConfirmationDialog = ({ onCancel, onConfirm, open, jobTitle, status }) => {
+const DeleteConfirmationDialog = ({ jobTitle, onCancel, onConfirm, open, status }) => {
   const classes = useStyles();
   const jobName = jobTitle ? `"${jobTitle}"` : "this download";
   const cancelOrDelete = isPending(status) ? "Cancel" : "Delete";

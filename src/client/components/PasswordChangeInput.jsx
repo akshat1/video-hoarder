@@ -21,22 +21,22 @@ const isValidPassword = password => {
     return false;
   }
 
-  // Lower case
+  // Must have at least one lower case letter
   if (!/[a-z]/.test(password)) {
     return false;
   }
 
-  // Upper case
+  // Must have at least one upper case letter
   if (!/[A-Z]/.test(password)) {
     return false;
   }
 
-  // numbers
+  // Must have at least one number
   if (!/\d/.test(password)) {
     return false;
   }
 
-  // special characters
+  // Must have at least one special character
   if (!/!|@|#|\$|%|\^|&|\*|\(|\)|-|_|\+|=|{|}|\[|\]|`|~|\\|,|<|.|>|\?|\/|;|:|'|"/.test(password)) {
     return false;
   }
@@ -60,10 +60,10 @@ const useStyles = makeStyles((theme) => {
 const PasswordChangeInput = (props) => {
   const classes = useStyles();
   const {
-    onChange,
-    onCancel,
-    className,
     busy,
+    className,
+    onCancel,
+    onChange,
   } = props;
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPasswordA, setNewPasswordA] = useState("");

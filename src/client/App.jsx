@@ -29,10 +29,10 @@ const App = (props) => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const classes = useStyles();
   const {
-    userFetchDone,
     initializeClient,
     loggedIn,
     pathname,
+    userFetchDone,
   } = props;
 
   useEffect(

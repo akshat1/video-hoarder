@@ -25,10 +25,10 @@ const YTDLSettings = (props) => {
   const {
     binaryPath,
     binaryVersion,
-    isAdmin,
     doSaveYTDLGlobalConfig,
     doUpgrade,
     fetchInfo,
+    isAdmin,
     isBusy,
     ytdlGlobalConfig,
   } = props;

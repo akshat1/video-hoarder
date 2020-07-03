@@ -26,7 +26,7 @@ const useStyle = makeStyles((theme) => {
   };
 });
 
-const ItemStatus = ({ status, className }) => {
+const ItemStatus = ({ className, status }) => {
   const classes = useStyle();
 
   return (

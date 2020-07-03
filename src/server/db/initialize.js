@@ -22,7 +22,7 @@ export const initialize = async () => {
   if (!admin) {
     // Create admin user with default password
     logger.debug("Create new admin user");
-    const { salt, hash } = await encrypt("password");
+    const { hash, salt } = await encrypt("password");
     await createUser({
       userName: "admin",
       salt,

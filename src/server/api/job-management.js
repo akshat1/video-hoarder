@@ -18,7 +18,7 @@ export const getJobs = async (req, res, next) => {
   // @todo avoid dupes.
   try {
     logger.debug(req.body);
-    const { user, body } = req;
+    const { body, user } = req;
     const {
       query = {},
       pagination = {},
@@ -39,8 +39,8 @@ export const getJobs = async (req, res, next) => {
 
     if (pagination) {
       const {
-        skip,
         limit,
+        skip,
       } = pagination;
 
       if (skip) {

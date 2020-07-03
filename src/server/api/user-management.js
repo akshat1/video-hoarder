@@ -29,12 +29,12 @@ export const changePassword = async (req, res) => {
   const logger = getLogger("changePassword", rootLogger);
   try {
     const {
-      userName,
       currentPassword,
       newPassword,
+      userName,
     } = req.body;
     logger.debug("Setting new password to", newPassword); // TODO: Remove this
-    const { salt, hash } = await encrypt(newPassword);
+    const { hash, salt } = await encrypt(newPassword);
     const { userName: updatedBy } = req.user;
     let user;
     if (userName!== "admin" && updatedBy === "admin") {

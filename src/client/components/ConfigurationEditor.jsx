@@ -24,12 +24,12 @@ const ConfigurationEditor = (props) => {
   const maxWidth = fullWidth ? "md" : undefined;
   const classes = useStyles();
   const {
-    open,
-    onCancel,
-    title,
-    helperText,
     configText,
     doSave,
+    helperText,
+    onCancel,
+    open,
+    title,
   } = props;
 
   const [tmpConfigText, setTempConfigText] = useState(configText);

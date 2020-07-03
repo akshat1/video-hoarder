@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 
 export const CancelButton = (props) => {
   const [ isDialogOpen, setDialogOpen ] = useState(false);
-  const { item, doCancel, doDelete, className } = props;
+  const { className, doCancel, doDelete, item } = props;
   const { status } = item;
 
   const canDelete = hasConcluded(status);

@@ -16,7 +16,7 @@ const rootLogger = getLogger("job-management");
  * @param {string} args.addedBy - userName of the user adding this task.
  * @returns {Promise<Item>}
  */
-export const addJob = async ({ url, addedBy }) => {
+export const addJob = async ({ addedBy, url }) => {
   const item = makeItem({ url, addedBy });
   const jobs = await getJobsCollection()
   const newJob = await insert(jobs, item, { w: 1 });
@@ -84,7 +84,7 @@ export const cancelJob = async ({ id, updatedBy }) => {
  * @param {string} args.errorMessage
  * @return {Promise}
  */
-export const failJob = async ({ item, errorMessage }) => {
+export const failJob = async ({ errorMessage, item }) => {
   const logger = getLogger("failJob", rootLogger);
   const { id } = item;
   const jobs = await getJobsCollection();

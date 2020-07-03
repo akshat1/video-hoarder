@@ -11,7 +11,7 @@ const AnchorOrigin = {
   horizontal: "center",
 };
 
-const Notifications = ({ notification, hideNotification }) => {
+const Notifications = ({ hideNotification, notification }) => {
   const onClose = () => {
     console.log("Close", notification.message);
     hideNotification(notification);

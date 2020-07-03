@@ -3,7 +3,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-const TabPanel = ({ children, tabId, activeTabId }) => (
+const TabPanel = ({ activeTabId, children, tabId }) => (
   <If condition={activeTabId === tabId}>
       {children}
   </If>

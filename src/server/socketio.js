@@ -30,7 +30,7 @@ const onClientConnected = (socket) => {
   socket.emit("TEST EVENT", "HELLO");
 };
 
-export const bootstrap = ({ server, sessionStore, secret, pathname = "/" }) => {
+export const bootstrap = ({ pathname = "/", secret, server, sessionStore }) => {
   const logger = getLogger("bootstrap", rootLogger);
   const io = SocketIO(server, {
     path: path.join(pathname, "socket.io"),
