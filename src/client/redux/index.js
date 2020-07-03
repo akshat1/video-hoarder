@@ -26,3 +26,5 @@ export const getStore = () => {
 
   return store;
 };
+
+window.getStore = getStore;

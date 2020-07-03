@@ -17,6 +17,8 @@ const onItemAdded = (io, item) => {
 
 const onItemRemoved = (io, item) => io.emit(Event.ItemRemoved, item);
 const onItemUpdated = (io, item) => io.emit(Event.ItemUpdated, item);
+const onYTDLUpgradeFailed = (io, error) => io.emit(Event.YTDLUpgradeFailed, error);
+const onYTDLUpgradeSucceeded = (io, ytdlInfo) => io.emit(Event.YTDLUpgradeSucceeded, ytdlInfo);
 
 /**
  * 
@@ -34,6 +36,7 @@ export const bootstrap = ({ server, sessionStore, secret, pathname = "/" }) => {
     path: path.join(pathname, "socket.io"),
   });
   logger.debug("io instance created");
+
   // See https://github.com/jfromaniello/passport.socketio
   io.use(passportSocketIO.authorize({
     key: "connect.sid",
@@ -41,11 +44,13 @@ export const bootstrap = ({ server, sessionStore, secret, pathname = "/" }) => {
     secret,
     store: sessionStore,
   }));
+
   // Broadcast events.
-  // TODO: Figure out how to restrict this to authenticated clients; look into a separate channel for authed clients.
   subscribe(Event.ItemAdded, item => onItemAdded(io, item));
   subscribe(Event.ItemRemoved, _.curry(onItemRemoved)(io));
   subscribe(Event.ItemUpdated, _.curry(onItemUpdated)(io));
+  subscribe(Event.YTDLUpgradeFailed, _.curry(onYTDLUpgradeFailed)(io));
+  subscribe(Event.YTDLUpgradeSucceeded, _.curry(onYTDLUpgradeSucceeded)(io));
   logger.debug("broadcast events wired.");
 
   io.on("connection", onClientConnected);

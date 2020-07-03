@@ -1,26 +1,23 @@
 /**
  * Renders the application toolbar.
  */
-import { doLogOut, goToAccountScreen, goToHome } from "../redux/actions";
-import { getUserName,isLoggedIn } from "../selectors";
+import { doLogOut, goToAccountScreen, goToHome, goToSettings } from "../redux/actions";
+import { getUserName, isLoggedIn } from "../selectors";
+import Notifications from "./Notifications.jsx";
 import {
   AppBar,
   Box,
   Button,
-  Drawer,
   Fade,
   IconButton,
   Link,
-  List,
-  ListItem,
   ListItemIcon,
-  ListItemText,
   Menu,
   MenuItem,
   Toolbar as MuiToolbar,
   Typography,
 } from "@material-ui/core";
-import { AccountCircle, ExitToApp, Menu as MenuIcon, Settings } from "@material-ui/icons";
+import { AccountCircle, ExitToApp, Settings } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -41,6 +38,9 @@ const useStyles = makeStyles((theme) => {
     appMenu: {
       minWidth: "15vw",
     },
+    homeLink: {
+      cursor: "pointer",
+    },
   };
 });
 
@@ -55,49 +55,36 @@ export const Toolbar = (props) => {
   });
   const {
     userMenuAnchor,
-    appMenuAnchor,
   } = state;
   const classes = useStyles();
   const {
     doLogOut,
     goToAccountScreen,
     goToHome,
+    goToSettings,
     loggedIn,
     userName,
   } = props;
 
   const openUserMenu = event => setState({ userMenuAnchor: event.currentTarget});
   const closeUserMenu = () => setState({ userMenuAnchor: null });
-  const openAppMenu = event => setState({ appMenuAnchor: event.currentTarget });
-  const closeAppMenu =() => setState({ appMenuAnchor: null });
   return (
     <AppBar position="static" className={classes.appBar}>
       <MuiToolbar>
         <If condition={loggedIn}>
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={openAppMenu}>
-            <MenuIcon />
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={goToSettings}>
+            <Settings />
           </IconButton>
-          <Drawer
-            anchorEl={appMenuAnchor}
-            open={Boolean(appMenuAnchor)}
-            onClose={closeAppMenu}
-          >
-            <List className={classes.appMenu}>
-              <ListItem button key="settings">
-                <ListItemIcon><Settings /></ListItemIcon>
-                <ListItemText primary="Settings" />
-              </ListItem>
-            </List>
-          </Drawer>
         </If>
         <div className={classes.title} >
           <Box display={{xs: "none", sm: "inline-block"}}>
-            <Link variant="h6" onClick={goToHome} color="inherit">
+            <Link variant="h6" onClick={goToHome} color="inherit" className={classes.homeLink}>
               Video Hoarder
             </Link>
           </Box>
         </div>
         <If condition={loggedIn}>
+          <Notifications />
           <Button aria-controls="user-menu" aria-haspopup="true" onClick={openUserMenu} className={classes.userMenu}>
             <ListItemIcon>
               <AccountCircle className={classes.userMenu} />
@@ -136,6 +123,7 @@ Toolbar.propTypes = {
   doLogOut: PropTypes.func,
   goToAccountScreen: PropTypes.func,
   goToHome: PropTypes.func,
+  goToSettings: PropTypes.func,
   loggedIn: PropTypes.bool,
   userName: PropTypes.string,
 };
@@ -149,6 +137,7 @@ const dispatchToProps = {
   doLogOut,
   goToAccountScreen,
   goToHome,
+  goToSettings,
 };
 
 export default connect(dispatchToState, dispatchToProps)(Toolbar);

@@ -10,21 +10,14 @@
  */
 
 /**
- * @description This type is not supposed to be on the client side.
- * @typedef {Object} User
- * @property {boolean} passwordExpired
- * @property {string} createdBy
- * @property {string} password
- * @property {string} salt
- * @property {string} updatedBy
- * @property {string} userName
- * @property {TimeStamp} createdAt
- * @property {TimeStamp} updatedAt
+ * @typedef {Object} YTDLInformation
+ * @property {string} binaryPath
+ * @property {string} binaryVersion
+ * @property {string} globalConfig
  */
 
 /**
- * @typedef {Object} ClientUser
- * @property {boolean} loggedIn
- * @property {boolean} passwordExpired
- * @property {string} userName
+ * @typedef {Object} Notification
+ * @property {string} message
+ * @property {string} severity
  */

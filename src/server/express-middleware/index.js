@@ -1,4 +1,5 @@
 import { getLogger } from "../../logger.js";
+import { isAdmin } from "../../model/User.js";
 
 const rlLogger = getLogger("requestLogger");
 /**
@@ -27,6 +28,15 @@ export const ensureLoggedIn = (req, res, next) => {
 /* This is for use with everything else. */
 export const ensureValidUser = (req, res, next) => {
   if (req.isAuthenticated() && req.user && !req.user.passwordExpired) {
+    return next();
+  }
+
+  res.status(401).send("NOT AUTHORIZED");
+};
+
+/** This is for routes only meant to be used by users with admin role. */
+export const ensureAdminUser = (req, res, next) => {
+  if (req.isAuthenticated() && isAdmin(req.user)) {
     return next();
   }
 

@@ -41,7 +41,7 @@ export const fetchUser = () =>
       if (response.status !== 200) {
         throw new Error("Error occurred");
       }
-      const user = await response.data;
+      const user = response.data;
       dispatch(setUser(user));
     } catch (err) {
       logger.error(err);

@@ -1,7 +1,8 @@
 import { Event } from "../Event";
 import { getLogger } from "../logger";
+import { getTitle } from "../model/Item";
 import { getStore } from "./redux";
-import { fetchJobs, updateJobInStore } from "./redux/actions";
+import { fetchJobs, showNotification, signalYTDLUpgradeFailure, signalYTDLUpgradeSuccess, updateJobInStore } from "./redux/actions";
 import { getURL } from "./util";
 import ioClient from "socket.io-client";
 
@@ -21,13 +22,15 @@ export const getSocket = () => {
   return socket;
 };
 
-const onItemAdded = () => {
+const onItemAdded = (item) => {
   getLogger("onItemAdded", rootLogger).debug("ItemAdded");
+  getStore().dispatch(showNotification(`Added ${getTitle(item)}`));
   getStore().dispatch(fetchJobs());
 };
 
-const onItemRemoved = () => {
+const onItemRemoved = (item) => {
   getLogger("onItemRemoved", rootLogger).debug("ItemRemoved");
+  getStore().dispatch(showNotification(`Removed ${getTitle(item)}`));
   getStore().dispatch(fetchJobs());
 };
 
@@ -36,24 +39,44 @@ const onItemUpdated = (item) => {
   getStore().dispatch(updateJobInStore(item));
 };
 
+const onYTDLUpgradeFailed = (error) => {
+  getStore().dispatch(signalYTDLUpgradeFailure(error));
+};
+
+const onYTDLUpgradeSucceeded = (ytdlInfo) => {
+  getStore().dispatch(signalYTDLUpgradeSuccess(ytdlInfo));
+};
+
+const wireSocket = (socket, eventHandlers) =>
+  Object
+    .keys(eventHandlers)
+    .forEach(eventName =>
+      socket.on(eventName, eventHandlers[eventName]));
+
 export const bootstrapClient = () => {
   const logger = getLogger("bootstrapClient", rootLogger);
   const socket = getSocket();
   logger.debug("got a client", socket);
-  socket.on(Event.ItemAdded, onItemAdded);
-  socket.on(Event.ItemRemoved, onItemRemoved);
-  socket.on(Event.ItemUpdated, onItemUpdated);
+  wireSocket(socket, {
+    [Event.ItemAdded]: onItemAdded,
+    [Event.ItemRemoved]: onItemRemoved,
+    [Event.ItemUpdated]: onItemUpdated,
+    [Event.YTDLUpgradeFailed]: onYTDLUpgradeFailed,
+    [Event.YTDLUpgradeSucceeded]: onYTDLUpgradeSucceeded,
+  });
   window.ioClient = socket;
 };
 
 export const reconnect = () => {
   const logger = getLogger("reconnect", rootLogger);
   const socket = getSocket();
-  logger.debug("disconnect...");
-  socket.disconnect();
-  logger.debug("done. connect...");
-  socket.connect();
-  logger.debug("done.");
+  if (!socket.connected) {
+    logger.debug("done. connect...");
+    socket.connect();
+    logger.debug("done.");
+  }
+  // logger.debug("disconnect...");
+  // socket.disconnect();
 };
 
 export const disconnect = () => {

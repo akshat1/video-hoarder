@@ -1,4 +1,5 @@
 import { getLogger } from "../../logger.js" ;
+import { Role } from "../../model/User.js";
 import { hash } from "../crypto.js";
 import { findOne, getUsersCollection, insert, update } from "./util.js";
 
@@ -17,6 +18,7 @@ export const createUser = async (userStub, createdBy) => {
   const {
     password,
     passwordExpired,
+    role = Role.User,
     salt,
     userName,
   } = userStub;
@@ -28,6 +30,7 @@ export const createUser = async (userStub, createdBy) => {
     createdBy,
     password,
     passwordExpired,
+    role,
     salt,
     updatedAt: timestamp,
     updatedBy: createdBy,

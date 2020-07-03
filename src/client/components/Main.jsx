@@ -8,6 +8,7 @@ import InputForm from "./InputForm.jsx";
 import Item from "./Item.jsx";
 import ItemFilter from "./ItemFilter.jsx";
 import NotFound from "./NotFound.jsx";
+import Settings from "./Settings.jsx";
 import Toolbar from "./Toolbar.jsx";
 import { Container, Divider, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -56,8 +57,8 @@ const Main = ({ jobs }) => {
                 <ItemFilter />
               </Grid>
               <For each="job" of={jobs}>
-                <Grid item xs={12}>
-                  <Item key={job.id} item={job}/>
+                <Grid item xs={12} key={job.id} >
+                  <Item item={job}/>
                   <Divider />
                 </Grid>
               </For>
@@ -65,6 +66,9 @@ const Main = ({ jobs }) => {
           </Route>
           <Route exact path={getURL("/account")}>
             <AccountSettings />
+          </Route>
+          <Route exact path={getURL("/settings")}>
+            <Settings />
           </Route>
           <Route path="*">
             <NotFound />

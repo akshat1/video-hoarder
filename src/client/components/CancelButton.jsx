@@ -1,7 +1,7 @@
 /**
  * Renders a cancel button which will cancel a download (the item prop) after showing a confirmation dialog.
  */
-import { getTitle } from "../../model/Item";
+import { getTitle, ItemShape } from "../../model/Item";
 import { hasConcluded } from "../../Status";
 import { cancelJob, deleteJob } from "../redux/actions";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog.jsx";
@@ -56,16 +56,7 @@ export const CancelButton = (props) => {
 
 CancelButton.propTypes = {
   /** @property {Item} */
-  item: PropTypes.shape({
-    addedAt: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  }).isRequired,
+  item: ItemShape.isRequired,
   doCancel: PropTypes.func.isRequired,
   doDelete: PropTypes.func.isRequired,
   className: PropTypes.string,

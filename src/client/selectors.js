@@ -93,3 +93,39 @@ export const getTargetURL = state => decodeURIComponent(_.get(state, "router.loc
  * @returns {string}
  */
 export const getPathname = state => _.get(state, "router.location.pathname", "");
+
+/**
+ * @param {module:client/redux.State} state
+ * @returns {string}
+ */
+export const getYTDLBinaryVersion = state => _.get(state, "ytdlInfo.binaryVersion", "-");
+
+/**
+ * @param {module:client/redux.State} state
+ * @returns {string}
+ */
+export const getYTDLBinaryPath = state => _.get(state, "ytdlInfo.binaryPath", "-");
+
+/**
+ * @param {module:client/redux.State} state
+ * @returns {string}
+ */
+export const getYTDLGlobalConfig = state => _.get(state, "ytdlInfo.globalConfig", "");
+
+/**
+ * @param {module:client/redux.State} state
+ * @returns {boolean}
+ */
+export const isFetchingYTDLInfo = state => !!state.fetchingYTDLInfo;
+
+/**
+ * @param {module:client/redux.State} state
+ * @returns {Notification[]}
+ */
+export const getNotifications = state => state.notificationMessages || [];
+
+/**
+ * @param {module:client/redux.State} state
+ * @returns {Notification}
+ */
+export const getCurrentNotification = state => getNotifications(state)[0];

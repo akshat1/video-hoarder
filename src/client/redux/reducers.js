@@ -42,6 +42,7 @@ export const getRootReducer = history => {
     addingJob: makeReducer(Actions.AddingJob, false),
     fetchingJobs: makeReducer(Actions.FetchingJobs, false),
     fetchingUser: makeReducer(Actions.FetchingUser, false),
+    fetchingYTDLInfo: makeReducer(Actions.FetchingYTDLInfo, false),
     jobs: makeReducer(Actions.Jobs, []),
     loginError: makeReducer(Actions.LoginError, null),
     router: connectRouter(history),
@@ -52,6 +53,8 @@ export const getRootReducer = history => {
     updatingUser: makeReducer(Actions.UpdatingUser, false),
     user: makeReducer(Actions.User, {}),
     userFetchDone: makeReducer(Actions.UserFetchDone, false),
+    ytdlInfo: makeReducer(Actions.YTDLInfo, {}),
+    notificationMessages: makeReducer(Actions.SetNotificationMessages, []),
   });
 
   return rootReducer;

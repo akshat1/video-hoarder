@@ -2,7 +2,7 @@ import LoginForm from "./components/LoginForm.jsx";
 import Main from "./components/Main.jsx";
 import { getHistory } from "./history";
 import { initializeClient } from "./redux/actions";
-import { isFetchingUser, isLoggedIn, isUserFetchDone, getPathname } from "./selectors";
+import { getPathname,isFetchingUser, isLoggedIn, isUserFetchDone } from "./selectors";
 import { getTheme } from "./theme";
 import { getURL } from "./util.js";
 import { useMediaQuery } from "@material-ui/core";

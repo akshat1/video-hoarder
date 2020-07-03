@@ -16,4 +16,6 @@ export const Event = {
   ItemAdded: "ItemAdded",
   ItemRemoved: "ItemRemoved",
   ItemUpdated: "ItemUpdated",
+  YTDLUpgradeSucceeded: "YTDLUpgradeSucceeded",
+  YTDLUpgradeFailed: "YTDLUpgradeFailed",
 };

@@ -1,4 +1,5 @@
 import { getLogger } from "../../logger.js";
+import { isAdmin } from "../../model/User.js";
 import * as db from "../db/index.js";
 import { ensureValidUser } from "../express-middleware/index.js";
 import express from "express";
@@ -17,13 +18,21 @@ export const getJobs = async (req, res, next) => {
   // @todo avoid dupes.
   try {
     logger.debug(req.body);
+    const { user, body } = req;
     const {
       query = {},
       pagination = {},
       sort = DefaultSort,
-    } = req.body;
-    const { userName } = req.user;
-    const cursor = await db.getJobsForUser(userName, query);
+    } = body;
+    const { userName } = user;
+
+    let cursor;
+    if (isAdmin(user)) {
+      cursor = await db.getJobs(userName, query);
+    } else {
+      cursor = await db.getJobsForUser(userName, query);
+    }
+
     if (sort) {
       await db.sort(cursor, sort);
     }
@@ -79,6 +88,12 @@ export const addJob = async (req, res, next) => {
   }
 };
 
+/**
+ * @func
+ * @param {Request} req 
+ * @param {Response} res 
+ * @param {func} next
+ */
 export const stopJob = async (req, res, next) => {
   const logger = getLogger("stopJob", rootLogger);
   try {
@@ -95,6 +110,12 @@ export const stopJob = async (req, res, next) => {
   }
 };
 
+/**
+ * @func
+ * @param {Request} req 
+ * @param {Response} res 
+ * @param {func} next
+ */
 export const deleteJob = async (req, res, next) => {
   const logger = getLogger("deleteJob", rootLogger);
   try {
@@ -110,6 +131,10 @@ export const deleteJob = async (req, res, next) => {
   }
 };
 
+/**
+ * @func
+ * @returns {Router}
+ */
 export const getRouter = () => {
   const jobs = new express.Router();
   jobs.use(ensureValidUser);
@@ -118,4 +143,4 @@ export const getRouter = () => {
   jobs.post("/job/stop", stopJob);
   jobs.post("/job/delete", deleteJob);
   return jobs;
-}
+};

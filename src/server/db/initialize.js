@@ -1,4 +1,5 @@
 import { getLogger } from "../../logger.js";
+import { Role } from "../../model/User.js";
 import { encrypt } from "../crypto.js";
 import { createUser,getUserByUserName } from "./user-management.js";
 import { createDB, getDb } from "./util.js";
@@ -27,6 +28,7 @@ export const initialize = async () => {
       salt,
       password: hash,
       passwordExpired: true,
+      role: Role.Admin,
     }, "system");
   }
 };

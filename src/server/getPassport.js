@@ -1,16 +1,14 @@
 /**
  * @module server/getPassport
  */
-/* @todo: support both http and https; make https optional */
-/* @todo: base URL ()for working behing reverse proxy */
-/** @module server */
+
 import { getLogger } from "../logger.js";
+import { getClientUser } from "../model/User.js";
 import { getUserByUserName,getVerifiedUser } from "./db/index.js";
 import Base64 from "Base64";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
-import _ from "lodash";
 import MemoryStore from "memorystore";
 import passport from "passport";
 import Strategy from "passport-local";
@@ -19,18 +17,6 @@ const rootLogger = getLogger("getPassport");
 rootLogger.setLevel("warn");
 
 export const MessageIncorrectLogin = "Incorrect username or password.";
-
-/**
- * Takes a user as returned from the database and sets the loggedIn flag while removing the password and salt fields.
- * @func
- * @private
- * @param {User} user -
- * @returns {User}
- */
-export const getReturnableUser = user => ({
-  ..._.pick(user, "userName", "passwordExpired"),
-  loggedIn: true,
-});
 
 /**
  * Called by passport.js to verify the current user during log-in.
@@ -48,7 +34,7 @@ export const verifyUser = async (userName, password, cb) => {
     logger.debug("verifyUser called", userName, "*********");
     const user = await getVerifiedUser(userName, password);
     if (user) {
-      return cb(null, getReturnableUser(user));
+      return cb(null, getClientUser(user));
     }
 
     return cb(null, false, { message: MessageIncorrectLogin });
@@ -88,7 +74,7 @@ export const deserializeUser = async (id, cb) => {
     logger.debug(userName);
     const user = await getUserByUserName(userName);
     logger.debug(user);
-    cb(null, getReturnableUser(user));
+    cb(null, getClientUser(user));
   } catch (err) {
     logger.debug("error trying to deserialize user.", err);
     cb(err);
@@ -116,10 +102,15 @@ export const getPassport = () => {
   return instance;
 };
 
+/** @type {number} */
 export const SessionDuration = 24 * 60 * 60 * 1000;
-export const Secret = "dogs for me please";
+/** @type {string} */
+export const Secret = new Date(Date.now() + Math.random()).toUTCString();
 
 let sessionStore;
+/**
+ * @returns {Object} - the singleton instance of the session store.
+ */
 export const getSessionStore = () => {
   if (!sessionStore) {
     getLogger("getSessionStore", rootLogger).debug("Create new instance of MemoryStore");
@@ -130,6 +121,9 @@ export const getSessionStore = () => {
 };
 
 let sessionMiddleware;
+/**
+ * @returns {Object} - the singleton instance of the session middleware.
+ */
 export const getSessionMiddleware = () => {
   if (!sessionMiddleware) {
     sessionMiddleware = expressSession({
@@ -144,6 +138,11 @@ export const getSessionMiddleware = () => {
   return sessionMiddleware;
 }
 
+/**
+ * Wires up the provided Express application object to use passport local auth.
+ * @param {Object} args
+ * @param {Application}
+ */
 export const bootstrap = ({ app }) => {
   // Other middlewares can create problems with session middleware. So, we place session middleware at the end
   // See https://www.airpair.com/express/posts/expressjs-and-passportjs-sessions-deep-dive for some great info

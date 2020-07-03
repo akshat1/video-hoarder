@@ -42,18 +42,21 @@ export const makeItem = (args) => {
   };
 };
 
+export const ItemMetadataShape = PropTypes.shape({
+  description: PropTypes.string,
+  metadata: PropTypes.string,
+  title: PropTypes.string,
+});
+
 /**
  * For use in React prop-type declarations.
  * @const {Object}
  */
 export const ItemShape = PropTypes.shape({
   addedAt: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  metadata: PropTypes.object,
+  metadata: ItemMetadataShape,
   status: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
   updatedAt: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
 });

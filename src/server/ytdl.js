@@ -79,6 +79,18 @@ const downloadMeta = (item) => {
  * @property {function} cleanUp - call after download is concluded (successfully or otherwise) to delete the temp config file.
  */
 
+/** @returns {string} */
+const getGlobalConfigFilePath = () => path.resolve(process.cwd(), "./youtube-dl.conf");
+/**
+ * @returns {Promise.<string>}
+ */
+export const getGlobalConfig = async () => (await fs.readFile(getGlobalConfigFilePath())).toString();
+
+/**
+ * @param {string} configurationText
+ */
+export const writeGlobalConfig = async (configurationText) => await fs.writeFile(getGlobalConfigFilePath(), configurationText);
+
 /**
  * Create a config file for _this_ download.
  * @param {Item} item
@@ -89,7 +101,7 @@ const getConfig = async (item) => {
   logger.debug("get config for", item.url);
   await fs.mkdir(path.join(process.cwd(), "tmp"), { recursive: true });
   // for now, everything just gets the base youtube-dl config. At some point we will start customising per download.
-  const config = (await fs.readFile(path.resolve(process.cwd(), "./youtube-dl.conf"))).toString();
+  const config = await getGlobalConfig();
   const pathName = path.join(process.cwd(), "tmp", `${item.id}.conf`);
   await fs.writeFile(pathName, config);
   return {
