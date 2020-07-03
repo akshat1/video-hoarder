@@ -19,7 +19,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:jsx-control-statements/recommended",
-    "plugin:import/errors"
+    "plugin:import/errors",
+    "plugin:react-hooks/recommended",
   ],
   env: {
     node: true,

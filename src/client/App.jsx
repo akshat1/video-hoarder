@@ -37,7 +37,7 @@ const App = (props) => {
 
   useEffect(
     () => { initializeClient(); },
-    [userFetchDone, pathname],
+    [userFetchDone, pathname, initializeClient],
   );
 
   return (

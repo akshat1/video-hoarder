@@ -35,7 +35,7 @@ const YTDLSettings = (props) => {
 
   useEffect(() => {
     fetchInfo();
-  }, []);
+  }, [fetchInfo]);
 
   const [ytdlConfigEditorOpen, setYtdlConfigEditorOpen] = useState(false);
   const openYTDLGlobalConfigEditor = () => setYtdlConfigEditorOpen(true);
