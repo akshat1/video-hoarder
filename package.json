@@ -9,7 +9,7 @@
     "mkdir": "mkdir -p db-data",
     "dev": "npm run mkdir; NODE_ENV=development node --inspect=0.0.0.0 --trace-warnings src/server/index.js",
     "dev-brk": "npm run mkdir; NODE_ENV=development node --inspect-brk=0.0.0.0 src/server/index.js",
-    "start": "npm run clean; npm run mkdir; npm run build; NODE_ENV=production node src/server/index.js",
+    "start": "NODE_ENV=production node src/server/index.js",
     "build": "NODE_ENV=production webpack --config webpack.config.cjs",
     "lint": "eslint --ext .js --ext .jsx --ext .cjs src/",
     "build-dev-docker": "docker build -t vh-dev-img .",
@@ -17,7 +17,8 @@
     "test": "npm run mkdir; TZ=UTC NODE_ENV=test DEBUG=jest jest --coverage --silent=false",
     "test-watch": "npm run test -- --watch",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -o docs/storybook"
+    "build-storybook": "build-storybook -o docs/storybook",
+    "build-docker": "docker build -f Dockerfile-prod -t video-hoarder ."
   },
   "type": "module",
   "repository": {

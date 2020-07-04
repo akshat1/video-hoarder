@@ -1,4 +1,4 @@
 {
-  "https": false,
-  "serviceWorkerInDev": false
+  "serverPath": "/vh/",
+  "serverPort": 7200
 }

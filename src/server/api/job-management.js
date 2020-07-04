@@ -28,7 +28,7 @@ export const getJobs = async (req, res, next) => {
 
     let cursor;
     if (isAdmin(user)) {
-      cursor = await db.getJobs(userName, query);
+      cursor = await db.getJobs(query);
     } else {
       cursor = await db.getJobsForUser(userName, query);
     }

@@ -23,6 +23,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 if (getConfig().serviceWorkerInDev || process.env.NODE_ENV === "production") {
   if("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./service-worker.js");
+    navigator.serviceWorker.register("./static/service-worker.js");
   }
 }

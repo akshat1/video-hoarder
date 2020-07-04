@@ -1,7 +1,7 @@
 /* eslint-disable import/no-default-export */
 export default {
-  serverPath: "/",
+  serverPath: "./",
   https: false,
-  serverPort: 7200,
+  serverPort: 4000,
   serviceWorkerInDev: false,
 };

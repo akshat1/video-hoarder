@@ -9,4 +9,4 @@ export const goToLogin = () => push(getURL(`/login${location.search}${location.h
 
 export const goToSettings = () => push(getURL("/settings"));
 
-export const clearQuery = () => push(getURL(location.pathname));
+export const clearQuery = () => push(getURL(""));

@@ -54,13 +54,6 @@ export const startServer = async (startDevServer) => {
     // `npm run start` script is responsible for ensuring that.
     app.use("/static/", express.static("./dist"));
   }
-  // Ideally this serveIndex (the file index.html, not the directory index) should only need to be invoked when not
-  // using the devServer. Sadly, even after months of wrestling, Webpack continues to be a fragile, easily upset
-  // satanic invention that really exists because we all decided PWAs are cool, HMR is a necessity, and masochism
-  // is necessary to be a big boy programmer (as cilice are not really "in" anymore). So, we get good old, reliable,
-  // reasonable, express to serve our index file even when using the dev middleware.
-  // TODO: Rip out webpack.
-  app.get("*", serveIndex);
 
   /* istanbul ignore next */
   const options = {};
@@ -78,14 +71,14 @@ export const startServer = async (startDevServer) => {
 
   logger.debug("bootstrap passport");
   bootstrapPassport({ app });
-  app.use(path.join(serverPath, "/api"), getAPI(getPassport()));
+  app.use("/api", getAPI(getPassport()));
 
   logger.debug("boostrap sockets");
   bootstrapSocketIO({
     server,
     sessionStore: getSessionStore(),
     secret: Secret,
-    pathname: serverPath,
+    // pathname: serverPath,
   });
   const onServerStart = () => {
     /* istanbul ignore next because we are not testing whether this callback is called */
@@ -93,6 +86,13 @@ export const startServer = async (startDevServer) => {
   };
   server.listen(7200, onServerStart);
   await initializeYTDL();
+  // Ideally this serveIndex (the file index.html, not the directory index) should only need to be invoked when not
+  // using the devServer. Sadly, even after months of wrestling, Webpack continues to be a fragile, easily upset
+  // satanic invention that really exists because we all decided PWAs are cool, HMR is a necessity, and masochism
+  // is necessary to be a big boy programmer (as cilice are not really "in" anymore). So, we get good old, reliable,
+  // reasonable, express to serve our index file even when using the dev middleware.
+  // TODO: Rip out webpack.
+  app.get("*", serveIndex);
 };
 
 /* istanbul ignore next */
