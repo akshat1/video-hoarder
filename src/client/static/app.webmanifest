@@ -14,5 +14,14 @@
     "src": "./icon.png",
     "sizes": "512x512",
     "type": "image/png"
-  }]
+  }],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": {
+      "text": "text",
+      "title": "title",
+      "url":"url"
+    }
+  }
 }

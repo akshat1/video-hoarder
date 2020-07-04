@@ -1,4 +1,5 @@
 import { getLogger } from "../logger.js";
+import _ from "lodash";
 
 const logger = getLogger("serveIndex");
 export const bootstrap = async ({ app }) => {
@@ -8,7 +9,9 @@ export const bootstrap = async ({ app }) => {
   const webpackConfig = (await import("../../webpack.config.cjs")).default;
   logger.debug("WebPack Config", webpackConfig);
   const compiler = webpack(webpackConfig);
-  app.use(webpackDevMiddleware(compiler, {}));
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: _.get(webpackConfig, "devServer.publicPath"),
+  }));
   const webpackHotMiddleware = (await import("webpack-hot-middleware")).default;
   app.use(webpackHotMiddleware(compiler));
 };

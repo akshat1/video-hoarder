@@ -39,11 +39,11 @@ export const startServer = async (startDevServer) => {
   logger.debug("Got config:", config);
   const { serverPath, serverPort } = config;
   logger.debug({ serverPath, serverPort });
-  const useHTTPS = process.env.NODE_ENV === "development" ? true : config.https;
+  const useHTTPS = false; // process.env.NODE_ENV === "development" ? true : config.https;
   await initializeDB();
   const app = express();
 
-  app.use("*", requestLogger);
+  app.use(requestLogger);
   app.use(bodyParser.json());
 
   if (startDevServer) {
@@ -52,9 +52,15 @@ export const startServer = async (startDevServer) => {
     logger.debug("start up non-dev server");
     // In non-dev mode, we expect client files to already be present in /dist directory.
     // `npm run start` script is responsible for ensuring that.
-    app.use("*", unless(/^\/+(index\.html|login|account|settings)?(\?.*)?$/, express.static("./dist")));
-    app.get("*", iff(/^\/+(index\.html|login|account|settings)?(\?.*)?$/, serveIndex));
+    app.use("/static/", express.static("./dist"));
   }
+  // Ideally this serveIndex (the file index.html, not the directory index) should only need to be invoked when not
+  // using the devServer. Sadly, even after months of wrestling, Webpack continues to be a fragile, easily upset
+  // satanic invention that really exists because we all decided PWAs are cool, HMR is a necessity, and masochism
+  // is necessary to be a big boy programmer (as cilice are not really "in" anymore). So, we get good old, reliable,
+  // reasonable, express to serve our index file even when using the dev middleware.
+  // TODO: Rip out webpack.
+  app.get("*", serveIndex);
 
   /* istanbul ignore next */
   const options = {};

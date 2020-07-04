@@ -3,9 +3,8 @@ const webpack = require("webpack");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
-const config = require("./config.json");
 
-const publicPath = config.serverPath || "/";
+const publicPath = "/static/";
 const isDevMode = () => process.env.NODE_ENV === "development";
 
 const getDevServer = () => {
@@ -21,6 +20,7 @@ const getDevServer = () => {
       historyApiFallback: true,
       index: "index.html",
       serveIndex: true,
+      clientLogLevel: "debug",
     };
   }
 
@@ -42,7 +42,7 @@ const getPlugins = () => {
   }
 
   plugins.push(new SWPrecacheWebpackPlugin({
-    cacheId: "video-hoarder",
+    cacheId: `video-hoarder-${Date.now()}`,
     dontCacheBustUrlsMatching: /\.\w{8}\./,
     filename: "service-worker.js",
     minify: true,
