@@ -1,7 +1,7 @@
 {
   "name": "Video Hoarder",
   "short_name": "Video Hoarder",
-  "start_url": ".",
+  "start_url": "%%%SERVER_PATH%%%/",
   "display": "standalone",
   "background_color": "#555",
   "theme_color": "#555",
@@ -16,7 +16,7 @@
     "type": "image/png"
   }],
   "share_target": {
-    "action": "/",
+    "action": "%%%SERVER_PATH%%%/",
     "method": "GET",
     "params": {
       "text": "text",

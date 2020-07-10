@@ -8,6 +8,7 @@ import { requestLogger } from "./express-middleware/index.js";
 import { getPassport } from "./getPassport.js";
 import { bootstrap as bootstrapPassport, getSessionStore, Secret } from "./getPassport.js";
 import { serveIndex } from "./serve-index.js";
+import { serveWebManifest } from "./serve-webmanifest.js";
 import { bootstrap as bootstrapSocketIO } from "./socketio.js";
 import { initializeYTDL } from "./ytdl.js";
 import bodyParser from "body-parser";
@@ -37,7 +38,8 @@ export const startServer = async (startDevServer) => {
   const logger = getLogger("startServer", rootLogger);
   const config = getConfig();
   logger.debug("Got config:", config);
-  const { serverPath, serverPort } = config;
+  const { serverPort } = config;
+  const serverPath = startDevServer ? config.serverPath : "";
   logger.debug({ serverPath, serverPort });
   const useHTTPS = false; // process.env.NODE_ENV === "development" ? true : config.https;
   await initializeDB();
@@ -45,16 +47,7 @@ export const startServer = async (startDevServer) => {
 
   app.use(requestLogger);
   app.use(bodyParser.json());
-
-  if (startDevServer) {
-    await bootstrapDevServer({ app });
-  } else {
-    logger.debug("start up non-dev server");
-    // In non-dev mode, we expect client files to already be present in /dist directory.
-    // `npm run start` script is responsible for ensuring that.
-    app.use("/static/", express.static("./dist"));
-  }
-
+  app.use(path.join(serverPath, "/static/"), express.static("./dist"));
   /* istanbul ignore next */
   const options = {};
   let server;
@@ -71,10 +64,11 @@ export const startServer = async (startDevServer) => {
 
   logger.debug("bootstrap passport");
   bootstrapPassport({ app });
-  app.use("/api", getAPI(getPassport()));
+  app.use(path.join(serverPath, "api"), getAPI(getPassport()));
 
   logger.debug("boostrap sockets");
   bootstrapSocketIO({
+    pathname: serverPath,
     server,
     sessionStore: getSessionStore(),
     secret: Secret,
@@ -93,6 +87,7 @@ export const startServer = async (startDevServer) => {
   // reasonable, express to serve our index file even when using the dev middleware.
   // TODO: Rip out webpack.
   app.get("*", serveIndex);
+  app.get(path.join(serverPath, "/app.webmanifest"), serveWebManifest);
 };
 
 /* istanbul ignore next */
