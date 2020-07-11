@@ -1,4 +1,5 @@
 {
-  "serverPath": "/vh/",
+  "serverPath": "/",
+  "proxiedPath": "/vh",
   "serverPort": 7200
 }

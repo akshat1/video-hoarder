@@ -10,7 +10,7 @@
     "dev": "npm run mkdir; NODE_ENV=development node --inspect=0.0.0.0 --trace-warnings src/server/index.js",
     "dev-brk": "npm run mkdir; NODE_ENV=development node --inspect-brk=0.0.0.0 src/server/index.js",
     "start": "NODE_ENV=production node src/server/index.js",
-    "build": "NODE_ENV=production webpack --config webpack.config.cjs",
+    "build": "NODE_ENV=production gulp build",
     "lint": "eslint --ext .js --ext .jsx --ext .cjs src/",
     "build-dev-docker": "docker build -t vh-dev-img .",
     "run-dev-docker": "docker run --rm -it --name vh-dev --network=\"host\" -v $PWD:/app/ vh-dev-img -v $PWD/db:/data/db/ -p 7200:7200 -p 9229:9229",

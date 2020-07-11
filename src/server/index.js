@@ -39,7 +39,7 @@ export const startServer = async (startDevServer) => {
   const config = getConfig();
   logger.debug("Got config:", config);
   const { serverPort } = config;
-  const serverPath = startDevServer ? config.serverPath : "";
+  const serverPath = startDevServer ? config.proxiedPath : config.serverPath;
   logger.debug({ serverPath, serverPort });
   const useHTTPS = false; // process.env.NODE_ENV === "development" ? true : config.https;
   await initializeDB();
@@ -80,14 +80,9 @@ export const startServer = async (startDevServer) => {
   };
   server.listen(7200, onServerStart);
   await initializeYTDL();
-  // Ideally this serveIndex (the file index.html, not the directory index) should only need to be invoked when not
-  // using the devServer. Sadly, even after months of wrestling, Webpack continues to be a fragile, easily upset
-  // satanic invention that really exists because we all decided PWAs are cool, HMR is a necessity, and masochism
-  // is necessary to be a big boy programmer (as cilice are not really "in" anymore). So, we get good old, reliable,
-  // reasonable, express to serve our index file even when using the dev middleware.
-  // TODO: Rip out webpack.
-  app.get("*", serveIndex);
   app.get(path.join(serverPath, "/app.webmanifest"), serveWebManifest);
+  // Must come last
+  app.get("*", serveIndex);
 };
 
 /* istanbul ignore next */

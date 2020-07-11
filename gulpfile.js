@@ -7,6 +7,7 @@ import { promises as fs } from "fs";
 import gulp from "gulp";
 import rename from "gulp-rename";
 import replace from "gulp-replace";
+import _ from "lodash";
 import source from "vinyl-source-stream";
 
 const BrowserifyIncCachePath = "./browserify-cache.json";
@@ -23,28 +24,32 @@ const TemplateHTMLPath = "src/client/template.html";
 const WebManifestGlob = "src/client/static/app.webmanifest";
 
 let config;
+/**
+ * @returns {Object}
+ */
 const getConfig = async () => {
   if (!config) {
     config = JSON.parse((await fs.readFile("config.json")).toString());
   }
 
   return config;
-}
+};
+
+/**
+ * @returns {Promise.<string>} - never has a trailing slash.
+ */
+const getProxiedPath = async () => {
+  const config = await getConfig();
+  return (config.proxiedPath || "/").replace(/\/*$/, "");  // replace trailing slashes
+};
+
+/**
+ * Returns a stringified object containing selected environment properties.
+ * @returns {string}
+ */
+export const getEnv = () => JSON.stringify(_.pick(process.env, "NODE_ENV"));
 
 /* ********************************************** Client JS ******************************************************** */
-/**
- * @returns {Promise.<Object.<string, string>>}
- */
-const getCacheKeys = async () => {
-  const entries = await fg(ServiceWorkerWatchGlob, { stats:  true, onlyFiles: true });
-  const dict = {};
-  for (let entry of entries) {
-    if (entry.name !== "service-worker.js")
-      dict[entry.name] = entry.stats.mtime;
-  }
-  return dict;
-}
-
 export const buildClientJS = () => {
   const b = browserify({
     cache: {},
@@ -60,7 +65,21 @@ export const buildClientJS = () => {
     .bundle()
     // .pipe(minify())
     .pipe(source(JSBundleName))
+    .pipe(replace("const __gulp__env = {};", `const __gulp__env = ${getEnv()};`))
     .pipe(gulp.dest(Dist));
+};
+
+/**
+ * @returns {Promise.<Object.<string, string>>}
+ */
+const getCacheKeys = async () => {
+  const entries = await fg(ServiceWorkerWatchGlob, { stats:  true, onlyFiles: true });
+  const dict = {};
+  for (let entry of entries) {
+    if (entry.name !== "service-worker.js")
+      dict[entry.name] = entry.stats.mtime;
+  }
+  return dict;
 };
 
 export const buildServiceWorker = async () => {
@@ -80,7 +99,8 @@ export const buildServiceWorker = async () => {
     .transform(babelify)
     .bundle()
     .pipe(source(ServiceWorkerName))
-    .pipe(replace("const CacheMap = {}; // DO NOT CHANGE THIS LINE. MARKER FOR GULP-REPLACE.", `const CacheMap = ${strCacheKeys}`))
+    .pipe(replace("const CacheMap = {};", `const CacheMap = ${strCacheKeys};`))
+    .pipe(replace("const __gulp__env = {};", `const __gulp__env = ${getEnv()};`))
     .pipe(gulp.dest(Dist));
 };
 
@@ -93,16 +113,8 @@ export const copyStatics = () =>
   gulp.src(StaticResourceGlobs)
     .pipe(gulp.dest(Dist));
 
-/**
- * @returns {Promise.<string>} - never has a trailing slash.
- */
-const getServerPath = async () => {
-  const config = await getConfig();
-  return (config.serverPath || "/").replace(/\/*$/, "");  // replace trailing slashes
-};
-
 export const generateIndexHTML = async () => {
-  const serverPath = await getServerPath();
+  const serverPath = await getProxiedPath();
   gulp.src(TemplateHTMLPath)
     .pipe(replace("%%%SERVER_PATH%%%", serverPath))
     .pipe(rename("index.html"))
@@ -110,7 +122,7 @@ export const generateIndexHTML = async () => {
 };
 
 export const generateWebManifest = async () => {
-  const serverPath = await getServerPath();
+  const serverPath = await getProxiedPath();
   return gulp.src(WebManifestGlob)
     .pipe(replace("%%%SERVER_PATH%%%", serverPath))
     .pipe(gulp.dest(Dist));

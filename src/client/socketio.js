@@ -15,8 +15,9 @@ let socket;
  */
 export const getSocket = () => {
   if (!socket) {
-    getLogger("getLogger", rootLogger).debug("Creating a new instance of ioClient from", getURL("/"));
-    socket = ioClient("/", { path: getURL("socket.io") });
+    const socketIOPath = getURL("socket.io");
+    getLogger("getLogger", rootLogger).debug("Creating a new instance of ioClient from", socketIOPath);
+    socket = ioClient("/", { path: socketIOPath });
   }
 
   return socket;
