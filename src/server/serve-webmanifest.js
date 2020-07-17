@@ -1,17 +1,12 @@
-import { getConfigValue } from "./config.js";
-import { promises as fs } from "fs";
+import path from "path";
 
-const generateWebManifest = async () => {
-  const strManifest = await fs.readFile("src/client/static/app.webmanifest").toString();
-  return {
-    ...JSON.parse(strManifest),
-    start_url: getConfigValue("serverPath"),
-  };
-};
 
 export const serveWebManifest = async (req, res, next) => {
   try {
-    res.send(await generateWebManifest());
+    return res.sendFile(
+      path.resolve(process.cwd(), "./dist/app.webmanifest"),
+      err => err && res.status(500).send(err),
+    );
   } catch (error) {
     next(error);
   }

@@ -82,6 +82,12 @@ export const startServer = async (startDevServer) => {
   await initializeYTDL();
   app.get(path.join(serverPath, "/app.webmanifest"), serveWebManifest);
   // Must come last
+  app.get(path.join(serverPath, "service-worker.js"), (req, res) => {
+    logger.debug("serveServiceWorker", req.path);
+    return res.sendFile(
+      path.resolve(process.cwd(), "./dist/service-worker.js"),
+      err => err && res.status(500).send(err),
+    )});
   app.get("*", serveIndex);
 };
 

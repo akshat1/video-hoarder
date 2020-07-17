@@ -16,7 +16,6 @@
  */
 
 const CacheName = "VH-CACHE";
-const CacheMap = {}; // DO NOT CHANGE THIS LINE. MARKER FOR GULP-REPLACE.
 
 /**
  * I expect this to be driven off of a `Map.<url: string, hash: string>` which would itself be generated at build time.
@@ -26,7 +25,7 @@ const CacheMap = {}; // DO NOT CHANGE THIS LINE. MARKER FOR GULP-REPLACE.
  *
  * @return {string} - list of URLs to be cached.
  */
-const getURLsToCache = () => Object.keys(CacheMap);
+// const getURLsToCache = () => Object.keys(CacheMap);
 
 
 
@@ -40,18 +39,18 @@ const getURLsToCache = () => Object.keys(CacheMap);
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Cache/addAll
  * @returns {Promise}
  */
-const setUpCache = async () => {
-  const cache = await caches.open(CacheName);
-  return await cache.addAll(getURLsToCache());
-};
+// const setUpCache = async () => {
+//   const cache = await caches.open(CacheName);
+//   return await cache.addAll(getURLsToCache());
+// };
 
 /**
  * Called when a service-worker is installed. This is the time to cache resources.
  * @see https://developers.google.com/web/fundamentals/primers/service-workers#install_a_service_worker
  * @param {InstallEvent} event
  */
-const onInstall = (event) => event.waitUntil(setUpCache());
-self.addEventListener("install", onInstall)
+// const onInstall = (event) => event.waitUntil(setUpCache());
+// self.addEventListener("install", onInstall)
 
 
 
@@ -65,6 +64,7 @@ self.addEventListener("install", onInstall)
  * @returns {Promise}
  */
 const getFromCache = async (event) => {
+  console.log("[VHSW] getFromCache()");
   const cachedResponse = await caches.match(event.request);
   if (cachedResponse) {
     return cachedResponse;
@@ -103,6 +103,7 @@ self.addEventListener("fetch", onFetch);
  * @returns {Promise}
  */
 const bustCache = async () => {
+  console.log("[VHSW] bustCache()");
   const cacheNames = await caches.keys();
   await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
 };
@@ -116,4 +117,5 @@ const bustCache = async () => {
  */
 const onActivate = (event) => event.waitUntil(bustCache());
 
+console.log("[VHSW] Service worker loaded");
 self.addEventListener("activate", onActivate);
