@@ -18,6 +18,7 @@
   "share_target": {
     "action": "%%%SERVER_PATH%%%/",
     "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
     "params": {
       "text": "text",
       "title": "title",
