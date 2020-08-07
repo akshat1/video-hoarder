@@ -90,7 +90,7 @@ const getFromCache = async (event) => {
  * Intercepts a request and responds with the cached version, if present.
  * @param {FetchEvent}
  */
-const onFetch = (event) => event.respondWith(getFromCache());
+const onFetch = (event) => event.respondWith(getFromCache(event));
 self.addEventListener("fetch", onFetch);
 
 
