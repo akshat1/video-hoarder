@@ -18,13 +18,19 @@ export const getConfig = () => {
   if (!finalConfig) {
     const configPath = path.join(process.cwd(), "config.json");
     logger.debug("going to load", configPath);
-    const buffer = fs.readFileSync(configPath);
-    logger.debug("Got buffer");
-    const loadedConfig = JSON.parse(buffer.toString());
+    const localConfigExists = fs.existsSync(configPath);
+    let loadedConfig = {};
+    if (localConfigExists) {
+      const buffer = fs.readFileSync(configPath);
+      logger.debug("Got buffer");
+      loadedConfig = JSON.parse(buffer.toString());
+    }
+
     finalConfig = {
       ...DefaultConfig,
       ...loadedConfig,
     };
+
     logger.debug({ DefaultConfig, loadedConfig, finalConfig });
   }
 

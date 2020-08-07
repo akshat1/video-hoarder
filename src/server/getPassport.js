@@ -37,6 +37,7 @@ export const verifyUser = async (userName, password, cb) => {
       return cb(null, getClientUser(user));
     }
 
+    logger.debug("Auth failed");
     return cb(null, false, { message: MessageIncorrectLogin });
   } catch (err) {
     logger.error(err);

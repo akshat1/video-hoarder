@@ -1,13 +1,7 @@
-FROM node:current-alpine
-RUN apk add --update make curl ffmpeg python
-ADD https://yt-dl.org/downloads/latest/youtube-dl /usr/local/bin/youtube-dl
-RUN chmod a+rx /usr/local/bin/youtube-dl
+FROM alpine:latest
+RUN apk add --update ffmpeg youtube-dl nodejs npm g++ make
 WORKDIR /app
 COPY . .
 RUN node --version
 RUN npm ci
-RUN npm run clean
-RUN npm run mkdir
-RUN npm run build
-EXPOSE 4000
-CMD ["npm", "run", "start"]
+CMD ["./entrypoint.sh"]

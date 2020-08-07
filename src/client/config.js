@@ -7,8 +7,6 @@ const FinalConfig = {
   ...loadedConfig,
 };
 
-FinalConfig.serverPath = FinalConfig.proxiedPath;
-
 if (typeof window !== "undefined") {
   window.FinalConfig = FinalConfig;
 }

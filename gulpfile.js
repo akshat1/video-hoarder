@@ -31,9 +31,9 @@ const getConfig = async () => {
 /**
  * @returns {Promise.<string>} - never has a trailing slash.
  */
-const getProxiedPath = async () => {
+const getServerPath = async () => {
   const config = await getConfig();
-  return (config.proxiedPath || "/").replace(/\/*$/, "");  // replace trailing slashes
+  return (config.serverPath || "/").replace(/\/*$/, "");  // replace trailing slashes
 };
 
 /**
@@ -61,7 +61,7 @@ const getWebPackConfig = async ({ buildApp, buildServiceWorker }) => {
     output: {
       path: path.resolve("./dist"),
       filename: "[name].js",
-      publicPath: await getProxiedPath(),
+      publicPath: await getServerPath(),
     },
     // devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
     module: {
@@ -88,6 +88,7 @@ const getWebPackConfig = async ({ buildApp, buildServiceWorker }) => {
 
 const getCompiler = async ({ buildApp, buildServiceWorker }) => {
   const wpConfig = await getWebPackConfig({ buildApp, buildServiceWorker });
+  console.log("WebPack Config:", wpConfig);
   const compiler = webpack(wpConfig);
   return compiler;
 };
@@ -133,7 +134,7 @@ export const copyStatics = () =>
     .pipe(gulp.dest(Dist));
 
 export const generateIndexHTML = async () => {
-  const serverPath = await getProxiedPath();
+  const serverPath = await getServerPath();
   gulp.src(TemplateHTMLPath)
     .pipe(replace("%%%SERVER_PATH%%%", serverPath))
     .pipe(rename("index.html"))
@@ -141,7 +142,7 @@ export const generateIndexHTML = async () => {
 };
 
 export const generateWebManifest = async () => {
-  const serverPath = await getProxiedPath();
+  const serverPath = await getServerPath();
   return gulp.src(WebManifestGlob)
     .pipe(replace("%%%SERVER_PATH%%%", serverPath))
     .pipe(gulp.dest(Dist));
