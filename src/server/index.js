@@ -3,11 +3,12 @@ import { getLogger } from "../logger.js";
 import { getRouter as getAPI } from "./api/index.js";
 import { getConfig } from "./config.js";
 import { initialize as initializeDB } from "./db/index.js";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
-import { bootstrap as bootstrapDevServer } from "./dev-server.js";
+// import { bootstrap as bootstrapDevServer } from "./dev-server.js";
 import { requestLogger } from "./express-middleware/index.js";
 import { getPassport } from "./getPassport.js";
 import { bootstrap as bootstrapPassport, getSessionStore, Secret } from "./getPassport.js";
 import { serveIndex } from "./serve-index.js";
+import { serveWebManifest } from "./serve-webmanifest.js";
 import { bootstrap as bootstrapSocketIO } from "./socketio.js";
 import { initializeYTDL } from "./ytdl.js";
 import bodyParser from "body-parser";
@@ -21,7 +22,7 @@ const rootLogger = getLogger("server");
 
 process.on("unhandledRejection", (reason, p) => {
   getLogger("process.unhandledRejection", rootLogger)
-    .error("Possibly Unhandled Rejection at: Promise ", p, " reason: ", reason);
+    .error("Unhandled Rejection at: Promise ", p, " reason: ", reason);
 });
 
 /**
@@ -31,30 +32,29 @@ process.on("unhandledRejection", (reason, p) => {
  * which branch we are currently testing.
  *
  * @func
- * @param {boolean} startDevServer
  */
-export const startServer = async (startDevServer) => {
+export const startServer = async () => {
   const logger = getLogger("startServer", rootLogger);
   const config = getConfig();
   logger.debug("Got config:", config);
-  const { serverPath, serverPort } = config;
+  const { serverPort } = config;
+  // Note: config.serverPath is for the frontend. The translation from <your domain>/serverPath to "/" will happen in your proxy server (which is nginx for most people).
+  const serverPath = "/";
   logger.debug({ serverPath, serverPort });
-  const useHTTPS = false; // process.env.NODE_ENV === "development" ? true : config.https;
-  await initializeDB();
+  const useHTTPS = false; // process.env.NODE_ENV === "development" ? true : config.https; TODO: enable https for dev environments.
+  try {
+    await initializeDB();
+  } catch (err) {
+    logger.error("Error ininitializeDB.");
+    logger.error(err);
+    process.exit(1);
+  }
+
   const app = express();
 
   app.use(requestLogger);
   app.use(bodyParser.json());
-
-  if (startDevServer) {
-    await bootstrapDevServer({ app });
-  } else {
-    logger.debug("start up non-dev server");
-    // In non-dev mode, we expect client files to already be present in /dist directory.
-    // `npm run start` script is responsible for ensuring that.
-    app.use("/static/", express.static("./dist"));
-  }
-
+  app.use(path.join(serverPath, "/static/"), express.static("./dist"));
   /* istanbul ignore next */
   const options = {};
   let server;
@@ -71,10 +71,11 @@ export const startServer = async (startDevServer) => {
 
   logger.debug("bootstrap passport");
   bootstrapPassport({ app });
-  app.use("/api", getAPI(getPassport()));
+  app.use(path.join(serverPath, "api"), getAPI(getPassport()));
 
   logger.debug("boostrap sockets");
   bootstrapSocketIO({
+    pathname: serverPath,
     server,
     sessionStore: getSessionStore(),
     secret: Secret,
@@ -84,14 +85,16 @@ export const startServer = async (startDevServer) => {
     /* istanbul ignore next because we are not testing whether this callback is called */
     logger.info(`App listening on port ${serverPort}, at "${serverPath}"`);
   };
-  server.listen(7200, onServerStart);
+  server.listen(serverPort, onServerStart);
   await initializeYTDL();
-  // Ideally this serveIndex (the file index.html, not the directory index) should only need to be invoked when not
-  // using the devServer. Sadly, even after months of wrestling, Webpack continues to be a fragile, easily upset
-  // satanic invention that really exists because we all decided PWAs are cool, HMR is a necessity, and masochism
-  // is necessary to be a big boy programmer (as cilice are not really "in" anymore). So, we get good old, reliable,
-  // reasonable, express to serve our index file even when using the dev middleware.
-  // TODO: Rip out webpack.
+  app.get(path.join(serverPath, "/app.webmanifest"), serveWebManifest);
+  // Must come last
+  app.get(path.join(serverPath, "service-worker.js"), (req, res) => {
+    logger.debug("serveServiceWorker", req.path);
+    return res.sendFile(
+      path.resolve(process.cwd(), "./dist/service-worker.js"),
+      err => err && res.status(500).send(err),
+    )});
   app.get("*", serveIndex);
 };
 

@@ -10,5 +10,10 @@
     ],
     "@babel/preset-react"
   ],
-  "plugins": ["jsx-control-statements", "react-hot-loader/babel", "@babel/plugin-proposal-optional-chaining"]
+  "plugins": [
+    "jsx-control-statements",
+    "react-hot-loader/babel",
+    "@babel/plugin-proposal-optional-chaining",
+    "lodash"
+  ]
 }

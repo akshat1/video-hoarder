@@ -7,5 +7,9 @@ const FinalConfig = {
   ...loadedConfig,
 };
 
+if (typeof window !== "undefined") {
+  window.FinalConfig = FinalConfig;
+}
+
 export const getConfig = () => FinalConfig;
 export const getConfigValue = keyPath => _.get(getConfig(), keyPath);

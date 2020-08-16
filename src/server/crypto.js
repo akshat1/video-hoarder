@@ -19,7 +19,7 @@ export const DefaultNumberOfSaltRounds = 10;  // When changing this value, remem
  * @param {number} [saltRounds=10]
  * @return {Promise.<string>}
  */
-export const genSalt = async (saltRounds = DefaultNumberOfSaltRounds) => bcrypt.genSalt(saltRounds);
+export const genSalt = (saltRounds = DefaultNumberOfSaltRounds) => bcrypt.genSalt(saltRounds);
 
 /**
  * bcrypt.hash

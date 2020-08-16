@@ -14,9 +14,23 @@ let socket;
  * @returns {SocketIOClient}
  */
 export const getSocket = () => {
+  const logger = getLogger("getSocket", rootLogger);
   if (!socket) {
-    getLogger("getLogger", rootLogger).debug("Creating a new instance of ioClient from", getURL("/"));
-    socket = ioClient("/", { path: getURL("socket.io") });
+    const socketIOPath = getURL("socket.io");
+    logger.debug("Creating a new instance of ioClient from", socketIOPath);
+    socket = ioClient("/", { path: socketIOPath });
+    socket.on("connect", () => logger.debug("Socket connected"));
+    socket.on("connect_error", (err) => logger.error("Error connecting", err));
+    socket.on("reconnect_failed", (err) => logger.error("Error re-connecting", err));
+    socket.on("error", (err) => logger.error("Error", err));
+    socket.on("disconnect", () => logger.debug("Socket disconnected"));
+    socket.on("reconnect", () => logger.debug("Socket reconnected"));
+    socket.on("reconnect_attempt", () => logger.debug("Socket reconnect_attempt"));
+    socket.on("reconnecting", () => logger.debug("Socket reconnecting"));
+    socket.on("reconnect_error", (err) => logger.error("Socket reconnect_err", err));
+    socket.on("reconnect_failed", () => logger.error("Socket reconnect_failed"));
+    socket.on("ping", () => logger.debug("ping"));
+    socket.on("pong", (latency) => logger.debug("pong", latency));
   }
 
   return socket;
@@ -70,8 +84,12 @@ export const bootstrapClient = () => {
 export const reconnect = () => {
   const logger = getLogger("reconnect", rootLogger);
   const socket = getSocket();
-  if (!socket.connected) {
-    logger.debug("done. connect...");
+  logger.debug("socket connected?", socket.connected);
+  if (socket.connected) {
+    logger.debug("Socket is already connected. Exit.");
+  } else {
+    logger.debug("Socket not connected. Connect now...");
+    socket.disconnect();
     socket.connect();
     logger.debug("done.");
   }
