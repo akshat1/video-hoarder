@@ -22,7 +22,7 @@ const onYTDLUpgradeSucceeded = (io, ytdlInfo) => io.emit(Event.YTDLUpgradeSuccee
 
 /**
  * 
- * @param {import("socket.io").Socket} socket 
+ * @param {Socket} socket 
  */
 const onClientConnected = (socket) => {
   const logger = getLogger("onClientConnected", rootLogger);

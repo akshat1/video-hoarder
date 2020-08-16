@@ -1,3 +1,4 @@
+import * as Config from "./src/server/config.js";
 import del from "del";
 import { promises as fs } from "fs";
 import gulp from "gulp";
@@ -16,17 +17,10 @@ const StaticResourceGlobs = ["src/client/static/**/*.svg", "src/client/static/**
 const TemplateHTMLPath = "src/client/template.html";
 const WebManifestGlob = "src/client/static/app.webmanifest";
 
-let config;
 /**
  * @returns {Object}
  */
-const getConfig = async () => {
-  if (!config) {
-    config = JSON.parse((await fs.readFile("config.json")).toString());
-  }
-
-  return config;
-};
+const getConfig = async () => Config.getConfig();
 
 /**
  * @returns {Promise.<string>} - never has a trailing slash.
@@ -69,6 +63,18 @@ const getWebPackConfig = async ({ buildApp, buildServiceWorker }) => {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: { loader: "babel-loader" },
+      }, {
+        test: /\.jsx?/,
+        exclude: /node_modules/,
+        use: {
+          loader: "string-replace-loader",
+          options: {
+            multiple: [{
+              search: "%%%SERVER_PATH%%%",
+              replace: await getServerPath(),
+            }],
+          },
+        },
       }],
     },
     resolve: { extensions: [".js", ".jsx"] },
@@ -81,7 +87,7 @@ const getWebPackConfig = async ({ buildApp, buildServiceWorker }) => {
       new webpack.BannerPlugin({
         entryOnly: true,
         banner: `v${version} Generated at ${new Date().toISOString()}.`,
-      }),
+      }), 
     ],
   };
 };
