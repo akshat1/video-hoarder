@@ -11,3 +11,4 @@ node_modules/
 storybook-static/
 download
 webpack-stats.json
+config.json

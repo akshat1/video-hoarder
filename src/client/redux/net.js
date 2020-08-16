@@ -3,7 +3,7 @@ import axios from "axios";
 let instance;
 
 /**
- * @returns {import("axios").AxiosInstance}
+ * @returns {AxiosInstance}
  */
 export const getInstance = () => {
   if (!instance) {
