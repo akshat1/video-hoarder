@@ -65,6 +65,11 @@ const CacheName = "VH-CACHE";
  */
 const getFromCache = async (event) => {
   console.log("[VHSW] getFromCache()");
+  // We only want to try to proxy GET requests.
+  if (event.request.method !== "GET") {
+    return fetch(event.request);
+  }
+
   const cachedResponse = await caches.match(event.request);
   if (cachedResponse) {
     return cachedResponse;
@@ -90,7 +95,15 @@ const getFromCache = async (event) => {
  * Intercepts a request and responds with the cached version, if present.
  * @param {FetchEvent}
  */
-const onFetch = (event) => event.respondWith(getFromCache(event));
+const onFetch = (event) => {
+  if (event) {
+    return event.respondWith(getFromCache(event));
+  }
+
+  console.error(new Error("event is undefined"));
+  console.log("ignore onFetch");
+};
+
 self.addEventListener("fetch", onFetch);
 
 
