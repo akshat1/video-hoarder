@@ -1,23 +1,20 @@
 /**
  * Renders the application toolbar.
  */
-import { doLogOut, goToAccountScreen, goToHome, goToSettings } from "../redux/actions";
-import { getUserName, isLoggedIn } from "../selectors";
+import { doLogOut, goBack, goToAccountScreen, goToSettings } from "../redux/actions";
+import { isLoggedIn, isOnHomePage } from "../selectors";
 import Notifications from "./Notifications.jsx";
 import {
   AppBar,
-  Box,
-  Button,
   Fade,
   IconButton,
-  Link,
   ListItemIcon,
   Menu,
   MenuItem,
   Toolbar as MuiToolbar,
   Typography,
 } from "@material-ui/core";
-import { AccountCircle, ExitToApp, Settings } from "@material-ui/icons";
+import { AccountCircle, ArrowBack, ExitToApp, Menu as MenuIcon, Settings } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -29,9 +26,6 @@ const useStyles = makeStyles((theme) => {
       margin: 0,
       padding: 0,
     },
-    title: {
-      flexGrow: 1,
-    },
     userMenu: {
       color: theme.palette.primary.contrastText,
     },
@@ -40,6 +34,9 @@ const useStyles = makeStyles((theme) => {
     },
     homeLink: {
       cursor: "pointer",
+    },
+    spacer: {
+      flex: "1 1",
     },
   };
 });
@@ -59,11 +56,11 @@ export const Toolbar = (props) => {
   const classes = useStyles();
   const {
     doLogOut,
+    goBack,
     goToAccountScreen,
-    goToHome,
     goToSettings,
     loggedIn,
-    userName,
+    showBackButton,
   } = props;
 
   const openUserMenu = event => setState({ userMenuAnchor: event.currentTarget});
@@ -74,41 +71,28 @@ export const Toolbar = (props) => {
       position="static"
     >
       <MuiToolbar>
-        <If condition={loggedIn}>
+        <If condition={showBackButton}>
           <IconButton
-            aria-label="menu"
+            aria-label="go back"
             color="inherit"
             edge="start"
-            onClick={goToSettings}
+            onClick={goBack}
           >
-            <Settings />
+            <ArrowBack />
           </IconButton>
         </If>
-        <div className={classes.title} >
-          <Box display={{xs: "none", sm: "inline-block"}}>
-            <Link
-              className={classes.homeLink}
-              color="inherit"
-              onClick={goToHome}
-              variant="h6"
-            >
-              Video Hoarder
-            </Link>
-          </Box>
-        </div>
+        <div className={classes.spacer} />
         <If condition={loggedIn}>
           <Notifications />
-          <Button
-            aria-controls="user-menu"
-            aria-haspopup="true"
-            className={classes.userMenu}
+          <IconButton
+            aria-label="menu"
+            className={classes.menuIcon}
+            color="inherit"
+            edge="start"
             onClick={openUserMenu}
           >
-            <ListItemIcon>
-              <AccountCircle className={classes.userMenu} />
-            </ListItemIcon>
-            <Typography variant="inherit">{userName}</Typography>
-          </Button>
+            <MenuIcon />
+          </IconButton>
           <Menu
             anchorEl={userMenuAnchor}
             id="user-menu"
@@ -118,6 +102,12 @@ export const Toolbar = (props) => {
             style={getMenuStyle(userMenuAnchor)}
             TransitionComponent={Fade}
           >
+            <MenuItem onClick={goToSettings}>
+              <ListItemIcon>
+                <Settings />
+              </ListItemIcon>
+              <Typography variant="inherit">Settings</Typography>
+            </MenuItem>
             <MenuItem onClick={goToAccountScreen}>
               <ListItemIcon>
                 <AccountCircle />
@@ -140,21 +130,21 @@ export const Toolbar = (props) => {
 Toolbar.propTypes = {
   doLogOut: PropTypes.func,
   goToAccountScreen: PropTypes.func,
-  goToHome: PropTypes.func,
+  goBack: PropTypes.func,
   goToSettings: PropTypes.func,
   loggedIn: PropTypes.bool,
-  userName: PropTypes.string,
+  showBackButton: PropTypes.bool,
 };
 
 const dispatchToState = (state) => ({
   loggedIn: isLoggedIn(state),
-  userName: getUserName(state),
+  showBackButton: isLoggedIn(state) && !isOnHomePage(state),
 });
 
 const dispatchToProps = {
   doLogOut,
   goToAccountScreen,
-  goToHome,
+  goBack,
   goToSettings,
 };
 

@@ -1,5 +1,5 @@
 import { getURL } from "../../util";
-import { push } from "connected-react-router"
+import { goBack,push } from "connected-react-router"
 
 export const goToAccountScreen = () => push(getURL("/account"));
 
@@ -10,3 +10,5 @@ export const goToLogin = () => push(getURL(`/login${location.search}${location.h
 export const goToSettings = () => push(getURL("/settings"));
 
 export const clearQuery = () => push(getURL(""));
+
+export { goBack };
