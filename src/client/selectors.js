@@ -129,3 +129,10 @@ export const getNotifications = state => state.notificationMessages || [];
  * @returns {Notification}
  */
 export const getCurrentNotification = state => getNotifications(state)[0];
+
+/**
+ * Are we currently on the home page?
+ * @param {module:client/redux.State} state
+ * @returns {boolean}
+ */
+export const isOnHomePage = state => getPathname(state) === "%%%SERVER_PATH%%%/";
