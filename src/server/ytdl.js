@@ -7,6 +7,7 @@ import { execFile } from "child_process";
 import { promises as fs } from "fs";
 import PQPkg from "p-queue"; // because JS absolutely NEEDED packages; require just wasn't good enough for us. Just like a fish needs a bicycle.
 import path from "path";
+import { markItemInProgress } from "../model/Item.js";
 
 const { default: PQueue } = PQPkg; // I. uh. whatever. Packages. with magic symbols. Yay woo.
 
@@ -149,6 +150,7 @@ const downloadVideo = async (item) => {
       }
     };
 
+    EventBus.emit(Event.ItemUpdated, markItemInProgress(item));
     subProcess = execFile("youtube-dl", args, opts, (error, stdout, stderr) => {
       const logger2 = getLogger("execFileCallback", logger);
       EventBus.unsubscribe(Event.ItemUpdated, itemCancelHandler);

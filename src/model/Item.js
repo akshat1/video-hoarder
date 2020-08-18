@@ -1,5 +1,6 @@
 /**
  * @module model/Item
+ * @todo Make sure all mutators expect a username for updatedBy field.
  */
 
 import { Status } from "../Status.js";
@@ -20,6 +21,7 @@ import PropTypes from "prop-types";
  * @property {string} url
  * @property {TimeStamp} addedAt
  * @property {TimeStamp} updatedAt
+ * @property {string} updatedBy - username of the user who last updated this item.
  */
 
 export const makeItem = (args) => {
@@ -38,6 +40,7 @@ export const makeItem = (args) => {
     metadata: null,
     status: Status.Pending,
     updatedAt: addedAt,
+    updatedBy: addedBy,
     url,
   };
 };
@@ -58,6 +61,7 @@ export const ItemShape = PropTypes.shape({
   metadata: ItemMetadataShape,
   status: PropTypes.string.isRequired,
   updatedAt: PropTypes.string.isRequired,
+  updatedBy: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
 });
 
@@ -81,3 +85,31 @@ export const getThumbnail = item => (item.metadata && item.metadata.thumbnail) |
  * @returns {string} - video description.
  */
 export const getDescription = item => (item.metadata && item.metadata.description);
+
+export const markItemFailed = (item, errorMessage) => ({
+  ...item,
+  errorMessage,
+  status: Status.Failed,
+  updatedAt: new Date().toISOString(),
+  // updatedBy,
+});
+
+export const markItemSuccessful = item => ({
+  ...item,
+  status: Status.Succeeded,
+  updatedAt: new Date().toISOString(),
+  // updatedBy,
+});
+
+export const markItemInProgress = item => ({
+  ...item,
+  status: Status.Running,
+  updatedAt: new Date().toISOString(),
+  // updatedBy,
+})
+
+export const setMetadata = (item, metadata) => ({
+  ...item,
+  updatedAt: new Date().toISOString(),
+  metadata,
+});

@@ -1,6 +1,6 @@
 import { Event } from "../../Event.js";
 import { getLogger } from "../../logger.js";
-import { makeItem } from "../../model/Item.js";
+import { makeItem, markItemFailed,markItemSuccessful, setMetadata,setStatus } from "../../model/Item.js";
 import { Status } from "../../Status.js";
 import { emit } from "../event-bus.js";
 import { find, findOne, getJobsCollection,insert, remove, update } from "./util.js";
@@ -52,12 +52,7 @@ export const cancelJob = async ({ id, updatedBy }) => {
   /* istanbul ignore else */
   if (item) {
     const jobs = await getJobsCollection()
-    const updatedItem = {
-      ...item,
-      status: Status.Failed,
-      updatedAt: new Date().toISOString(),
-      updatedBy: updatedBy,
-    };
+    const updatedItem = setStatus(item, Status.Failed, updatedBy);
     const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
     logger.debug("Updated job", { numUpdatedRecords, opStatus });
     /* istanbul ignore else */
@@ -89,12 +84,7 @@ export const failJob = async ({ errorMessage, item }) => {
   const { id } = item;
   const jobs = await getJobsCollection();
   logger.debug("Got jobs collection", !!jobs);
-  const updatedItem = {
-    ...item,
-    status: Status.Failed,
-    updatedAt: new Date().toISOString(),
-    errorMessage,
-  };
+  const updatedItem = markItemFailed(item, errorMessage);  // TODO: we should add updatedBy here.
   logger.debug("Update to", updatedItem);
   const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
 
@@ -121,11 +111,7 @@ export const addMetadata = async (args) => {
   const { item, metadata } = args;
   const { id } = item;
   const jobs = await getJobsCollection();
-  const updatedItem = {
-    ...item,
-    updatedAt: new Date().toISOString(),
-    metadata,
-  };
+  const updatedItem = setMetadata(item, metadata);
   logger.debug("Update to", updatedItem);
   const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
 
@@ -151,11 +137,7 @@ export const completeJob = async (item) => {
   const { id } = item;
   const jobs = await getJobsCollection();
   logger.debug("Got jobs collection", !!jobs);
-  const updatedItem = {
-    ...item,
-    status: Status.Succeeded,
-    updatedAt: new Date().toISOString(),
-  };
+  const updatedItem = markItemSuccessful(item);
   logger.debug("Update to", updatedItem);
   const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
 
