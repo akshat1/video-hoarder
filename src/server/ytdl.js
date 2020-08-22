@@ -1,5 +1,6 @@
 import { Event } from "../Event.js";
 import { getLogger } from "../logger.js";
+import { markItemInProgress } from "../model/Item.js";
 import { Status } from "../Status.js";
 import { addMetadata, completeJob, failJob, getJobs, toArray } from "./db/index.js";
 import * as EventBus from "./event-bus.js";
@@ -7,7 +8,6 @@ import { execFile } from "child_process";
 import { promises as fs } from "fs";
 import PQPkg from "p-queue"; // because JS absolutely NEEDED packages; require just wasn't good enough for us. Just like a fish needs a bicycle.
 import path from "path";
-import { markItemInProgress } from "../model/Item.js";
 
 const { default: PQueue } = PQPkg; // I. uh. whatever. Packages. with magic symbols. Yay woo.
 

@@ -1,7 +1,6 @@
 import { Event } from "../../Event.js";
 import { getLogger } from "../../logger.js";
-import { makeItem, markItemFailed,markItemSuccessful, setMetadata,setStatus } from "../../model/Item.js";
-import { Status } from "../../Status.js";
+import { makeItem, markItemFailed,markItemSuccessful, setMetadata, markItemCanceled } from "../../model/Item.js";
 import { emit } from "../event-bus.js";
 import { find, findOne, getJobsCollection,insert, remove, update } from "./util.js";
 
@@ -52,7 +51,7 @@ export const cancelJob = async ({ id, updatedBy }) => {
   /* istanbul ignore else */
   if (item) {
     const jobs = await getJobsCollection()
-    const updatedItem = setStatus(item, Status.Failed, updatedBy);
+    const updatedItem = markItemCanceled({ item, updatedBy });
     const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
     logger.debug("Updated job", { numUpdatedRecords, opStatus });
     /* istanbul ignore else */
@@ -84,12 +83,12 @@ export const failJob = async ({ errorMessage, item }) => {
   const { id } = item;
   const jobs = await getJobsCollection();
   logger.debug("Got jobs collection", !!jobs);
-  const updatedItem = markItemFailed(item, errorMessage);  // TODO: we should add updatedBy here.
+  const updatedItem = markItemFailed(item, errorMessage);
   logger.debug("Update to", updatedItem);
   const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
-
   if (numUpdatedRecords === 1) {
     emit(Event.ItemUpdated, updatedItem);
+    logger.debug("Return updated item", updatedItem);
     return updatedItem;
   } else {
     logger.error("Something went wrong in the update", {
@@ -111,7 +110,7 @@ export const addMetadata = async (args) => {
   const { item, metadata } = args;
   const { id } = item;
   const jobs = await getJobsCollection();
-  const updatedItem = setMetadata(item, metadata);
+  const updatedItem = setMetadata({ item, metadata });
   logger.debug("Update to", updatedItem);
   const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
 

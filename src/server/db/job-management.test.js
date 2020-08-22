@@ -1,5 +1,5 @@
 import { Event } from "../../Event.js";
-import { makeItem } from "../../model/Item.js";
+import { makeItem, markItemCanceled } from "../../model/Item.js";
 import { Status } from "../../Status.js";
 import { emit } from "../event-bus";
 import { addJob, cancelJob, getJob, getJobsForUser,removeJob } from "./job-management";
@@ -50,6 +50,7 @@ describe("db/job-management", () => {
       updatedAt: expectedTime,
       updatedBy,
     };
+    markItemCanceled.mockReturnValue(expectedItem);
     const updatedItem = await cancelJob({ id, updatedBy });
     /*
     assert we updated item document with status canceled

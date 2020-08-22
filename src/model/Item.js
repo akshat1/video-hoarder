@@ -7,6 +7,8 @@ import { Status } from "../Status.js";
 import md5 from "blueimp-md5";
 import PropTypes from "prop-types";
 
+const System = "System";
+
 /**
  * @typedef {Object} ItemMetadata
  */
@@ -86,29 +88,68 @@ export const getThumbnail = item => (item.metadata && item.metadata.thumbnail) |
  */
 export const getDescription = item => (item.metadata && item.metadata.description);
 
-export const markItemFailed = (item, errorMessage) => ({
+/**
+ * Sets the status to Failed.
+ * @param {Object} args
+ * @param {Item} args.item
+ * @param {string} args.errorMessage
+ * @returns {Item} - a new Item object with the updated status.
+ */
+export const markItemFailed = ({ errorMessage, item }) => ({
   ...item,
   errorMessage,
   status: Status.Failed,
   updatedAt: new Date().toISOString(),
-  // updatedBy,
+  updatedBy: System,
 });
 
+/**
+ * Sets the status to Canceled (a particular failure mode with an associated user).
+ * @param {Object} args
+ * @param {Item} args.item
+ * @param {string} args.updatedBy
+ * @returns {Item} - a new Item object with the updated status.
+ */
+export const markItemCanceled = ({ item, updatedBy }) => ({
+  ...item,
+  errorMessage: "Canceled",
+  status: Status.Failed,
+  updatedAt: new Date().toISOString(),
+  updatedBy,
+});
+
+/**
+ * Sets the status to Succesful.
+ * @param {Item} item
+ * @returns {Item} - a new Item object with the updated status.
+ */
 export const markItemSuccessful = item => ({
   ...item,
   status: Status.Succeeded,
   updatedAt: new Date().toISOString(),
-  // updatedBy,
+  updatedBy: System,
 });
 
+/**
+ * Sets the status to InProgress.
+ * @param {Item} item
+ * @returns {Item} - a new Item object with the updated status.
+ */
 export const markItemInProgress = item => ({
   ...item,
   status: Status.Running,
   updatedAt: new Date().toISOString(),
-  // updatedBy,
-})
+  updatedBy: System,
+});
 
-export const setMetadata = (item, metadata) => ({
+/**
+ * Sets Metadata.
+ * @param {Object} args
+ * @param {Item} args.item
+ * @param {ItemMetadata} args.metadata
+ * @returns {Item} - a new Item object with the updated metadata.
+ */
+export const setMetadata = ({ item, metadata }) => ({
   ...item,
   updatedAt: new Date().toISOString(),
   metadata,
