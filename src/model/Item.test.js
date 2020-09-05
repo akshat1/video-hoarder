@@ -18,6 +18,7 @@ describe("model/Item", () => {
       metadata: null,
       status: Status.Pending,
       updatedAt: now.toISOString(),
+      updatedBy: addedBy,
       url,
     });
   });
