@@ -162,6 +162,7 @@ const Item = (props) => {
             <Typography
               className={classes.description}
               dangerouslySetInnerHTML={{ __html: convert.toHtml(getDescription(item)) }}
+              paragraph
             />
           </If>
         </Collapse>

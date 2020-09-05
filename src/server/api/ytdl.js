@@ -65,7 +65,7 @@ export const getInformation = async (req, res, next) => {
 export const installLatestVersion = (req, res) => {
   const logger = getLogger("installLatestVersion", rootLogger);
   execFile("youtube-dl", ["-U"], {}, async (error, stdout, stderr) => {
-    if (error) {
+    if (error || stderr.length) {
       logger.error({ 
         error,
         stdErr: stderr.toString(),
@@ -74,6 +74,7 @@ export const installLatestVersion = (req, res) => {
       EventBus.emit(Event.YTDLUpgradeFailed, error);
     } else {
       logger.debug("youtube-dl -U succeeded");
+      logger.debug(stdout.toString());
       EventBus.emit(Event.YTDLUpgradeSucceeded, await getYTDLInformation());
     }
   });
