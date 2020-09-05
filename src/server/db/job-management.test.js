@@ -58,7 +58,10 @@ describe("db/job-management", () => {
     */
     assert.deepEqual(updatedItem, expectedItem);
     expect(update).toHaveBeenCalledWith(jobsCollection, { id: id }, expectedItem);
-    expect(emit).toHaveBeenCalledWith(Event.ItemUpdated, expectedItem);
+    expect(emit).toHaveBeenCalledWith(Event.ItemUpdated, {
+      previous: item,
+      item: expectedItem,
+    });
     sinon.restore();
   });
 

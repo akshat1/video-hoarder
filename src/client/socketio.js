@@ -48,7 +48,7 @@ const onItemRemoved = (item) => {
   getStore().dispatch(fetchJobs());
 };
 
-const onItemUpdated = (item) => {
+const onItemUpdated = ({ item }) => {
   getLogger("onItemUpdated", rootLogger).debug(item);
   getStore().dispatch(updateJobInStore(item));
 };

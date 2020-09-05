@@ -16,7 +16,7 @@ const onItemAdded = (io, item) => {
 };
 
 const onItemRemoved = (io, item) => io.emit(Event.ItemRemoved, item);
-const onItemUpdated = (io, item) => io.emit(Event.ItemUpdated, item);
+const onItemUpdated = (io, payload) => io.emit(Event.ItemUpdated, payload);
 const onYTDLUpgradeFailed = (io, error) => io.emit(Event.YTDLUpgradeFailed, error);
 const onYTDLUpgradeSucceeded = (io, ytdlInfo) => io.emit(Event.YTDLUpgradeSucceeded, ytdlInfo);
 

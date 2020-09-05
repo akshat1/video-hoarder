@@ -29,7 +29,7 @@ export const initialize = async () => {
       userName: "admin",
       salt,
       password: hash,
-      passwordExpired: true,
+      passwordExpired: process.env.NODE_ENV !== "development",
       role: Role.Admin,
     }, "system");
   }

@@ -35,17 +35,20 @@ const downloadMeta = (item) => {
   const opts = { detached: true };
   return new Promise((resolve, reject) => {
     let subProcess;
-    const itemCancelHandler = ({ id, status }) => {
+    const itemCancelHandler = ({ item }) => {
       const logger2 = getLogger(`itemCancelHandler-${id}`, logger);
+      logger2.debug("Cancel", item)
+      const { id, status } = item;
       if (id === item.id && status === Status.Failed) {
         logger2.debug("item failed");
         // perhaps the item was cancelled?
         if (subProcess && !subProcess.killed) {
           logger2.debug("Killing the youtube-dl process.");
           subProcess.kill();
-          logger.debug("YouTube-dl killed");
+          logger2.debug("YouTube-dl killed");
         }
 
+        logger.debug("Stop listening for event");
         EventBus.unsubscribe(Event.ItemUpdated, itemCancelHandler);
       }
     };
@@ -54,8 +57,13 @@ const downloadMeta = (item) => {
       const logger2 = getLogger(`execFileCallback-${item.id}`, logger);
       EventBus.unsubscribe(Event.ItemUpdated, itemCancelHandler);
       if (error) {
-        logger2.error("stderr:", stderr.toString());
-        reject(error);
+        logger2.error("Error obtaining metadata. stderr:", stderr.toString());
+        const metadata = {
+          title: item.url,
+        };
+        logger2.debug("Obtained metadata");
+        resolve(addMetadata({ item, metadata }));
+        // reject(error);
       } else {
         try {
           const strMeta = stdout.toString();
@@ -139,7 +147,8 @@ const downloadVideo = async (item) => {
 
   return new Promise((resolve, reject) => {
     let subProcess;
-    const itemCancelHandler = ({ id, status }) => {
+    const itemCancelHandler = ({ item }) => {
+      const { id, status } = item;
       if (id === item.id && status === Status.Failed) {
         // perhaps the item was cancelled?
         if (!subProcess.killed) {
@@ -150,14 +159,22 @@ const downloadVideo = async (item) => {
       }
     };
 
-    EventBus.emit(Event.ItemUpdated, markItemInProgress(item));
+    const previous = item;
+    item = markItemInProgress(item);
+    EventBus.emit(Event.ItemUpdated, {
+      previous,
+      item,
+    });
+
+    logger.debug("Start download process...");
     subProcess = execFile("youtube-dl", args, opts, (error, stdout, stderr) => {
-      const logger2 = getLogger("execFileCallback", logger);
+      const logger2 = getLogger(`execFileCallback ${item.id}`, logger);
       EventBus.unsubscribe(Event.ItemUpdated, itemCancelHandler);
       if (error) {
         logger2.error("stderr:", stderr.toString());
         reject(error);
       } else {
+        logger2.debug("download complete");
         resolve(completeJob(item));
       }
     });
@@ -209,13 +226,12 @@ export const initializeYTDL = async () => {
   });
 
   // This might become a problem if we ever update an item while it is already being downloaded; we might need a flag to indicate exactly whats's happening with an item.
-  EventBus.subscribe(Event.ItemUpdated, (item) => {
-    logger.debug("ItemUpdated", item);
-    if (item.status === Status.Pending || item.status === Status.Running) {
-      if (item.metadata) {
-        logger.debug("Add to videoQ", item);
-        videoQ.add(() => downloadVideo(item));
-      }
+  // THIS HAS NOW BECOME A PROBLEM. THIS EVENT KEEPS GETTING TICKLED. WE NEED MORE GRANULARITY ABOUT THE RUNNING STATUS (OR SOMETHING ELSE; I DONT KNOW; ITS ALMOST 4 AM).
+  EventBus.subscribe(Event.ItemUpdated, ({ item, previous }) => {
+    logger.debug("ItemUpdated", { previous, item });
+    if (!previous.metadata && item.metadata && (item.status === Status.Pending)) {
+      logger.debug("Add to videoQ", item);
+      videoQ.add(() => downloadVideo(item));
     }
   });
 };

@@ -2,13 +2,14 @@
 browserify-cache.json
 build/
 cert/*
+config.jsontmp/
 coverage/
 db-data/
 dist/
 docs/
+download
 download/*
 node_modules/
 storybook-static/
-download
+tmp/
 webpack-stats.json
-config.json
