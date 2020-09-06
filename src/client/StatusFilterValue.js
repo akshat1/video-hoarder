@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { Status } from "../Status.js";
+import { Status } from "../Status";
 
 /** @typedef {string} StatusFilterValue */
 

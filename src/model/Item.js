@@ -3,7 +3,7 @@
  * @todo Make sure all mutators expect a username for updatedBy field.
  */
 
-import { Status } from "../Status.js";
+import { Status } from "../Status";
 import md5 from "blueimp-md5";
 import PropTypes from "prop-types";
 

@@ -31,9 +31,12 @@ module.exports = {
     "jest/globals": true,
   },
   settings: {
-    react: {
-      version: "detect"
-    }
+    react: { version: "detect" },
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".ts", ".jsx", ".tsx"]
+      }
+    },
   },
   rules: {
     quotes: ["error", "double"],  // because it's silly twisting ourselves into knots whenever we need to use an apostrophe (yes fine a single quote).

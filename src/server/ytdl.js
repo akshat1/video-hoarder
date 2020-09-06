@@ -1,7 +1,7 @@
 import { Event } from "../Event.js";
 import { getLogger } from "../logger.js";
 import { markItemInProgress } from "../model/Item.js";
-import { Status } from "../Status.js";
+import { Status } from "../Status";
 import { addMetadata, completeJob, failJob, getJobs, toArray } from "./db/index.js";
 import * as EventBus from "./event-bus.js";
 import { execFile } from "child_process";
