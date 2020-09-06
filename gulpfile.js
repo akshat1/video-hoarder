@@ -2,8 +2,11 @@ import * as Config from "./src/server/config.js";
 import del from "del";
 import { promises as fs } from "fs";
 import gulp from "gulp";
+import babel from "gulp-babel";
+import debug from "gulp-debug";
 import rename from "gulp-rename";
 import replace from "gulp-replace";
+import sourcemaps from "gulp-sourcemaps";
 import _ from "lodash";
 import path from "path";
 import webpack from "webpack";
@@ -37,14 +40,14 @@ const getServerPath = async () => {
 export const getEnv = () => JSON.stringify(_.pick(process.env, "NODE_ENV"));
 
 /* ********************************************** Client JS ******************************************************** */
-const getWebPackConfig = async ({ buildApp, buildServiceWorker }) => {
+const getWebPackConfig = async ({ app, serviceWorker }) => {
   const version = JSON.parse((await fs.readFile("./package.json")).toString()).version;
   const entry = {};
-  if (buildApp) {
+  if (app) {
     entry.app = ClientJSEntry;
   }
 
-  if (buildServiceWorker) {
+  if (serviceWorker) {
     entry["service-worker"] = ServiceWorkerEntry;
   }
 
@@ -60,11 +63,11 @@ const getWebPackConfig = async ({ buildApp, buildServiceWorker }) => {
     // devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
     module: {
       rules: [{
-        test: /\.jsx?$/,
+        test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
         use: { loader: "babel-loader" },
       }, {
-        test: /\.jsx?/,
+        test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
         use: {
           loader: "string-replace-loader",
@@ -92,14 +95,14 @@ const getWebPackConfig = async ({ buildApp, buildServiceWorker }) => {
   };
 };
 
-const getCompiler = async ({ buildApp, buildServiceWorker }) => {
-  const wpConfig = await getWebPackConfig({ buildApp, buildServiceWorker });
+const getCompiler = async ({ app, serviceWorker }) => {
+  const wpConfig = await getWebPackConfig({ app, serviceWorker });
   console.log("WebPack Config:", wpConfig);
   const compiler = webpack(wpConfig);
   return compiler;
 };
 
-const getCompilerCallback = ({ buildApp, reject, resolve }) =>
+const getCompilerCallback = ({ app, reject, resolve }) =>
   async (err, stats) => {
     console.log("Compiler callback called...");
     if (err) {
@@ -113,7 +116,7 @@ const getCompilerCallback = ({ buildApp, reject, resolve }) =>
     }
 
     console.log(stats.toString({ colors: true }));
-    if (buildApp) {
+    if (app) {
       const statsJSON = stats.toJson();
       await fs.writeFile("./webpack-stats.json", JSON.stringify(statsJSON, null, 2));
     }
@@ -121,18 +124,31 @@ const getCompilerCallback = ({ buildApp, reject, resolve }) =>
   };
 
 export const buildClientJS = async () => {
-  const compiler = await getCompiler({ buildApp: true });
-  await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ buildApp: true, resolve, reject })));
+  const compiler = await getCompiler({ app: true });
+  await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ app: true, resolve, reject })));
 };
 
 export const watchClientJS = () => gulp.watch(ClientJSWatchGlobs, buildClientJS);
 
 export const buildServiceWorker = async () => {
-  const compiler = await getCompiler({ buildServiceWorker: true });
-  await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ buildServiceWorker: true, resolve, reject })));
+  console.trace("buildServiceWorker was invoked!!!");
+  const compiler = await getCompiler({ serviceWorker: true });
+  await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ resolve, reject })));
 };
 
 export const watchServiceWorker = () => gulp.watch(ServiceWorkerWatchGlobs, buildServiceWorker);
+
+/* *********************************************** Server ********************************************************** */
+export const buildServer = async () => {
+  console.log("Build the server");
+  return gulp.src(["src/**/*.js", "src/**/*.ts", "src/**/*.jsx", "src/**/*.tsx"])
+    .pipe(debug({ title: "[buildServer]" }))
+    // .pipe(sourcemaps.init())
+    .pipe(babel())
+    .on("error", console.error.bind(console))
+    // .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest("./app"));
+};
 
 /* ********************************************** Static *********************************************************** */
 export const copyStatics = () =>
@@ -156,7 +172,7 @@ export const generateWebManifest = async () => {
 
 /* ****************************************** Put 'Em Together ***************************************************** */
 export const buildClient = gulp.parallel(buildClientJS, copyStatics, generateIndexHTML, generateWebManifest);
-export const build = gulp.series(buildClient, buildServiceWorker);
+export const build = gulp.series(buildServer, buildClient);
 export const watch = gulp.parallel(watchClientJS, watchServiceWorker);
 export const dev = gulp.series(build, watch);
 

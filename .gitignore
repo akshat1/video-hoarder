@@ -13,3 +13,4 @@ node_modules/
 storybook-static/
 tmp/
 webpack-stats.json
+app/
