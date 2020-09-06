@@ -1,6 +1,6 @@
-import { Event } from "../Event.js";
-import { getLogger } from "../logger.js"
-import { subscribe } from "./event-bus.js";
+import { Event } from "../Event";
+import { getLogger } from "../logger"
+import { subscribe } from "./event-bus";
 import cookieParser from "cookie-parser";
 import _ from "lodash";
 import passportSocketIO from "passport.socketio";

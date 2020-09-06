@@ -1,6 +1,6 @@
-import { getRouter as getJobsAPI } from "./job-management.js";
-import { getRouter as getUserAPI } from "./user-management.js";
-import { getRouter as getYTDLApi } from "./ytdl.js";
+import { getRouter as getJobsAPI } from "./job-management";
+import { getRouter as getUserAPI } from "./user-management";
+import { getRouter as getYTDLApi } from "./ytdl";
 import express from "express";
 
 const { Router } = express;

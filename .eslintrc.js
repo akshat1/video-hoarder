@@ -39,27 +39,29 @@ module.exports = {
     },
   },
   rules: {
-    quotes: ["error", "double"],  // because it's silly twisting ourselves into knots whenever we need to use an apostrophe (yes fine a single quote).
-    "react/jsx-no-undef": [2, { allowGlobals: true }],
+    "comma-dangle": ["error", "always-multiline"],
+    "import/default": "error",
+    "import/extensions": ["error", "never"],
+    "import/named": "error",
+    "import/no-absolute-path": "error",
+    "import/no-default-export": "error",  // default anonymous exports R bad. Disallow default exports for simplicity.
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
-    "import/no-default-export": "error",  // default anonymous exports R bad. Disallow default exports for simplicity.
-    "import/named": "error",
-    "import/default": "error",
-    "import/no-absolute-path": "error",
-    "simple-import-sort/sort": ["error", { groups: [] }],
-    "comma-dangle": ["error", "always-multiline"],
+    "react/jsx-closing-bracket-location": "error",
+    "react/jsx-closing-tag-location": "error",
     "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
     "react/jsx-indent-props": ["error", 2],
     "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "always" }],
-    "react/jsx-closing-tag-location": "error",
-    "react/jsx-closing-bracket-location": "error",
+    "react/jsx-no-undef": [2, { allowGlobals: true }],
     "react/jsx-sort-props": "error",
     "react/jsx-wrap-multilines": ["error", { arrow: "parens", declaration: "parens-new-line" }],
-    "sort-destructure-keys/sort-destructure-keys": "error"
+    "react/prop-types": "off",  // need to figure out how to move to tsx without having to worry about missing type def files for jsx-conditionals.
+    "simple-import-sort/sort": ["error", { groups: [] }],
+    "sort-destructure-keys/sort-destructure-keys": "error",
+    quotes: ["error", "double"],  // because it's silly twisting ourselves into knots whenever we need to use an apostrophe (yes fine a single quote).
   },
   overrides: [{
     files: ["*.story.jsx", "*.jsx"],

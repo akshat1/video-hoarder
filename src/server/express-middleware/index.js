@@ -1,5 +1,5 @@
-import { getLogger } from "../../logger.js";
-import { isAdmin } from "../../model/User.js";
+import { getLogger } from "../../logger";
+import { isAdmin } from "../../model/User";
 
 const rlLogger = getLogger("requestLogger");
 /**

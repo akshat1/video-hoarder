@@ -1,8 +1,8 @@
-import { getLogger } from "../../logger.js";
-import { Role } from "../../model/User.js";
-import { encrypt } from "../crypto.js";
-import { createUser,getUserByUserName } from "./user-management.js";
-import { createDB, getDb } from "./util.js";
+import { getLogger } from "../../logger";
+import { Role } from "../../model/User";
+import { encrypt } from "../crypto";
+import { createUser,getUserByUserName } from "./user-management";
+import { createDB, getDb } from "./util";
 
 /**
  * Initialize the database. Creates user collection and the default user.

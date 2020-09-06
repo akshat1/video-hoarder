@@ -2,7 +2,7 @@
  * Actions and reducers. Together at last (we'll split them if required down the road).
  * @module client/redux/actions-and-reducers
  */
-import { StatusFilterValue } from "../StatusFilterValue.js";
+import { StatusFilterValue } from "../StatusFilterValue";
 import * as Actions from "./actions";
 import { makeReducer } from "./boilerplate";
 import { connectRouter } from "connected-react-router"

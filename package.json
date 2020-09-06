@@ -8,7 +8,7 @@
     "build-storybook": "build-storybook -o docs/storybook",
     "build": "NODE_ENV=production gulp build",
     "clean": "rm -rf dist/* docs/ db-data/",
-    "dev": "npm run mkdir; NODE_ENV=development gulp dev & NODE_ENV=development node --inspect=0.0.0.0 --trace-warnings app/server/index.js",
+    "dev": "npm run mkdir; NODE_ENV=development gulp dev; NODE_ENV=development node --inspect=0.0.0.0 --trace-warnings app/server/index.js",
     "docs": "mkdir -p docs; cp docs.html docs/index.html; npm run jsdoc; npm run build-storybook",
     "jsdoc": "jsdoc -c jsdoc.conf.json",
     "lint": "eslint --ext .js --ext .jsx --ext .cjs src/",
@@ -18,7 +18,6 @@
     "storybook": "start-storybook -p 6006",
     "test": "npm run mkdir; TZ=UTC NODE_ENV=test DEBUG=jest jest --coverage --silent=false"
   },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/akshat1/video-hoarder.git"

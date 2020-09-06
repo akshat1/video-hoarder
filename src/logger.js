@@ -37,7 +37,7 @@ const Priority = {
  * @param {module:logger~Logger} [parentLogger]
  * @returns {Logger}
  */
-export const getLogger = (name, parentLogger) => {
+module.exports.getLogger = (name, parentLogger) => {
   const fullName = parentLogger ? `${parentLogger.getName()}:${name}` : name;
   const stub = `[${fullName}]`;
   let loggerLevel = "debug";

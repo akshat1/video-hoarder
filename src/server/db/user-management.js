@@ -1,7 +1,7 @@
-import { getLogger } from "../../logger.js" ;
-import { Role } from "../../model/User.js";
-import { hash } from "../crypto.js";
-import { findOne, getUsersCollection, insert, update } from "./util.js";
+import { getLogger } from "../../logger" ;
+import { Role } from "../../model/User";
+import { hash } from "../crypto";
+import { findOne, getUsersCollection, insert, update } from "./util";
 
 const rootLogger = getLogger("db/user-management");
 

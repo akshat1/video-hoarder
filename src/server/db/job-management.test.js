@@ -1,9 +1,9 @@
-import { Event } from "../../Event.js";
-import { makeItem, markItemCanceled } from "../../model/Item.js";
+import { Event } from "../../Event";
+import { makeItem, markItemCanceled } from "../../model/Item";
 import { Status } from "../../Status";
 import { emit } from "../event-bus";
 import { addJob, cancelJob, getJob, getJobsForUser,removeJob } from "./job-management";
-import { find, findOne, getDb, getJobsCollection,insert, remove, update } from "./util.js";
+import { find, findOne, getDb, getJobsCollection,insert, remove, update } from "./util";
 import assert from "assert";
 import sinon from "sinon";
 

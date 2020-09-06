@@ -2,9 +2,9 @@
  * @module server/getPassport
  */
 
-import { getLogger } from "../logger.js";
-import { getClientUser } from "../model/User.js";
-import { getUserByUserName,getVerifiedUser } from "./db/index.js";
+import { getLogger } from "../logger";
+import { getClientUser } from "../model/User";
+import { getUserByUserName,getVerifiedUser } from "./db/index";
 import Base64 from "Base64";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";

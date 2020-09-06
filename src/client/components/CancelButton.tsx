@@ -1,17 +1,23 @@
 /**
  * Renders a cancel button which will cancel a download (the item prop) after showing a confirmation dialog.
  */
-import { getTitle, ItemShape } from "../../model/Item";
+import { Item, getTitle } from "../../model/Item";
 import { hasConcluded } from "../../Status";
 import { cancelJob, deleteJob } from "../redux/actions";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 import { Button } from "@material-ui/core";
 import { CancelOutlined, DeleteOutline } from "@material-ui/icons";
-import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 
-export const CancelButton = (props) => {
+interface Props {
+  className: string,
+  doCancel: Function,
+  doDelete: Function,
+  item: Item,
+};
+
+export const CancelButton = (props: Props) => {
   const [ isDialogOpen, setDialogOpen ] = useState(false);
   const { className, doCancel, doDelete, item } = props;
   const { status } = item;
@@ -52,14 +58,6 @@ export const CancelButton = (props) => {
       />
     </Fragment>
   );
-};
-
-CancelButton.propTypes = {
-  /** @property {Item} */
-  item: ItemShape.isRequired,
-  doCancel: PropTypes.func.isRequired,
-  doDelete: PropTypes.func.isRequired,
-  className: PropTypes.string,
 };
 
 const dispatchToProps = {

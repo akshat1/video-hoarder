@@ -1,8 +1,8 @@
-import DefaultConfig from "../DefaultConfig.js";
-import { getLogger } from "../logger.js";
-import fs from "fs";
-import _ from "lodash";
-import path from "path";
+const DefaultConfig = require("../DefaultConfig.js");
+const { getLogger } = require("../logger.js");
+const fs  = require("fs");
+const _  = require("lodash");
+const path  = require("path");
 
 const logger = getLogger("server/config");
 let finalConfig;
@@ -14,7 +14,7 @@ let finalConfig;
 /**
  * @returns {Config}
  */
-export const getConfig = () => {
+const getConfig = module.exports.getConfig = () => {
   if (!finalConfig) {
     const configPath = path.join(process.cwd(), "config.json");
     logger.debug("going to load", configPath);
@@ -37,4 +37,4 @@ export const getConfig = () => {
   return finalConfig;
 };
 
-export const getConfigValue = keyPath => _.get(getConfig(), keyPath);
+module.exports.getConfigValue = keyPath => _.get(getConfig(), keyPath);

@@ -1,8 +1,8 @@
-import { Event } from "../../Event.js";
-import { getLogger } from "../../logger.js";
-import * as EventBus from "../event-bus.js";
-import { ensureAdminUser } from "../express-middleware/index.js";
-import { getGlobalConfig as getGlobalYTDLConfig, writeGlobalConfig } from "../ytdl.js";
+import { Event } from "../../Event";
+import { getLogger } from "../../logger";
+import * as EventBus from "../event-bus";
+import { ensureAdminUser } from "../express-middleware/index";
+import { getGlobalConfig as getGlobalYTDLConfig, writeGlobalConfig } from "../ytdl";
 import { execFile } from "child_process";
 import express from "express";
 

@@ -1,4 +1,4 @@
-import { getLogger } from "./logger.js";
+import { getLogger } from "./logger";
 import assert from "assert";
 import sinon from "sinon";
 

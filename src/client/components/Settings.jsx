@@ -1,6 +1,6 @@
 /** Renders the Settings panel. */
-import { isAdmin } from "../../model/User.js";
-import { getUser } from "../selectors.js";
+import { isAdmin } from "../../model/User";
+import { getUser } from "../selectors";
 import TabPanel from "./TabPanel";
 import UserManagementSettings from "./UserManagementSettings";
 import YTDLSettings from "./YTDLSettings";

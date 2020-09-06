@@ -7,7 +7,7 @@
  * @module server/db
  */
 
-export { initialize } from "./initialize.js";
+export { initialize } from "./initialize";
 export * from "./util.js";
 export * from "./job-management.js";
 export * from "./user-management.js";

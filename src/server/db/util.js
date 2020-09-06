@@ -1,5 +1,5 @@
-import { getLogger } from "../../logger.js";
-import { inPromiseCallback } from "../../util.js";
+import { getLogger } from "../../logger";
+import { inPromiseCallback } from "../../util";
 import path from "path";
 import Tingo from "tingodb";
 

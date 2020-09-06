@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-disabled-tests */
-import { fakeCollection, FakeDB, fakeTingoDB } from "../../fixtures/tingodb.js";
+import { fakeCollection, FakeDB, fakeTingoDB } from "../../fixtures/tingodb";
 import { initialize } from "./initialize";
-import { getDb  } from "./util.js";
+import { getDb  } from "./util";
 import Tingo from "tingodb";
 
 jest.mock("tingodb", () => {

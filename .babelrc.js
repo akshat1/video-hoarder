@@ -6,9 +6,8 @@ module.exports = {
       {
         "targets": {
           "chrome": 80,
-          "esmodules": false
-        },
-        "modules": "false"
+          "node": "current"
+        }
       }
     ]
   ],

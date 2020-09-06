@@ -1,15 +1,15 @@
-import * as Config from "./src/server/config.js";
-import del from "del";
-import { promises as fs } from "fs";
-import gulp from "gulp";
-import babel from "gulp-babel";
-import debug from "gulp-debug";
-import rename from "gulp-rename";
-import replace from "gulp-replace";
-import sourcemaps from "gulp-sourcemaps";
-import _ from "lodash";
-import path from "path";
-import webpack from "webpack";
+const Config = require("./src/server/config.js");
+const del = require("del");
+const fs = require("fs").promises;
+const gulp = require("gulp");
+const babel = require("gulp-babel");
+const debug = require("gulp-debug");
+const rename = require("gulp-rename");
+const replace = require("gulp-replace");
+const sourcemaps = require("gulp-sourcemaps");
+const _ = require("lodash");
+const path = require("path");
+const webpack = require("webpack");
 
 const ClientJSEntry = "./app/client/index.js";
 const Dist = "dist/";
@@ -35,9 +35,9 @@ const getServerPath = async () => {
  * Returns a stringified object containing selected environment properties.
  * @returns {string}
  */
-export const getEnv = () => JSON.stringify(_.pick(process.env, "NODE_ENV"));
+module.exports.getEnv = () => JSON.stringify(_.pick(process.env, "NODE_ENV"));
 
-export const transpile = () =>
+const transpile = module.exports.transpile = () =>
   gulp.src(["src/**/*.js", "src/**/*.ts", "src/**/*.jsx", "src/**/*.tsx"])
     .pipe(debug({ title: "[buildServer]" }))
     .pipe(sourcemaps.init())
@@ -70,10 +70,6 @@ const getWebPackConfig = async ({ app, serviceWorker }) => {
     // devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
     module: {
       rules: [{
-        test: /\.(t|j)sx?$/,
-        exclude: /node_modules/,
-        use: { loader: "babel-loader" },
-      }, {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
         use: {
@@ -130,23 +126,23 @@ const getCompilerCallback = ({ app, reject, resolve }) =>
     resolve && resolve();
   };
 
-export const buildClientJS = async () => {
+const buildClientJS = module.exports.buildClientJS = async () => {
   const compiler = await getCompiler({ app: true });
   await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ app: true, resolve, reject })));
 };
 
-// export const buildServiceWorker = async () => {
+// const buildServiceWorker = module.exports.buildServiceWorker = async () => {
 //   console.trace("buildServiceWorker was invoked!!!");
 //   const compiler = await getCompiler({ serviceWorker: true });
 //   await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ resolve, reject })));
 // };
 
 /* ********************************************** Static *********************************************************** */
-export const copyStatics = () =>
+const copyStatics = module.exports.copyStatics = () =>
   gulp.src(StaticResourceGlobs)
     .pipe(gulp.dest(Dist));
 
-export const generateIndexHTML = async () => {
+const generateIndexHTML = module.exports.generateIndexHTML = async () => {
   const serverPath = await getServerPath();
   return gulp.src(TemplateHTMLPath)
     .pipe(replace("%%%SERVER_PATH%%%", serverPath))
@@ -154,7 +150,7 @@ export const generateIndexHTML = async () => {
     .pipe(gulp.dest(Dist));
 };
 
-export const generateWebManifest = async () => {
+const generateWebManifest = module.exports.generateWebManifest = async () => {
   const serverPath = await getServerPath();
   return gulp.src(WebManifestGlob)
     .pipe(replace("%%%SERVER_PATH%%%", serverPath))
@@ -162,7 +158,7 @@ export const generateWebManifest = async () => {
 };
 
 /* ****************************************** Put 'Em Together ***************************************************** */
-export const buildClient = gulp.parallel(buildClientJS, copyStatics, generateIndexHTML, generateWebManifest);
-export const build = gulp.series(transpile, buildClient);
-export const dev = gulp.series(build);
-export const clean = () => del([Dist, "app"]);
+const buildClient = module.exports.buildClient = gulp.parallel(buildClientJS, copyStatics, generateIndexHTML, generateWebManifest);
+const build = module.exports.build = gulp.series(transpile, buildClient);
+module.exports.dev = gulp.series(build);
+module.exports.clean = () => del([Dist, "app"]);

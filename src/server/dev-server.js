@@ -1,4 +1,4 @@
-import { getLogger } from "../logger.js";
+import { getLogger } from "../logger";
 import _ from "lodash";
 
 const logger = getLogger("serveIndex");

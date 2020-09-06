@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 
 const System = "System";
 
-interface ItemMetadata {
+export interface ItemMetadata {
   description: string,
   thumbnail: string,
   title: string,
 }
 
-interface Item {
+export interface Item {
   /** ISO8601 timestamp */
   addedAt: string,
   /** Username */

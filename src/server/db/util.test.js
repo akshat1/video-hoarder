@@ -1,5 +1,5 @@
-import { fakeCollection, fakeCursor,FakeDB } from "../../fixtures/tingodb.js";
-import { find, findOne, getCollection, insert, remove,save, toArray, update  } from "./util.js";
+import { fakeCollection, fakeCursor,FakeDB } from "../../fixtures/tingodb";
+import { find, findOne, getCollection, insert, remove,save, toArray, update  } from "./util";
 
 jest.mock("tingodb", () => {
   return {

@@ -1,15 +1,13 @@
-import { Event } from "../Event.js";
-import { getLogger } from "../logger.js";
-import { markItemInProgress } from "../model/Item.js";
+import { Event } from "../Event";
+import { getLogger } from "../logger";
+import { markItemInProgress } from "../model/Item";
 import { Status } from "../Status";
-import { addMetadata, completeJob, failJob, getJobs, toArray } from "./db/index.js";
-import * as EventBus from "./event-bus.js";
+import { addMetadata, completeJob, failJob, getJobs, toArray } from "./db/index";
+import * as EventBus from "./event-bus";
 import { execFile } from "child_process";
 import { promises as fs } from "fs";
-import PQPkg from "p-queue"; // because JS absolutely NEEDED packages; require just wasn't good enough for us. Just like a fish needs a bicycle.
+const { default: PQueue } = require("p-queue");
 import path from "path";
-
-const { default: PQueue } = PQPkg; // I. uh. whatever. Packages. with magic symbols. Yay woo.
 
 const rootLogger = getLogger("ytdl");
 const VideoConcurrency = 5;

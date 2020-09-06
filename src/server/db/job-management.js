@@ -1,8 +1,8 @@
-import { Event } from "../../Event.js";
-import { getLogger } from "../../logger.js";
-import { makeItem, markItemCanceled,markItemFailed,markItemSuccessful, setMetadata } from "../../model/Item.js";
-import { emit } from "../event-bus.js";
-import { find, findOne, getJobsCollection,insert, remove, update } from "./util.js";
+import { Event } from "../../Event";
+import { getLogger } from "../../logger";
+import { makeItem, markItemCanceled,markItemFailed,markItemSuccessful, setMetadata } from "../../model/Item";
+import { emit } from "../event-bus";
+import { find, findOne, getJobsCollection,insert, remove, update } from "./util";
 
 const rootLogger = getLogger("job-management");
 

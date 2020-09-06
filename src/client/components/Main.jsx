@@ -1,8 +1,8 @@
 /**
  * This is the entire logged-in user interface.
  */
-import { getJobs } from "../selectors.js";
-import { getURL } from "../util.js";
+import { getJobs } from "../selectors";
+import { getURL } from "../util";
 import AccountSettings from "./AccountSettings";
 import InputForm from "./InputForm";
 import Item from "./Item";

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-default-export */
-export default {
+module.exports = {
   serverPath: "/",
   https: false,
   serverPort: 4000,

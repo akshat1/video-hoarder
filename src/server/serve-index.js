@@ -1,4 +1,4 @@
-import { getLogger } from "../logger.js";
+import { getLogger } from "../logger";
 import path from "path";
 
 const logger = getLogger("serveIndex");
