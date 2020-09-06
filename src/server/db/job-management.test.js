@@ -8,7 +8,7 @@ import assert from "assert";
 import sinon from "sinon";
 
 jest.mock("./util");
-jest.mock("../../model/Item.js");
+jest.mock("../../model/Item");
 jest.mock("../event-bus");
 
 describe("db/job-management", () => {
@@ -26,11 +26,11 @@ describe("db/job-management", () => {
   test("addJob", async () => {
     const url = "bar";
     const job = { jo: "b" };
-    const addedBy = "foo";
+    const createdBy = "foo";
     makeItem.mockReturnValue(job);
     const expectedResult = { expected: "result" };
     insert.mockResolvedValue(expectedResult);
-    const result = await addJob({ url, addedBy });
+    const result = await addJob({ url, createdBy });
     expect(result).toBe(expectedResult);
     expect(insert).toHaveBeenCalledWith(jobsCollection, job, { w: 1 });
     expect(emit).toHaveBeenCalledWith(Event.ItemAdded, result);
@@ -91,6 +91,6 @@ describe("db/job-management", () => {
     const userName = "foo";
     const items = await getJobsForUser(userName);
     expect(items).toBe(expectedItems);
-    expect(find).toHaveBeenCalledWith(jobsCollection, { addedBy: userName });
+    expect(find).toHaveBeenCalledWith(jobsCollection, { createdBy: userName });
   });
 });

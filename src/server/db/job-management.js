@@ -12,11 +12,11 @@ const rootLogger = getLogger("job-management");
  * @memberof module:server/db
  * @param {Object} args -
  * @param {string} args.url - url to be downloaded
- * @param {string} args.addedBy - userName of the user adding this task.
+ * @param {string} args.createdBy - userName of the user adding this task.
  * @returns {Promise<Item>}
  */
-export const addJob = async ({ addedBy, url }) => {
-  const item = makeItem({ url, addedBy });
+export const addJob = async ({ createdBy, url }) => {
+  const item = makeItem({ url, createdBy });
   const jobs = await getJobsCollection()
   const newJob = await insert(jobs, item, { w: 1 });
   emit(Event.ItemAdded, newJob);
@@ -216,7 +216,7 @@ export const getJobs = async (query) => {
  * @returns {Promise<Cursor[]>}
  */
 export const getJobsForUser = async (userName, query = {}) => {
-  return getJobs({ ...query, addedBy: userName });
+  return getJobs({ ...query, createdBy: userName });
 };
 
 

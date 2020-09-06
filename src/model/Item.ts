@@ -1,6 +1,6 @@
-import { Status } from '../Status';
+import { Entity } from "./Entity";
+import { Status } from "../Status";
 import md5 from "blueimp-md5";
-import PropTypes from "prop-types";
 
 const System = "System";
 
@@ -10,38 +10,29 @@ export interface ItemMetadata {
   title: string,
 }
 
-export interface Item {
-  /** ISO8601 timestamp */
-  addedAt: string,
-  /** Username */
-  addedBy: string,
+export interface Item extends Entity {
   errorMessage?: string,
-  id: string,
   metadata: ItemMetadata,
   status: Status,
-  /** ISO8601 timestamp */
-  updatedAt: string,
-  /** Username */
-  updatedBy: string,
   url: string,
 }
 
 export const makeItem = (args): Item => {
   const {
-    addedBy,
+    createdBy,
     url,
   } = args;
 
   const currentTime = new Date();
-  const addedAt = currentTime.toISOString();
+  const createdAt = currentTime.toISOString();
   return {
-    addedAt,
-    addedBy,
+    createdAt,
+    createdBy,
     id: md5(`${url}-${currentTime.getTime()}`),
     metadata: null,
     status: Status.Pending,
-    updatedAt: addedAt,
-    updatedBy: addedBy,
+    updatedAt: createdAt,
+    updatedBy: createdBy,
     url,
   };
 };

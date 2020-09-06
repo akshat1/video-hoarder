@@ -75,10 +75,10 @@ export const getJobs = async (req, res, next) => {
 export const addJob = async (req, res, next) => {
   const logger = getLogger("addJob", rootLogger);
   try {
-    const { userName: addedBy } = req.user;
+    const { userName: createdBy } = req.user;
     const { url } = req.body;
-    logger.debug("Adding new job", url, addedBy);
-    const newJob = await db.addJob({ url, addedBy });
+    logger.debug("Adding new job", url, createdBy);
+    const newJob = await db.addJob({ url, createdBy });
     logger.debug("send 200");
     res.status(200).send(newJob);
   } catch (err) {

@@ -1,34 +1,23 @@
 /** @module server/event-bus */
+import { Event } from "../Event";
 
-/**
- * @typedef {function} Subscriber
- * @param {Object} [payload] -
- */
+type Subscriber = (payload?: any) => any;
 
-/**
- * @const
- * @type {Map.<string, Set.<Subscriber[]>>}
- */
-const subscribers = new Map();
+const subscribers = new Map<Event, Set<Subscriber>>();
 
 /**
  * Just for unit testing.
- *
- * @func
  * @private
- * @returns {Map.<string, Set.<Subscriber[]>>}
  */
-export const getSubscribersMap = () => new Map(subscribers);
+export const getSubscribersMap = (): Map<Event, Set<Subscriber>> => new Map(subscribers);
 
 /**
  * Add a subscriber for the given eventName.
- * @param {string} eventName -
- * @param {Subscriber} subscriber -
  */
-export const subscribe = (eventName, subscriber) => {
+export const subscribe = (eventName: Event, subscriber: Subscriber) => {
   let subscribersForEventName = subscribers.get(eventName);
   if (!subscribersForEventName) {
-    subscribersForEventName = new Set();
+    subscribersForEventName = new Set<Subscriber>();
     subscribers.set(eventName, subscribersForEventName);
   }
 
@@ -37,10 +26,8 @@ export const subscribe = (eventName, subscriber) => {
 
 /**
  * Remove a subscriber for the given eventName.
- * @param {string} eventName -
- * @param {Subscriber} subscriber -
  */
-export const unsubscribe = (eventName, subscriber) => {
+export const unsubscribe = (eventName: Event, subscriber: Subscriber) => {
   const subscribersForEventName = subscribers.get(eventName);
   if (subscribersForEventName)
     subscribersForEventName.delete(subscriber);
@@ -48,11 +35,8 @@ export const unsubscribe = (eventName, subscriber) => {
 
 /**
  * Calls all subscribers of the given eventName with the supplied optional payload.
- * @param {string} eventName -
- * @param {Object} [payload] -
- * @returns {Object[]} - An array containing values returned by each subscriber.
  */
-export const emit = (eventName, payload) => {
+export const emit = (eventName: Event, payload: any): any[] => {
   const subscribersForEventName = subscribers.get(eventName);
   if (subscribersForEventName)
     return Array.from(subscribersForEventName).map(subscriber => subscriber(payload));
@@ -62,10 +46,8 @@ export const emit = (eventName, payload) => {
 
 /**
  * Execute the subcriber only once in response to this event.
- * @param {string} eventName -
- * @param {Subscriber} subscriber -
  */
-export const once = (eventName, subscriber) => {
+export const once = (eventName: Event, subscriber: Subscriber) => {
   const wrapper = (payload) => {
     subscriber(payload);
     unsubscribe(eventName, wrapper);

@@ -131,11 +131,11 @@ const buildClientJS = module.exports.buildClientJS = async () => {
   await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ app: true, resolve, reject })));
 };
 
-// const buildServiceWorker = module.exports.buildServiceWorker = async () => {
-//   console.trace("buildServiceWorker was invoked!!!");
-//   const compiler = await getCompiler({ serviceWorker: true });
-//   await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ resolve, reject })));
-// };
+const buildServiceWorker = module.exports.buildServiceWorker = async function buildServiceWorker () {
+  console.trace("buildServiceWorker was invoked!!!");
+  const compiler = await getCompiler({ serviceWorker: true });
+  return new Promise((resolve, reject) => compiler.run(getCompilerCallback({ resolve, reject })));
+};
 
 /* ********************************************** Static *********************************************************** */
 const copyStatics = module.exports.copyStatics = () =>
@@ -158,7 +158,10 @@ const generateWebManifest = module.exports.generateWebManifest = async () => {
 };
 
 /* ****************************************** Put 'Em Together ***************************************************** */
-const buildClient = module.exports.buildClient = gulp.parallel(buildClientJS, copyStatics, generateIndexHTML, generateWebManifest);
+const buildClient = module.exports.buildClient = gulp.series(
+  gulp.parallel(buildClientJS, copyStatics, generateIndexHTML, generateWebManifest),
+  buildServiceWorker,
+);
 const build = module.exports.build = gulp.series(transpile, buildClient);
 module.exports.dev = gulp.series(build);
-module.exports.clean = () => del([Dist, "app"]);
+module.exports.clean = () => del([Dist, "app", "db-data"]);

@@ -9,16 +9,16 @@ describe("model/Item", () => {
     const now = new Date();
     sinon.useFakeTimers(now.getTime());
     const url = "https://footube/dkjkdfjdk";
-    const addedBy = "le-influencer";
-    const item = makeItem({ url, addedBy });
+    const createdBy = "le-user";
+    const item = makeItem({ url, createdBy });
     assert.deepEqual(item, {
-      addedAt: now.toISOString(),
-      addedBy,
+      createdAt: now.toISOString(),
+      createdBy,
       id: md5(`${url}-${now.getTime()}`),
       metadata: null,
       status: Status.Pending,
       updatedAt: now.toISOString(),
-      updatedBy: addedBy,
+      updatedBy: createdBy,
       url,
     });
   });

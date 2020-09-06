@@ -3,7 +3,6 @@ import { getLogger } from "../logger";
 import { getRouter as getAPI } from "./api/index";
 import { getConfig } from "./config";
 import { initialize as initializeDB } from "./db/index";  // oooh modules are soooo awesome! and even Node support them now. Mmmm hmmm.
-// import { bootstrap as bootstrapDevServer } from "./dev-server";
 import { requestLogger } from "./express-middleware/index";
 import { getPassport } from "./getPassport";
 import { bootstrap as bootstrapPassport, getSessionStore, Secret } from "./getPassport";

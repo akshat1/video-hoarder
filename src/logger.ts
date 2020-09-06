@@ -2,42 +2,29 @@
  * @module logger
  */
 
-/**
- * A proxy to console.foo functions.
- *
- * @callback LogFunction
- * @param {...*} messages
- */
+enum Priority {
+  log = 6,   // Use this for stuff you always want to log.
+  error = 5,
+  warn = 4,
+  info = 3,
+  debug = 2,
+  all = -1,
+};
 
-/**
- * @typedef {Object} Logger
- * @property {Function} getName
- * @property {Function} setLevel
- * @property {module:logger~LogFunction} debug
- * @property {module:logger~LogFunction} error
- * @property {module:logger~LogFunction} info
- * @property {module:logger~LogFunction} log
- * @property {module:logger~LogFunction} warn
- */
-
-const Priority = {
-  log: 6,   // Use this for stuff you always want to log.
-  error: 5,
-  warn: 4,
-  info: 3,
-  debug: 2,
-  all: -1,
+interface Logger {
+  getName() : string,
+  setLevel(level:string): void,
+  debug(...messages: any[]): void,
+  error(...messages: any[]): void,
+  info(...messages: any[]): void,
+  log(...messages: any[]): void,
+  warn(...messages: any[]): void,
 };
 
 /**
  * Get a new Logger instance.
- *
- * @func
- * @param {string} name
- * @param {module:logger~Logger} [parentLogger]
- * @returns {Logger}
  */
-module.exports.getLogger = (name, parentLogger) => {
+export const getLogger = (name: string, parentLogger: Logger): Logger => {
   const fullName = parentLogger ? `${parentLogger.getName()}:${name}` : name;
   const stub = `[${fullName}]`;
   let loggerLevel = "debug";

@@ -7,7 +7,7 @@
     "build-docker": "docker build -t video-hoarder .",
     "build-storybook": "build-storybook -o docs/storybook",
     "build": "NODE_ENV=production gulp build",
-    "clean": "rm -rf dist/* docs/ db-data/",
+    "clean": "gulp clean",
     "dev": "npm run mkdir; NODE_ENV=development gulp dev; NODE_ENV=development node --inspect=0.0.0.0 --trace-warnings app/server/index.js",
     "docs": "mkdir -p docs; cp docs.html docs/index.html; npm run jsdoc; npm run build-storybook",
     "jsdoc": "jsdoc -c jsdoc.conf.json",
