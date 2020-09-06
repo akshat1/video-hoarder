@@ -3,7 +3,7 @@
  */
 import { doLogOut, goBack, goToAccountScreen, goToSettings } from "../redux/actions";
 import { isLoggedIn, isOnHomePage } from "../selectors";
-import Notifications from "./Notifications.jsx";
+import Notifications from "./Notifications";
 import {
   AppBar,
   Fade,

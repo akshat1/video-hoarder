@@ -3,8 +3,8 @@
  * Also provides controls to abort the download.
  */
 import { getDescription, getThumbnail, getTitle, ItemShape } from "../../model/Item.js";
-import CancelButton from "./CancelButton.jsx";
-import ItemMeta from "./ItemMeta.jsx";
+import CancelButton from "./CancelButton";
+import ItemMeta from "./ItemMeta";
 import { Button, Collapse, Grid, Link, Typography, useMediaQuery } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { makeStyles, useTheme } from "@material-ui/styles";

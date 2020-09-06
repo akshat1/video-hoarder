@@ -1,7 +1,7 @@
 import { isAdmin } from "../../model/User";
 import { doUpdateYTDLGlobalConfig,doYTDLUpgrade, fetchYTDLInfo } from "../redux/actions";
 import { getUser,getYTDLBinaryPath, getYTDLBinaryVersion, getYTDLGlobalConfig,isFetchingYTDLInfo } from "../selectors";
-import ConfigurationEditor from "./ConfigurationEditor.jsx";
+import ConfigurationEditor from "./ConfigurationEditor";
 import { Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";

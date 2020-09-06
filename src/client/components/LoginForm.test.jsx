@@ -1,5 +1,5 @@
 import { getTheme } from "../theme";
-import { isSubmitDisabled,LoginForm } from "./LoginForm.jsx";
+import { isSubmitDisabled,LoginForm } from "./LoginForm";
 import { ThemeProvider } from "@material-ui/styles";
 import { shallow } from "enzyme";
 import React from "react";

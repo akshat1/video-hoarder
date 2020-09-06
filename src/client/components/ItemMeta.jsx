@@ -1,6 +1,6 @@
 import { ItemShape } from "../../model/Item.js";
 import { hasStarted, Status } from "../../Status";
-import ItemStatus from "./ItemStatus.jsx";
+import ItemStatus from "./ItemStatus";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { Fragment } from "react";

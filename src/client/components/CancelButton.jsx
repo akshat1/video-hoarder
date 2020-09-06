@@ -4,7 +4,7 @@
 import { getTitle, ItemShape } from "../../model/Item";
 import { hasConcluded } from "../../Status";
 import { cancelJob, deleteJob } from "../redux/actions";
-import DeleteConfirmationDialog from "./DeleteConfirmationDialog.jsx";
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 import { Button } from "@material-ui/core";
 import { CancelOutlined, DeleteOutline } from "@material-ui/icons";
 import PropTypes from "prop-types";

@@ -1,4 +1,4 @@
-import App from "./App.jsx";
+import App from "./App";
 import { getStore } from "./redux";
 import { bootstrapClient } from "./socketio";
 import React from "react";

@@ -1,5 +1,5 @@
 import { Status } from "../../Status";
-import ItemStatus from "./ItemStatus.jsx";
+import ItemStatus from "./ItemStatus";
 import { radios,withKnobs } from "@storybook/addon-knobs";
 import React from "react";
 

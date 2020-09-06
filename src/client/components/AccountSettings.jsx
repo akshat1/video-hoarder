@@ -1,6 +1,6 @@
 import { updatePassword } from "../redux/actions";
 import { getUpdateUserErrorMessage, getUserName, isPasswordExpired, isUpdateUserFailed,isUpdateUserSucceeded, isUpdatingUser } from "../selectors";
-import PasswordChangeInput from "./PasswordChangeInput.jsx";
+import PasswordChangeInput from "./PasswordChangeInput";
 import { Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";

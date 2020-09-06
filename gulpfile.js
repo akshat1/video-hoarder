@@ -11,11 +11,9 @@ import _ from "lodash";
 import path from "path";
 import webpack from "webpack";
 
-const ClientJSEntry = "./src/client/index.js";
+const ClientJSEntry = "./app/client/index.js";
 const Dist = "dist/";
-const ServiceWorkerEntry = "./src/client/service-worker.js";
-const ClientJSWatchGlobs = ["src/client/**/*.js", "src/client/**/*.jsx"];
-const ServiceWorkerWatchGlobs = ["dist/**/*", "!dist/service-worker.js"];
+const ServiceWorkerEntry = "./app/client/service-worker.js";
 const StaticResourceGlobs = ["src/client/static/**/*.svg", "src/client/static/**/*.png"];
 const TemplateHTMLPath = "src/client/template.html";
 const WebManifestGlob = "src/client/static/app.webmanifest";
@@ -38,6 +36,15 @@ const getServerPath = async () => {
  * @returns {string}
  */
 export const getEnv = () => JSON.stringify(_.pick(process.env, "NODE_ENV"));
+
+export const transpile = () =>
+  gulp.src(["src/**/*.js", "src/**/*.ts", "src/**/*.jsx", "src/**/*.tsx"])
+    .pipe(debug({ title: "[buildServer]" }))
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .on("error", console.error.bind(console))
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest("./app"));
 
 /* ********************************************** Client JS ******************************************************** */
 const getWebPackConfig = async ({ app, serviceWorker }) => {
@@ -128,27 +135,11 @@ export const buildClientJS = async () => {
   await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ app: true, resolve, reject })));
 };
 
-export const watchClientJS = () => gulp.watch(ClientJSWatchGlobs, buildClientJS);
-
-export const buildServiceWorker = async () => {
-  console.trace("buildServiceWorker was invoked!!!");
-  const compiler = await getCompiler({ serviceWorker: true });
-  await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ resolve, reject })));
-};
-
-export const watchServiceWorker = () => gulp.watch(ServiceWorkerWatchGlobs, buildServiceWorker);
-
-/* *********************************************** Server ********************************************************** */
-export const buildServer = async () => {
-  console.log("Build the server");
-  return gulp.src(["src/**/*.js", "src/**/*.ts", "src/**/*.jsx", "src/**/*.tsx"])
-    .pipe(debug({ title: "[buildServer]" }))
-    // .pipe(sourcemaps.init())
-    .pipe(babel())
-    .on("error", console.error.bind(console))
-    // .pipe(sourcemaps.write("."))
-    .pipe(gulp.dest("./app"));
-};
+// export const buildServiceWorker = async () => {
+//   console.trace("buildServiceWorker was invoked!!!");
+//   const compiler = await getCompiler({ serviceWorker: true });
+//   await new Promise((resolve, reject) => compiler.run(getCompilerCallback({ resolve, reject })));
+// };
 
 /* ********************************************** Static *********************************************************** */
 export const copyStatics = () =>
@@ -157,7 +148,7 @@ export const copyStatics = () =>
 
 export const generateIndexHTML = async () => {
   const serverPath = await getServerPath();
-  gulp.src(TemplateHTMLPath)
+  return gulp.src(TemplateHTMLPath)
     .pipe(replace("%%%SERVER_PATH%%%", serverPath))
     .pipe(rename("index.html"))
     .pipe(gulp.dest(Dist));
@@ -172,8 +163,6 @@ export const generateWebManifest = async () => {
 
 /* ****************************************** Put 'Em Together ***************************************************** */
 export const buildClient = gulp.parallel(buildClientJS, copyStatics, generateIndexHTML, generateWebManifest);
-export const build = gulp.series(buildServer, buildClient);
-export const watch = gulp.parallel(watchClientJS, watchServiceWorker);
-export const dev = gulp.series(build, watch);
-
-export const clean = () => del(Dist);
+export const build = gulp.series(transpile, buildClient);
+export const dev = gulp.series(build);
+export const clean = () => del([Dist, "app"]);

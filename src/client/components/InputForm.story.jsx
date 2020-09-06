@@ -1,4 +1,4 @@
-import InputForm from "./InputForm.jsx";
+import InputForm from "./InputForm";
 import { action } from "@storybook/addon-actions";
 import { text,withKnobs } from "@storybook/addon-knobs";
 import React from "react";

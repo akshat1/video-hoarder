@@ -1,7 +1,7 @@
 import { Status } from "../../Status";
 import { getFakeItem } from "../fixtures/item";
 import { getTheme } from "../theme";
-import Item from "./Item.jsx";
+import Item from "./Item";
 import { ThemeProvider } from "@material-ui/styles";
 import { shallow } from "enzyme";
 import React from "react";

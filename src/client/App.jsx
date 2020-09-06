@@ -1,5 +1,5 @@
-import LoginForm from "./components/LoginForm.jsx";
-import Main from "./components/Main.jsx";
+import LoginForm from "./components/LoginForm";
+import Main from "./components/Main";
 import { getHistory } from "./history";
 import { initializeClient } from "./redux/actions";
 import { getPathname,isFetchingUser, isLoggedIn, isUserFetchDone } from "./selectors";

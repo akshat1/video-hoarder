@@ -1,4 +1,4 @@
-import { LoginForm } from "./LoginForm.jsx";
+import { LoginForm } from "./LoginForm";
 import { text } from "@storybook/addon-knobs";
 import React from "react";
 
