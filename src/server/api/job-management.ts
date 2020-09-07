@@ -1,24 +1,21 @@
 import { getLogger } from "../../logger";
-import { isAdmin } from "../../model/User";
+import { isAdmin, User } from "../../model/User";
 import * as db from "../db/index";
 import { ensureValidUser } from "../express-middleware/index";
-import express from "express";
+import express, { Request, Response, NextFunction, Router } from "express";
 
 const rootLogger = getLogger("api/job-management");
 
 const DefaultSort = [["updatedAt", -1]];
 
-/**
- * @func
- * @param {Request} req 
- * @param {Response} res 
- */
-export const getJobs = async (req, res, next) => {
+export const getJobs = async (req: Request, res: Response, next: NextFunction) => {
   const logger = getLogger("getJobs", rootLogger);
   // @todo avoid dupes.
   try {
     logger.debug(req.body);
-    const { body, user } = req;
+    const { body } = req;
+    // @ts-ignore
+    const user: User = req.user;
     const {
       query = {},
       pagination = {},
@@ -54,7 +51,7 @@ export const getJobs = async (req, res, next) => {
 
     const data = await db.toArray(cursor);
     // count() closes the cursor. Always make to call it _after_ toArray (which fails if the cursor is closed).
-    const count = await db.count(cursor);
+    const count = await db.count(cursor, false);
     const responseData = {
       count,
       data,
@@ -67,15 +64,12 @@ export const getJobs = async (req, res, next) => {
   }
 };
 
-/**
- * @func
- * @param {Request} req
- * @param {Response} res
- */
-export const addJob = async (req, res, next) => {
+export const addJob = async (req: Request, res: Response, next: NextFunction) => {
   const logger = getLogger("addJob", rootLogger);
   try {
-    const { userName: createdBy } = req.user;
+    // @ts-ignore
+    const user:User = req.user;
+    const { userName: createdBy } = user;
     const { url } = req.body;
     logger.debug("Adding new job", url, createdBy);
     const newJob = await db.addJob({ url, createdBy });
@@ -88,16 +82,12 @@ export const addJob = async (req, res, next) => {
   }
 };
 
-/**
- * @func
- * @param {Request} req 
- * @param {Response} res 
- * @param {func} next
- */
-export const stopJob = async (req, res, next) => {
+export const stopJob = async (req: Request, res: Response, next: NextFunction) => {
   const logger = getLogger("stopJob", rootLogger);
   try {
-    const { userName: updatedBy } = req.user;
+    // @ts-ignore
+    const user:User = req.user;
+    const { userName: updatedBy } = user;
     const { itemId: id } = req.body;
     logger.debug("stopping job", id, updatedBy);
     await db.cancelJob({ id, updatedBy });
@@ -110,13 +100,7 @@ export const stopJob = async (req, res, next) => {
   }
 };
 
-/**
- * @func
- * @param {Request} req 
- * @param {Response} res 
- * @param {func} next
- */
-export const deleteJob = async (req, res, next) => {
+export const deleteJob = async (req: Request, res: Response, next: NextFunction) => {
   const logger = getLogger("deleteJob", rootLogger);
   try {
     const { itemId: id } = req.body;
@@ -131,12 +115,8 @@ export const deleteJob = async (req, res, next) => {
   }
 };
 
-/**
- * @func
- * @returns {Router}
- */
-export const getRouter = () => {
-  const jobs = new express.Router();
+export const getRouter = (): Router => {
+  const jobs = express.Router();
   jobs.use(ensureValidUser);
   jobs.post("/jobs", getJobs);
   jobs.post("/job/add", addJob);

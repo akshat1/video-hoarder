@@ -4,6 +4,7 @@
     "typeRoots": [
       "src/customTypings"
     ],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "lib": ["ESNext"]
   }
 }

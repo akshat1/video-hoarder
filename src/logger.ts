@@ -12,6 +12,7 @@ enum Priority {
 };
 
 interface Logger {
+  _shouldLog(level: Priority): boolean,
   getName() : string,
   setLevel(level:string): void,
   debug(...messages: any[]): void,
@@ -24,7 +25,7 @@ interface Logger {
 /**
  * Get a new Logger instance.
  */
-export const getLogger = (name: string, parentLogger: Logger): Logger => {
+export const getLogger = (name: string, parentLogger?: Logger): Logger => {
   const fullName = parentLogger ? `${parentLogger.getName()}:${name}` : name;
   const stub = `[${fullName}]`;
   let loggerLevel = "debug";

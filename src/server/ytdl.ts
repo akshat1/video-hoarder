@@ -1,6 +1,6 @@
-import { Event } from "../Event";
+import { Event, ItemUpdatedPayload } from "../Event";
 import { getLogger } from "../logger";
-import { markItemInProgress } from "../model/Item";
+import { markItemInProgress, Item } from "../model/Item";
 import { Status } from "../Status";
 import { addMetadata, completeJob, failJob, getJobs, toArray } from "./db/index";
 import * as EventBus from "./event-bus";
@@ -18,10 +18,8 @@ let videoQ;
 
 /**
  * Downloads video metadata from youtube. Emits various bus-events along the way.
- * @param {Item}
- * @returns {Promise}
  */
-const downloadMeta = (item) => {
+const downloadMeta = (item: Item): Promise<any> => {
   const logger = getLogger("downloadMeta", rootLogger);
   logger.debug("begin", item);
   const args = [
@@ -30,13 +28,12 @@ const downloadMeta = (item) => {
     item.url,
   ];
   logger.debug("youtube-dl args", args);
-  const opts = { detached: true };
   return new Promise((resolve, reject) => {
     let subProcess;
-    const itemCancelHandler = ({ item }) => {
+    const itemCancelHandler = (args: ItemUpdatedPayload) => {
+      const { id, status } = args.item;
       const logger2 = getLogger(`itemCancelHandler-${id}`, logger);
       logger2.debug("Cancel", item)
-      const { id, status } = item;
       if (id === item.id && status === Status.Failed) {
         logger2.debug("item failed");
         // perhaps the item was cancelled?
@@ -51,7 +48,7 @@ const downloadMeta = (item) => {
       }
     };
 
-    subProcess = execFile("youtube-dl", args, opts, (error, stdout, stderr) => {
+    subProcess = execFile("youtube-dl", args, {}, (error: Error, stdout: Buffer, stderr: Buffer) => {
       const logger2 = getLogger(`execFileCallback-${item.id}`, logger);
       EventBus.unsubscribe(Event.ItemUpdated, itemCancelHandler);
       if (error) {
@@ -80,30 +77,19 @@ const downloadMeta = (item) => {
   });
 };
 
-/**
- * @typedef ConfigThunk
- * @property {string} pathName - path to youtibe-dl config file for this download.
- * @property {function} cleanUp - call after download is concluded (successfully or otherwise) to delete the temp config file.
- */
+interface ConfigThunk {
+  pathName: string,
+  cleanUp: () => Promise<any>,
+}
 
-/** @returns {string} */
-const getGlobalConfigFilePath = () => path.resolve(process.cwd(), "./youtube-dl.conf");
-/**
- * @returns {Promise.<string>}
- */
-export const getGlobalConfig = async () => (await fs.readFile(getGlobalConfigFilePath())).toString();
-
-/**
- * @param {string} configurationText
- */
-export const writeGlobalConfig = async (configurationText) => await fs.writeFile(getGlobalConfigFilePath(), configurationText);
+const getGlobalConfigFilePath = (): string => path.resolve(process.cwd(), "./youtube-dl.conf");
+export const getGlobalConfig = async (): Promise<string> => (await fs.readFile(getGlobalConfigFilePath())).toString();
+export const writeGlobalConfig = async (configurationText: string): Promise<void> => await fs.writeFile(getGlobalConfigFilePath(), configurationText);
 
 /**
  * Create a config file for _this_ download.
- * @param {Item} item
- * @returns {Promise<ConfigThunk>}
  */
-const getConfig = async (item) => {
+const getConfig = async (item: Item): Promise<ConfigThunk> => {
   const logger = getLogger("getConfig");
   logger.debug("get config for", item.url);
   await fs.mkdir(path.join(process.cwd(), "tmp"), { recursive: true });
@@ -122,10 +108,8 @@ const getConfig = async (item) => {
 
 /**
  * Downloads the video from youtube. Emits various bus-events along the way.
- * @param {Item}
- * @returns {Promise}
  */
-const downloadVideo = async (item) => {
+const downloadVideo = async (item: Item): Promise<any> => {
   const logger = getLogger("downloadVideo", rootLogger);
   logger.debug("begin", item);
   if (!item.metadata) {
@@ -140,13 +124,10 @@ const downloadVideo = async (item) => {
     item.url,
   ];
   logger.debug("download args", args);
-
-  const opts = { detached: true };
-
   return new Promise((resolve, reject) => {
     let subProcess;
-    const itemCancelHandler = ({ item }) => {
-      const { id, status } = item;
+    const itemCancelHandler = (args: ItemUpdatedPayload) => {
+      const { id, status } = args.item;
       if (id === item.id && status === Status.Failed) {
         // perhaps the item was cancelled?
         if (!subProcess.killed) {
@@ -165,7 +146,7 @@ const downloadVideo = async (item) => {
     });
 
     logger.debug("Start download process...");
-    subProcess = execFile("youtube-dl", args, opts, (error, stdout, stderr) => {
+    subProcess = execFile("youtube-dl", args, {}, (error: Error, stdout: Buffer, stderr: Buffer) => {
       const logger2 = getLogger(`execFileCallback ${item.id}`, logger);
       EventBus.unsubscribe(Event.ItemUpdated, itemCancelHandler);
       if (error) {
@@ -188,8 +169,7 @@ const downloadVideo = async (item) => {
   });
 };
 
-// TODO: Import and call init() from server startup routine.
-export const initializeYTDL = async () => {
+export const initializeYTDL = async (): Promise<void> => {
   const logger = getLogger("initializeYTDL", rootLogger);
   metadataQ = new PQueue({ concurrency: MetadataConcurrency });
   videoQ = new PQueue({ concurrency: VideoConcurrency });
@@ -223,8 +203,6 @@ export const initializeYTDL = async () => {
     metadataQ.add(() => downloadMeta(item));
   });
 
-  // This might become a problem if we ever update an item while it is already being downloaded; we might need a flag to indicate exactly whats's happening with an item.
-  // THIS HAS NOW BECOME A PROBLEM. THIS EVENT KEEPS GETTING TICKLED. WE NEED MORE GRANULARITY ABOUT THE RUNNING STATUS (OR SOMETHING ELSE; I DONT KNOW; ITS ALMOST 4 AM).
   EventBus.subscribe(Event.ItemUpdated, ({ item, previous }) => {
     logger.debug("ItemUpdated", { previous, item });
     if (!previous.metadata && item.metadata && (item.status === Status.Pending)) {

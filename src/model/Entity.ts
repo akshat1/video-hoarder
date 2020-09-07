@@ -1,7 +1,9 @@
+import { TimeStamp } from "./TimeStamp";
+
 export interface Entity {
   id: string,
-  createdAt: string,
+  createdAt: TimeStamp,
   createdBy: string,
-  updatedAt: string,
+  updatedAt: TimeStamp,
   updatedBy: string,
 };

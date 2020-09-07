@@ -11,7 +11,7 @@ import { serveWebManifest } from "./serve-webmanifest";
 import { bootstrap as bootstrapSocketIO } from "./socketio";
 import { initializeYTDL } from "./ytdl";
 import bodyParser from "body-parser";
-import express from "express";
+import express, { Request, Response } from "express";
 import fs from "fs";
 import http from "http";
 import https from "https";
@@ -19,7 +19,7 @@ import path from "path";
 
 const rootLogger = getLogger("server");
 
-process.on("unhandledRejection", (reason, p) => {
+process.on("unhandledRejection", (reason: any, p: Promise<any>) => {
   getLogger("process.unhandledRejection", rootLogger)
     .error("Unhandled Rejection at: Promise ", p, " reason: ", reason);
 });
@@ -29,10 +29,8 @@ process.on("unhandledRejection", (reason, p) => {
  * yet have top level async/await). This function is called automatically when NODE_ENV != test.
  * During testing, we explicitly call this function and set the single boolean param according to
  * which branch we are currently testing.
- *
- * @func
  */
-export const startServer = async () => {
+export const startServer = async (): Promise<void> => {
   const logger = getLogger("startServer", rootLogger);
   const config = getConfig();
   logger.debug("Got config:", config);
@@ -55,7 +53,7 @@ export const startServer = async () => {
   app.use(bodyParser.json());
   app.use(path.join(serverPath, "/static/"), express.static("./dist"));
   /* istanbul ignore next */
-  const options = {};
+  const options:https.ServerOptions = {};
   let server;
   if (useHTTPS) {
     // https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/
@@ -75,10 +73,9 @@ export const startServer = async () => {
   logger.debug("boostrap sockets");
   bootstrapSocketIO({
     pathname: serverPath,
+    secret: Secret,
     server,
     sessionStore: getSessionStore(),
-    secret: Secret,
-    // pathname: serverPath,
   });
   const onServerStart = () => {
     /* istanbul ignore next because we are not testing whether this callback is called */
@@ -88,7 +85,7 @@ export const startServer = async () => {
   await initializeYTDL();
   app.get(path.join(serverPath, "/app.webmanifest"), serveWebManifest);
   // Must come last
-  app.get(path.join(serverPath, "service-worker.js"), (req, res) => {
+  app.get(path.join(serverPath, "service-worker.js"), (req: Request, res: Response) => {
     logger.debug("serveServiceWorker", req.path);
     return res.sendFile(
       path.resolve(process.cwd(), "./dist/service-worker.js"),
@@ -99,5 +96,5 @@ export const startServer = async () => {
 
 /* istanbul ignore next */
 if (process.env.NODE_ENV !== "test") {
-  startServer(process.env.NODE_ENV === "development");
+  startServer();
 }

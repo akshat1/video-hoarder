@@ -3,15 +3,18 @@
  */
 
 import { getLogger } from "../logger";
-import { getClientUser } from "../model/User";
+import { getClientUser, User } from "../model/User";
 import { getUserByUserName,getVerifiedUser } from "./db/index";
 import Base64 from "Base64";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 import MemoryStore from "memorystore";
-import passport from "passport";
+import passport, { PassportStatic } from "passport";
 import Strategy from "passport-local";
+import { Callback } from "../model/Callback";
+import session from "express-session";
+import { RequestHandler, Application } from "express";
 
 const rootLogger = getLogger("getPassport");
 rootLogger.setLevel("warn");
@@ -20,15 +23,9 @@ export const MessageIncorrectLogin = "Incorrect username or password.";
 
 /**
  * Called by passport.js to verify the current user during log-in.
- *
- * @func
  * @private
- * @param {string} userName 
- * @param {string} password - unencrypted password
- * @param {Function} cb -
- * @returns {Promise}
  */
-export const verifyUser = async (userName, password, cb) => {
+export const verifyUser = async (userName: string, password: string, cb: Callback) => {
   const logger = getLogger("verifyUser", rootLogger);
   try {
     logger.debug("verifyUser called", userName, "*********");
@@ -47,27 +44,18 @@ export const verifyUser = async (userName, password, cb) => {
 
 /**
  * Given a user object, calls `cb` with a single memoizable identifier to be placed in cookie.
- *
- * @func
  * @private
- * @param {User} user
- * @param {Function} cb
  */
-export const serializeUser = (user, cb) => {
+export const serializeUser = (user: User, cb: Callback) => {
   rootLogger.debug("serialize user")
   cb(null, Base64.btoa(user.userName));
 };
 
 /**
  * Given a memoizable identifier, return the corresponding User object.
- *
- * @func
  * @private
- * @param {string} id
- * @param {Function} cb
- * @returns {Promise}
  */
-export const deserializeUser = async (id, cb) => {
+export const deserializeUser = async (id: string, cb: Callback): Promise<any> => {
   const logger = getLogger("deserializeUser", rootLogger);
   logger.debug(id);
   try {
@@ -84,10 +72,9 @@ export const deserializeUser = async (id, cb) => {
 
 let instance;
 /**
- * @func
- * @returns {Object} - passport.js instance.
+ * @returns passport.js instance.
  */
-export const getPassport = () => {
+export const getPassport = (): PassportStatic => {
   const logger = getLogger("getPassport", rootLogger);
   if (!instance) {
     logger.debug("Create passport instance");
@@ -98,21 +85,19 @@ export const getPassport = () => {
     passport.use(localStrategy);
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
-    instance = passport
+    instance = passport;
   }
   return instance;
 };
 
-/** @type {number} */
-export const SessionDuration = 24 * 60 * 60 * 1000;
-/** @type {string} */
-export const Secret = new Date(Date.now() + Math.random()).toUTCString();
+export const SessionDuration: number = 24 * 60 * 60 * 1000;
+export const Secret:string = new Date(Date.now() + Math.random()).toUTCString();
 
 let sessionStore;
 /**
- * @returns {Object} - the singleton instance of the session store.
+ * @returns the singleton instance of the session store.
  */
-export const getSessionStore = () => {
+export const getSessionStore = (): session.MemoryStore => {
   if (!sessionStore) {
     getLogger("getSessionStore", rootLogger).debug("Create new instance of MemoryStore");
     sessionStore = new (MemoryStore(expressSession))({ checkPeriod: SessionDuration });
@@ -123,9 +108,9 @@ export const getSessionStore = () => {
 
 let sessionMiddleware;
 /**
- * @returns {Object} - the singleton instance of the session middleware.
+ * @returns the singleton instance of the session middleware.
  */
-export const getSessionMiddleware = () => {
+export const getSessionMiddleware = (): RequestHandler  => {
   if (!sessionMiddleware) {
     sessionMiddleware = expressSession({
       resave: true,
@@ -141,10 +126,9 @@ export const getSessionMiddleware = () => {
 
 /**
  * Wires up the provided Express application object to use passport local auth.
- * @param {Object} args
- * @param {Application}
  */
-export const bootstrap = ({ app }) => {
+export const bootstrap = (args: { app: Application }) => {
+  const { app } = args;
   // Other middlewares can create problems with session middleware. So, we place session middleware at the end
   // See https://www.airpair.com/express/posts/expressjs-and-passportjs-sessions-deep-dive for some great info
   app.use(bodyParser.urlencoded({ extended: true }));

@@ -4,12 +4,12 @@ import * as EventBus from "../event-bus";
 import { ensureAdminUser } from "../express-middleware/index";
 import { getGlobalConfig as getGlobalYTDLConfig, writeGlobalConfig } from "../ytdl";
 import { execFile } from "child_process";
-import express from "express";
+import express, { Request, Response, NextFunction, Router } from "express";
+import { YTDLInformation } from "../../model/ytdl";
 
-const { Router } = express;
 const rootLogger = getLogger("api/ytdl");
 
-const getBinaryPath = () =>
+const getBinaryPath = (): Promise<string> =>
   new Promise((resolve, reject) => {
     execFile("which", ["youtube-dl"], {}, (error, stdout, stderr) => {
       const logger = getLogger("getBinaryPath", rootLogger);
@@ -26,7 +26,7 @@ const getBinaryPath = () =>
     });
   });
 
-const getBinaryVersion = () =>
+const getBinaryVersion = (): Promise<string> =>
   new Promise((resolve, reject) => {
     execFile("youtube-dl", ["--version"], {}, (error, stdout, stderr) => {
       const logger = getLogger("getBinaryVersion", rootLogger);
@@ -43,13 +43,13 @@ const getBinaryVersion = () =>
     });
   });
 
-const getYTDLInformation = async () => ({
+const getYTDLInformation = async (): Promise<YTDLInformation> => ({
   binaryPath: await getBinaryPath(),
   binaryVersion: await getBinaryVersion(),
   globalConfig: await getGlobalYTDLConfig(),
 });
 
-export const getInformation = async (req, res, next) => {
+export const getInformation =  async (req: Request, res: Response, next: NextFunction) => {
   const logger = getLogger("getInformation", rootLogger);
   logger.debug("Get binary path");
   try {
@@ -62,7 +62,7 @@ export const getInformation = async (req, res, next) => {
 };
 
 // This call always succeeds, failure and success are indicated via the socket
-export const installLatestVersion = (req, res) => {
+export const installLatestVersion = (req: Request, res: Response) => {
   const logger = getLogger("installLatestVersion", rootLogger);
   execFile("youtube-dl", ["-U"], {}, async (error, stdout, stderr) => {
     if (error || stderr.length) {
@@ -81,7 +81,7 @@ export const installLatestVersion = (req, res) => {
   return res.send("OK");
 };
 
-export const updateGlobalConfig = async (req, res, next) => {
+export const updateGlobalConfig = async (req: Request, res: Response, next: NextFunction) => {
   const logger = getLogger("updateGlobalConfig", rootLogger);
   const { newConfiguration } = req.body;
   try {
@@ -94,9 +94,8 @@ export const updateGlobalConfig = async (req, res, next) => {
   }
 };
 
-export const getRouter = () => {
-  const router = new Router();
-
+export const getRouter = (): Router => {
+  const router = express.Router();
   router.get("/information", getInformation);
   router.post("/upgrade", installLatestVersion);
   router.put("/global-config", ensureAdminUser, updateGlobalConfig);
