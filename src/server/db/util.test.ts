@@ -1,5 +1,6 @@
-import { fakeCollection, fakeCursor,FakeDB } from "../../fixtures/tingodb";
-import { find, findOne, getCollection, insert, remove,save, toArray, update  } from "./util";
+import assert from "assert";
+import { fakeCollection, fakeCursor, fakeDB } from "../../fixtures/tingodb";
+import { find, findOne, getCollection, insert, remove,save, toArray, update, CollectionName  } from "./util";
 
 jest.mock("tingodb", () => {
   return {
@@ -10,22 +11,22 @@ jest.mock("tingodb", () => {
 
 describe("db/util", () => {
   test("getCollection", async () => {
-    const db = new FakeDB();
+    const db = fakeDB();
     const expectedCollection = {};
     let actualName;
     db.collection.mockImplementation((name, cb) => {
       actualName = name;
       cb(null, expectedCollection);
     });
-    const actualCollection = await getCollection(db, "fubar");
+    const actualCollection = await getCollection(db, CollectionName.Jobs);
     expect(actualCollection).toBe(expectedCollection);
-    expect(actualName).toBe("fubar");
+    expect(actualName).toBe(CollectionName.Jobs);
 
     let actualError;
     const expectedError = new Error("fake error");
     try {
       db.collection.mockImplementation((name, cb) => cb(expectedError));
-      await getCollection(db, "fubar");
+      await getCollection(db, CollectionName.Users);
     } catch (err) {
       actualError = err;
     }
@@ -37,6 +38,7 @@ describe("db/util", () => {
     const collection = fakeCollection();
     let actualQuery, actualFields, actualOptions;
     const expectedResult = {};
+    // @ts-ignore
     collection.findOne.mockImplementation((query, fields, options, callback) => {
       actualQuery = query;
       actualFields = fields;
@@ -53,6 +55,7 @@ describe("db/util", () => {
     const expectedError = new Error("fubar");
     let actualError;
     try {
+      // @ts-ignore
       collection.findOne.mockImplementation((query, fields, options, callback) => callback(expectedError));
       await findOne(collection, "query", "fields", "options");
     } catch (err) {
@@ -65,6 +68,7 @@ describe("db/util", () => {
     const collection = fakeCollection();
     let actualQuery, actualFields, actualOptions;
     const expectedResult = {};
+    // @ts-ignore
     collection.find.mockImplementation((query, fields, options, callback) => {
       actualQuery = query;
       actualFields = fields;
@@ -81,6 +85,7 @@ describe("db/util", () => {
     const expectedError = new Error("fubar");
     let actualError;
     try {
+      // @ts-ignore
       collection.find.mockImplementation((query, fields, options, callback) => callback(expectedError));
       await find(collection, "query", "fields", "options");
     } catch (err) {
@@ -92,11 +97,12 @@ describe("db/util", () => {
   test("insert", async () => {
     const collection = fakeCollection();
     let actualDocs, actualOptions;
-    const expectedResult = {};
+    const expectedResult = [{}];
+    // @ts-ignore
     collection.insert.mockImplementation((docs, options, callback) => {
       actualDocs = docs;
       actualOptions = options;
-      callback(null, [expectedResult])
+      callback(null, expectedResult)
     });
     const result = await insert(collection, "docs", "options");
     expect(collection.insert).toHaveBeenCalled();
@@ -107,6 +113,7 @@ describe("db/util", () => {
     const expectedError = new Error("fubar");
     let actualError;
     try {
+      // @ts-ignore
       collection.insert.mockImplementation((docs, options, callback) => callback(expectedError));
       await insert(collection, "docs", "options");
     } catch (err) {
@@ -119,22 +126,25 @@ describe("db/util", () => {
     const collection = fakeCollection();
     let actualDocs, actualOptions;
     const expectedResult = {};
+    // @ts-ignore
     collection.save.mockImplementation((docs, options, callback) => {
       actualDocs = docs;
       actualOptions = options;
       callback(null, expectedResult)
     });
-    const result = await save(collection, "docs", "options");
+    const docs = [{ a: "A" }, { b: "B" }];
+    const result = await save(collection, docs, "options");
     expect(collection.save).toHaveBeenCalled();
-    expect(actualDocs).toEqual("docs");
+    expect(actualDocs).toEqual(docs);
     expect(actualOptions).toEqual("options");
     expect(result).toBe(expectedResult);
 
     const expectedError = new Error("fubar");
     let actualError;
     try {
+      // @ts-ignore
       collection.save.mockImplementation((docs, options, callback) => callback(expectedError));
-      await save(collection, "docs", "options");
+      await save(collection, docs, "options");
     } catch (err) {
       actualError = err;
     }
@@ -144,23 +154,28 @@ describe("db/util", () => {
   test("update", async () => {
     const collection = fakeCollection();
     let actualCriteria, actualUpdate, actualOptions;
-    const expectedResult = {};
+    const count = 10;
+    const status = "foo";
+    const expectedResult = { count, status };
+    // @ts-ignore
     collection.update.mockImplementation((criteria, update, options, callback) => {
       actualCriteria = criteria;
       actualUpdate = update;
       actualOptions = options;
-      callback(null, expectedResult)
+      callback(null, count, status);
     });
     const result = await update(collection, "criteria", "update", "options");
     expect(collection.update).toHaveBeenCalled();
     expect(actualCriteria).toEqual("criteria");
     expect(actualUpdate).toEqual("update");
     expect(actualOptions).toEqual("options");
-    expect(result).toBe(expectedResult);
+    // expect(result).toBe(expectedResult);
+    assert.deepEqual(result, expectedResult);
 
     const expectedError = new Error("fubar");
     let actualError;
     try {
+      // @ts-ignore
       collection.update.mockImplementation((criteria, update, options, callback) => callback(expectedError));
       await update(collection, "criteria", "update", "options");
     } catch (err) {
@@ -173,6 +188,7 @@ describe("db/util", () => {
     const collection = fakeCollection();
     let actualCriteria, actualOptions;
     const expectedResult = {};
+    // @ts-ignore
     collection.remove.mockImplementation((criteria, options, callback) => {
       actualCriteria = criteria;
       actualOptions = options;
@@ -187,6 +203,7 @@ describe("db/util", () => {
     const expectedError = new Error("fubar");
     let actualError;
     try {
+      // @ts-ignore
       collection.remove.mockImplementation((criteria, options, callback) => callback(expectedError));
       await remove(collection, "criteria", "options");
     } catch (err) {
@@ -198,6 +215,7 @@ describe("db/util", () => {
   test("toArray", async () => {
     const cursor = fakeCursor();
     const expectedResult = {};
+    // @ts-ignore
     cursor.toArray.mockImplementation((callback) => callback(null, expectedResult));
     const actualResult = await toArray(cursor);
     expect(actualResult).toBe(expectedResult);
@@ -205,6 +223,7 @@ describe("db/util", () => {
     const expectedError = new Error("fubar");
     let actualError;
     try {
+      // @ts-ignore
       cursor.toArray.mockImplementation(callback => callback(expectedError));
       await toArray(cursor);
     } catch (err) {

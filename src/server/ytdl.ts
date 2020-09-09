@@ -158,6 +158,8 @@ const downloadVideo = async (item: Item): Promise<any> => {
       }
     });
 
+    const logger2 = getLogger("subprocess", logger);
+    subProcess.stdout.on("data", data => logger2.debug(data));
     EventBus.subscribe(Event.ItemUpdated, itemCancelHandler);
   })
   .catch((error) => {

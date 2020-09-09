@@ -16,10 +16,15 @@ describe("db/job-management", () => {
   const jobsCollection = {  col: "lection" };
 
   beforeEach(() => {
+    // @ts-ignore
     getDb.mockReset();
+    // @ts-ignore
     getJobsCollection.mockReset();
+    // @ts-ignore
     getDb.mockReturnValue(db);
+    // @ts-ignore
     getJobsCollection.mockResolvedValue(jobsCollection);
+    // @ts-ignore
     emit.mockReset();
   });
 
@@ -27,9 +32,11 @@ describe("db/job-management", () => {
     const url = "bar";
     const job = { jo: "b" };
     const createdBy = "foo";
+    // @ts-ignore
     makeItem.mockReturnValue(job);
     const expectedResult = { expected: "result" };
-    insert.mockResolvedValue(expectedResult);
+    // @ts-ignore
+    insert.mockResolvedValue([expectedResult]);
     const result = await addJob({ url, createdBy });
     expect(result).toBe(expectedResult);
     expect(insert).toHaveBeenCalledWith(jobsCollection, job, { w: 1 });
@@ -39,7 +46,9 @@ describe("db/job-management", () => {
   test("cancelJob", async () => {
     const id = "some-item-id";
     const item = { id: id };
-    update.mockResolvedValue([1]);
+    // @ts-ignore
+    update.mockResolvedValue({ count: 1, status: "foo" });
+    // @ts-ignore
     findOne.mockResolvedValue(item);
     const expectedTime = "foo";
     const updatedBy = "bar";
@@ -50,6 +59,7 @@ describe("db/job-management", () => {
       updatedAt: expectedTime,
       updatedBy,
     };
+    // @ts-ignore
     markItemCanceled.mockReturnValue(expectedItem);
     const updatedItem = await cancelJob({ id, updatedBy });
     /*
@@ -68,7 +78,9 @@ describe("db/job-management", () => {
   test("removeJob", async () => {
     const id = "some-item-id";
     const item = { id: id };
+    // @ts-ignore
     remove.mockResolvedValue(1);
+    // @ts-ignore
     findOne.mockResolvedValue(item);
     const numRecordsRemoved = await removeJob(id);
     expect(remove).toHaveBeenCalledWith(jobsCollection, { id });
@@ -79,6 +91,7 @@ describe("db/job-management", () => {
   test("getJob", async () => {
     const id = "baz";
     const expectedItem = { foo: "bar" };
+    // @ts-ignore
     findOne.mockResolvedValue(expectedItem);
     const item = await getJob(id);
     expect(item).toBe(expectedItem);
@@ -87,6 +100,7 @@ describe("db/job-management", () => {
 
   test("getJobsForUser", async () => {
     const expectedItems = [ { a: "aye" }, { b: "bee "}];
+    // @ts-ignore
     find.mockResolvedValue(expectedItems);
     const userName = "foo";
     const items = await getJobsForUser(userName);

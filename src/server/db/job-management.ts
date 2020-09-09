@@ -3,7 +3,7 @@ import { getLogger } from "../../logger";
 import { makeItem, markItemCanceled,markItemFailed,markItemSuccessful, setMetadata, Item, ItemMetadata } from "../../model/Item";
 import { emit } from "../event-bus";
 import { find, findOne, getJobsCollection,insert, remove, update } from "./util";
-import { Query, Cursor } from "../../../../../../../smb-shares/akshat/git/video-hoarder/types/tingodb";
+import { Query, Cursor } from "../../../types/tingodb";
 
 const rootLogger = getLogger("job-management");
 
@@ -41,7 +41,7 @@ export const cancelJob = async (args: { id: string, updatedBy: string }): Promis
     const updatedItem = markItemCanceled({ item, updatedBy });
     // @ts-ignore
     const { count, status } = await update(jobs, { id }, updatedItem);
-    logger.debug("Updated job", { numUpdatedRecords: count, opStatus: status });
+    logger.debug("Updated job", { count, status });
     /* istanbul ignore else */
     if (count === 1) {
       logger.debug("Emit bus event for ItemUpdated");
@@ -52,8 +52,8 @@ export const cancelJob = async (args: { id: string, updatedBy: string }): Promis
       return updatedItem;
     } else {
       logger.error("Something went wrong in the update", {
-        numUpdatedRecords: count,
-        opStatus: status,
+        count,
+        status,
       });
     }
   } else {

@@ -1,7 +1,7 @@
 import { getLogger } from "../../logger";
 import path from "path";
 import Tingo from "tingodb";
-import { Db, Collection, Projection, FindOptions, Query, InsertOptions, Cursor, SaveOptions, UpdateOptions, UpdateResult, RemoveOptions, SortClause } from "../../../../../../../smb-shares/akshat/git/video-hoarder/types/tingodb";
+import { Db, Collection, Projection, FindOptions, Query, InsertOptions, Cursor, SaveOptions, UpdateOptions, RemoveOptions, SortClause } from "../../../types/tingodb";
 
 export enum CollectionName {
   Users = "users",
@@ -104,7 +104,7 @@ export const save = (collection:Collection, docs: any[], options?: SaveOptions):
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/insert.html#update
  * @returns An array of the form [numRecordsUpdated:number, operationStatus:Object]
  */
-export const update = (collection: Collection, criteria: Query, update, options?: UpdateOptions): Promise<UpdateResult> =>
+export const update = (collection: Collection, criteria: Query, update, options?: UpdateOptions): Promise<{ count: number, status: string }> =>
   new Promise((resolve, reject) => collection.update(criteria, update, options, (error: Error, count, status) => {
     getLogger("update", rootLogger).debug({ error, result: { count, status } });
     error ? reject(error) : resolve({ count, status });

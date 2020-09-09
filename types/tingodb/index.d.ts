@@ -16,30 +16,25 @@ export type UpdateOptions = Object
 
 export type RemoveOptions = Object
 
-export interface UpdateResult {
-  count: number,
-  status: string,
-}
-
 export type SortClause = [string, number];
 
 // @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html
 export interface Cursor {
-  toArray(callback: (error, documents: any[]) => void);
   count(applySkipLimit: boolean, callback: (error, count: number) => void)
-  sort(key: SortClause[] | string, callback: (error, cursor: Cursor) => void);
   limit(limit: number, callback: (error, cursor: Cursor) => void);
   skip(numToSkip: number, callback: (error, cursor: Cursor) => void);
+  sort(key: SortClause[] | string, callback: (error, cursor: Cursor) => void);
+  toArray(callback: (error, documents: any[]) => void);
 }
 
 // @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/collections.html
 export interface Collection {
-  findOne(query: Query, fields: Projection, options: FindOptions, callback: (error, document: any) => void);
   find(query: Query, fields: Projection, options: FindOptions, callback: (error, cursor: Cursor) => void);
+  findOne(query: Query, fields: Projection, options: FindOptions, callback: (error, document: any) => void);
   insert(documents: any | any[], options: InsertOptions, callback: (error, data) => void);
-  save(documents: any[], options: SaveOptions, callback: (error, data) => void);
-  update(criteria: Query, update, options: UpdateOptions, callback: (error, result: UpdateResult) => void);
   remove(criteria: Query, options: RemoveOptions, callback: (error, numRemoved: number) => void);
+  save(documents: any[], options: SaveOptions, callback: (error, data) => void);
+  update(criteria: Query, update, options: UpdateOptions, callback: (error, count: number, status: string) => void);
 }
 
 // @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/db.html#id1
