@@ -6,13 +6,8 @@ import { createDB, getDb } from "./util";
 
 /**
  * Initialize the database. Creates user collection and the default user.
- *
- * @func
- * @memberof module:server/db
- * @param {DB} db
- * @returns {Promise}
  */
-export const initialize = async () => {
+export const initialize = async (): Promise<any> => {
   const logger = getLogger("initialize");
   if (!getDb()) {
     await createDB();

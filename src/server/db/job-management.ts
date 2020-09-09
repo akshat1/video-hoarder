@@ -1,49 +1,36 @@
 import { Event } from "../../Event";
 import { getLogger } from "../../logger";
-import { makeItem, markItemCanceled,markItemFailed,markItemSuccessful, setMetadata } from "../../model/Item";
+import { makeItem, markItemCanceled,markItemFailed,markItemSuccessful, setMetadata, Item, ItemMetadata } from "../../model/Item";
 import { emit } from "../event-bus";
 import { find, findOne, getJobsCollection,insert, remove, update } from "./util";
+import { Query, Cursor } from "../../../../../../../smb-shares/akshat/git/video-hoarder/types/tingodb";
 
 const rootLogger = getLogger("job-management");
 
 /**
  * This will emit 'ItemAdded' event.
- * @func
- * @memberof module:server/db
- * @param {Object} args -
- * @param {string} args.url - url to be downloaded
- * @param {string} args.createdBy - userName of the user adding this task.
- * @returns {Promise<Item>}
+ * @param args.url - url to be downloaded
+ * @param args.createdBy - userName of the user adding this task.
  */
-export const addJob = async ({ createdBy, url }) => {
+export const addJob = async (args: { url: string, createdBy: string }): Promise<Item> => {
+  const { createdBy, url } = args;
   const item = makeItem({ url, createdBy });
   const jobs = await getJobsCollection()
-  const newJob = await insert(jobs, item, { w: 1 });
+  const newJob = (await insert(jobs, item, { w: 1 }))[0];
   emit(Event.ItemAdded, newJob);
   return newJob;
 };
 
-/**
- * @func
- * @memberof module:server/db
- * @param {string} id
- * @returns {Promise<Item>}
- */
-export const getJob = async (id) => {
+export const getJob = async (id: string): Promise<Item> => {
   const jobs = await getJobsCollection()
   return findOne(jobs, { id });
 }
 
 /**
  * This will emit 'ItemUpdated' event.
- * @func
- * @memberof module:server/db
- * @param {Object} args
- * @param {string} args.id
- * @param {string} args.updatedBy
- * @returns {Promise<Item>}
  */
-export const cancelJob = async ({ id, updatedBy }) => {
+export const cancelJob = async (args: { id: string, updatedBy: string }): Promise<Item> => {
+  const { id, updatedBy } = args;
   const logger = getLogger("cancelJob", rootLogger);
   logger.debug("Cancelling", id);
   const item = await getJob(id);
@@ -52,10 +39,11 @@ export const cancelJob = async ({ id, updatedBy }) => {
   if (item) {
     const jobs = await getJobsCollection()
     const updatedItem = markItemCanceled({ item, updatedBy });
-    const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
-    logger.debug("Updated job", { numUpdatedRecords, opStatus });
+    // @ts-ignore
+    const { count, status } = await update(jobs, { id }, updatedItem);
+    logger.debug("Updated job", { numUpdatedRecords: count, opStatus: status });
     /* istanbul ignore else */
-    if (numUpdatedRecords === 1) {
+    if (count === 1) {
       logger.debug("Emit bus event for ItemUpdated");
       emit(Event.ItemUpdated, {
         previous: item,
@@ -64,8 +52,8 @@ export const cancelJob = async ({ id, updatedBy }) => {
       return updatedItem;
     } else {
       logger.error("Something went wrong in the update", {
-        numUpdatedRecords,
-        opStatus,
+        numUpdatedRecords: count,
+        opStatus: status,
       });
     }
   } else {
@@ -75,21 +63,17 @@ export const cancelJob = async ({ id, updatedBy }) => {
 
 /**
  * Mark an item failed and associate the given error with it.
- *
- * @param {Object} args
- * @param {Item} args.item
- * @param {string} args.errorMessage
- * @return {Promise}
  */
-export const failJob = async ({ errorMessage, item }) => {
+export const failJob = async (args: { errorMessage: string, item: Item }): Promise<Item> => {
+  const { errorMessage, item } = args;
   const logger = getLogger("failJob", rootLogger);
   const { id } = item;
   const jobs = await getJobsCollection();
   logger.debug("Got jobs collection", !!jobs);
   const updatedItem = markItemFailed({ item, errorMessage });
   logger.debug("Update to", updatedItem);
-  const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
-  if (numUpdatedRecords === 1) {
+  const { count, status } = await update(jobs, { id }, updatedItem);
+  if (count === 1) {
     logger.debug("Emit busEvent for failJob");
     emit(Event.ItemUpdated, {
       previous: item,
@@ -99,19 +83,16 @@ export const failJob = async ({ errorMessage, item }) => {
     return updatedItem;
   } else {
     logger.error("Something went wrong in the update", {
-      numUpdatedRecords,
-      opStatus,
+      numUpdatedRecords: count,
+      opStatus: status,
     });
   }
 };
 
 /**
  * Associate the given metadata with the given item.
- * @param {Object} args
- * @param {ItemMetadata} args.metadata
- * @param {Item} args.item
  */
-export const addMetadata = async (args) => {
+export const addMetadata = async (args: { item: Item, metadata: ItemMetadata}): Promise<Item> => {
   const logger = getLogger("addMetadata", rootLogger);
   logger.debug("begin", args);
   const { item, metadata } = args;
@@ -119,9 +100,10 @@ export const addMetadata = async (args) => {
   const jobs = await getJobsCollection();
   const updatedItem = setMetadata({ item, metadata });
   logger.debug("Update to", updatedItem);
-  const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
+  // @ts-ignore
+  const { count, status } = await update(jobs, { id }, updatedItem);
 
-  if (numUpdatedRecords === 1) {
+  if (count === 1) {
     emit(Event.ItemUpdated, {
       previous: item,
       item: updatedItem,
@@ -129,18 +111,16 @@ export const addMetadata = async (args) => {
     return updatedItem;
   } else {
     logger.error("Something went wrong in the update", {
-      numUpdatedRecords,
-      opStatus,
+      numUpdatedRecords: count,
+      opStatus: status,
     });
   }
 };
 
 /**
  * Mark a job as complete.
- * @param {Item} item
- * @returns {Promise}
  */
-export const completeJob = async (item) => {
+export const completeJob = async (item: Item): Promise<Item> => {
   const logger = getLogger("completeJob", rootLogger);
   logger.debug(item);
   const { id } = item;
@@ -148,9 +128,10 @@ export const completeJob = async (item) => {
   logger.debug("Got jobs collection", !!jobs);
   const updatedItem = markItemSuccessful(item);
   logger.debug("Update to", updatedItem);
-  const [numUpdatedRecords, opStatus] = await update(jobs, { id }, updatedItem);
+  // @ts-ignore
+  const { count, status } = await update(jobs, { id }, updatedItem);
 
-  if (numUpdatedRecords === 1) {
+  if (count === 1) {
     emit(Event.ItemUpdated, {
       previous: item,
       item: updatedItem,
@@ -158,21 +139,16 @@ export const completeJob = async (item) => {
     return updatedItem;
   } else {
     logger.error("Something went wrong in the update", {
-      numUpdatedRecords,
-      opStatus,
+      numUpdatedRecords: count,
+      opStatus: status,
     });
   }
 }
 
 /**
  * This will emit 'ItemRemoved' event.
- * @func
- * @memberof module:server/db
- * @param {Object} args
- * @param {string} args.id
- * @returns {Promise}
  */
-export const removeJob = async (id) => {
+export const removeJob = async (id: string): Promise<number> => {
   const logger = getLogger("removeJob", rootLogger);
   const item = await getJob(id);
   /* istanbul ignore else */
@@ -195,27 +171,16 @@ export const removeJob = async (id) => {
 
 /**
  * Find jobs filtered by this query.
- *
- * @func
- * @memberof module:server/db
- * @param {Query} [query]
- * @returns {Promise<Cursor[]>}
  */
-export const getJobs = async (query) => {
+export const getJobs = async (query: Query): Promise<Cursor> => {
   const jobs = await getJobsCollection()
   return find(jobs, query);
 };
 
 /**
  * Find jobs added by this user filtered by this query.
- *
- * @func
- * @memberof module:server/db
- * @param {string} userName
- * @param {Query} [query]
- * @returns {Promise<Cursor[]>}
  */
-export const getJobsForUser = async (userName, query = {}) => {
+export const getJobsForUser = async (userName: string, query:Query = {}): Promise<Cursor> => {
   return getJobs({ ...query, createdBy: userName });
 };
 

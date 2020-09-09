@@ -2,9 +2,12 @@
   "compilerOptions": {
     "jsx": "react",
     "typeRoots": [
-      "src/customTypings"
+      "./types",
+      "./node_modules/@types"
     ],
     "esModuleInterop": true,
-    "lib": ["ESNext"]
-  }
+    "lib": ["ESNext"],
+  },
+  "typeAcquisition": { "enable": true },
+  "exclude": ["node_modules", "./types"]
 }
