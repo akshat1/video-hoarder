@@ -1,9 +1,10 @@
 import { getRouter as getJobsAPI } from "./job-management";
 import { getRouter as getUserAPI } from "./user-management";
 import { getRouter as getYTDLApi } from "./ytdl";
-import express, { Router } from "express";
+import { Router } from "express";
+import { PassportStatic } from "passport";
 
-export const getRouter = (passport):Router => {
+export const getRouter = (passport: PassportStatic):Router => {
   const router = Router();
 
   router.use(getUserAPI(passport));

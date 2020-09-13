@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* This is used in the gulpfile, so needs to be straight JS. */
 const DefaultConfig = require("../DefaultConfig.js");
 const fs  = require("fs");

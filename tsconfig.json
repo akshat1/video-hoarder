@@ -8,6 +8,5 @@
     "esModuleInterop": true,
     "lib": ["ESNext"],
   },
-  "typeAcquisition": { "enable": true },
-  "exclude": ["node_modules", "./types"]
+  "typeAcquisition": { "enable": true }
 }

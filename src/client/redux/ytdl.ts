@@ -1,23 +1,20 @@
-import { getLogger } from "../../../logger";
-import { getURL } from "../../util";
-import { makeActionF } from "../boilerplate";
-import { getInstance } from "../net";
+import { getLogger } from "../../logger";
+import { DummyYTDLInfo,YTDLInformation } from "../../model/ytdl";
+import { getURL } from "../util";
+import { actionCreatorFactory, AsyncActionCreator, Dispatch, reducerFactory } from "./boilerplate";
+import { getInstance } from "./net";
 import { showNotification } from "./notifications";
 
 const rootLogger = getLogger("actions/ytdl");
 
 export const FetchingYTDLInfo = "FetchingYTDLInfo";
-export const setFetchingYTDLInfo = makeActionF(FetchingYTDLInfo);
+export const setFetchingYTDLInfo = actionCreatorFactory<boolean>(FetchingYTDLInfo);
 
 export const YTDLInfo = "YTDLInfo";
-export const setYTDLInfo = makeActionF(YTDLInfo);
+export const setYTDLInfo = actionCreatorFactory<YTDLInformation>(YTDLInfo);
 
-/**
- * @func
- * @returns {ActionCreator}
- */
-export const fetchYTDLInfo = () =>
-  async (dispatch) => {
+export const fetchYTDLInfo = (): AsyncActionCreator =>
+  async (dispatch: Dispatch) => {
     const logger = getLogger("fetchYTDLInfo", rootLogger);
     try {
       dispatch(setFetchingYTDLInfo(true));
@@ -34,38 +31,24 @@ export const fetchYTDLInfo = () =>
     dispatch(setFetchingYTDLInfo(false));
   };
 
-/**
- * @func
- * @param {Error} error 
- * @returns {ActionCreator}
- */
-export const signalYTDLUpgradeFailure = (error) =>
-  (dispatch) => {
+export const signalYTDLUpgradeFailure = (error: Error): AsyncActionCreator =>
+  (dispatch: Dispatch) => {
     getLogger("signalYTDLUpgradeFailure").error(error);
-    dispatch(setYTDLInfo({}));
+    dispatch(setYTDLInfo(DummyYTDLInfo));
     dispatch(setFetchingYTDLInfo(false));
     dispatch(showNotification(`youtube-dl upgrade failed: ${error.message}`, "error"));
   };
 
-/**
- * @func
- * @param {YTDLInformation} information 
- * @returns {ActionCreator}
- */
-export const signalYTDLUpgradeSuccess = (information) =>
-  (dispatch) => {
+export const signalYTDLUpgradeSuccess = (information: YTDLInformation): AsyncActionCreator =>
+  (dispatch: Dispatch) => {
     getLogger("signalYTDLUpgradeSuccess").debug("Success");
     dispatch(setYTDLInfo(information));
     dispatch(setFetchingYTDLInfo(false));
     dispatch(showNotification(`youtube-dl upgraded to version ${information.binaryVersion}`, "success"));
   };
 
-/**
- * @func
- * @returns {ActionCreator}
- */
-export const doYTDLUpgrade = () =>
-  async (dispatch) => {
+export const doYTDLUpgrade = (): AsyncActionCreator =>
+  async (dispatch: Dispatch): Promise<void> => {
     const logger = getLogger("doYTDLUpgrade");
     try {
       dispatch(setFetchingYTDLInfo(true));
@@ -80,13 +63,8 @@ export const doYTDLUpgrade = () =>
     }
   };
 
-/**
- * @func
- * @param {string} newConfiguration
- * @returns {ActionCreator}
- */
-export const doUpdateYTDLGlobalConfig = (newConfiguration) =>
-  async (dispatch) => {
+export const doUpdateYTDLGlobalConfig = (newConfiguration: string): AsyncActionCreator =>
+  async (dispatch: Dispatch): Promise<void> => {
     const logger = getLogger("updateYTDLGlobalConfig");
     try {
       dispatch(setFetchingYTDLInfo(true));
@@ -101,3 +79,6 @@ export const doUpdateYTDLGlobalConfig = (newConfiguration) =>
     }
     dispatch(setFetchingYTDLInfo(false));
   };
+
+export const ytdlInfo = reducerFactory<YTDLInformation>(YTDLInfo, DummyYTDLInfo);
+export const fetchingYTDLInfo = reducerFactory<boolean>(FetchingYTDLInfo, false);

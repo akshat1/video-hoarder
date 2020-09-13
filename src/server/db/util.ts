@@ -1,12 +1,11 @@
 import { getLogger } from "../../logger";
 import path from "path";
-import Tingo from "tingodb";
-import { Db, Collection, Projection, FindOptions, Query, InsertOptions, Cursor, SaveOptions, UpdateOptions, RemoveOptions, SortClause } from "../../../types/tingodb";
+import Tingo, { Collection, Cursor, Db, FindOptions, InsertOptions,Projection, Query, RemoveOptions, SaveOptions, SortClause,UpdateOptions } from "tingodb";
 
 export enum CollectionName {
   Users = "users",
   Jobs = "jobs",
-};
+}
 
 const rootLogger = getLogger("db");
 
@@ -17,13 +16,15 @@ let db;
  */
 export const getDb = ():Db => db;
 
-export const createDB = () => {
+export const createDB = (): Db => {
   if (!db || process.env.NODE_ENV === "test") {
     const dbLocation = path.resolve(process.cwd(), "db-data");
     const tingo = Tingo();
     const Db = tingo.Db;
     db = new Db(dbLocation, { name: "video-hoarder-dev" });
   }
+
+  return db;
 }
 
 /**
@@ -104,7 +105,7 @@ export const save = (collection:Collection, docs: any[], options?: SaveOptions):
  * @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/insert.html#update
  * @returns An array of the form [numRecordsUpdated:number, operationStatus:Object]
  */
-export const update = (collection: Collection, criteria: Query, update, options?: UpdateOptions): Promise<{ count: number, status: string }> =>
+export const update = (collection: Collection, criteria: Query, update: Record<string, unknown>, options?: UpdateOptions): Promise<{ count: number, status: string }> =>
   new Promise((resolve, reject) => collection.update(criteria, update, options, (error: Error, count, status) => {
     getLogger("update", rootLogger).debug({ error, result: { count, status } });
     error ? reject(error) : resolve({ count, status });
@@ -128,26 +129,26 @@ export const toArray = (cursor:Cursor): Promise<any[]> =>
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#count
  */
-export const count = (cursor:Cursor, applySkipLimit: boolean) =>
+export const count = (cursor:Cursor, applySkipLimit: boolean): Promise<number> =>
   new Promise((resolve, reject) => cursor.count(applySkipLimit, (error, result) => error ? reject(error) : resolve(result)));
 
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#sort
  */
-export const sort = (cursor: Cursor, keyOrList: string | SortClause[]) =>
+export const sort = (cursor: Cursor, keyOrList: string | SortClause[]): Promise<Cursor> =>
   // @ts-ignore
   new Promise((resolve, reject) => cursor.sort(keyOrList, (error, cursor) => error? reject(error) : resolve(cursor)));
 
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#limit
  */
-export const limit = (cursor: Cursor, numLimit: number) =>
+export const limit = (cursor: Cursor, numLimit: number): Promise<Cursor> =>
   new Promise((resolve, reject) => cursor.limit(numLimit, (error, cursor) => error? reject(error) : resolve(cursor)));
 
 /**
  * @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/cursor.html#skip
  */
-export const skip = (cursor, numSkip) =>
+export const skip = (cursor: Cursor, numSkip: number): Promise<Cursor> =>
   new Promise((resolve, reject) => cursor.skip(numSkip, (error, cursor) => error? reject(error) : resolve(cursor)));
 
 /**

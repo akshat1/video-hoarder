@@ -1,20 +1,19 @@
 /**
  * @module server/getPassport
  */
-
 import { getLogger } from "../logger";
-import { getClientUser, User } from "../model/User";
+import { Callback } from "../model/Callback";
+import { getClientUser, ServerUser } from "../model/User";
 import { getUserByUserName,getVerifiedUser } from "./db/index";
 import Base64 from "Base64";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import { Application,RequestHandler } from "express";
 import expressSession from "express-session";
+import session from "express-session";
 import MemoryStore from "memorystore";
 import passport, { PassportStatic } from "passport";
 import Strategy from "passport-local";
-import { Callback } from "../model/Callback";
-import session from "express-session";
-import { RequestHandler, Application } from "express";
 
 const rootLogger = getLogger("getPassport");
 rootLogger.setLevel("warn");
@@ -25,7 +24,7 @@ export const MessageIncorrectLogin = "Incorrect username or password.";
  * Called by passport.js to verify the current user during log-in.
  * @private
  */
-export const verifyUser = async (userName: string, password: string, cb: Callback) => {
+export const verifyUser = async (userName: string, password: string, cb: Callback): Promise<any> => {
   const logger = getLogger("verifyUser", rootLogger);
   try {
     logger.debug("verifyUser called", userName, "*********");
@@ -46,7 +45,7 @@ export const verifyUser = async (userName: string, password: string, cb: Callbac
  * Given a user object, calls `cb` with a single memoizable identifier to be placed in cookie.
  * @private
  */
-export const serializeUser = (user: User, cb: Callback) => {
+export const serializeUser = (user: ServerUser, cb: Callback): void => {
   rootLogger.debug("serialize user")
   cb(null, Base64.btoa(user.userName));
 };
@@ -127,7 +126,7 @@ export const getSessionMiddleware = (): RequestHandler  => {
 /**
  * Wires up the provided Express application object to use passport local auth.
  */
-export const bootstrap = (args: { app: Application }) => {
+export const bootstrap = (args: { app: Application }): void => {
   const { app } = args;
   // Other middlewares can create problems with session middleware. So, we place session middleware at the end
   // See https://www.airpair.com/express/posts/expressjs-and-passportjs-sessions-deep-dive for some great info

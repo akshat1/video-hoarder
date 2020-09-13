@@ -1,21 +1,21 @@
 import { getLogger } from "../../logger";
-import { isAdmin, User } from "../../model/User";
+import { isAdmin, ServerUser } from "../../model/User";
 import * as db from "../db/index";
 import { ensureValidUser } from "../express-middleware/index";
-import express, { Request, Response, NextFunction, Router } from "express";
+import express, { NextFunction, Request, Response, Router } from "express";
 
 const rootLogger = getLogger("api/job-management");
 
 const DefaultSort = [["updatedAt", -1]];
 
-export const getJobs = async (req: Request, res: Response, next: NextFunction) => {
+export const getJobs = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const logger = getLogger("getJobs", rootLogger);
   // @todo avoid dupes.
   try {
     logger.debug(req.body);
     const { body } = req;
     // @ts-ignore
-    const user: User = req.user;
+    const user: ServerUser = req.user;
     const {
       query = {},
       pagination = {},
@@ -64,11 +64,11 @@ export const getJobs = async (req: Request, res: Response, next: NextFunction) =
   }
 };
 
-export const addJob = async (req: Request, res: Response, next: NextFunction) => {
+export const addJob = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const logger = getLogger("addJob", rootLogger);
   try {
     // @ts-ignore
-    const user:User = req.user;
+    const user:ServerUser = req.user;
     const { userName: createdBy } = user;
     const { url } = req.body;
     logger.debug("Adding new job", url, createdBy);
@@ -82,11 +82,11 @@ export const addJob = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-export const stopJob = async (req: Request, res: Response, next: NextFunction) => {
+export const stopJob = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const logger = getLogger("stopJob", rootLogger);
   try {
     // @ts-ignore
-    const user:User = req.user;
+    const user:ServerUser = req.user;
     const { userName: updatedBy } = user;
     const { itemId: id } = req.body;
     logger.debug("stopping job", id, updatedBy);
@@ -100,7 +100,7 @@ export const stopJob = async (req: Request, res: Response, next: NextFunction) =
   }
 };
 
-export const deleteJob = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteJob = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const logger = getLogger("deleteJob", rootLogger);
   try {
     const { itemId: id } = req.body;

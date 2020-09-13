@@ -1,11 +1,11 @@
 import { Event } from "../../Event";
 import { getLogger } from "../../logger";
+import { YTDLInformation } from "../../model/ytdl";
 import * as EventBus from "../event-bus";
 import { ensureAdminUser } from "../express-middleware/index";
 import { getGlobalConfig as getGlobalYTDLConfig, writeGlobalConfig } from "../ytdl";
 import { execFile } from "child_process";
-import express, { Request, Response, NextFunction, Router } from "express";
-import { YTDLInformation } from "../../model/ytdl";
+import express, { NextFunction, Request, Response, Router } from "express";
 
 const rootLogger = getLogger("api/ytdl");
 
@@ -49,7 +49,7 @@ const getYTDLInformation = async (): Promise<YTDLInformation> => ({
   globalConfig: await getGlobalYTDLConfig(),
 });
 
-export const getInformation =  async (req: Request, res: Response, next: NextFunction) => {
+export const getInformation =  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const logger = getLogger("getInformation", rootLogger);
   logger.debug("Get binary path");
   try {
@@ -62,7 +62,7 @@ export const getInformation =  async (req: Request, res: Response, next: NextFun
 };
 
 // This call always succeeds, failure and success are indicated via the socket
-export const installLatestVersion = (req: Request, res: Response) => {
+export const installLatestVersion = (req: Request, res: Response): void => {
   const logger = getLogger("installLatestVersion", rootLogger);
   execFile("youtube-dl", ["-U"], {}, async (error, stdout, stderr) => {
     if (error || stderr.length) {
@@ -78,10 +78,10 @@ export const installLatestVersion = (req: Request, res: Response) => {
       EventBus.emit(Event.YTDLUpgradeSucceeded, await getYTDLInformation());
     }
   });
-  return res.send("OK");
+  res.send("OK");
 };
 
-export const updateGlobalConfig = async (req: Request, res: Response, next: NextFunction) => {
+export const updateGlobalConfig = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const logger = getLogger("updateGlobalConfig", rootLogger);
   const { newConfiguration } = req.body;
   try {

@@ -1,11 +1,11 @@
 import { getLogger } from "../../logger" ;
-import { Role, User } from "../../model/User";
+import { Role, ServerUser } from "../../model/User";
 import { hash } from "../crypto";
 import { findOne, getUsersCollection, insert, update } from "./util";
 
 const rootLogger = getLogger("db/user-management");
 
-export const getUserByUserName = async (userName:string): Promise<User> => {
+export const getUserByUserName = async (userName:string): Promise<ServerUser> => {
   const users = await getUsersCollection();
   return findOne(users, { userName });
 };
@@ -16,9 +16,9 @@ interface UserStub {
   role: Role,
   salt: string,
   userName: string,
-};
+}
 
-export const createUser = async (userStub: UserStub, createdBy: string): Promise<User> => {
+export const createUser = async (userStub: UserStub, createdBy: string): Promise<ServerUser> => {
   if (!createdBy) {
     throw new Error("[createUser] createdBy arg must be specified.");
   }
@@ -50,7 +50,7 @@ export const createUser = async (userStub: UserStub, createdBy: string): Promise
  * @param updatedUser - the updated user. Expect userName to stay the same.
  * @param updatedBy -
  */
-export const updateUser = async (updatedUser: User, updatedBy: string): Promise<User> => {
+export const updateUser = async (updatedUser: ServerUser, updatedBy: string): Promise<ServerUser> => {
   const logger = getLogger("updateUser", rootLogger);
   if (!updatedBy) {
     logger.error("updatedBy not specified.")
@@ -70,7 +70,7 @@ export const updateUser = async (updatedUser: User, updatedBy: string): Promise<
 };
 
 /** Verify the user's login details.*/
-export const getVerifiedUser = async (userName, password):Promise<User> => {
+export const getVerifiedUser = async (userName: string, password: string):Promise<ServerUser> => {
   const user = await getUserByUserName(userName);
   if (user && (await hash(password, user.salt)) === user.password) {
     return user;

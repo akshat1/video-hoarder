@@ -1,4 +1,4 @@
-import { Status } from "../../Status";
+import { Status } from "../../model/Status";
 import { getTheme } from "../theme";
 import ItemStatus from "./ItemStatus";
 import { ThemeProvider } from "@material-ui/styles";

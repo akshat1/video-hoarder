@@ -1,8 +1,14 @@
+/* e slint-disable jsx-control-statements/jsx-jcs-no-undef */  // For SicketIOClient namespace and jsx-control-statements/jsx-jcs-no-undef
+
 import { Event } from "../Event";
 import { getLogger } from "../logger";
-import { getTitle } from "../model/Item";
+import { Dictionary } from "../model/Dictionary";
+import { getTitle, Item } from "../model/Item";
+import { YTDLInformation } from "../model/ytdl";
 import { getStore } from "./redux";
-import { fetchJobs, showNotification, signalYTDLUpgradeFailure, signalYTDLUpgradeSuccess, updateJobInStore } from "./redux/actions";
+import { fetchJobs, updateJobInStore } from "./redux/job-management";
+import { showNotification } from "./redux/notifications";
+import { signalYTDLUpgradeFailure, signalYTDLUpgradeSuccess } from "./redux/ytdl";
 import { getURL } from "./util";
 import ioClient from "socket.io-client";
 
@@ -11,9 +17,8 @@ const rootLogger = getLogger("socketio");
 let socket;
 /**
  * A singleton socket-io client.
- * @returns {SocketIOClient}
  */
-export const getSocket = () => {
+export const getSocket = (): SocketIOClient.Socket => {
   const logger = getLogger("getSocket", rootLogger);
   if (!socket) {
     const socketIOPath = getURL("socket.io");
@@ -36,38 +41,46 @@ export const getSocket = () => {
   return socket;
 };
 
-const onItemAdded = (item) => {
+const onItemAdded = (item: Item) => {
   getLogger("onItemAdded", rootLogger).debug("ItemAdded");
+  // @ts-ignore
   getStore().dispatch(showNotification(`Added ${getTitle(item)}`));
+  // @ts-ignore
   getStore().dispatch(fetchJobs());
 };
 
-const onItemRemoved = (item) => {
+const onItemRemoved = (item: Item) => {
   getLogger("onItemRemoved", rootLogger).debug("ItemRemoved");
+  // @ts-ignore
   getStore().dispatch(showNotification(`Removed ${getTitle(item)}`));
+  // @ts-ignore
   getStore().dispatch(fetchJobs());
 };
 
-const onItemUpdated = ({ item }) => {
+const onItemUpdated = (args: { item: Item }) => {
+  const { item } = args;
   getLogger("onItemUpdated", rootLogger).debug(item);
+  // @ts-ignore
   getStore().dispatch(updateJobInStore(item));
 };
 
-const onYTDLUpgradeFailed = (error) => {
+const onYTDLUpgradeFailed = (error: Error) => {
+  // @ts-ignore
   getStore().dispatch(signalYTDLUpgradeFailure(error));
 };
 
-const onYTDLUpgradeSucceeded = (ytdlInfo) => {
+const onYTDLUpgradeSucceeded = (ytdlInfo: YTDLInformation) => {
+  // @ts-ignore
   getStore().dispatch(signalYTDLUpgradeSuccess(ytdlInfo));
 };
 
-const wireSocket = (socket, eventHandlers) =>
+const wireSocket = (socket: SocketIOClient.Socket, eventHandlers: Dictionary<(...args: any[]) => void>) =>
   Object
     .keys(eventHandlers)
     .forEach(eventName =>
       socket.on(eventName, eventHandlers[eventName]));
 
-export const bootstrapClient = () => {
+export const bootstrapClient = (): void => {
   const logger = getLogger("bootstrapClient", rootLogger);
   const socket = getSocket();
   logger.debug("got a client", socket);
@@ -78,10 +91,12 @@ export const bootstrapClient = () => {
     [Event.YTDLUpgradeFailed]: onYTDLUpgradeFailed,
     [Event.YTDLUpgradeSucceeded]: onYTDLUpgradeSucceeded,
   });
+
+  // @ts-ignore
   window.ioClient = socket;
 };
 
-export const reconnect = () => {
+export const reconnect = (): void => {
   const logger = getLogger("reconnect", rootLogger);
   const socket = getSocket();
   logger.debug("socket connected?", socket.connected);
@@ -93,11 +108,9 @@ export const reconnect = () => {
     socket.connect();
     logger.debug("done.");
   }
-  // logger.debug("disconnect...");
-  // socket.disconnect();
 };
 
-export const disconnect = () => {
+export const disconnect = (): void => {
   const logger = getLogger("disconnect", rootLogger);
   logger.debug("disconnect...");
   getSocket().disconnect();

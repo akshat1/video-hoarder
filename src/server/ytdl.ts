@@ -1,12 +1,12 @@
 import { Event, ItemUpdatedPayload } from "../Event";
 import { getLogger } from "../logger";
-import { markItemInProgress, Item } from "../model/Item";
-import { Status } from "../Status";
+import { Item,markItemInProgress } from "../model/Item";
+import { Status } from "../model/Status";
 import { addMetadata, completeJob, failJob, getJobs, toArray } from "./db/index";
 import * as EventBus from "./event-bus";
 import { execFile } from "child_process";
 import { promises as fs } from "fs";
-const { default: PQueue } = require("p-queue");
+import PQueue from "p-queue";
 import path from "path";
 
 const rootLogger = getLogger("ytdl");
@@ -29,7 +29,7 @@ const downloadMeta = (item: Item): Promise<any> => {
   ];
   logger.debug("youtube-dl args", args);
   return new Promise((resolve, reject) => {
-    let subProcess;
+    let subProcess;  // eslint-disable-line prefer-const
     const itemCancelHandler = (args: ItemUpdatedPayload) => {
       const { id, status } = args.item;
       const logger2 = getLogger(`itemCancelHandler-${id}`, logger);
@@ -125,7 +125,7 @@ const downloadVideo = async (item: Item): Promise<any> => {
   ];
   logger.debug("download args", args);
   return new Promise((resolve, reject) => {
-    let subProcess;
+    let subProcess;  // eslint-disable-line
     const itemCancelHandler = (args: ItemUpdatedPayload) => {
       const { id, status } = args.item;
       if (id === item.id && status === Status.Failed) {

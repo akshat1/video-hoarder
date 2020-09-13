@@ -1,7 +1,7 @@
+import { NextFunction,Request, Response } from "express";
 import path from "path";
-import { Request, Response, NextFunction } from "express";
 
-export const serveWebManifest = async (req: Request, res: Response, next: NextFunction) => {
+export const serveWebManifest = async (req: Request, res: Response, next: NextFunction): void => {
   try {
     return res.sendFile(
       path.resolve(process.cwd(), "./dist/app.webmanifest"),

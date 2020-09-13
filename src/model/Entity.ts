@@ -6,4 +6,4 @@ export interface Entity {
   createdBy: string,
   updatedAt: TimeStamp,
   updatedBy: string,
-};
+}

@@ -1,14 +1,14 @@
-import _ from "lodash";
 import { Event, ItemUpdatedPayload } from "../Event";
 import { getLogger } from "../logger"
 import { Item } from "../model/Item";
-import { Server as HttpServer } from "http";
-import { subscribe } from "./event-bus";
 import { YTDLInformation } from "../model/ytdl";
+import { subscribe } from "./event-bus";
 import cookieParser from "cookie-parser";
+import session from "express-session";
+import { Server as HttpServer } from "http";
+import _ from "lodash";
 import passportSocketIO from "passport.socketio";
 import path from "path";
-import session from "express-session";
 import SocketIO, { Server, Socket } from "socket.io";
 
 const rootLogger = getLogger("socketio");
@@ -30,7 +30,14 @@ const onClientConnected = (socket: Socket) => {
   socket.emit("TEST EVENT", "HELLO");
 };
 
-export const bootstrap = (args: { pathname: string, secret: string, server: HttpServer, sessionStore: session.MemoryStore }) => {
+interface BootstrapArgs {
+  pathname: string,
+  secret: string,
+  server: HttpServer,
+  sessionStore: session.MemoryStore
+}
+
+export const bootstrap = (args: BootstrapArgs): void => {
   const { pathname = "/", secret, server, sessionStore } = args;
   const logger = getLogger("bootstrap", rootLogger);
   const io = SocketIO(server, {
@@ -41,8 +48,10 @@ export const bootstrap = (args: { pathname: string, secret: string, server: Http
   // See https://github.com/jfromaniello/passport.socketio
   io.use(passportSocketIO.authorize({
     key: "connect.sid",
+    // @ts-ignore
     cookieParser,
     secret,
+    // @ts-ignore
     store: sessionStore,
   }));
 

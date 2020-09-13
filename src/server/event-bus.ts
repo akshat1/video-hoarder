@@ -14,7 +14,7 @@ export const getSubscribersMap = (): Map<Event, Set<Subscriber>> => new Map(subs
 /**
  * Add a subscriber for the given eventName.
  */
-export const subscribe = (eventName: Event, subscriber: Subscriber) => {
+export const subscribe = (eventName: Event, subscriber: Subscriber): void => {
   let subscribersForEventName = subscribers.get(eventName);
   if (!subscribersForEventName) {
     subscribersForEventName = new Set<Subscriber>();
@@ -27,7 +27,7 @@ export const subscribe = (eventName: Event, subscriber: Subscriber) => {
 /**
  * Remove a subscriber for the given eventName.
  */
-export const unsubscribe = (eventName: Event, subscriber: Subscriber) => {
+export const unsubscribe = (eventName: Event, subscriber: Subscriber): void => {
   const subscribersForEventName = subscribers.get(eventName);
   if (subscribersForEventName)
     subscribersForEventName.delete(subscriber);
@@ -36,7 +36,7 @@ export const unsubscribe = (eventName: Event, subscriber: Subscriber) => {
 /**
  * Calls all subscribers of the given eventName with the supplied optional payload.
  */
-export const emit = (eventName: Event, payload: any): any[] => {
+export const emit = (eventName: Event, payload: any): any[] => {  // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
   const subscribersForEventName = subscribers.get(eventName);
   if (subscribersForEventName)
     return Array.from(subscribersForEventName).map(subscriber => subscriber(payload));
@@ -47,7 +47,7 @@ export const emit = (eventName: Event, payload: any): any[] => {
 /**
  * Execute the subcriber only once in response to this event.
  */
-export const once = (eventName: Event, subscriber: Subscriber) => {
+export const once = (eventName: Event, subscriber: Subscriber): void => {
   const wrapper = (payload) => {
     subscriber(payload);
     unsubscribe(eventName, wrapper);

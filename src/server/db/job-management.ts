@@ -1,9 +1,9 @@
 import { Event } from "../../Event";
 import { getLogger } from "../../logger";
-import { makeItem, markItemCanceled,markItemFailed,markItemSuccessful, setMetadata, Item, ItemMetadata } from "../../model/Item";
+import { Item, ItemMetadata,makeItem, markItemCanceled,markItemFailed,markItemSuccessful, setMetadata } from "../../model/Item";
 import { emit } from "../event-bus";
 import { find, findOne, getJobsCollection,insert, remove, update } from "./util";
-import { Query, Cursor } from "../../../types/tingodb";
+import { Cursor,Query } from "tingodb";
 
 const rootLogger = getLogger("job-management");
 

@@ -1,4 +1,4 @@
-import { Cursor, Collection } from "../../types/tingodb";
+import { Collection, Cursor, Db, TingoNameSpace } from "tingodb";
 
 /**
  * A fake cursor.
@@ -29,14 +29,14 @@ export const fakeCollection = ():Collection => ({
  * A fake DB instance.
  * @private
  */
-export const fakeDB = () => ({
-  collection: jest.fn()
+export const fakeDB = ():Db => ({
+  collection: jest.fn(),
 });
 
 /**
  * A fake Tingo module.
  * @private
  */
-export const fakeTingoDB = () => ({
+export const fakeTingoDB = (): TingoNameSpace => ({
   Db: jest.fn(),
 });

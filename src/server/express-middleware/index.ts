@@ -1,6 +1,6 @@
 import { getLogger } from "../../logger";
 import { isAdmin } from "../../model/User";
-import { Request, Response, NextFunction} from "express";
+import { NextFunction,Request, Response} from "express";
 
 const rlLogger = getLogger("requestLogger");
 /**

@@ -1,6 +1,6 @@
 import { Event } from "../../Event";
 import { makeItem, markItemCanceled } from "../../model/Item";
-import { Status } from "../../Status";
+import { Status } from "../../model/Status";
 import { emit } from "../event-bus";
 import { addJob, cancelJob, getJob, getJobsForUser,removeJob } from "./job-management";
 import { find, findOne, getDb, getJobsCollection,insert, remove, update } from "./util";

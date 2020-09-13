@@ -1,4 +1,4 @@
-import { updatePassword } from "../redux/actions";
+import { updatePassword } from "../redux/user-management";
 import { getUpdateUserErrorMessage, getUserName, isPasswordExpired, isUpdateUserFailed,isUpdateUserSucceeded, isUpdatingUser } from "../selectors";
 import PasswordChangeInput from "./PasswordChangeInput";
 import { Button, Typography } from "@material-ui/core";

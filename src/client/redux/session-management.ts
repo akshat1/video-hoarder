@@ -1,11 +1,12 @@
-import { getLogger } from "../../../logger";
-import { getCurrentPath,isLoggedIn, isPasswordExpired,isUserFetchDone  } from "../../selectors";
-import { disconnect, reconnect } from "../../socketio";
-import { getURL } from "../../util";
-import { makeActionF } from "../boilerplate";
-import { getInstance } from "../net";
+import { getLogger } from "../../logger";
+import { DummyUser, ServerUser as UserType } from "../../model/User";
+import { getCurrentPath,isLoggedIn, isPasswordExpired,isUserFetchDone  } from "../selectors";
+import { disconnect, reconnect } from "../socketio";
+import { getURL } from "../util";
+import { actionCreatorFactory, AsyncActionCreator, Dispatch, GetState,reducerFactory } from "./boilerplate";
 import { fetchJobs } from "./job-management";
 import { goToAccountScreen, goToHome, goToLogin } from "./navigation";
+import { getInstance } from "./net";
 
 const rootLogger = getLogger("actions");
 
@@ -15,25 +16,22 @@ export const User = "User";
  * @param {User} user
  * @returns {Action}
  */
-export const setUser = makeActionF(User);
+export const setUser = actionCreatorFactory(User);
 
 export const FetchingUser = "FetchingUser";
-const setFetchingUser = makeActionF(FetchingUser);
+const setFetchingUser = actionCreatorFactory<boolean>(FetchingUser);
 
 export const UserFetchDone = "UserFetchDone";
-const setUserFetchDone = makeActionF(UserFetchDone);
+const setUserFetchDone = actionCreatorFactory<boolean>(UserFetchDone);
 
 export const LoginError = "LoginError";
-const setLoginError = makeActionF(LoginError);
+const setLoginError = actionCreatorFactory<boolean>(LoginError);
 
 /**
  * Fetch the currently logged-in user (or clear state.user if the user session is expired).
- *
- * @func
- * @returns {ActionCreator}
  */
-export const fetchUser = () =>
-  async (dispatch) => {
+export const fetchUser = ():AsyncActionCreator =>
+  async (dispatch: Dispatch): Promise<void> => {
     const logger = getLogger("fetchUser");
     try {
       dispatch(setFetchingUser(true));
@@ -52,21 +50,18 @@ export const fetchUser = () =>
   };
 
 /**
- * Perform a logout.
- *
- * @func
- * @returns {ActionCreator}
+ * Log out the currently user.
  */
-export const doLogOut = () =>
-  async dispatch => {
+export const doLogOut = (): AsyncActionCreator =>
+  async (dispatch: Dispatch): Promise<void> => {
     await getInstance().post(getURL("./api/user/logout"));
     disconnect();
     dispatch(setUser({}));
     dispatch(goToLogin());
   };
 
-const initLoginPage = () =>
-  (dispatch, getState) => {
+const initLoginPage = (): AsyncActionCreator =>
+  (dispatch: Dispatch, getState: GetState): Promise<void> => {
     const logger = getLogger("initLoginPage", rootLogger);
     logger.debug("initLoginPage");
     if (isLoggedIn(getState()) && getCurrentPath(getState()).endsWith("/login")) {
@@ -77,8 +72,8 @@ const initLoginPage = () =>
     logger.debug("not logged-in. do nothing.");
   };
 
-const initNonLoginPage = () =>
-  async (dispatch, getState) => {
+const initNonLoginPage = (): AsyncActionCreator =>
+  async (dispatch: Dispatch, getState: GetState): Promise<void> => {
     const logger = getLogger("initializeClient", rootLogger);
     logger.debug("initNonLoginPage");
     if (isLoggedIn(getState())) {
@@ -99,12 +94,9 @@ const initNonLoginPage = () =>
 
 /**
  * Called on every page view. Fetches the current user or clears state.user based on wether the user is logged-in and the session is valid or not.
- *
- * @func
- * @returns {ActionCreator}
  */
-export const initializeClient = () =>
-  async (dispatch, getState) => {
+export const initializeClient = (): AsyncActionCreator =>
+  async (dispatch: Dispatch, getState: GetState): Promise<void> => {
     // if (getCurrentPath(getState()) === "/account") {
     //   debugger
     // }
@@ -131,14 +123,9 @@ export const initializeClient = () =>
 
 /**
  * Action used by the login form.
- *
- * @func
- * @param {string} username 
- * @param {string} password 
- * @returns {ActionCreator} -
  */
-export const doLogIn = (username, password) =>
-  async (dispatch) => {
+export const doLogIn = (username: string, password: string): AsyncActionCreator =>
+  async (dispatch: Dispatch): Promise<void> => {
     const logger = getLogger("doLogin", rootLogger);
     try {
       const form = new URLSearchParams()
@@ -166,3 +153,8 @@ export const doLogIn = (username, password) =>
         }
      }
   };
+
+export const fetchingUser = reducerFactory<boolean>(FetchingUser, false);
+export const user = reducerFactory<UserType>(User, DummyUser);
+export const userFetchDone = reducerFactory<boolean>(UserFetchDone, false);
+export const loginError = reducerFactory<Error>(LoginError, null);

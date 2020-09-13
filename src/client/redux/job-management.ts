@@ -1,37 +1,35 @@
-import { getLogger } from "../../../logger";
-import { getJobs, getStatusFilterValue } from "../../selectors";
-import { StatusFilterValue } from "../../StatusFilterValue";
-import { getURL } from "../../util";
-import { makeActionF } from "../boilerplate";
-import { getInstance } from "../net";
+import { getLogger } from "../../logger";
+import { Item } from "../../model/Item";
+import { StatusFilterValue } from "../../model/Status";
+import { getJobs, getStatusFilterValue } from "../selectors";
+import { getURL } from "../util";
+import { actionCreatorFactory, AsyncActionCreator, Dispatch, GetState, reducerFactory } from "./boilerplate";
+import { getInstance } from "./net";
+// @ts-ignore
 import _ from "lodash";
 
 const rootLogger = getLogger("actions");
 
 export const StatusFilter = "StatusFilter";
-export const setStatusFilter = makeActionF(StatusFilter);
+export const setStatusFilter = actionCreatorFactory<StatusFilterValue>(StatusFilter);
 
 export const FetchingJobs = "FetchingJobs";
-const setFetchingJobs = makeActionF(FetchingJobs);
+const setFetchingJobs = actionCreatorFactory<boolean>(FetchingJobs);
 
 export const Jobs = "Jobs";
-const setJobs = makeActionF(Jobs);
+const setJobs = actionCreatorFactory<Item[]>(Jobs);
 
 export const AddingJob = "AddingJob";
-const setAddingJob = makeActionF(AddingJob);
+const setAddingJob = actionCreatorFactory<boolean>(AddingJob);
 
 export const StoppingJob = "StoppingJob";
-const setStoppingJob = makeActionF(StoppingJob);
+const setStoppingJob = actionCreatorFactory<boolean>(StoppingJob);
 
 export const DeletingJob = "DeletingJob";
-const setDeletingJob = makeActionF(DeletingJob);
+const setDeletingJob = actionCreatorFactory<boolean>(DeletingJob);
 
-/**
- * @func
- * @returns {ActionCreator}a
- */
-export const fetchJobs = () =>
-  async (dispatch, getState) => {
+export const fetchJobs = ():AsyncActionCreator =>
+  async (dispatch: Dispatch, getState: GetState): Promise<void> => {
     const logger = getLogger("fetchJobs", rootLogger);
     try {
       logger.debug("fetchJobs");
@@ -53,8 +51,8 @@ export const fetchJobs = () =>
     }
   };
 
-export const addJob = (url) =>
-  async (dispatch) => {
+export const addJob = (url: string): AsyncActionCreator =>
+  async (dispatch: Dispatch) => {
     const logger = getLogger("addJob", rootLogger);
     try {
       logger.debug("adding job", url);
@@ -68,16 +66,8 @@ export const addJob = (url) =>
     }
   };
 
-/**
- * Cancel the current download.
- *
- * @func
- * @alias cancelJob
- * @param {Item} item
- * @returns {ActionCreator}
- */
-export const cancelJob = (item) =>
-  async (dispatch) => {
+export const cancelJob = (item: Item): AsyncActionCreator =>
+  async (dispatch: Dispatch) => {
     const logger = getLogger("cancelJob", rootLogger);
     try {
       const { id: itemId } = item;
@@ -92,16 +82,8 @@ export const cancelJob = (item) =>
     }
   };
 
-/**
- * Delete the current download.
- *
- * @func
- * @alias deleteJob
- * @param {Item} item
- * @returns {ActionCreator}
- */
-export const deleteJob = (item) =>
-  async (dispatch) => {
+export const deleteJob = (item: Item): AsyncActionCreator =>
+  async (dispatch: Dispatch) => {
     const logger = getLogger("deleteJob", rootLogger);
     try {
       const { id: itemId } = item;
@@ -117,17 +99,13 @@ export const deleteJob = (item) =>
   };
 
 /**
- * Dispatched in response to a socket-event. Updates the store to reflect the current state of the
- * given item (if the item is present in the store).
- *
- * @alias updateJobInStore
- * @param {Item} item
+ * Dispatched in response to a socket-event. Updates the store to reflect the current state of the given item if the
+ * said item is not present in the store.
  */
-export const updateJobInStore = (item) =>
-  async (dispatch, getState) => {
+export const updateJobInStore = (item: Item): AsyncActionCreator =>
+  async (dispatch: Dispatch, getState: GetState) => {
     const logger = getLogger("updateItemInStore", rootLogger);
     const { id: itemId } = item;
-    /** @type {Item[]} */
     const allJobs = _.cloneDeep(getJobs(getState()));
     const jobIndex = allJobs.findIndex(({ id }) => id === itemId);
     if (jobIndex !== -1) {
@@ -143,8 +121,14 @@ export const updateJobInStore = (item) =>
     logger.debug(`${itemId} is currently not in our store.`);
   };
 
-export const changeStatusFilter = (filterValue) =>
-  (dispatch) => {
+export const changeStatusFilter = (filterValue: StatusFilterValue): AsyncActionCreator =>
+  (dispatch: Dispatch): void => {
     dispatch(setStatusFilter(filterValue));
     dispatch(fetchJobs());
   };
+
+// Reducers
+export const addingJob = reducerFactory<boolean>(AddingJob, false);
+export const fetchingJobs = reducerFactory<boolean>(FetchingJobs, false);
+export const jobs = reducerFactory<Item[]>(Jobs, []);
+export const statusFilter = reducerFactory<StatusFilterValue>(StatusFilter, StatusFilterValue.All);

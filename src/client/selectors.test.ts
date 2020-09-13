@@ -1,3 +1,4 @@
+import { DummyUser } from "../model/User";
 import * as Selectors from "./selectors";
 import assert from "assert";
 
@@ -20,7 +21,7 @@ describe("client/selectors", () => {
         user: { loggedIn: false },
       }), false);
       // Following assertion will most likely break once we enforce an actual schema; we'll remove it then.
-      assert.equal(isLoggedIn({ user: {} }), false);
+      assert.equal(isLoggedIn({ user: DummyUser }), false);
     });
   });
 });

@@ -1,4 +1,4 @@
-import { Status } from "../../Status";
+import { Status } from "../../model/Status";
 import { getFakeItem } from "../fixtures/item";
 import { CancelButton } from "./CancelButton";
 import { action } from "@storybook/addon-actions";

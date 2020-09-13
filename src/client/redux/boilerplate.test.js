@@ -1,14 +1,14 @@
-import { makeActionF, makeReducer } from "./boilerplate";
+import { actionCreatorFactory, reducerFactory } from "./boilerplate";
 import assert from "assert";
 
 describe("redux/boilerplate", () => {
   describe("makeActionF", () => {
     test("should return a function", () => {
-      assert.equal(typeof makeActionF("foo"), "function");
+      assert.equal(typeof actionCreatorFactory("foo"), "function");
     });
 
     test("returned function should return the expected action", () => {
-      assert.deepEqual(makeActionF("foo")("bar"), { type: "foo", value: "bar" });
+      assert.deepEqual(actionCreatorFactory("foo")("bar"), { type: "foo", value: "bar" });
     });
   });
 
@@ -17,7 +17,7 @@ describe("redux/boilerplate", () => {
     const defaultVal = "FOO-DEFAULT";
     let reducer;
     beforeAll(() => {
-      reducer = makeReducer(actionType, defaultVal);
+      reducer = reducerFactory(actionType, defaultVal);
     });
 
     test("reducer should be a function", () => {

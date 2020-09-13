@@ -9,7 +9,7 @@ enum Priority {
   info = 3,
   debug = 2,
   all = -1,
-};
+}
 
 interface Logger {
   _shouldLog(level: Priority): boolean,
@@ -20,7 +20,7 @@ interface Logger {
   info(...messages: any[]): void,
   log(...messages: any[]): void,
   warn(...messages: any[]): void,
-};
+}
 
 /**
  * Get a new Logger instance.

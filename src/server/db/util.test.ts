@@ -1,6 +1,6 @@
-import assert from "assert";
 import { fakeCollection, fakeCursor, fakeDB } from "../../fixtures/tingodb";
-import { find, findOne, getCollection, insert, remove,save, toArray, update, CollectionName  } from "./util";
+import { CollectionName,find, findOne, getCollection, insert, remove,save, toArray, update  } from "./util";
+import assert from "assert";
 
 jest.mock("tingodb", () => {
   return {

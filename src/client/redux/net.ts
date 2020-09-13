@@ -1,11 +1,9 @@
 import axios from "axios";
+import { AxiosInstance } from "axios";
 
-let instance;
+let instance: AxiosInstance;
 
-/**
- * @returns {AxiosInstance}
- */
-export const getInstance = () => {
+export const getInstance = (): AxiosInstance => {
   if (!instance) {
     instance = axios.create({
       timeout: 5000,

@@ -8,7 +8,8 @@
  *
  * @module client/components/InputForm
  */
-import { addJob, clearQuery } from "../redux/actions";
+import { addJob } from "../redux/job-management";
+import { clearQuery } from "../redux/navigation";
 import { getTargetURL } from "../selectors";
 import { Button, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput  } from "@material-ui/core";
 import { ClearOutlined } from "@material-ui/icons";

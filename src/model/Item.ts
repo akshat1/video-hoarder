@@ -1,5 +1,5 @@
+import { Status } from "../model/Status";
 import { Entity } from "./Entity";
-import { Status } from "../Status";
 import md5 from "blueimp-md5";
 
 const System = "System";
@@ -17,7 +17,7 @@ export interface Item extends Entity {
   url: string,
 }
 
-export const makeItem = (args): Item => {
+export const makeItem = (args: { createdBy: string, url: string}): Item => {
   const {
     createdBy,
     url,
@@ -78,7 +78,7 @@ export const markItemCanceled = (args: { item: Item, updatedBy: string }): Item 
  * Sets the status to Succesful.
  * @returns a new Item object with the updated status.
  */
-export const markItemSuccessful = (item:Item) => ({
+export const markItemSuccessful = (item:Item): Item => ({
   ...item,
   status: Status.Succeeded,
   updatedAt: new Date().toISOString(),
@@ -89,7 +89,7 @@ export const markItemSuccessful = (item:Item) => ({
  * Sets the status to InProgress.
  * @returns a new Item object with the updated status.
  */
-export const markItemInProgress = (item: Item) => ({
+export const markItemInProgress = (item: Item): Item => ({
   ...item,
   status: Status.Running,
   updatedAt: new Date().toISOString(),
@@ -100,7 +100,7 @@ export const markItemInProgress = (item: Item) => ({
  * Sets Metadata.
  * @returns a new Item object with the updated metadata.
  */
-export const setMetadata = (args: { item, metadata }) => {
+export const setMetadata = (args: { item, metadata }): Item => {
   const { item, metadata } = args;
   return {
     ...item,

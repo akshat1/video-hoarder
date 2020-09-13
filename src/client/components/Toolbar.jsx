@@ -1,7 +1,5 @@
-/**
- * Renders the application toolbar.
- */
-import { doLogOut, goBack, goToAccountScreen, goToSettings } from "../redux/actions";
+import { goBack, goToAccountScreen, goToSettings } from "../redux/navigation";
+import { doLogOut } from "../redux/session-management";
 import { isLoggedIn, isOnHomePage } from "../selectors";
 import Notifications from "./Notifications";
 import {

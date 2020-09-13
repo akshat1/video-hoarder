@@ -1,30 +1,20 @@
-import { getLogger } from "../../../logger";
-const { makeActionF } = require("../boilerplate");
-const { getNotifications } = require("../../selectors");
+import { getLogger } from "../../logger";
+import { Notification } from "../../model/Notification";
+import { getNotifications } from "../selectors";
+import { actionCreatorFactory, AsyncActionCreator, Dispatch, GetState, reducerFactory } from "./boilerplate";
 
 const rootLogger = getLogger("actions/ytdl");
 
-/**
- * @const {number}
- */
 const NotificationDuration = 3000; // ms
-
-/** @const {string} */
 export const SetNotificationMessages = "SetNotificationMessages";
 
-/**
- * @func
- */
-const setNotifications = makeActionF(SetNotificationMessages);
+const setNotifications = actionCreatorFactory<Notification[]>(SetNotificationMessages);
 
 /**
  * Hide the given notification
- *
- * @func
- * @param {Notification} notification
  */
-export const hideNotification = (notification) =>
-  (dispatch, getState) => {
+export const hideNotification = (notification: Notification):AsyncActionCreator =>
+  (dispatch: Dispatch, getState: GetState): void => {
     getLogger("hideNotification", rootLogger).debug("Hide", notification);
     const currentNotifications = getNotifications(getState());
     dispatch(setNotifications(currentNotifications.filter(item => item !== notification)));
@@ -32,14 +22,12 @@ export const hideNotification = (notification) =>
 
 /**
  * Show the given notification, and hide it after duration ms.
- * @func
- * @param {string} message - the message to be displayed.
- * @param {string} severity - severity (matching severity for mui snackbar).
- * @param {number} [duration=NotificationDuration] - the number of miliseconds this message will be displayed.
- * @returns {ActionCreator}
+ * @param message - the message to be displayed.
+ * @param severity - severity (matching severity for mui snackbar).
+ * @param [duration=NotificationDuration] - the number of miliseconds this message will be displayed.
  */
-export const showNotification = (message, severity, duration = NotificationDuration) =>
-  (dispatch, getState) => {
+export const showNotification = (message: string, severity?: string, duration:number = NotificationDuration):AsyncActionCreator =>
+  (dispatch: Dispatch, getState: GetState) => {
     const logger = getLogger("showNotification", rootLogger);
     logger.debug({ message, severity, duration });
     const currentMessages = getNotifications(getState());
@@ -59,3 +47,5 @@ export const showNotification = (message, severity, duration = NotificationDurat
     }, duration);
     logger.debug("Bye");
   };
+
+export const notificationMessages = reducerFactory(SetNotificationMessages, []);

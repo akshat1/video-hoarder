@@ -1,3 +1,4 @@
+/* eslint-disable import/no-default-export */
 // @see https://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/queries.html#query-object
 export type Query = any;
 
@@ -6,15 +7,15 @@ export type Projection = any;
 
 export interface DBOptions { name: string }
 
-export type FindOptions = Object;
+export type FindOptions = Record<string, unknown>;
 
-export type InsertOptions = Object
+export type InsertOptions = Record<string, unknown>
 
-export type SaveOptions = Object
+export type SaveOptions = Record<string, unknown>
 
-export type UpdateOptions = Object
+export type UpdateOptions = Record<string, unknown>
 
-export type RemoveOptions = Object
+export type RemoveOptions = Record<string, unknown>
 
 export type SortClause = [string, number];
 
@@ -40,7 +41,7 @@ export interface Collection {
 // @see https://mongodb.github.io/node-mongodb-native/1.4/api-generated/db.html#id1
 export class Db {
   constructor(dbLocation: string, options: DBOptions);
-  collection(name: string, callback: (error, collection: Collection) => void);
+  collection(name: string, callback: (error, collection: Collection) => void): void;
 }
 
 export interface TingoNameSpace {

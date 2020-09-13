@@ -1,48 +1,33 @@
-import { getLogger } from "../../../logger";
-import { getUserName } from "../../selectors";
-import { getURL } from "../../util";
-import { makeActionF } from "../boilerplate";
-import { getInstance } from "../net";
+import { getLogger } from "../../logger";
+import { getUserName } from "../selectors";
+import { getURL } from "../util";
+import { actionCreatorFactory, AsyncActionCreator, Dispatch, GetState, reducerFactory } from "./boilerplate";
+import { getInstance } from "./net";
 import { fetchUser } from "./session-management";
 
 
 const rootLogger = getLogger("actions/user-management");
 
 export const UpdatingUser = "UpdatingUser";
-/**
- * @func
- * @param {boolean} updatingUser
- * @returns {Action}
-*/
-export const setUpdatingUser = makeActionF(UpdatingUser);
+export const setUpdatingUser = actionCreatorFactory<boolean>(UpdatingUser);
 
 export const UpdateUserFailed = "UserUpdateFailed";
-/**
- * @func
- * @param {boolean} updateUserFailed
- * @returns {Action}
-*/
-export const setUpdateUserFailed = makeActionF(UpdateUserFailed);
+export const setUpdateUserFailed = actionCreatorFactory<boolean>(UpdateUserFailed);
 
 export const UpdateUserSucceeded = "UpdateUSerSucceeded";
-export const setUpdateUserSucceeded = makeActionF(UpdateUserSucceeded);
+export const setUpdateUserSucceeded = actionCreatorFactory<boolean>(UpdateUserSucceeded);
 
 export const UpdateUserErrorMessage = "UpdateUserErrorMessage";
-/**
- * @func
- * @param {string} updateUserErrorMessage
- * @returns {Action}
-*/
-export const setUpdateUserErrorMessage = makeActionF(UpdateUserErrorMessage);
+export const setUpdateUserErrorMessage = actionCreatorFactory<string>(UpdateUserErrorMessage);
 
-const signalUserUpdateFailed = (errorMessage) =>
-  (dispatch) => {
+const signalUserUpdateFailed = (errorMessage: string): AsyncActionCreator =>
+  (dispatch: Dispatch) => {
     dispatch(setUpdateUserFailed(true));
     dispatch(setUpdateUserErrorMessage(errorMessage));
   };
 
-const signalUserUpdateSuccess = () =>
-  (dispatch) => {
+const signalUserUpdateSuccess = (): AsyncActionCreator =>
+  (dispatch: Dispatch) => {
     dispatch(setUpdateUserFailed(false));
     dispatch(setUpdateUserErrorMessage(""));
     dispatch(setUpdateUserSucceeded(true));
@@ -50,15 +35,8 @@ const signalUserUpdateSuccess = () =>
     setTimeout(() => dispatch(setUpdateUserSucceeded(false)), 3000);
   };
 
-/**
- * @func
- * @param {Object} args
- * @param {string} args.currentPassword
- * @param {Object} args.newPassword
- * @returns {Promise}
- */
-export const updatePassword = (args) =>
-  async (dispatch, getState) => {
+export const updatePassword = (args: { currentPassword: string, newPassword: string }): AsyncActionCreator =>
+  async (dispatch: Dispatch, getState: GetState): Promise<void> => {
     const {
       currentPassword,
       newPassword,
@@ -88,3 +66,8 @@ export const updatePassword = (args) =>
 
     dispatch(setUpdatingUser(false));
   };
+
+export const updatingUser = reducerFactory<boolean>(UpdatingUser, false);
+export const updateUserErrorMessage = reducerFactory<string>(UpdateUserErrorMessage, "");
+export const updateUserFailed = reducerFactory<boolean>(UpdateUserFailed, false);
+export const updateUserSucceeded = reducerFactory<boolean>(UpdateUserSucceeded, false);

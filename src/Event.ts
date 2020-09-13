@@ -6,9 +6,9 @@ export enum Event {
   ItemUpdated = "ItemUpdated",
   YTDLUpgradeSucceeded = "YTDLUpgradeSucceeded",
   YTDLUpgradeFailed = "YTDLUpgradeFailed",
-};
+}
 
 export interface ItemUpdatedPayload {
   item: Item,
   previous: Item,
-};
+}

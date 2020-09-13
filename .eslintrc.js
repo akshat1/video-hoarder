@@ -1,12 +1,12 @@
 module.exports = {
-  parser: "babel-eslint",
-  parserOptions: {
-    sourceType: "module",
-    ecmaVersion: '2020',
-    ecmaFeatures: {
-      jsx: true,
-    }
-  },
+  parser: "@typescript-eslint/parser",
+  // parserOptions: {
+  //   sourceType: "module",
+  //   ecmaVersion: '2020',
+  //   ecmaFeatures: {
+  //     jsx: true,
+  //   }
+  // },
   plugins: [
     "node",
     "react",
@@ -15,6 +15,7 @@ module.exports = {
     "import",
     "simple-import-sort",
     "sort-destructure-keys",
+    "@typescript-eslint",
   ],
   extends: [
     "eslint:recommended",
@@ -64,7 +65,7 @@ module.exports = {
     quotes: ["error", "double"],  // because it's silly twisting ourselves into knots whenever we need to use an apostrophe (yes fine a single quote).
   },
   overrides: [{
-    files: ["*.story.jsx", "*.jsx"],
+    files: ["*.jsx", "*.tsx"],
     "rules": {
       // 1. storybook depends on default exports
       // 2. A common react-redux pattern is to export the unconnected component as a named export (for testing), and
@@ -72,6 +73,16 @@ module.exports = {
       //    is provided and the unconnected component is the default export.
       "import/no-default-export": "off",
       "import/prefer-default-export": "error",
+    }
+  }, {
+    files: ["*.tsx", "*.ts"],
+    extends: ["plugin:@typescript-eslint/recommended"],
+    rules: {
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/triple-slash-reference": "off",
+      "jsx-control-statements/jsx-jcs-no-undef": "off",  // reports SocketIOClient as undefined 🤦‍♂️
     }
   }]
 };
