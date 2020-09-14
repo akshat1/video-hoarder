@@ -92,13 +92,13 @@ export const Toolbar = (props) => {
             <MenuIcon />
           </IconButton>
           <Menu
+            TransitionComponent={Fade}
             anchorEl={userMenuAnchor}
             id="user-menu"
             keepMounted
             onClose={closeUserMenu}
             open={Boolean(userMenuAnchor)}
             style={getMenuStyle(userMenuAnchor)}
-            TransitionComponent={Fade}
           >
             <MenuItem onClick={goToSettings}>
               <ListItemIcon>
