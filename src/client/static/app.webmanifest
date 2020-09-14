@@ -1,0 +1,30 @@
+{
+  "name": "Video Hoarder",
+  "short_name": "Video Hoarder",
+  "start_url": "%%%SERVER_PATH%%%/",
+  "display": "standalone",
+  "background_color": "#555",
+  "theme_color": "#555",
+  "description": "Videos. we Hoard 'Em.",
+  "icons": [
+    {
+      "src": "./android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "share_target": {
+    "action": "%%%SERVER_PATH%%%/",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "text": "text",
+      "title": "title"
+    }
+  }
+}

@@ -1,10 +1,10 @@
 FROM alpine:latest
-RUN apk add --update nodejs npm curl ffmpeg python
-ADD https://yt-dl.org/downloads/latest/youtube-dl /usr/local/bin/youtube-dl
-RUN chmod a+rx /usr/local/bin/youtube-dl
+RUN apk add --update ffmpeg nodejs npm g++ make python
+RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/bin/youtube-dl
+RUN chmod +x /usr/bin/youtube-dl
 WORKDIR /app
 COPY . .
+RUN node --version
 RUN npm ci
-RUN npm run build-prod
-EXPOSE 4000
-CMD ["node", "--experimental-modules", "server/index.mjs"]
+CMD ["./entrypoint.sh"]
