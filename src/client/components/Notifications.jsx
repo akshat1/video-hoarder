@@ -1,4 +1,4 @@
-import { hideNotification } from "../redux/actions";
+import { hideNotification } from "../redux/notifications";
 import { getCurrentNotification } from "../selectors";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";

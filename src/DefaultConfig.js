@@ -1,5 +1,5 @@
-/* eslint-disable import/no-default-export */
-export default {
+/* This is used in the Gulpfile, so must remain a plain JS file. */
+module.exports = {
   serverPath: "/",
   https: false,
   serverPort: 4000,

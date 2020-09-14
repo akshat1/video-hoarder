@@ -1,6 +1,6 @@
-import { Status } from "../../Status";
+import { Status } from "../../model/Status";
 import { getFakeItem } from "../fixtures/item";
-import Item from "./Item.jsx";
+import Item from "./Item";
 import React from "react";
 
 export default {

@@ -1,5 +1,5 @@
 import { getTheme } from "../theme";
-import DeleteConfirmationDialog from "./DeleteConfirmationDialog.jsx";
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 import { ThemeProvider } from "@material-ui/styles";
 import { shallow } from "enzyme";
 import React from "react";

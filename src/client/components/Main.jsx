@@ -1,15 +1,15 @@
 /**
  * This is the entire logged-in user interface.
  */
-import { getJobs } from "../selectors.js";
-import { getURL } from "../util.js";
-import AccountSettings from "./AccountSettings.jsx";
-import InputForm from "./InputForm.jsx";
-import Item from "./Item.jsx";
-import ItemFilter from "./ItemFilter.jsx";
-import NotFound from "./NotFound.jsx";
-import Settings from "./Settings.jsx";
-import Toolbar from "./Toolbar.jsx";
+import { getJobs } from "../selectors";
+import { getURL } from "../util";
+import AccountSettings from "./AccountSettings";
+import InputForm from "./InputForm";
+import Item from "./Item";
+import ItemFilter from "./ItemFilter";
+import NotFound from "./NotFound";
+import Settings from "./Settings";
+import Toolbar from "./Toolbar";
 import { Container, Divider, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";

@@ -10,28 +10,18 @@ module.exports = {
     '@storybook/addon-viewport',
   ],
   webpackFinal: async config => {
-    config.module.rules = config.module.rules.filter(f => f.test.toString() !== /\.css$/.toString());
+    config.resolve.extensions.push('.tsx');
+    config.resolve.extensions.push('.ts');
     config.module.rules.push({
-      test: /\.less$/,
-      exclude: /node_modules/,
-      use: [
-        'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            sourceMap: true,
-            modules: { localIdentName: '[local]__[hash:base64:5]' },
-          },
-        },
-        'less-loader'
-      ]
-    }, {
-      test: /\.css$/,
-      exclude: /node_modules/,
-      use: [
-        'style-loader',
-        'css-loader'
-      ]
+      test: /\.(ts|tsx)$/,
+      loader: require.resolve('babel-loader'),
+      options: {
+        presets: [
+          '@babel/preset-env',
+          '@babel/preset-react',
+          '@babel/preset-typescript'
+        ]
+      }
     });
 
     return config;

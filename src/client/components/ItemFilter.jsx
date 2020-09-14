@@ -1,9 +1,9 @@
 /**
  * Lets you filter downloads by status.
  */
-import { changeStatusFilter } from "../redux/actions";
-import { getStatusFilterValue } from "../selectors.js";
-import { StatusFilterValue } from "../StatusFilterValue.js";
+import { StatusFilterValue } from "../../model/Status";
+import { changeStatusFilter } from "../redux/job-management";
+import { getStatusFilterValue } from "../selectors";
 import { CircularProgress, FormControl,InputLabel, MenuItem, Select, Typography, useMediaQuery } from "@material-ui/core";
 import { CheckCircleOutline, ErrorOutline, HourglassEmptyRounded } from "@material-ui/icons";
 import { ToggleButton,ToggleButtonGroup } from "@material-ui/lab";

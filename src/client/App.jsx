@@ -1,10 +1,10 @@
-import LoginForm from "./components/LoginForm.jsx";
-import Main from "./components/Main.jsx";
+import LoginForm from "./components/LoginForm";
+import Main from "./components/Main";
 import { getHistory } from "./history";
-import { initializeClient } from "./redux/actions";
+import { initializeClient } from "./redux/session-management";
 import { getPathname,isFetchingUser, isLoggedIn, isUserFetchDone } from "./selectors";
 import { getTheme } from "./theme";
-import { getURL } from "./util.js";
+import { getURL } from "./util";
 import { useMediaQuery } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles, ThemeProvider } from "@material-ui/styles";

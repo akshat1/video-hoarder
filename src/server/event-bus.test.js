@@ -1,4 +1,4 @@
-import { emit, getSubscribersMap,once, subscribe, unsubscribe } from "./event-bus.js";
+import { emit, getSubscribersMap,once, subscribe, unsubscribe } from "./event-bus";
 import assert from "assert";
 import sinon from "sinon";
 

@@ -1,7 +1,7 @@
 /**
  * Renders an icon appropriate to the given item status.
  */
-import { Status } from "../../Status";
+import { Status } from "../../model/Status";
 import { CircularProgress, colors } from "@material-ui/core";
 import { CheckCircleOutline, ErrorOutline, WarningOutlined } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";

@@ -1,6 +1,5 @@
-import { ItemShape } from "../../model/Item.js";
-import { hasStarted, Status } from "../../Status.js";
-import ItemStatus from "./ItemStatus.jsx";
+import { hasStarted, Status } from "../../model/Status";
+import ItemStatus from "./ItemStatus";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { Fragment } from "react";
@@ -56,10 +55,6 @@ const ItemMeta = (props) => {
         </Choose>
     </Fragment>
   );
-};
-
-ItemMeta.propTypes = {
-  item: ItemShape,
 };
 
 export default ItemMeta;

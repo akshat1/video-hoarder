@@ -1,9 +1,9 @@
 /** Renders the Settings panel. */
-import { isAdmin } from "../../model/User.js";
-import { getUser } from "../selectors.js";
-import TabPanel from "./TabPanel.jsx";
-import UserManagementSettings from "./UserManagementSettings.jsx";
-import YTDLSettings from "./YTDLSettings.jsx";
+import { isAdmin } from "../../model/User";
+import { getUser } from "../selectors";
+import TabPanel from "./TabPanel";
+import UserManagementSettings from "./UserManagementSettings";
+import YTDLSettings from "./YTDLSettings";
 import { Tab,Tabs } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";

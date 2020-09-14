@@ -1,7 +1,7 @@
 /**
  * Renders a deletion confirmation dialog.
  */
-import { isPending } from "../../Status";
+import { isPending } from "../../model/Status";
 import { Button, Dialog, DialogTitle,Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";

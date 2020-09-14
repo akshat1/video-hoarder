@@ -1,4 +1,4 @@
-import { Toolbar } from "./Toolbar.jsx";
+import { Toolbar } from "./Toolbar";
 import { action } from "@storybook/addon-actions";
 import { boolean, text } from "@storybook/addon-knobs";
 import React from "react";

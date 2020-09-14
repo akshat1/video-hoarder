@@ -1,9 +1,7 @@
-/**
- * Renders the application toolbar.
- */
-import { doLogOut, goBack, goToAccountScreen, goToSettings } from "../redux/actions";
+import { goBack, goToAccountScreen, goToSettings } from "../redux/navigation";
+import { doLogOut } from "../redux/session-management";
 import { isLoggedIn, isOnHomePage } from "../selectors";
-import Notifications from "./Notifications.jsx";
+import Notifications from "./Notifications";
 import {
   AppBar,
   Fade,
@@ -94,13 +92,13 @@ export const Toolbar = (props) => {
             <MenuIcon />
           </IconButton>
           <Menu
+            TransitionComponent={Fade}
             anchorEl={userMenuAnchor}
             id="user-menu"
             keepMounted
             onClose={closeUserMenu}
             open={Boolean(userMenuAnchor)}
             style={getMenuStyle(userMenuAnchor)}
-            TransitionComponent={Fade}
           >
             <MenuItem onClick={goToSettings}>
               <ListItemIcon>

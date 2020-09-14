@@ -1,5 +1,5 @@
 /** @jest-environment jsdom */
-import { App } from "./App.jsx";
+import { App } from "./App";
 import { getTheme } from "./theme";
 import { ThemeProvider } from "@material-ui/styles";
 import { shallow } from "enzyme";
