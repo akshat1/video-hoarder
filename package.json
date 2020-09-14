@@ -23,7 +23,7 @@
     "url": "git+https://github.com/akshat1/video-hoarder.git"
   },
   "author": "Akshat Sharma <akshat.sh@gmail.com>",
-  "license": "Source available. Free to use.",
+  "license": "See licence in LICENSE.md.",
   "private": true,
   "bugs": {
     "url": "https://github.com/akshat1/video-hoarder.git/issues"
