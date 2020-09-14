@@ -30,6 +30,7 @@ export const getStore = (): Store => {
   return store;
 };
 
+// @ts-ignore
 if (typeof window!== "undefined")
   // @ts-ignore
   window.getStore = getStore;

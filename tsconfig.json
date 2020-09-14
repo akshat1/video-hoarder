@@ -8,5 +8,12 @@
     "esModuleInterop": true,
     "lib": ["ESNext"],
   },
-  "typeAcquisition": { "enable": true }
+  "typeAcquisition": { "enable": true },
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs/jsdoc",
+    "exclude": ["**/*.test.*", "node_modules/**/*", "src/fixtures/**/*"],
+    "excludeExternals": true,
+    "ignoreCompilerErrors": true
+  }
 }
