@@ -4,10 +4,7 @@
 import { StatusFilterValue } from "../../model/Status";
 import { changeStatusFilter } from "../redux/job-management";
 import { getStatusFilterValue } from "../selectors";
-import { CircularProgress, FormControl,InputLabel, MenuItem, Select, Typography, useMediaQuery } from "@material-ui/core";
-import { CheckCircleOutline, ErrorOutline, HourglassEmptyRounded } from "@material-ui/icons";
-import { ToggleButton,ToggleButtonGroup } from "@material-ui/lab";
-import { makeStyles, useTheme } from "@material-ui/styles";
+import { CheckCircleOutline, CircularProgress, ErrorOutline, FormControl,HourglassEmptyRounded, InputLabel, makeStyles, MenuItem, Select, ToggleButton,ToggleButtonGroup, Typography, useMediaQuery,useTheme } from "./mui";
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";

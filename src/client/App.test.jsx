@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 import { App } from "./App";
+import { ThemeProvider } from "./components/mui";
 import { getTheme } from "./theme";
-import { ThemeProvider } from "@material-ui/styles";
 import { shallow } from "enzyme";
 import React from "react";
 

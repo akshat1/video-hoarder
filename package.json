@@ -120,7 +120,6 @@
     "jest": "^25.5.4",
     "less-loader": "^5.0.0",
     "plugin-error": "^1.0.1",
-    "react-hot-loader": "^4.12.21",
     "sinon": "^9.0.3",
     "source-map-loader": "^0.2.4",
     "string-replace-loader": "^2.3.0",

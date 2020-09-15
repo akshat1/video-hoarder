@@ -12,7 +12,8 @@ module.exports = {
     ]
   ],
   "plugins": [
-    "@babel/plugin-proposal-optional-chaining"
+    "@babel/plugin-proposal-optional-chaining",
+    "lodash",
   ],
   "overrides": [{
     "test": /client\/.*(j|t)sx?/,

@@ -5,8 +5,8 @@
  */
 import { doLogIn } from "../redux/session-management";
 import { getLoginError, isFetchingUser, isLoggedIn } from "../selectors";
-import { Button, Container, TextField, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { Button, Container, TextField, Typography } from "./mui";
+import { makeStyles } from "./mui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { connect } from "react-redux";

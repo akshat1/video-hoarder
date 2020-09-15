@@ -1,8 +1,7 @@
 import { updatePassword } from "../redux/user-management";
 import { getUpdateUserErrorMessage, getUserName, isPasswordExpired, isUpdateUserFailed,isUpdateUserSucceeded, isUpdatingUser } from "../selectors";
+import { Button, makeStyles,Typography } from "./mui";
 import PasswordChangeInput from "./PasswordChangeInput";
-import { Button, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import React, { useState } from "react";

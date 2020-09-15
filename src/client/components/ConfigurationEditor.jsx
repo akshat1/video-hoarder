@@ -1,6 +1,5 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,IconButton,Link,TextareaAutosize, Typography, useMediaQuery, useTheme } from "@material-ui/core";
-import { Close as CloseIcon } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/styles";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,IconButton,Link,TextareaAutosize, Typography, useMediaQuery, useTheme } from "./mui";
+import { Close as CloseIcon,makeStyles } from "./mui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 

@@ -1,17 +1,14 @@
 import LoginForm from "./components/LoginForm";
 import Main from "./components/Main";
+import { CssBaseline, makeStyles, ThemeProvider,useMediaQuery } from "./components/mui";
 import { getHistory } from "./history";
 import { initializeClient } from "./redux/session-management";
 import { getPathname,isFetchingUser, isLoggedIn, isUserFetchDone } from "./selectors";
 import { getTheme } from "./theme";
 import { getURL } from "./util";
-import { useMediaQuery } from "@material-ui/core";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles, ThemeProvider } from "@material-ui/styles";
 import { ConnectedRouter } from "connected-react-router";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
-import { hot } from "react-hot-loader";
 import { connect } from "react-redux";
 import { Route,Switch } from "react-router";
 
@@ -88,6 +85,4 @@ const stateToProps = state => ({
 const dispatchToProps = { initializeClient };
 
 export { App };
-const ConnectedApp = connect(stateToProps, dispatchToProps)(App);
-// eslint-disable-next-line import/no-default-export
-export default isDevMode() ? hot(module)(ConnectedApp) : ConnectedApp;
+export default connect(stateToProps, dispatchToProps)(App);

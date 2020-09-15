@@ -2,9 +2,7 @@
  * Renders an icon appropriate to the given item status.
  */
 import { Status } from "../../model/Status";
-import { CircularProgress, colors } from "@material-ui/core";
-import { CheckCircleOutline, ErrorOutline, WarningOutlined } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/styles";
+import { CheckCircleOutline, CircularProgress, colors,ErrorOutline, makeStyles, WarningOutlined } from "./mui";
 import PropTypes from "prop-types";
 import React from "react";
 

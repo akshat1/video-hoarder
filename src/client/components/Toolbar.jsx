@@ -1,19 +1,23 @@
 import { goBack, goToAccountScreen, goToSettings } from "../redux/navigation";
 import { doLogOut } from "../redux/session-management";
 import { isLoggedIn, isOnHomePage } from "../selectors";
-import Notifications from "./Notifications";
 import {
+  AccountCircle,
   AppBar,
+  ArrowBack,
+  ExitToApp,
   Fade,
   IconButton,
   ListItemIcon,
+  makeStyles,
   Menu,
+  MenuIcon,
   MenuItem,
+  Settings,
   Toolbar as MuiToolbar,
   Typography,
-} from "@material-ui/core";
-import { AccountCircle, ArrowBack, ExitToApp, Menu as MenuIcon, Settings } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/styles";
+} from "./mui";
+import Notifications from "./Notifications";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { connect } from "react-redux";

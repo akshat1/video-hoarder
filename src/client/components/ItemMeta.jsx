@@ -1,7 +1,6 @@
 import { hasStarted, Status } from "../../model/Status";
 import ItemStatus from "./ItemStatus";
-import { Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles,Typography } from "./mui";
 import React, { Fragment } from "react";
 
 const useStyle = makeStyles(theme => ({

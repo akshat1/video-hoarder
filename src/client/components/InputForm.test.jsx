@@ -1,6 +1,6 @@
 import { getTheme } from "../theme";
 import InputForm from "./InputForm";
-import { ThemeProvider } from "@material-ui/styles";
+import { ThemeProvider } from "./mui";
 import { shallow } from "enzyme";
 import React from "react";
 

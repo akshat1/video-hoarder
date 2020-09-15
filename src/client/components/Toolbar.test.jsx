@@ -1,6 +1,6 @@
 import { getTheme } from "../theme";
+import { ThemeProvider } from "./mui";
 import { Toolbar } from "./Toolbar";
-import { ThemeProvider } from "@material-ui/styles";
 import { shallow } from "enzyme";
 import React from "react";
 

@@ -11,9 +11,7 @@
 import { addJob } from "../redux/job-management";
 import { clearQuery } from "../redux/navigation";
 import { getTargetURL } from "../selectors";
-import { Button, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput  } from "@material-ui/core";
-import { ClearOutlined } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/styles";
+import { Button, ClearOutlined, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, makeStyles, OutlinedInput  } from "./mui";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";

@@ -1,11 +1,11 @@
 /** Renders the Settings panel. */
 import { isAdmin } from "../../model/User";
 import { getUser } from "../selectors";
+import { makeStyles,Tab, Tabs } from "./mui";
 import TabPanel from "./TabPanel";
 import UserManagementSettings from "./UserManagementSettings";
+import YTDLConfigSettings from "./YTDLConfig";
 import YTDLSettings from "./YTDLSettings";
-import { Tab,Tabs } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { connect } from "react-redux";
@@ -15,13 +15,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 const TabId = {
-  YTDL: "YTDL",
   UserManagement: "UserManagement",
+  YTDLConfiguration: "YTDLConfiguration",
+  YTDLExecutable: "YTDLExecutable",
 };
 
 const Settings = ({ isAdmin }) => {
   const classes = useStyles();
-  const [activeTab, setActiveTab] = useState(TabId.YTDL);
+  const [activeTab, setActiveTab] = useState(TabId.YTDLExecutable);
   const switchTab = (evt, newTab) => setActiveTab(newTab);
 
   return (
@@ -32,15 +33,21 @@ const Settings = ({ isAdmin }) => {
         value={activeTab}
       >
         <Tab
-          aria-controls="Tab for YouTube-DL settings"
-          id="tab-youtube-dl"
-          label="youtube-dl"
-          value={TabId.YTDL}
+          aria-controls="Tab for managing the YouTube-DL executable"
+          id={TabId.YTDLExecutable}
+          label="youtube-dl executable"
+          value={TabId.YTDLExecutable}
+        />
+        <Tab
+          aria-controls="Tab for YouTube-DL configuration"
+          id={TabId.YTDLConfiguration}
+          label="youtube-dl configuration"
+          value={TabId.YTDLConfiguration}
         />
         <If condition={isAdmin}>
           <Tab
             aria-controls="Tab for user management settings."
-            id="tab-user-management"
+            id={TabId.UserManagement}
             label="User Management"
             value={TabId.UserManagement}
           />
@@ -48,9 +55,15 @@ const Settings = ({ isAdmin }) => {
       </Tabs>
       <TabPanel
         activeTabId={activeTab}
-        tabId={TabId.YTDL}
+        tabId={TabId.YTDLExecutable}
       >
         <YTDLSettings />
+      </TabPanel>
+      <TabPanel
+        activeTabId={activeTab}
+        tabId={TabId.YTDLConfiguration}
+      >
+        <YTDLConfigSettings />
       </TabPanel>
       <TabPanel
         activeTabId={activeTab}

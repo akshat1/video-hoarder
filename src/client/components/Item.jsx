@@ -5,9 +5,7 @@
 import { getDescription, getThumbnail, getTitle } from "../../model/Item";
 import CancelButton from "./CancelButton";
 import ItemMeta from "./ItemMeta";
-import { Button, Collapse, Grid, Link, Typography, useMediaQuery } from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { makeStyles, useTheme } from "@material-ui/styles";
+import { Button, Collapse, ExpandMore as ExpandMoreIcon, Grid, Link, makeStyles, Typography, useMediaQuery, useTheme } from "./mui";
 import ANSIToHTML from "ansi-to-html";
 import classnames from "classnames";
 import React from "react";

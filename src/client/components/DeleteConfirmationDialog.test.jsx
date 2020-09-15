@@ -1,6 +1,6 @@
 import { getTheme } from "../theme";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
-import { ThemeProvider } from "@material-ui/styles";
+import { ThemeProvider } from "./mui";
 import { shallow } from "enzyme";
 import React from "react";
 
