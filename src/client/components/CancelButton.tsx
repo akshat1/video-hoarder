@@ -7,11 +7,17 @@ import { cancelJob, deleteJob } from "../redux/job-management";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 import { Button } from "./mui";
 import { CancelOutlined, DeleteOutline } from "./mui";
-import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, FunctionComponent, useState } from "react";
 import { connect } from "react-redux";
 
-export const CancelButton = (props) => {
+interface CancelButtonProps {
+  className: string;
+  doCancel: (Item) => void;
+  doDelete: (Item) => void;
+  item: Item;
+}
+
+export const CancelButton: FunctionComponent<CancelButtonProps> = (props) => {
   const [ isDialogOpen, setDialogOpen ] = useState(false);
   const { className, doCancel, doDelete, item } = props;
   const { status } = item;
@@ -53,13 +59,6 @@ export const CancelButton = (props) => {
     </Fragment>
   );
 };
-
-CancelButton.propTypes = {
-  className: PropTypes.string,
-  doCancel: PropTypes.function,
-  doDelete: PropTypes.function,
-  item: PropTypes.shape(Item),
-}
 
 const dispatchToProps = {
   doCancel: cancelJob,

@@ -69,12 +69,6 @@ App.propTypes = {
   pathname: PropTypes.string,
 };
 
-/**
- * @private
- * @returns {boolean}
- */
-const isDevMode = () => process.env.NODE_ENV === "development";
-
 const stateToProps = state => ({
   fetchingUser: isFetchingUser(state),
   loggedIn: isLoggedIn(state),
