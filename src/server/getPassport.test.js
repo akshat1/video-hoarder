@@ -92,7 +92,7 @@ describe("server/getPassport", () => {
 
     test("yields error when one occurs", async () => {
       const expectedError = new Error("expected error");
-      getUserByUserName.mockImplementation(Promise.reject(expectedError));
+      getUserByUserName.mockImplementation(() => Promise.reject(expectedError));
       const cb = jest.fn();
       await deserializeUser("foo", cb);
       expect(cb).toHaveBeenCalledWith(expectedError);
