@@ -1,7 +1,7 @@
 const React = require('react');
 
 module.exports = {
-  stories: ['../src/**/*.story.jsx'],
+  stories: ['../src/**/*.story.jsx', '../src/**/*.story.tsx'],
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-actions',

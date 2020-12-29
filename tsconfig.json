@@ -6,8 +6,9 @@
       "./node_modules/@types"
     ],
     "esModuleInterop": true,
-    "lib": ["ESNext"],
+    "lib": ["ESNext"]
   },
+  "exclude": ["node_modules"],
   "typeAcquisition": { "enable": true },
   "typedocOptions": {
     "mode": "modules",

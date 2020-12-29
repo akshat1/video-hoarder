@@ -1,7 +1,10 @@
+import { ConfigurationPreset } from "../../model/ConfigurationPreset";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,IconButton,Link,TextareaAutosize, Typography, useMediaQuery, useTheme } from "./mui";
 import { Close as CloseIcon,makeStyles } from "./mui";
-import PropTypes from "prop-types";
+import _ from "lodash";
 import React, { useState } from "react";
+import { SyntheticEvent } from "react";
+import { FunctionComponent } from "react";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -16,7 +19,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ConfigurationEditor = (props) => {
+interface ConfigurationEditorProps {
+  configText?: string
+  helperText?: string
+  onCancel: (event: SyntheticEvent) => void
+  doSave: (newConfig: string) => void
+  open: boolean
+  title: string
+  presets?: ConfigurationPreset[]
+  selectedPreset?: string
+}
+
+const YTDLDocLink = (
+  <Link
+    href="https://github.com/ytdl-org/youtube-dl#configuration"
+    rel="noreferrer"
+    target="_blank"
+  >
+    youtube-dl documentation
+  </Link>
+);
+
+const ConfigurationEditor: FunctionComponent<ConfigurationEditorProps> = (props) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const fullWidth = !fullScreen;
@@ -28,6 +52,7 @@ const ConfigurationEditor = (props) => {
     helperText,
     onCancel,
     open,
+    presets,
     title,
   } = props;
 
@@ -57,21 +82,24 @@ const ConfigurationEditor = (props) => {
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <If condition={helperText}>
+          <If condition={!!helperText}>
             <Typography>{helperText}</Typography>
           </If>
-          <Typography>See <Link
-            href="https://github.com/ytdl-org/youtube-dl#configuration"
-            rel="noreferrer"
-            target="_blank"
-                          >youtube-dl documentation
-                          </Link> for syntax.
+          <Typography>
+            See {YTDLDocLink} for syntax.
           </Typography>
         </DialogContentText>
+        <If condition={!_.isEmpty(presets)}>
+          <Typography>
+            Preset:
+          </Typography>
+        </If>
         <TextareaAutosize
+          autoCorrect="off"
           className={classes.textArea}
           onChange={onChange}
           rowsMin={5}
+          spellCheck={false}
           value={tmpConfigText}
         />
       </DialogContent>
@@ -89,15 +117,6 @@ const ConfigurationEditor = (props) => {
       </DialogActions>
     </Dialog>
   );
-};
-
-ConfigurationEditor.propTypes = {
-  configText: PropTypes.string,
-  helperText: PropTypes.string,
-  onCancel: PropTypes.func,
-  doSave: PropTypes.func,
-  open: PropTypes.bool,
-  title: PropTypes.string,
 };
 
 ConfigurationEditor.defaultProps = {
