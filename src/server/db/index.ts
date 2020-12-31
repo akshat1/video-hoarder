@@ -5,6 +5,7 @@
  * Mongo v1.4, is quite old, and never learnt about Promises. So you will see many wrappers in this module.
  *
  * @module server/db
+ * @todo replace tingodb with sqlite.
  */
 
 export { initialize } from "./initialize";
