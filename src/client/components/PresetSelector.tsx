@@ -1,7 +1,7 @@
-import _ from "lodash";
 import { ConfigurationPreset, ConfigurationPresetID } from "../../model/ConfigurationPreset";
-import { MenuItem, Select, InputLabel, FormControl } from "./mui";
-import React, { Fragment, FunctionComponent } from "react";
+import { FormControl,InputLabel, MenuItem, Select } from "./mui";
+import _ from "lodash";
+import React, { FunctionComponent } from "react";
 
 interface PresetSelectorProps {
   presets: ConfigurationPreset[]
@@ -9,7 +9,13 @@ interface PresetSelectorProps {
   onChange: (ConfigurationPresetID) => void
 }
 
-const SelectOne = <MenuItem disabled value="">Select One</MenuItem>;
+const SelectOne = (
+<MenuItem
+  disabled
+  value=""
+>Select One
+</MenuItem>
+);
 
 /**
  * Renders a select box containing a sorted list of provided ConfigurationPreset objects.
@@ -18,7 +24,7 @@ const PresetSelector: FunctionComponent<PresetSelectorProps> = (props) => {
   const presetSelectorLabelID = `presetSelectorLabel-${Math.round(Math.random() * 1000)}`;
   return (
     <FormControl variant="outlined">
-      <InputLabel id={presetSelectorLabelID}>Status</InputLabel>   
+      <InputLabel id={presetSelectorLabelID}>Preset</InputLabel>   
       <Select
         displayEmpty
         labelId={presetSelectorLabelID}
@@ -28,9 +34,13 @@ const PresetSelector: FunctionComponent<PresetSelectorProps> = (props) => {
         {SelectOne}
         <For
           each="preset"
-          of={_.sortBy(props.presets, 'name')}
+          of={_.sortBy(props.presets, "name")}
         >
-          <MenuItem value={preset.id}>{preset.name}</MenuItem>
+          <MenuItem
+            key={preset.id}
+            value={preset.id}
+          >{preset.name}
+          </MenuItem>
         </For>
       </Select>
     </FormControl>

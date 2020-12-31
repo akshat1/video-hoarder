@@ -1,8 +1,8 @@
 /**
  * Actions and reducers. Together at last (we'll split them if required down the road).
  */
-import { statusFilter } from "./job-management";
-import { addingJob, fetchingJobs, jobs } from "./job-management";
+import { statusFilter, addingJob, fetchingJobs, jobs } from "./job-management";
+import { presets, fetchingPresets } from "./config-management";
 import { notificationMessages } from "./notifications";
 import { fetchingUser, loginError,user, userFetchDone } from "./session-management";
 import { updateUserErrorMessage, updateUserFailed, updateUserSucceeded,updatingUser } from "./user-management";
@@ -18,9 +18,11 @@ export const getRootReducer = (history: History): Reducer => {
     fetchingJobs,
     fetchingUser,
     fetchingYTDLInfo,
+    fetchingPresets,
     jobs,
     loginError,
     notificationMessages,
+    presets,
     router: connectRouter(history),
     statusFilter,
     updateUserErrorMessage,

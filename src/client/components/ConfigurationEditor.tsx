@@ -1,21 +1,34 @@
-import { ConfigurationPreset } from "../../model/ConfigurationPreset";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,IconButton,Link,TextareaAutosize, Typography, useMediaQuery, useTheme } from "./mui";
-import { Close as CloseIcon,makeStyles } from "./mui";
+import { ConfigurationPreset, ConfigurationPresetID, findPresetById } from "../../model/ConfigurationPreset";
+import { makeStyles, Button, Grid, Link,TextareaAutosize, Typography } from "./mui";
+import NameInputDialog from "./NameInputDialog";
+import PresetSelector from "./PresetSelector";
 import _ from "lodash";
-import React, { useState } from "react";
-import { SyntheticEvent } from "react";
-import { FunctionComponent } from "react";
+import React, { FunctionComponent, useState, SyntheticEvent, useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchPresets } from "../redux/config-management";
+import { getPresets } from "../selectors";
 
-const useStyles = makeStyles(theme => ({
-  root: {},
-  textArea: {
-    width: "100%",
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: "60rem",
   },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
+  textAreaContainer: {
+    display: "block",
+  },
+  textArea: {
+    height: "100%",
+    width: "100%",
+    boxSizing: "border-box",
+    padding: theme.spacing(1),
+  },
+  bottomButtons: {
+    textAlign: "right",
+    "& > button + button": {
+      marginLeft: theme.spacing(1),
+    },
+  },
+  savePresetButton: {
+    float: "left",
   },
 }));
 
@@ -24,10 +37,10 @@ interface ConfigurationEditorProps {
   helperText?: string
   onCancel: (event: SyntheticEvent) => void
   doSave: (newConfig: string) => void
-  open: boolean
-  title: string
+  doSavePreset: (preset: ConfigurationPreset) => Promise<void>
   presets?: ConfigurationPreset[]
-  selectedPreset?: string
+  selectedPresetID?: ConfigurationPresetID,
+  fetchPresets: () => Promise<void>,
 }
 
 const YTDLDocLink = (
@@ -40,87 +53,175 @@ const YTDLDocLink = (
   </Link>
 );
 
+/**
+ * Interface to edit tool configurations. For now, since we are only dealing with youtube-dl, this is set up with a
+ * link to YTDL docs. Also lets you use a previously saved preset configuration, or save a new one.
+ *
+ * @todo Error handling
+ */
 const ConfigurationEditor: FunctionComponent<ConfigurationEditorProps> = (props) => {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const fullWidth = !fullScreen;
-  const maxWidth = fullWidth ? "md" : undefined;
   const classes = useStyles();
   const {
     configText,
     doSave,
+    doSavePreset,
     helperText,
     onCancel,
-    open,
     presets,
-    title,
+    selectedPresetID,
+    fetchPresets,
   } = props;
 
-  const [tmpConfigText, setTempConfigText] = useState(configText);
+  useEffect(() => {
+    fetchPresets();
+  }, [fetchPresets])
+
+  // There is no global preset selection. "Selecting" a preset just means using the value contained within it. Therefore
+  // we keep the "selected" preset as local state. Hitting save will cause the value of the selected preset to be saved
+  // in whatever context this editor was invoked in.
+  const [tmpSelectedPresetID, setSelectedPresetID] = useState(selectedPresetID);
+  // Populate the textarea with the value of the selected preset (if any was supplied as a prop), or the raw config
+  // value (if provided).
+  const [tmpConfigText, setTempConfigText] = useState(findPresetById(presets, selectedPresetID)?.configurationValue || configText);
+  // Disable save preset button when we have a falsy config text value.
+  const [isSavePresetDisabled, setSavePresetDisabled] = useState(!tmpConfigText);
+  const [isNameDialogOpen, setNameDialogOpen] = useState(false); // An an old schooler, I miss the simplicity of window.prompt terribly.
   const onChange = (event) => setTempConfigText(event.currentTarget.value);
   const onSaveButtonClicked = () => doSave(tmpConfigText);
+  const onSavePresetButtonClicked = () => {
+    if (tmpConfigText) {
+      setSavePresetDisabled(true);
+      setNameDialogOpen(true);
+    }
+  };
+
+  const onNameDialogCancel = () => {
+    setSavePresetDisabled(false);
+    setNameDialogOpen(false);
+  };
+
+  const onNameDialogSave = async (newName) => {
+    const selectedPreset = findPresetById(presets, tmpSelectedPresetID);
+    await doSavePreset({
+      tool: "youtube-dl",
+      name: newName,
+      configurationValue: tmpConfigText,
+      id: (selectedPreset?.name === newName) ? selectedPresetID : "-1",
+    });
+    setSavePresetDisabled(false);
+    setNameDialogOpen(false);
+  };
+
+  const updateTempConfigText = (text:string) => {
+    setTempConfigText(text);
+    setSavePresetDisabled(!text);
+  };
+
+  const onPresetChanged = (newPresetID) => {
+    const newPreset = findPresetById(presets, newPresetID);
+    if (newPreset) {
+      updateTempConfigText(newPreset.configurationValue);
+      setSelectedPresetID(newPresetID);
+    }
+  };
 
   return (
-    <Dialog
-      aria-labelledby="editor-dialog-title"
-      className={classes.root}
-      fullScreen={fullScreen}
-      fullWidth={fullWidth}
-      maxWidth={maxWidth}
-      onClose={onCancel}
-      open={open}
-    >
-      <DialogTitle id="editor-dialog-title">
-        <Typography variant="h6">{title}</Typography>
-        <IconButton
-          aria-label="close"
-          className={classes.closeButton}
-          onClick={onCancel}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <If condition={!!helperText}>
+    <div className={classes.root}>
+      <Grid
+        container
+        spacing={1}
+      >
+        <If condition={!!helperText}>
+          <Grid
+            item
+            xs={12}
+          >
             <Typography>{helperText}</Typography>
-          </If>
+          </Grid>
+        </If>
+        <If condition={!_.isEmpty(presets)}>
+          <Grid
+            item
+            xs={12}
+          >
+            <PresetSelector
+              onChange={onPresetChanged}
+              presets={presets}
+              selectedPreset={tmpSelectedPresetID}
+            />
+          </Grid>
+        </If>
+        <Grid
+          item
+          xs={12}
+        >
           <Typography>
             See {YTDLDocLink} for syntax.
           </Typography>
-        </DialogContentText>
-        <If condition={!_.isEmpty(presets)}>
-          <Typography>
-            Preset:
-          </Typography>
-        </If>
-        <TextareaAutosize
-          autoCorrect="off"
-          className={classes.textArea}
-          onChange={onChange}
-          rowsMin={5}
-          spellCheck={false}
-          value={tmpConfigText}
+        </Grid>
+        <Grid
+          item
+          xs={12}
+        >
+          <div className={classes.textAreaContainer}>
+            <TextareaAutosize
+              aria-label="Textual configuration value"
+              autoCorrect="off"
+              className={classes.textArea}
+              onChange={onChange}
+              rowsMin={8}
+              spellCheck={false}
+              value={tmpConfigText}
+            />
+          </div>
+        </Grid>
+        <Grid
+          className={classes.bottomButtons}
+          item
+          xs={12}
+        >
+          <Button
+            aria-label="Save preset"
+            className={classes.savePresetButton}
+            disabled={isSavePresetDisabled}
+            onClick={onSavePresetButtonClicked}
+            variant="contained"
+          >
+            Save Preset
+          </Button>
+          <Button
+            aria-label="Save configuration"
+            color="primary"
+            onClick={onSaveButtonClicked}
+            variant="contained"
+          >
+            Save
+          </Button>
+          <Button
+            aria-label="Cancel"
+            onClick={onCancel}
+            variant="contained"
+          >
+            Cancel
+          </Button>
+        </Grid>
+        <NameInputDialog
+          onCancel={onNameDialogCancel}
+          onSave={onNameDialogSave}
+          open={isNameDialogOpen}
+          title="Save config preset as…"
         />
-      </DialogContent>
-      <DialogActions>
-        <Button
-          color="primary"
-          onClick={onCancel}
-        >Cancel
-        </Button>
-        <Button
-          color="primary"
-          onClick={onSaveButtonClicked}
-        >Save
-        </Button>
-      </DialogActions>
-    </Dialog>
+      </Grid>
+    </div>
   );
 };
 
-ConfigurationEditor.defaultProps = {
-  title: "Edit youtube-dl configuration",
+const mapStateToProps = (state) => ({
+  presets: getPresets(state),
+});
+
+const mapDispatchToProps = {
+  fetchPresets,
 };
 
-export default ConfigurationEditor;
+export default connect(mapStateToProps, mapDispatchToProps)(ConfigurationEditor);

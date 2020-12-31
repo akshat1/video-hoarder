@@ -5,6 +5,7 @@ import { StatusFilterValue } from "../model/Status";
 import { User } from "../model/User";
 // @ts-ignore
 import _ from "lodash";
+import { ConfigurationPreset } from "../model/ConfigurationPreset";
 
 export const getUser = (state: ClientStoreState): User => state.user;
 
@@ -58,3 +59,7 @@ export const getCurrentNotification = (state: ClientStoreState): Notification =>
  * Are we currently on the home page?
  */
 export const isOnHomePage = (state: ClientStoreState): boolean => getPathname(state) === "%%%SERVER_PATH%%%/";
+
+export const getPresets = (state: ClientStoreState): ConfigurationPreset[] => state.presets || [];
+
+export const isFetchingPresets = (state: ClientStoreState): boolean => state.fetchingPresets;

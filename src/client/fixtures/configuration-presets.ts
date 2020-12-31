@@ -11,41 +11,40 @@ export const EverythingConfig =
 --write-annotations
 --write-thumbnail`;
 
+// Thanks to https://gist.github.com/umidjons/8a15ba3813039626553929458e3ad1fc
 export const AudioOnlyConfig =
-`
--i
+`-i
 --extract-audio
 --audio-format mp3
 --audio-quality 0
--o "%(title)s.%(ext)s"
-`;
+-o %(title)s.%(ext)s`;
 
-export const UseNetRCConfig =
-`
--n
-`;
+export const UseNetRCConfig = "-n";
 
 export const SimplePreset: ConfigurationPreset = {
+  configurationValue: "A simple configuration",
   id: "SimpleConfig",
   name: "Simple Config",
-  configurationValue: "A simple configuration",
+  tool: "youtube-dl",
 };
 
 export const EverythingPreset: ConfigurationPreset = {
+  configurationValue: EverythingConfig,
   id: "EverythingConfig",
   name: "Everything Config",
-  configurationValue: EverythingConfig,
+  tool: "youtube-dl",
 };
 
-// Thanks to https://gist.github.com/umidjons/8a15ba3813039626553929458e3ad1fc
 export const AudioOnlyPreset: ConfigurationPreset = {
+  configurationValue: AudioOnlyConfig,
   id: "AudioOnly",
   name: "Music",
-  configurationValue: AudioOnlyConfig,
+  tool: "youtube-dl",
 };
 
 export const UseNetRCPreset: ConfigurationPreset = {
+  configurationValue: UseNetRCConfig,
   id: "UseNetRC",
   name: "Use .netrc",
-  configurationValue: UseNetRCConfig,
+  tool: "youtube-dl",
 };

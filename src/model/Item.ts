@@ -5,9 +5,9 @@ import md5 from "blueimp-md5";
 const System = "System";
 
 export interface ItemMetadata {
-  description: string,
-  thumbnail: string,
-  title: string,
+  description?: string,
+  thumbnail?: string,
+  title?: string,
 }
 
 export interface Item extends Entity {

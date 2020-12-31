@@ -38,16 +38,16 @@ const DeleteConfirmationDialog = ({ jobTitle, onCancel, onConfirm, open, status 
         <div className={classes.buttonContainer}>
           <Button
             className={classes.yesButton}
-            color="primary"
             onClick={onConfirm}
             variant="contained"
-          >Yes
+          >
+            Yes
           </Button>
           <Button
-            color="secondary"
             onClick={onCancel}
             variant="contained"
-          >No
+          >
+            No
           </Button>
         </div>
       </div>

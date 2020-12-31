@@ -8,7 +8,7 @@ import { getInstance } from "./net";
 // @ts-ignore
 import _ from "lodash";
 
-const rootLogger = getLogger("actions");
+const rootLogger = getLogger("redux/job-management");
 
 export const StatusFilter = "StatusFilter";
 export const setStatusFilter = actionCreatorFactory<StatusFilterValue>(StatusFilter);

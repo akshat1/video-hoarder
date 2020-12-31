@@ -3,6 +3,7 @@ import { Item } from "./Item";
 import { Notification } from "./Notification";
 import { User } from "./User";
 import { RouterState } from "connected-react-router";
+import { ConfigurationPreset } from "./ConfigurationPreset";
 
 export interface ClientStoreState {
   addingJob: boolean,
@@ -21,4 +22,6 @@ export interface ClientStoreState {
   updatingUser: boolean,
   user: User,
   userFetchDone: boolean,
+  presets: ConfigurationPreset[],
+  fetchingPresets: false,
 }
