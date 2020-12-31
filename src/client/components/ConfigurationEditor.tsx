@@ -59,7 +59,7 @@ const YTDLDocLink = (
  *
  * @todo Error handling
  */
-const ConfigurationEditor: FunctionComponent<ConfigurationEditorProps> = (props) => {
+export const ConfigurationEditor: FunctionComponent<ConfigurationEditorProps> = (props) => {
   const classes = useStyles();
   const {
     configText,

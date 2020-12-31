@@ -1,5 +1,5 @@
 import { AudioOnlyPreset, EverythingConfig, EverythingPreset, SimplePreset, UseNetRCPreset } from "../fixtures/configuration-presets";
-import ConfigurationEditor from "./ConfigurationEditor";
+import { ConfigurationEditor } from "./ConfigurationEditor";
 import { action } from "@storybook/addon-actions";
 import { text } from "@storybook/addon-knobs";
 import React from "react";
@@ -15,6 +15,7 @@ const asyncDoSavePresetAction = async (...args) => doSavePresetAction(...args);
 
 export const Simple: FunctionComponent = () => (
   <ConfigurationEditor
+    fetchPresets={() => null}
     configText={text("Config value", EverythingConfig)}
     doSave={action("doSave")}
     doSavePreset={asyncDoSavePresetAction}
@@ -25,6 +26,7 @@ export const Simple: FunctionComponent = () => (
 
 export const WithPresetsButNoneSelected: FunctionComponent = () => (
   <ConfigurationEditor
+    fetchPresets={() => null}
     doSave={action("doSave")}
     doSavePreset={asyncDoSavePresetAction}
     helperText={text("Helper text", "Sample helper text")}
@@ -35,6 +37,7 @@ export const WithPresetsButNoneSelected: FunctionComponent = () => (
 
 export const WithPresets: FunctionComponent = () => (
   <ConfigurationEditor
+    fetchPresets={() => null}
     doSave={action("doSave")}
     doSavePreset={asyncDoSavePresetAction}
     helperText={text("Helper text", "Sample helper text")}
