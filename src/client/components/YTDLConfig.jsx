@@ -1,4 +1,4 @@
-import { getUser,getYTDLBinaryPath, getYTDLBinaryVersion, getYTDLGlobalConfig,isFetchingYTDLInfo } from "../selectors";
+import { getYTDLGlobalConfig } from "../selectors";
 import ConfigurationEditor from "./ConfigurationEditor";
 import { makeStyles,useTheme } from "./mui";
 import React from "react";

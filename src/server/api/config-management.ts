@@ -1,8 +1,7 @@
 import { getLogger } from "../../logger";
-import express, { Request, Response, Router } from "express";
-import { ConfigurationPreset, ConfigurationPresetID } from "../../model/ConfigurationPreset";
 import { getPresets as getConfigPresets } from "../db/config-management";
 import { ensureValidUser } from "../express-middleware";
+import express, { Request, Response, Router } from "express";
 
 const rootLogger = getLogger("api/config-management");
 

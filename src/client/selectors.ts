@@ -1,11 +1,11 @@
 import { ClientStoreState } from "../model/ClientStoreState";
+import { ConfigurationPreset } from "../model/ConfigurationPreset";
 import { Item } from "../model/Item";
 import { Notification } from "../model/Notification";
 import { StatusFilterValue } from "../model/Status";
 import { User } from "../model/User";
 // @ts-ignore
 import _ from "lodash";
-import { ConfigurationPreset } from "../model/ConfigurationPreset";
 
 export const getUser = (state: ClientStoreState): User => state.user;
 

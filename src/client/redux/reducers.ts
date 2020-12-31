@@ -1,8 +1,8 @@
 /**
  * Actions and reducers. Together at last (we'll split them if required down the road).
  */
-import { statusFilter, addingJob, fetchingJobs, jobs } from "./job-management";
-import { presets, fetchingPresets } from "./config-management";
+import { fetchingPresets,presets } from "./config-management";
+import { addingJob, fetchingJobs, jobs,statusFilter } from "./job-management";
 import { notificationMessages } from "./notifications";
 import { fetchingUser, loginError,user, userFetchDone } from "./session-management";
 import { updateUserErrorMessage, updateUserFailed, updateUserSucceeded,updatingUser } from "./user-management";

@@ -1,12 +1,12 @@
 import { ConfigurationPreset, ConfigurationPresetID, findPresetById } from "../../model/ConfigurationPreset";
-import { makeStyles, Button, Grid, Link,TextareaAutosize, Typography } from "./mui";
+import { fetchPresets } from "../redux/config-management";
+import { getPresets } from "../selectors";
+import { Button, Grid, Link,makeStyles, TextareaAutosize, Typography } from "./mui";
 import NameInputDialog from "./NameInputDialog";
 import PresetSelector from "./PresetSelector";
 import _ from "lodash";
-import React, { FunctionComponent, useState, SyntheticEvent, useEffect } from "react";
+import React, { FunctionComponent, SyntheticEvent, useEffect,useState } from "react";
 import { connect } from "react-redux";
-import { fetchPresets } from "../redux/config-management";
-import { getPresets } from "../selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,11 +65,11 @@ const ConfigurationEditor: FunctionComponent<ConfigurationEditorProps> = (props)
     configText,
     doSave,
     doSavePreset,
+    fetchPresets,
     helperText,
     onCancel,
     presets,
     selectedPresetID,
-    fetchPresets,
   } = props;
 
   useEffect(() => {

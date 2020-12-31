@@ -4,10 +4,10 @@
  */
 import { getLogger } from "../../logger";
 import { ConfigurationPreset } from "../../model/ConfigurationPreset";
-import fs from "fs/promises";
-import path from "path";
 import md5 from "blueimp-md5";
+import fs from "fs/promises";
 import PQueue from "p-queue";
+import path from "path";
 
 const rootLogger = getLogger("db/config-management");
 const DefaultFileName = "default";
@@ -29,9 +29,9 @@ interface MakeConfigPresetArgs {
   userName?: string
   filePath: string
   configurationValue: string
-};
+}
 
-const makeConfigPreset = ({ tool, userName, filePath, configurationValue }: MakeConfigPresetArgs ):ConfigurationPreset => ({
+const makeConfigPreset = ({ configurationValue, filePath, tool, userName }: MakeConfigPresetArgs ):ConfigurationPreset => ({
   tool,
   id: md5(filePath),
   name: getPresetName(userName, filePath),
@@ -50,7 +50,7 @@ const getConfigFilePath = (args: {tool: string, userName: string, configName: st
   const {
     tool,
     userName,
-    configName = DefaultFileName
+    configName = DefaultFileName,
   } = args;
 
   // For now, let's just assume everything is a .conf.
@@ -108,7 +108,6 @@ export const getPresets = async (args: { tool: string, userName: string}): Promi
     tool,
     userName,
   } = args;
-  const filePaths:string[] = [];
   const queue = new PQueue({ concurrency: 4 });
   const presets:ConfigurationPreset[] = [];
   

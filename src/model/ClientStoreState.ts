@@ -1,9 +1,9 @@
 import { StatusFilterValue } from "../model/Status";
+import { ConfigurationPreset } from "./ConfigurationPreset";
 import { Item } from "./Item";
 import { Notification } from "./Notification";
 import { User } from "./User";
 import { RouterState } from "connected-react-router";
-import { ConfigurationPreset } from "./ConfigurationPreset";
 
 export interface ClientStoreState {
   addingJob: boolean,

@@ -1,7 +1,7 @@
+import { getRouter as getConfigManagamentAPI } from "./config-management";
 import { getRouter as getJobsAPI } from "./job-management";
 import { getRouter as getUserAPI } from "./user-management";
 import { getRouter as getYTDLApi } from "./ytdl";
-import { getRouter as getConfigManagamentAPI } from "./config-management";
 import { Router } from "express";
 import { PassportStatic } from "passport";
 
