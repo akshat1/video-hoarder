@@ -13,7 +13,7 @@
   "typedocOptions": {
     "mode": "modules",
     "out": "docs/jsdoc",
-    "exclude": ["**/*.test.*", "node_modules", "src/fixtures"],
+    "exclude": ["**/*.test.*", "node_modules", "src/fixtures", "**/*.story.*"],
     "excludeExternals": true,
     "ignoreCompilerErrors": true
   }
