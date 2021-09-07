@@ -1,3 +1,5 @@
+import { Role } from "../model/Role";
+import { createUser, getUserByName } from "./db/userManagement";
 import { getApolloServer } from "./graphql";
 import express, { Request, Response } from "express";
 import path from "path";
@@ -19,7 +21,19 @@ const main = async () => {
   process.on("exit", onExit);
 
   // DB
+  console.log("create connection");
   await createConnection();
+  console.log("do we have an admin?");
+  const adminUser = await getUserByName("admin");
+  if (!adminUser) {
+    console.log("create an admin?");
+    await createUser({
+      passwordExpired: false,
+      password: "admin",
+      userName: "admin",
+      role: Role.Admin,
+    }, "System");
+  }
 
   // Create the express server
   const app = express();

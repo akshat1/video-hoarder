@@ -1,7 +1,7 @@
 /* eslint-disable import/no-default-export */
-export default {
-  type: "sqlite3",
+module.exports = {
+  type: "better-sqlite3",
   database: process.env.NODE_ENV === "production" ? "./db.prod.sqlite3" : "./db.dev.sqlite3",
-  entities: ["./src/models/*.ts"],
+  entities: ["./src/model/*.ts"],
   synchronize: true,
 };

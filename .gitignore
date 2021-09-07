@@ -1,4 +1,8 @@
 ./db/
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+app/
 browserify-cache.json
 build/
 cert/*
@@ -13,4 +17,3 @@ node_modules/
 storybook-static/
 tmp/
 webpack-stats.json
-app/

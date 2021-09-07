@@ -1,12 +1,8 @@
-import { Job } from "../../model/Job";
-import { NonEmptyArray, Query, Resolver } from "type-graphql";
+import { JobResolver } from "./JobResolver";
+import { UserResolver } from "./UserResolver";
+import { NonEmptyArray } from "type-graphql";
 
-@Resolver()
-export class JobResolver {
-  @Query(() => [Job])
-  jobs():Job[] {
-    return [];
-  }
-}
-
-export const resolvers:NonEmptyArray<Function> = [JobResolver];
+export const resolvers:NonEmptyArray<Function> = [
+  JobResolver,
+  UserResolver,
+];
