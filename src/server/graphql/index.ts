@@ -1,14 +1,12 @@
 import { resolvers } from "./resolvers";
-import { typeDefs } from "./typedefs";
 import { ApolloServer } from "apollo-server-express";
+import { buildSchema } from "type-graphql";
 
 let server:ApolloServer;
-export const getApolloServer = ():ApolloServer => {
+export const getApolloServer = async (): Promise<ApolloServer> => {
   if (!server) {
-    server = new ApolloServer({
-      typeDefs,
-      resolvers,
-    })
+    const schema = await buildSchema({ resolvers });
+    server = new ApolloServer({ schema });
   }
 
   return server;

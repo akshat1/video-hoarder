@@ -21,7 +21,7 @@ const main = async () => {
   const app = express();
 
   // Set-up apollo server
-  const apolloServer = getApolloServer();
+  const apolloServer = await getApolloServer();
   await apolloServer.start();
   apolloServer.applyMiddleware({ app });
 
