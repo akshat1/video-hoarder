@@ -1,6 +1,7 @@
 import { getApolloServer } from "./graphql";
 import express, { Request, Response } from "express";
 import path from "path";
+import { createConnection } from "typeorm";
 
 const Config = {
   webUIPath: process.env.NODE_ENV === "production" ? "./app/client" : "./src/client",
@@ -16,6 +17,9 @@ const onExit = () => {
 const main = async () => {
   console.log("Starting server process.");
   process.on("exit", onExit);
+
+  // DB
+  await createConnection();
 
   // Create the express server
   const app = express();
