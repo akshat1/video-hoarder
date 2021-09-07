@@ -1,5 +1,0 @@
-{
-  "name": "dummy",
-  "description": "Need this file because our top level package.json says type:module which Storybook has trouble with. Renaming files here .cjs doesn't work either.",
-  "type": "commonjs"
-}
