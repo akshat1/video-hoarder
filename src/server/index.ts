@@ -1,10 +1,14 @@
 import { Role } from "../model/Role";
 import { createUser, getUserByName } from "./db/userManagement";
 import { getApolloServer } from "./graphql";
+import { hookupApp } from "./passport";
 import express, { Request, Response } from "express";
+import session from "express-session";
 import path from "path";
 import { createConnection } from "typeorm";
+import { v4 as uuid } from "uuid";
 
+const SessionSecret = "Not so secretely bad secret";
 const Config = {
   webUIPath: process.env.NODE_ENV === "production" ? "./app/client" : "./src/client",
   port: process.env.SERVER_PORT || 8081,
@@ -37,6 +41,13 @@ const main = async () => {
 
   // Create the express server
   const app = express();
+  app.use(session({
+    genid: () => uuid(),
+    secret: SessionSecret,
+    resave: false,
+    saveUninitialized: false,
+  }));
+  await hookupApp(app);
 
   // Set-up apollo server
   const apolloServer = await getApolloServer();
