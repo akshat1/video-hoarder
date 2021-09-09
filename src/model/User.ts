@@ -43,3 +43,9 @@ export class User extends BaseEntity {
   @Column()
   updatedAt: string;
 }
+
+@ObjectType()
+export class UserResponse {
+  @Field(() => User, { nullable: true })
+  user?: User;
+}

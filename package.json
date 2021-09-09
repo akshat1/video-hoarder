@@ -4,7 +4,7 @@
   "description": "youtube-dl frontend for NAS devices.",
   "scripts": {
     "dev-client": "snowpack dev",
-    "dev-server": "nodemon src/server/index.ts",
+    "dev-server": "nodemon --exec \"node -r ts-node/register --inspect\" src/server/index.ts",
     "dev": "yarn dev-server & yarn dev-client",
     "start": "NODE_ENV=production node app/server",
     "build": "tsc"
@@ -51,6 +51,9 @@
     "apollo-server-express": "^3.3.0",
     "bcrypt": "^5.0.1",
     "better-sqlite3": "^7.4.3",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "graphql": "^15.5.3",

@@ -2,6 +2,7 @@ import { Role } from "../model/Role";
 import { createUser, getUserByName } from "./db/userManagement";
 import { getApolloServer } from "./graphql";
 import { hookupApp } from "./passport";
+import cors from "cors";
 import express, { Request, Response } from "express";
 import session from "express-session";
 import path from "path";
@@ -41,6 +42,11 @@ const main = async () => {
 
   // Create the express server
   const app = express();
+
+  app.use(cors({
+    origin: "http://localhost:8080",
+    credentials: true,
+  }));
   app.use(session({
     genid: () => uuid(),
     secret: SessionSecret,
@@ -52,7 +58,7 @@ const main = async () => {
   // Set-up apollo server
   const apolloServer = await getApolloServer();
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   // Web
   const webUIPath = path.resolve(process.cwd(), Config.webUIPath);

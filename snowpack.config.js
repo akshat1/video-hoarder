@@ -23,4 +23,8 @@ module.exports = {
     treeshake: true,
     manifest: true,
   },
+  alias: {
+    "type-graphql": "type-graphql/dist/browser-shim.js",
+    "typeorm": "typeorm/typeorm-class-transformer-shim.js",
+  },
 };
