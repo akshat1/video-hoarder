@@ -7,7 +7,8 @@
     "dev-server": "nodemon --exec \"node -r ts-node/register --inspect\" src/server/index.ts",
     "dev": "yarn dev-server & yarn dev-client",
     "start": "NODE_ENV=production node app/server",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "repository": {
     "type": "git",

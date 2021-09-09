@@ -32,10 +32,7 @@ export const Main:FunctionComponent = () => {
   );
 
   const loggedIn = !!data?.currentUser?.user;
-  const handleLogoutClick = () => {
-    console.log("handleLogoutClick");
-    logout();
-  };
+  const handleLogoutClick = _.debounce(() => logout(), 250);
   const showBackButton = false;
 
   if (loading) {

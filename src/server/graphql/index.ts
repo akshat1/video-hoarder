@@ -1,3 +1,4 @@
+import { User } from "../../model/User";
 import { resolvers } from "./resolvers";
 import { ApolloServer } from "apollo-server-express";
 import { buildContext } from "graphql-passport";
@@ -9,7 +10,7 @@ export const getApolloServer = async (): Promise<ApolloServer> => {
     const schema = await buildSchema({ resolvers });
     server = new ApolloServer({
       schema,
-      context: ({ req, res }) => buildContext({ req, res }),
+      context: ({ req, res }) => buildContext({ req, res, User }),
     });
   }
 

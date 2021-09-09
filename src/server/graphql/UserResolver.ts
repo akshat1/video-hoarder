@@ -45,7 +45,6 @@ export class UserResolver {
 
   @Mutation(() => UserResponse)
   async login (@Arg("userName") userName: string, @Arg("password") password: string, @Ctx() context: Context): Promise<UserResponse> {
-    console.log(`login mutation($userName: ${userName}, $password: ${password})`);
     const { user } = await context.authenticate(
       "graphql-local",
       {
