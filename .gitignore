@@ -14,6 +14,8 @@ docs/
 download
 download/*
 node_modules/
+sample.json
+sample2.json
 storybook-static/
 tmp/
 webpack-stats.json

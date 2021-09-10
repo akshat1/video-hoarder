@@ -11013,6 +11013,11 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
+youtube-dl-wrap@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/youtube-dl-wrap/-/youtube-dl-wrap-2.1.0.tgz#f2d998f8e910a0f6cea1d2e7fe2a11f4b6712c36"
+  integrity sha512-uGWtC4J1IGKMER32sQCtXBCbrvCAF4+2oSYIdIV3/fSgOkwHPKZmAdHLnaS+iZoEuYI+SZcm5dwNgGskWaIT6Q==
+
 zen-observable-ts@^1.0.0, zen-observable-ts@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-1.1.0.tgz#2d1aa9d79b87058e9b75698b92791c1838551f83"

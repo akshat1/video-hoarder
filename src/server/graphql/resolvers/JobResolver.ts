@@ -1,4 +1,4 @@
-import { Job } from "../../model/Job";
+import { Job } from "../../../model/Job";
 import { Query, Resolver } from "type-graphql";
 
 @Resolver()

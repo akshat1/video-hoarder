@@ -6,6 +6,7 @@ import cors from "cors";
 import express, { Request, Response } from "express";
 import session from "express-session";
 import path from "path";
+import { env } from "process";
 import { createConnection } from "typeorm";
 import { v4 as uuid } from "uuid";
 
@@ -43,10 +44,13 @@ const main = async () => {
   // Create the express server
   const app = express();
 
-  app.use(cors({
-    origin: "http://localhost:8080",
-    credentials: true,
-  }));
+  const enableStudio = !env.DEV_CLIENT;
+  if (!enableStudio) {
+    app.use(cors({
+      origin: "http://localhost:8080",
+      credentials: true,
+    }));
+  }
   app.use(session({
     genid: () => uuid(),
     secret: SessionSecret,
@@ -58,7 +62,10 @@ const main = async () => {
   // Set-up apollo server
   const apolloServer = await getApolloServer();
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app, cors: false });
+  apolloServer.applyMiddleware({
+    app,
+    cors: enableStudio,
+  });
 
   // Web
   const webUIPath = path.resolve(process.cwd(), Config.webUIPath);

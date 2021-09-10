@@ -1,6 +1,6 @@
-import { Role } from "../../model/Role";
-import { User, UserResponse } from "../../model/User";
-import { createUser } from "../db/userManagement";
+import { Role } from "../../../model/Role";
+import { User, UserResponse } from "../../../model/User";
+import { createUser } from "../../db/userManagement";
 import { Arg, Ctx, Field, InputType, Mutation,Query, Resolver } from "type-graphql";
 
 type Context = Record<string, any>;
