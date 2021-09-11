@@ -5,7 +5,7 @@
   "scripts": {
     "dev-client": "snowpack dev",
     "dev-server": "nodemon --exec \"node -r ts-node/register --inspect\" src/server/index.ts",
-    "dev-only-server": "DEV_SERVER=true yarn dev-server",
+    "dev-only-server": "ENABLE_STUDIO=true yarn dev-server",
     "dev": "yarn dev-server & yarn dev-client",
     "start": "NODE_ENV=production node app/server",
     "build": "tsc",

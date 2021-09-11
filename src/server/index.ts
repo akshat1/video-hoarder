@@ -44,7 +44,8 @@ const main = async () => {
   // Create the express server
   const app = express();
 
-  const enableStudio = !env.DEV_CLIENT;
+  const enableStudio = !!env.ENABLE_STUDIO;
+  console.log(`enableStudio: ${enableStudio}`);
   if (!enableStudio) {
     app.use(cors({
       origin: "http://localhost:8080",
