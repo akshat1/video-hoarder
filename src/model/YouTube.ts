@@ -65,7 +65,7 @@ export class YTHTTPHeaders {
 @ObjectType()
 export class YTFormat {
   @Field(() => String)
-  asr: string;
+  asr?: string;
 
   @Field(() => String, { nullable: true })
   filesize?: string;
@@ -74,7 +74,7 @@ export class YTFormat {
   formatId: string;
 
   @Field(() => String)
-  formatNote: string;
+  formatNote?: string;
 
   @Field(() => Float, { nullable: true })
   fps?: number;
@@ -83,43 +83,63 @@ export class YTFormat {
   height?: number;
 
   @Field(() => Int)
-  quality: number;
+  quality?: number;
 
   @Field(() => Float)
-  tbr: number;
+  tbr?: number;
 
   @Field(() => String)
-  url: string;
+  url?: string;
 
   @Field(() => Int, { nullable: true })
   width?: string;
 
   @Field(() => String)
-  ext: string;
+  ext?: string;
 
   @Field(() => String)
-  vcodec: string;
+  vcodec?: string;
 
   @Field(() => String)
-  acodec: string;
+  acodec?: string;
 
   @Field(() => String)
-  abr: string;
+  abr?: string;
 
   @Field(() => YTDownloaderOptions)
-  downloaderOptions: YTDownloaderOptions
+  downloaderOptions?: YTDownloaderOptions
 
   @Field(() => String)
-  container: string;
+  container?: string;
 
   @Field(() => String)
   format: string;
 
   @Field(() => String)
-  protocol: string;
+  protocol?: string;
 
   @Field(() => YTHTTPHeaders)
-  httpHeaders: string;
+  httpHeaders?: string;
+
+  static BestAudio: YTFormat = {
+    format: "Best Audio (Only)",
+    formatId: "BESTAUDIO",
+  };
+
+  static BestVideo: YTFormat = {
+    format: "Best Video (Only)",
+    formatId: "BESTVIDEO",
+  };
+
+  static BestBestMerged: YTFormat = {
+    format: "Best Video + Best Audio (Merged)",
+    formatId: "BESTBESTMERGED",
+  };
+
+  static BestBestSeparate: YTFormat = {
+    format: "Best Video, Best Audio (Separate)",
+    formatId: "BESTBESTSEPERATE",
+  };
 }
 
 @ObjectType()
@@ -131,13 +151,16 @@ export class YTThumbnail {
   url: string;
 
   @Field(() => Int)
-  width: string;
+  width: number;
 
   @Field(() => String)
   resolution: string;
 
   @Field(() => String)
   id: string;
+
+  static getNumericResolution = (thumb:YTThumbnail): number => thumb.height * thumb.width;
+  static sortByResolution = (thumbs:YTThumbnail[]): YTThumbnail[] => _.sortBy(thumbs, YTThumbnail.getNumericResolution);
 }
 
 @ObjectType()
@@ -528,5 +551,34 @@ export class YTMetadata {
 
   static fromJSON(blob: Record<string, any>): YTMetadata {
     return camelize(blob) as YTMetadata;
+  }
+
+  static hasVideo(metadata: YTMetadata): boolean {
+    return !!metadata.formats?.find(f => f.vcodec !== "none")
+  }
+
+  static hasAudio(metadata: YTMetadata): boolean {
+    return !!metadata.formats?.find(f => f.acodec !== "none")
+  }
+
+  static getFormatsForUI(metadata: YTMetadata): YTFormat[] {
+    const formats = [];
+    const hasVideo = YTMetadata.hasVideo(metadata);
+    const hasAudio = YTMetadata.hasAudio(metadata);
+    if (hasAudio && hasVideo) {
+      formats.push(YTFormat.BestBestMerged);
+      formats.push(YTFormat.BestBestSeparate);
+    }
+
+    if (hasVideo) {
+      formats.push(YTFormat.BestVideo);
+    }
+
+    if (hasAudio) {
+      formats.push(YTFormat.BestAudio);
+    }
+    
+    formats.push(..._.reverse(_.sortBy(metadata.formats, "quality")));
+    return formats;
   }
 }

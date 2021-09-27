@@ -1,4 +1,5 @@
-import { CurrentUserQuery, LogoutMutation } from "./gql";
+import { Mutation,Query } from "./gql";
+import { Home } from "./Home";
 import { LoginForm } from "./LoginForm";
 import { useMutation, useQuery } from "@apollo/client";
 import { Container, IconButton, makeStyles, Theme, Toolbar } from "@material-ui/core";
@@ -20,12 +21,12 @@ const useStyles = makeStyles((theme:Theme) => ({
 
 export const Main:FunctionComponent = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(CurrentUserQuery);
+  const { loading, error, data } = useQuery(Query.CurrentUser);
   const [logout, logoutThunk] = useMutation(
-    LogoutMutation,
+    Mutation.Logout,
     {
       update: (cache) => cache.writeQuery({
-        query: CurrentUserQuery,
+        query: Query.CurrentUser,
         data: { currentUser: null },
       }),
     }
@@ -91,9 +92,10 @@ export const Main:FunctionComponent = () => {
       </Toolbar>
       <Container className={classes.view}>
         <Switch>
-          <Route exact path="/"><h1>ItemList</h1></Route>
+          <Route exact path={["/", "/add"]}>
+            <Home />
+          </Route>
           <Route exact path="/settings"><h1>Settings</h1></Route>
-          <Route exact path="/add"><h1>Add New</h1></Route>
         </Switch>
       </Container>
     </Fragment>

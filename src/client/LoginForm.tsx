@@ -1,4 +1,4 @@
-import { CurrentUserQuery, LoginMutation } from "./gql";
+import { Mutation,Query } from "./gql";
 import { ApolloError, useMutation } from "@apollo/client";
 import { Button, Container, TextField, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -41,10 +41,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const LoginForm:FunctionComponent<PropTypes> = ({ error }) => {
   const classes = useStyles();
   const [doLogin, { loading: fetchingUser, error: loginError }] = useMutation(
-    LoginMutation,
+    Mutation.Login,
     {
       update: (cache, { data: { login }}) => cache.writeQuery({
-        query: CurrentUserQuery,
+        query: Query.CurrentUser,
         data: { currentUser: { user: login.user } },
       }),
     },
