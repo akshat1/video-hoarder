@@ -28,6 +28,7 @@ const YTMetadata = gql`
         acodec
         format
         formatId
+        quality
         vcodec
       }
     }

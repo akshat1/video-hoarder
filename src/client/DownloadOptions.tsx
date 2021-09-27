@@ -1,15 +1,18 @@
 import { YTMetadata } from "../model/YouTube";
 import { FormatSelector } from "./FormatSelector";
 import { Thumbnail } from "./Thumbnail";
-import { Accordion, AccordionDetails, AccordionSummary, Container, Grid, Theme, Typography } from "@material-ui/core";
+import { Container, Grid, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import ansiHTML from "ansi-to-html";
-import React, { FunctionComponent, useState } from "react";
+import React, { ChangeEvent, FunctionComponent, useState } from "react";
 
 const useStyle = makeStyles((theme: Theme) => ({
   root: {},
   thumbnail: {
     maxWidth: "100%",
+  },
+  options: {
+    alignItems: "center",
   },
 }));
 
@@ -31,6 +34,9 @@ export const DownloadOptions:FunctionComponent<DownloadOptionsProps> = (props) =
   const formats = YTMetadata.getFormatsForUI(metadata);
   console.log("Formats:", formats);
   const [format, setFormat] = useState(formats[0]);
+  const onFormatChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
+    setFormat(formats.find(f => f.formatId === event.target.value));
+  }
 
   const classes = useStyle();
 
@@ -49,39 +55,21 @@ export const DownloadOptions:FunctionComponent<DownloadOptionsProps> = (props) =
             className={classes.thumbnail}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Accordion>
-            <AccordionSummary>
-              <Typography variant="h5">Description</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography dangerouslySetInnerHTML={toHTML(metadata.description)} />
-            </AccordionDetails>
-          </Accordion>
-        </Grid>
-        <Grid container item xs={12} md={6}>
-          <Grid item xs={12} md={6}>
-            Formats
+        <Grid container item xs={12} spacing={3} className={classes.options}>
+          <Grid item>
+            <Typography variant="h6">Download format</Typography>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid>
             <FormatSelector
               formats={formats}
-              value={format.formatId}
-              onChange={setFormat}
+              value={format?.formatId}
+              onChange={onFormatChange}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
-            Subtitles
-          </Grid>
-          <Grid item xs={12} md={6}>
-            Subtitle Selection
-          </Grid>
-          <Grid item xs={12} md={6}>
-            Post-processing
-          </Grid>
-          <Grid item xs={12} md={6}>
-            Post config
-          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h5">Description</Typography>
+          <Typography dangerouslySetInnerHTML={toHTML(metadata.description)} />
         </Grid>
       </Grid>
     </Container>

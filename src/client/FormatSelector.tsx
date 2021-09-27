@@ -1,5 +1,5 @@
 import { YTFormat } from "../model/YouTube";
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
+import { FormControl, MenuItem, Select } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
 
 interface Props {
@@ -19,8 +19,7 @@ export const FormatSelector:FunctionComponent<Props> = (props) => {
   );
 
   return (
-    <FormControl fullWidth>
-      <InputLabel>Select one</InputLabel>
+    <FormControl>
       <Select
         value={value}
         onChange={onChange}
