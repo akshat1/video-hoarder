@@ -18,6 +18,9 @@ const YTMetadata = gql`
     ytMetadata(url: $url) {
       title
       id
+      uploadDate,
+      channel
+      channelUrl
       thumbnails {
         height
         url

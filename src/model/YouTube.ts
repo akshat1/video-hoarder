@@ -8,6 +8,7 @@ const Primitives = [
   "number",
   "boolean",
 ];
+
 /**
  * Recursively converts c/python style underscored fields to camel-case.
  */
@@ -550,7 +551,10 @@ export class YTMetadata {
   filename: string;
 
   static fromJSON(blob: Record<string, any>): YTMetadata {
-    return camelize(blob) as YTMetadata;
+    const result = camelize(blob) as YTMetadata;
+    const [, yr, m, d] = result.uploadDate.match(/(\d{4})(\d{2})(\d{2})/);
+    result.uploadDate = new Date(Number(yr), Number(m) - 1, Number(d)).toDateString();
+    return result;
   }
 
   static hasVideo(metadata: YTMetadata): boolean {
