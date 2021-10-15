@@ -1,13 +1,13 @@
 import { YTMetadata } from "../model/YouTube";
 import { DownloadOptions } from "./DownloadOptions";
-import { Query } from "./gql";
+import { Mutation, Query } from "./gql";
 import { InputForm } from "./InputForm";
 import { ItemList } from "./ItemList";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { Collapse, Theme  } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import _ from "lodash";
-import React, { ChangeEventHandler, Fragment, FunctionComponent, useEffect,useState } from "react";
+import React, { ChangeEventHandler, Fragment, FunctionComponent, useState } from "react";
 
 const InputPattern = "^(https?:\\/\\/.+)$";
 const isValidURL = (url: string): boolean => new RegExp(InputPattern).test(url);
@@ -23,8 +23,29 @@ export const Home:FunctionComponent = () => {
   const [url, setURL] = useState("");
   const isValid = isValidURL(url);
   const [fetchMetadata, metadataThunk] = useLazyQuery(Query.YTMetadata);
+  const [doAddJob, addJobThunk] = useMutation(Mutation.AddJob, {
+    refetchQueries: [
+      { query: Query.Jobs },
+    ],
+  });
+  
+  console.log("addJobThunk", addJobThunk);
 
-  const onSubmit = () => console.log("Add New form submitted");
+  const onSubmit = async (evt) => {
+    evt.preventDefault();
+    if (url && metadata) {
+      console.log("Adding job");
+      await doAddJob({
+        variables: {
+          data: {
+            url: url,
+            metadataString: JSON.stringify(metadata),
+          },
+        },
+      });
+      clearURL();
+    }
+  };
   const clearURL = () => setURL("");
 
   const {
@@ -43,11 +64,6 @@ export const Home:FunctionComponent = () => {
     debouncedFetchMetadata(event.currentTarget.value);
   };
 
-  useEffect(() => {
-    /// @ts-ignore
-    onInputURLChange(_.set({}, "currentTarget.value", "https://www.youtube.com/watch?v=qGLSoME2-us"));
-  }, []);
-
   return (
     <Fragment>
       <InputForm
@@ -56,7 +72,7 @@ export const Home:FunctionComponent = () => {
         valid={isValid}
         url={url}
         clearURL={clearURL}
-        busy={metadataThunk.loading}
+        busy={metadataThunk.loading || addJobThunk.loading}
       />
       <Collapse in={!!metadata} className={classes.metadataContainer}>
         {metadata && <DownloadOptions metadata={metadata} />}

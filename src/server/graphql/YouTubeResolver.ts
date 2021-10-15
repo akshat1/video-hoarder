@@ -8,11 +8,8 @@ const youTubeDL = new YouTubeDLWrap("/usr/local/bin/youtube-dl");
 export class YouTubeResolver {
   @Query(() => YTMetadata)
   async ytMetadata(@Arg("url") url: string): Promise<YTMetadata> {
-    console.log("Try to fetch", url);
     const source = await youTubeDL.getVideoInfo(url);
-    console.log("Got", source);
     const result = YTMetadata.fromJSON(source);
-    console.log("Transformed into", result);
     return result;
   }
 }

@@ -1,18 +1,5 @@
 import { gql } from "@apollo/client";
 
-const CurrentUser = gql`
-  query CurrentUserQuery {
-    currentUser {
-      user {
-        id,
-        passwordExpired,
-        role,
-        userName,
-      }
-    }
-  }
-`;
-
 const YTMetadata = gql`
   query MetadataQuery($url: String!) {
     ytMetadata(url: $url) {
@@ -38,6 +25,34 @@ const YTMetadata = gql`
   }
 `;
 
+const Jobs = gql`
+  query Jobs {
+    jobs {
+      createdAt
+      errorMessage
+      id
+      status
+      metadata {
+        title
+      }
+      url
+    }
+  }
+`;
+
+const AddJob = gql`
+  mutation AddJob($data: AddJobInput!) {
+    addJob(data: $data) {
+      id
+      createdBy
+      status
+      metadata {
+        title
+      }
+    }
+  }
+`;
+
 const Login = gql`
   mutation Login($userName: String!, $password: String!) {
     login(userName: $userName, password: $password) {
@@ -51,16 +66,31 @@ const Login = gql`
   }
 `;
 
+const CurrentUser = gql`
+  query CurrentUserQuery {
+    currentUser {
+      user {
+        id,
+        passwordExpired,
+        role,
+        userName,
+      }
+    }
+  }
+`;
+
 const Logout = gql`
   mutation logout { logout }
 `;
 
 export const Query = {
   CurrentUser,
+  Jobs,
   YTMetadata,
 };
 
 export const Mutation = {
+  AddJob,
   Login,
   Logout,
 };
