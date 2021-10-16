@@ -34,6 +34,11 @@ const Jobs = gql`
       status
       metadata {
         title
+        thumbnails {
+          height
+          width
+          url
+        }
       }
       url
     }

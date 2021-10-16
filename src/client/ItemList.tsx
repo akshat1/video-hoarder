@@ -8,16 +8,36 @@ import React, { FunctionComponent } from "react";
 export const ItemList:FunctionComponent = () => {
   const {
     data,
-    // loading: fetchingJobs,
-    // error: jobFetchingError,
+    loading: fetchingJobs,
+    error: jobFetchingError,
   } = useQuery<{jobs: Job[]}>(Query.Jobs);
 
-  const jobElements = (data?.jobs || []).map(j => <Item key={j.id} job={j}/>);
+  let loadingElement = null;
+  let errorElement = null;
+  let jobElements = null;
+
+  if (fetchingJobs) {
+    loadingElement = <>Loading</>;
+  }
+
+  if (jobFetchingError) {
+    errorElement = <>Error</>;
+  }
+
+  if (data?.jobs && !(fetchingJobs && jobFetchingError)) {
+    jobElements = data.jobs.map(j =>
+      <Grid item xs={12} key={j.id}>
+        <Item job={j}/>
+      </Grid>
+    );
+  }
 
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       <Grid item xs={12}>Filter</Grid>
-      <Grid item xs={12}>{jobElements}</Grid>
+      {loadingElement}
+      {errorElement}
+      {jobElements}
     </Grid>
   );
 };
