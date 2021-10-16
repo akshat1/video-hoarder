@@ -1,10 +1,11 @@
 import { Role } from "../model/Role";
 import { createUser, getUserByName } from "./db/userManagement";
-import { getApolloServer } from "./graphql";
+import { getGraphQLServers } from "./graphql";
 import { hookupApp } from "./passport";
 import cors from "cors";
 import express, { Request, Response } from "express";
 import session from "express-session";
+import { createServer } from "http";
 import path from "path";
 import { env } from "process";
 import { createConnection } from "typeorm";
@@ -43,6 +44,7 @@ const main = async () => {
 
   // Create the express server
   const app = express();
+  const server = createServer(app);
 
   const enableStudio = !!env.ENABLE_STUDIO;
   console.log(`enableStudio: ${enableStudio}`);
@@ -61,7 +63,7 @@ const main = async () => {
   await hookupApp(app);
 
   // Set-up apollo server
-  const apolloServer = await getApolloServer();
+  const { apolloServer } = await getGraphQLServers(server);
   await apolloServer.start();
   apolloServer.applyMiddleware({
     app,
@@ -85,7 +87,8 @@ const main = async () => {
   });
 
   // Start the server
-  app.listen({ port: Config.port }, () => console.log("Listening now."));
+  // app.listen({ port: Config.port }, () => console.log("Listening now."));
+  server.listen(Config.port, () => console.log("Listening now."));
   console.log(`🚀 Server ready at http://localhost:${Config.port}${apolloServer.graphqlPath}`);
 };
 

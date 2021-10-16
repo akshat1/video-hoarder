@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.10",
+    "@graphql-tools/schema": "^8.2.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
@@ -70,6 +71,7 @@
     "react-router-dom": "^5.3.0",
     "reflect-metadata": "^0.1.13",
     "sequelize-typescript": "^2.1.0",
+    "subscriptions-transport-ws": "^0.9.19",
     "type-graphql": "^1.1.1",
     "typeorm": "^0.2.37",
     "uuid": "^8.3.2",
