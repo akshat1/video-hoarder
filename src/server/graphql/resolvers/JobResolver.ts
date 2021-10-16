@@ -15,7 +15,11 @@ export class AddJobInput {
 export class JobResolver {
   @Query(() => [Job])
   async jobs(): Promise<Job[]> {
-    const jobs = await Job.find();
+    const jobs = await Job.find({
+      order: {
+        updatedAt: "DESC",
+      },
+    });
     return jobs;
   }
 

@@ -18,17 +18,17 @@ export class Job extends BaseEntity {
   @PrimaryColumn()
   id: string;
 
-  @Field(() => String)
+  @Field(() => Date)
   @Column()
-  createdAt: string;
+  createdAt: Date;
 
   @Field(() => String)
   @Column()
   createdBy: string;
 
-  @Field(() => String)
+  @Field(() => Date)
   @Column()
-  updatedAt: string;
+  updatedAt: Date;
 
   @Field(() => String)
   @Column()
