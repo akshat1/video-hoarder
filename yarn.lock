@@ -1292,17 +1292,7 @@
     fast-json-stable-stringify "^2.1.0"
     tslib "~2.3.0"
 
-"@graphql-tools/schema@^8.0.0":
-  version "8.2.0"
-  resolved "https://registry.npmjs.org/@graphql-tools/schema/-/schema-8.2.0.tgz"
-  integrity sha512-ufmI5mJQa8NJczzfkh0pUttKvspqDcT5LLakA3jUmOrrE4d4NVj6onZlazdTzF5sAepSNqanFnwhrxZpCAJMKg==
-  dependencies:
-    "@graphql-tools/merge" "^8.1.0"
-    "@graphql-tools/utils" "^8.2.0"
-    tslib "~2.3.0"
-    value-or-promise "1.0.10"
-
-"@graphql-tools/schema@^8.2.0":
+"@graphql-tools/schema@^8.0.0", "@graphql-tools/schema@^8.2.0":
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-8.2.0.tgz#ae75cbb2df6cee9ed6d89fce56be467ab23758dc"
   integrity sha512-ufmI5mJQa8NJczzfkh0pUttKvspqDcT5LLakA3jUmOrrE4d4NVj6onZlazdTzF5sAepSNqanFnwhrxZpCAJMKg==
@@ -10028,7 +10018,7 @@ symbol-observable@^1.0.4:
 
 symbol-observable@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.npmjs.org/symbol-observable/-/symbol-observable-4.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-4.0.0.tgz#5b425f192279e87f2f9b937ac8540d1984b39205"
   integrity sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==
 
 symbol-tree@^3.2.4:

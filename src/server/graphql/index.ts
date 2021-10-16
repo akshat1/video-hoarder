@@ -37,6 +37,7 @@ export const getGraphQLServers = async (server: Server) : Promise<Servers> => {
     }],
   });
 
+  console.log(`apolloServer.graphqlPath: ${apolloServer.graphqlPath}`);
   subscriptionServer = SubscriptionServer.create({
     schema,
     execute,

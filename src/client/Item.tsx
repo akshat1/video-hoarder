@@ -14,9 +14,7 @@ const useStyle = makeStyles((theme: Theme) => ({
       gridTemplateColumns: "33% 1fr",
     },
   },
-  thumbnail: {
-    background: "orange",
-  },
+  thumbnail: {},
   thumbNailImage: {
     verticalAlign: "bottom",
   },
