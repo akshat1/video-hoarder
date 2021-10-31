@@ -1,9 +1,10 @@
 import { Role } from "../model/Role";
 import { createUser, getUserByName } from "./db/userManagement";
 import { getGraphQLServers } from "./graphql";
-import { hookupApp } from "./passport";
+import { getPassport } from "./passport";
+import SQLiteStoreFactory from "connect-sqlite3";
 import cors from "cors";
-import express, { Request, Response } from "express";
+import express, { Request, RequestHandler, Response } from "express";
 import session from "express-session";
 import { createServer } from "http";
 import path from "path";
@@ -52,18 +53,38 @@ const main = async () => {
     app.use(cors({
       origin: "http://localhost:8080",
       credentials: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     }));
   }
-  app.use(session({
+  
+  const SQLiteStore = SQLiteStoreFactory(session);
+  const store = new SQLiteStore({
+    db: process.env.NODE_ENV === "production" ? "./db.prod.sqlite3" : "./db.dev.sqlite3",
+  });
+  const sessionMiddleware: RequestHandler = session({
     genid: () => uuid(),
     secret: SessionSecret,
     resave: false,
     saveUninitialized: false,
-  }));
-  await hookupApp(app);
+    store,
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: false,
+    }, // 1 week
+  });
+  const passport = getPassport();
+  const passportMiddleware = passport.initialize();
+  const passportSessionMiddleware = passport.session();
+  app.use(passportMiddleware);
+  app.use(passportSessionMiddleware);
 
   // Set-up apollo server
-  const { apolloServer } = await getGraphQLServers(server);
+  const { apolloServer } = await getGraphQLServers({
+    passportMiddleware,
+    passportSessionMiddleware,
+    server,
+    sessionMiddleware,
+  });
   await apolloServer.start();
   apolloServer.applyMiddleware({
     app,

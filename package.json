@@ -4,12 +4,13 @@
   "description": "youtube-dl frontend for NAS devices.",
   "scripts": {
     "dev-client": "snowpack dev",
-    "dev-server": "nodemon --exec \"node -r ts-node/register --inspect\" src/server/index.ts",
+    "dev-server": "nodemon --exec \"DEBUG=express-session node -r ts-node/register --inspect\" src/server/index.ts",
     "dev-only-server": "ENABLE_STUDIO=true yarn dev-server",
     "dev": "yarn dev-server & yarn dev-client",
     "start": "NODE_ENV=production node app/server",
     "build": "tsc",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "clean": "rm db.dev.sqlite3*"
   },
   "repository": {
     "type": "git",
@@ -51,14 +52,17 @@
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
+    "@types/express-session": "^1.17.4",
     "@types/validator": "^13.6.3",
     "ansi-to-html": "^0.7.1",
     "apollo-server": "^3.3.0",
     "apollo-server-express": "^3.3.0",
     "bcrypt": "^5.0.1",
     "better-sqlite3": "^7.4.3",
+    "better-sqlite3-session-store": "^0.0.2",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "connect-sqlite3": "^0.9.12",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.2",

@@ -29,17 +29,12 @@ interface DownloadOptionsProps {
 
 export const DownloadOptions:FunctionComponent<DownloadOptionsProps> = (props) => {
   const { metadata } = props;
-  console.log("Metadata:", metadata);
   const formats = YTMetadata.getFormatsForUI(metadata);
-  console.log("Formats:", formats);
   const [format, setFormat] = useState(formats[0]);
   const onFormatChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
     setFormat(formats.find(f => f.formatId === event.target.value));
   }
-
   const classes = useStyle();
-
-  console.log("metadata:", metadata);
 
   return (
     <Grid container spacing={3} className={classes.root}>

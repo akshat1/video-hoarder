@@ -1,8 +1,9 @@
 import { User } from "../../model/User";
 import { resolvers } from "./resolvers";
 import { ApolloServer } from "apollo-server-express";
+import { RequestHandler } from "express";
 import { execute, subscribe } from "graphql";
-import { buildContext } from "graphql-passport";
+import { buildContext, createOnConnect } from "graphql-passport";
 import { Server } from "http";
 import { SubscriptionServer } from "subscriptions-transport-ws";
 import { buildSchema } from "type-graphql";
@@ -13,7 +14,20 @@ interface Servers {
   subscriptionServer: SubscriptionServer,
 }
 
-export const getGraphQLServers = async (server: Server) : Promise<Servers> => {
+interface Args {
+  passportMiddleware: RequestHandler;
+  passportSessionMiddleware: RequestHandler;
+  server: Server;
+  sessionMiddleware: RequestHandler;
+}
+
+export const getGraphQLServers = async (args: Args) : Promise<Servers> => {
+  const {
+    passportMiddleware,
+    passportSessionMiddleware,
+    server,
+    sessionMiddleware,
+  } = args;
   if (calledOnce) {
     throw new Error("Trying to create servers again.");
   }
@@ -42,6 +56,11 @@ export const getGraphQLServers = async (server: Server) : Promise<Servers> => {
     schema,
     execute,
     subscribe,
+    onConnect: createOnConnect([
+      sessionMiddleware,
+      passportMiddleware,
+      passportSessionMiddleware,
+    ]),
   }, {
     server,
     path: apolloServer.graphqlPath,

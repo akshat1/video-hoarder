@@ -23,18 +23,11 @@ export const Home:FunctionComponent = () => {
   const [url, setURL] = useState("");
   const isValid = isValidURL(url);
   const [fetchMetadata, metadataThunk] = useLazyQuery(Query.YTMetadata);
-  const [doAddJob, addJobThunk] = useMutation(Mutation.AddJob, {
-    refetchQueries: [
-      { query: Query.Jobs },
-    ],
-  });
-  
-  console.log("addJobThunk", addJobThunk);
+  const [doAddJob, addJobThunk] = useMutation(Mutation.AddJob);
 
   const onSubmit = async (evt) => {
     evt.preventDefault();
     if (url && metadata) {
-      console.log("Adding job");
       await doAddJob({
         variables: {
           data: {

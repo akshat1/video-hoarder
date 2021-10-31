@@ -1,8 +1,9 @@
 import { Job } from "../model/Job";
-import { Query } from "./gql";
+import { Query, Subscription } from "./gql";
 import { Item } from "./Item";
-import { useQuery } from "@apollo/client";
+import { useQuery, useSubscription } from "@apollo/client";
 import { Grid } from "@material-ui/core";
+import _ from "lodash";
 import React, { FunctionComponent } from "react";
 
 export const ItemList:FunctionComponent = () => {
@@ -10,11 +11,21 @@ export const ItemList:FunctionComponent = () => {
     data,
     loading: fetchingJobs,
     error: jobFetchingError,
+    refetch: refetchJobs,
   } = useQuery<{jobs: Job[]}>(Query.Jobs);
+  const jobs = _.get(data, "jobs", []);
+
+  useSubscription(Subscription.JobAdded, {
+    onSubscriptionData: () => refetchJobs(),
+  });
+
+  useSubscription(Subscription.JobRemoved, {
+    onSubscriptionData: () => refetchJobs(),
+  });
 
   let loadingElement = null;
   let errorElement = null;
-  let jobElements = null;
+  let jobElements = [];
 
   if (fetchingJobs) {
     loadingElement = <>Loading</>;
@@ -24,8 +35,8 @@ export const ItemList:FunctionComponent = () => {
     errorElement = <>Error</>;
   }
 
-  if (data?.jobs && !(fetchingJobs && jobFetchingError)) {
-    jobElements = data.jobs.map(j =>
+  if (!(fetchingJobs && jobFetchingError)) {
+    jobElements = jobs.map(j =>
       <Grid item xs={12} key={j.id}>
         <Item job={j}/>
       </Grid>

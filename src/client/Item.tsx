@@ -1,6 +1,8 @@
 import { Job } from "../model/Job";
 import { infoTable } from "./cssUtils";
+import { Mutation } from "./gql";
 import { Thumbnail } from "./Thumbnail";
+import { useMutation } from "@apollo/client";
 import { Button, makeStyles, Paper, Theme, Typography } from "@material-ui/core";
 import _ from "lodash";
 import React, { FunctionComponent } from "react";
@@ -41,6 +43,20 @@ interface Props {
 export const Item:FunctionComponent<Props> = (props) => {
   const { job } = props;
   const classes = useStyle();
+
+  const [
+    doRemoveJob, {
+      error: abortError,
+      loading: aborting,
+    },
+  ] = useMutation(Mutation.RemoveJob);
+  const onAbort = () =>
+    doRemoveJob({
+      variables: {
+        jobId: job.id,
+      },
+    });
+
   let updatedElem = null;
   if (job.updatedAt) {
     updatedElem = (
@@ -74,7 +90,14 @@ export const Item:FunctionComponent<Props> = (props) => {
           {updatedElem}
         </div>
         <div className={classes.controls}>
-          <Button size="small" variant="outlined">Abort</Button>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={onAbort}
+            disabled={Boolean(aborting || abortError)}
+          >
+            Abort
+          </Button>
         </div>
       </div>
     </Paper>

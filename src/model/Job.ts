@@ -66,4 +66,13 @@ export class Job extends BaseEntity {
   private afterInsert() {
     this.metadata = JSON.parse(this.metadataString);
   }
+
+  static massage(jobs: Job[]): Job[] {
+    jobs.forEach((job) => {
+      job.createdAt = new Date(job.createdAt);
+      job.updatedAt = new Date(job.updatedAt);
+    });
+
+    return jobs;
+  }
 }

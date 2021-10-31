@@ -45,6 +45,26 @@ const Jobs = gql`
   }
 `;
 
+const JobAdded = gql`
+  subscription OnJobAdded {
+    jobAdded {
+      createdAt
+      errorMessage
+      id
+      status
+      metadata {
+        title
+        thumbnails {
+          height
+          width
+          url
+        }
+      }
+      url
+    }
+  }
+`;
+
 const AddJob = gql`
   mutation AddJob($data: AddJobInput!) {
     addJob(data: $data) {
@@ -55,6 +75,18 @@ const AddJob = gql`
         title
       }
     }
+  }
+`;
+
+const RemoveJob = gql`
+  mutation RemoveJob($jobId: String!) {
+    removeJob(jobId: $jobId)
+  }
+`;
+
+const JobRemoved = gql`
+  subscription OnJobRemoved {
+    jobRemoved
   }
 `;
 
@@ -98,4 +130,10 @@ export const Mutation = {
   AddJob,
   Login,
   Logout,
+  RemoveJob,
+};
+
+export const Subscription = {
+  JobAdded,
+  JobRemoved,
 };
