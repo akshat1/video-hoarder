@@ -1,14 +1,22 @@
 import { Role } from "../model/Role";
+import { User } from "../model/User";
 import { createUser, getUserByName } from "./db/userManagement";
-import { getGraphQLServers } from "./graphql";
-import { getPassport } from "./passport";
+import { resolvers } from "./graphql/resolvers";
+import { deserializeUser, serializeUser, verifyUser } from "./passport";
+import { ApolloServer } from "apollo-server-express";
 import SQLiteStoreFactory from "connect-sqlite3";
 import cors from "cors";
 import express, { Request, RequestHandler, Response } from "express";
 import session from "express-session";
+import { execute, subscribe } from "graphql";
+import { GraphQLLocalStrategy } from "graphql-passport";
+import { buildContext, createOnConnect } from "graphql-passport";
 import { createServer } from "http";
+import passport from "passport";
 import path from "path";
 import { env } from "process";
+import { SubscriptionServer } from "subscriptions-transport-ws";
+import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
 import { v4 as uuid } from "uuid";
 
@@ -47,6 +55,7 @@ const main = async () => {
   const app = express();
   const server = createServer(app);
 
+  // We need our own CORS config when we are serving the FE. But we want Apollo to handle CORS when we are talking to the studio.
   const enableStudio = !!env.ENABLE_STUDIO;
   console.log(`enableStudio: ${enableStudio}`);
   if (!enableStudio) {
@@ -56,7 +65,8 @@ const main = async () => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     }));
   }
-  
+
+  // Session management
   const SQLiteStore = SQLiteStoreFactory(session);
   const store = new SQLiteStore({
     db: process.env.NODE_ENV === "production" ? "./db.prod.sqlite3" : "./db.dev.sqlite3",
@@ -72,19 +82,50 @@ const main = async () => {
       secure: false,
     }, // 1 week
   });
-  const passport = getPassport();
+
+  // Passport
+  passport.serializeUser(serializeUser);
+  passport.deserializeUser(deserializeUser);
+  passport.use(new GraphQLLocalStrategy(verifyUser));
   const passportMiddleware = passport.initialize();
   const passportSessionMiddleware = passport.session();
+  app.use(sessionMiddleware);
   app.use(passportMiddleware);
   app.use(passportSessionMiddleware);
 
   // Set-up apollo server
-  const { apolloServer } = await getGraphQLServers({
-    passportMiddleware,
-    passportSessionMiddleware,
-    server,
-    sessionMiddleware,
+  const schema = await buildSchema({ resolvers });
+  // eslint-disable-next-line prefer-const
+  let subscriptionServer;
+  
+  const apolloServer = new ApolloServer({
+    schema,
+    context: ({ req, res }) => buildContext({ req, res, User }),
+    plugins: [{
+      async serverWillStart() {
+        return {
+          async drainServer() {
+          subscriptionServer.close();
+          },
+        };
+      },
+    }],
   });
+
+  subscriptionServer = SubscriptionServer.create({
+    schema,
+    execute,
+    subscribe,
+    onConnect: createOnConnect([
+      sessionMiddleware,
+      passportMiddleware,
+      passportSessionMiddleware,
+    ]),
+  }, {
+    server,
+    path: apolloServer.graphqlPath,
+  });
+  
   await apolloServer.start();
   apolloServer.applyMiddleware({
     app,

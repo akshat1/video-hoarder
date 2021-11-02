@@ -1,8 +1,6 @@
 import { User } from "../model/User";
 import { hash } from "./crypto";
 import { getUserByName } from "./db/userManagement";
-import { GraphQLLocalStrategy } from "graphql-passport";
-import passport, { PassportStatic } from "passport";
 
 const MessageIncorrectLogin = "Incorrect username or password.";
 
@@ -35,16 +33,16 @@ export const verifyUser = async (userName: string, password: string, cb: Functio
   }
 };
 
-passport.serializeUser((user: User, done) => {
+export const serializeUser = ((user: User, done: Function): void => {
   done(null, user.id);
 });
 
-passport.deserializeUser(async (id: string, done) => {
+export const deserializeUser = (async (id: string, done: Function): Promise<void> => {
   const user = await User.findOne({ where: { id }});
   done(null, user);
 });
 
-export const getPassport = ():PassportStatic => {
-  passport.use(new GraphQLLocalStrategy(verifyUser));
-  return passport;
-}
+// export const getPassport = ():PassportStatic => {
+//   passport.use(new GraphQLLocalStrategy(verifyUser));
+//   return passport;
+// }

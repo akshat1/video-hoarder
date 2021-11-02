@@ -37,7 +37,8 @@ const getApolloClient = ():ApolloClient<any> => {
     );
 
     apolloClient = new ApolloClient({
-      link: splitLink,
+      // link: splitLink,
+      uri: "http://localhost:8081/graphql",
       cache: getApolloClientCache(),
       credentials: "include",
     });

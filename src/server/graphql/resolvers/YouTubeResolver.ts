@@ -1,4 +1,4 @@
-import { YTMetadata } from "../../model/YouTube";
+import { YTMetadata } from "../../../model/YouTube";
 import { Arg, Query, Resolver } from "type-graphql";
 import YouTubeDLWrap from "youtube-dl-wrap";
 
