@@ -1,5 +1,6 @@
+import { DownloadOptionsInput } from "../model/Job";
 import { YTMetadata } from "../model/YouTube";
-import { DownloadOptions } from "./DownloadOptions";
+import { DefaultOptions, DownloadOptions } from "./DownloadOptions";
 import { Mutation, Query } from "./gql";
 import { InputForm } from "./InputForm";
 import { ItemList } from "./ItemList";
@@ -21,6 +22,7 @@ const useStyle = makeStyles((theme: Theme) => ({
 export const Home:FunctionComponent = () => {
   const classes = useStyle();
   const [url, setURL] = useState("");
+  const [downloadOptions, setDownloadOptions] = useState<DownloadOptionsInput>(DefaultOptions)
   const isValid = isValidURL(url);
   const [fetchMetadata, metadataThunk] = useLazyQuery(Query.YTMetadata);
   const [doAddJob, addJobThunk] = useMutation(Mutation.AddJob);
@@ -28,11 +30,17 @@ export const Home:FunctionComponent = () => {
   const onSubmit = async (evt) => {
     evt.preventDefault();
     if (url && metadata) {
+      console.log("Add Job", {
+        data: {
+          url: url,
+          downloadOptions,
+        },
+      });
       await doAddJob({
         variables: {
           data: {
             url: url,
-            metadataString: JSON.stringify(metadata),
+            downloadOptions,
           },
         },
       });
@@ -68,7 +76,7 @@ export const Home:FunctionComponent = () => {
         busy={metadataThunk.loading || addJobThunk.loading}
       />
       <Collapse in={!!metadata} className={classes.metadataContainer}>
-        {metadata && <DownloadOptions metadata={metadata} />}
+        {metadata && <DownloadOptions options={downloadOptions} url={url} onChange={setDownloadOptions}/>}
       </Collapse>
       <Collapse in={!metadata}>
         <ItemList />

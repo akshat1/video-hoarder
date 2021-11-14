@@ -41,6 +41,9 @@ const Jobs = gql`
         }
       }
       url
+      downloadOptions {
+        formatSelector
+      }
     }
   }
 `;

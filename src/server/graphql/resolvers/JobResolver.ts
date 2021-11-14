@@ -1,8 +1,10 @@
-import { Job, JobStatus } from "../../../model/Job";
+import { DownloadOptionsInput, Job, JobStatus } from "../../../model/Job";
 import { Topic } from "../../../model/Topic";
 import { canDelete } from "../../perms";
+import { fetchMetadata } from "../../youtube";
 import { Context } from "@apollo/client";
 import { PubSubEngine } from "graphql-subscriptions";
+import md5 from "md5";
 import { Arg, Ctx, Field, InputType, Mutation, PubSub, Query, Resolver, Root, Subscription } from "type-graphql";
 
 @InputType()
@@ -11,7 +13,7 @@ export class AddJobInput {
   url: string;
 
   @Field()
-  metadataString: string;
+  downloadOptions: DownloadOptionsInput;
 }
 
 @Resolver()
@@ -23,6 +25,7 @@ export class JobResolver {
         updatedAt: "DESC",
       },
     });
+
     return jobs;
   }
 
@@ -44,22 +47,26 @@ export class JobResolver {
   async addJob (@Arg("data") data: AddJobInput, @Ctx() context: Context, @PubSub() pubSub: PubSubEngine ): Promise<Job> {
     const {
       url,
-      metadataString,
+      downloadOptions,
     } = data;
+
     const user = await context.getUser();
     if (!user) {
       throw new Error("No user in the context.");
     }
+
     const { userName } = user; 
     const timeStamp = new Date();
     const newJob = Job.create({
+      id: md5(url),
       createdAt: timeStamp,
       updatedAt: timeStamp,
       createdBy: userName,
       updatedBy: userName,
       status: JobStatus.Pending,
       url,
-      metadataString,
+      metadata: await fetchMetadata(url),
+      downloadOptions,
     });
     await newJob.save();
     await pubSub.publish(Topic.JobAdded, newJob);

@@ -122,24 +122,19 @@ export class YTFormat {
   @Field(() => YTHTTPHeaders)
   httpHeaders?: string;
 
+  static BestBestMerged: YTFormat = {
+    format: "Best Video + Best Audio / Best",
+    formatId: "bestvideo+bestaudio/best",
+  };
+
   static BestAudio: YTFormat = {
-    format: "Best Audio (Only)",
-    formatId: "BESTAUDIO",
+    format: "Best Audio",
+    formatId: "bestaudio/best",
   };
 
   static BestVideo: YTFormat = {
-    format: "Best Video (Only)",
-    formatId: "BESTVIDEO",
-  };
-
-  static BestBestMerged: YTFormat = {
-    format: "Best Video + Best Audio (Merged)",
-    formatId: "BESTBESTMERGED",
-  };
-
-  static BestBestSeparate: YTFormat = {
-    format: "Best Video, Best Audio (Separate)",
-    formatId: "BESTBESTSEPERATE",
+    format: "Best Video",
+    formatId: "bestvideo/best",
   };
 }
 
@@ -565,24 +560,24 @@ export class YTMetadata {
     return !!metadata.formats?.find(f => f.acodec !== "none")
   }
 
-  static getFormatsForUI(metadata: YTMetadata): YTFormat[] {
-    const formats = [];
-    const hasVideo = YTMetadata.hasVideo(metadata);
-    const hasAudio = YTMetadata.hasAudio(metadata);
-    if (hasAudio && hasVideo) {
-      formats.push(YTFormat.BestBestMerged);
-      formats.push(YTFormat.BestBestSeparate);
-    }
+  // static getFormatsForUI(metadata: YTMetadata): YTFormat[] {
+  //   const formats = [];
+  //   const hasVideo = YTMetadata.hasVideo(metadata);
+  //   const hasAudio = YTMetadata.hasAudio(metadata);
+  //   if (hasAudio && hasVideo) {
+  //     formats.push(YTFormat.BestBestMerged);
+  //     formats.push(YTFormat.BestBestSeparate);
+  //   }
 
-    if (hasVideo) {
-      formats.push(YTFormat.BestVideo);
-    }
+  //   if (hasVideo) {
+  //     formats.push(YTFormat.BestVideo);
+  //   }
 
-    if (hasAudio) {
-      formats.push(YTFormat.BestAudio);
-    }
+  //   if (hasAudio) {
+  //     formats.push(YTFormat.BestAudio);
+  //   }
     
-    formats.push(..._.reverse(_.sortBy(metadata.formats, "quality")));
-    return formats;
-  }
+  //   formats.push(..._.reverse(_.sortBy(metadata.formats, "quality")));
+  //   return formats;
+  // }
 }

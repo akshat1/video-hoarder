@@ -88,6 +88,8 @@ export const Item:FunctionComponent<Props> = (props) => {
           <Typography>Download added</Typography>
           <Typography>{new Date(job.createdAt).toLocaleString(Intl.NumberFormat().resolvedOptions().locale)}</Typography>
           {updatedElem}
+          <Typography>Format</Typography>
+          <Typography>{_.get(job, "downloadOptions.formatSelector")}</Typography>
         </div>
         <div className={classes.controls}>
           <Button
