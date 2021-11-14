@@ -1,7 +1,8 @@
 import "reflect-metadata";
+import { getJSONTransformer } from "./JSONTransformer";
 import { YTMetadata } from "./YouTube";
-import { Field, ID, ObjectType } from "type-graphql";
-import { AfterInsert,AfterLoad, BaseEntity, BeforeInsert, Column,Entity, PrimaryColumn } from "typeorm";
+import { Field, ID, InputType, ObjectType } from "type-graphql";
+import { BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
 
 export enum JobStatus {
   Pending = "pending",
@@ -9,6 +10,19 @@ export enum JobStatus {
   Failed = "failed",
   Completed = "completed",
   Canceled = "canceled",
+}
+
+// Can't have the same class as both object and input types. I'm probbaly missing something.
+@InputType()
+export class DownloadOptionsInput {
+  @Field()
+  formatSelector?: string;
+}
+
+@ObjectType()
+export class DownloadOptions {
+  @Field()
+  formatSelector?: string;
 }
 
 @Entity()
@@ -46,33 +60,17 @@ export class Job extends BaseEntity {
   @Column()
   url: string;
 
-  @Column()
-  metadataString: string;
-
   @Field(() => YTMetadata)
-  metadata?: YTMetadata;
+  @Column({
+    transformer: getJSONTransformer<YTMetadata>(),
+    type: String,
+  })
+  metadata: YTMetadata;
 
-  @BeforeInsert()
-  private beforeInsert() {
-    this.id = this.url;
-  }
-
-  @AfterLoad()
-  private afterFind() {
-    this.metadata = JSON.parse(this.metadataString);
-  }
-
-  @AfterInsert()
-  private afterInsert() {
-    this.metadata = JSON.parse(this.metadataString);
-  }
-
-  static massage(jobs: Job[]): Job[] {
-    jobs.forEach((job) => {
-      job.createdAt = new Date(job.createdAt);
-      job.updatedAt = new Date(job.updatedAt);
-    });
-
-    return jobs;
-  }
+  @Field(() => DownloadOptions)
+  @Column({
+    transformer: getJSONTransformer<DownloadOptions>(),
+    type: String,
+  })
+  downloadOptions: DownloadOptions;
 }
