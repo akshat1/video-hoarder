@@ -1,8 +1,9 @@
 import "reflect-metadata";
+import { addJobToQueue, removeJobFromQueue } from "../server/YTQueue";
 import { getJSONTransformer } from "./JSONTransformer";
 import { YTMetadata } from "./YouTube";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
+import { AfterInsert, AfterRemove, AfterUpdate, BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
 
 export enum JobStatus {
   Pending = "pending",
@@ -73,4 +74,24 @@ export class Job extends BaseEntity {
     type: String,
   })
   downloadOptions: DownloadOptions;
+
+  @AfterInsert()
+  handleNewJob(): void {
+    console.log("Adding job to queue", this);
+    // TODO: Signal pubsub about new job.
+    addJobToQueue(this);
+  }
+
+  @AfterUpdate()
+  signalUpdate(): void {
+    console.log("Job updated", this);
+    // TODO: Signal pubsub about job update.
+  }
+
+  @AfterRemove()
+  handleJobRemoval(): void {
+    console.log("Job removed", this);
+    // TODO: Signal pubsub about job being removed.
+    removeJobFromQueue(this);
+  }
 }

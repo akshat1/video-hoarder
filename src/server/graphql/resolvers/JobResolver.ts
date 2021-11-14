@@ -43,6 +43,14 @@ export class JobResolver {
     return jobId;
   }
 
+  @Subscription({
+    topics: Topic.JobUpdated,
+  })
+  jobUpdated(@Root() job: Job): Job {
+    return job;
+  }
+
+  // TODO: Pubsub updates should happen from the event handlers in the Job model, not from mutations.
   @Mutation(() => Job)
   async addJob (@Arg("data") data: AddJobInput, @Ctx() context: Context, @PubSub() pubSub: PubSubEngine ): Promise<Job> {
     const {

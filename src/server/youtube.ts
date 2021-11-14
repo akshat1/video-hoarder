@@ -1,3 +1,4 @@
+import { Job } from "../model/Job";
 import { YTMetadata } from "../model/YouTube";
 import NodeCache from "node-cache";
 import YouTubeDLWrap from "youtube-dl-wrap";
@@ -15,4 +16,22 @@ export const fetchMetadata = async (url:string): Promise<YTMetadata> => {
   }
 
   return metadata;
+}
+
+export interface DownloadThunk {
+  abort: Function;
+}
+
+interface DownloadArgs {
+  job: Job;
+  onProgress?: Function;
+  onCompletion?: Function;
+}
+
+export const download = (args: DownloadArgs): DownloadThunk => {
+  // TODO: Actually download the item.
+  console.log(args);
+  return {
+    abort: () => 0,
+  };
 }
