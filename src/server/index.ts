@@ -3,6 +3,7 @@ import { User } from "../model/User";
 import { createUser, getUserByName } from "./db/userManagement";
 import { resolvers } from "./graphql/resolvers";
 import { deserializeUser, serializeUser, verifyUser } from "./passport";
+import { getPubSub } from "./pubsub";
 import { ApolloServer } from "apollo-server-express";
 import SQLiteStoreFactory from "connect-sqlite3";
 import cors from "cors";
@@ -94,7 +95,10 @@ const main = async () => {
   app.use(passportSessionMiddleware);
 
   // Set-up apollo server
-  const schema = await buildSchema({ resolvers });
+  const schema = await buildSchema({
+    resolvers,
+    pubSub: getPubSub(),
+  });
   // eslint-disable-next-line prefer-const
   let subscriptionServer;
   

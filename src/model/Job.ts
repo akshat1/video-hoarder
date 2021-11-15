@@ -1,9 +1,11 @@
 import "reflect-metadata";
+import { getPubSub } from "../server/pubsub";
 import { addJobToQueue, removeJobFromQueue } from "../server/YTQueue";
 import { getJSONTransformer } from "./JSONTransformer";
+import { Topic } from "./Topic";
 import { YTMetadata } from "./YouTube";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
-import { AfterInsert, AfterRemove, AfterUpdate, BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
+import { AfterInsert, AfterRemove, AfterUpdate, BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 export enum JobStatus {
   Pending = "pending",
@@ -30,7 +32,7 @@ export class DownloadOptions {
 @ObjectType()
 export class Job extends BaseEntity {
   @Field(() => ID)
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Field(() => Date)
@@ -78,20 +80,22 @@ export class Job extends BaseEntity {
   @AfterInsert()
   handleNewJob(): void {
     console.log("Adding job to queue", this);
-    // TODO: Signal pubsub about new job.
     addJobToQueue(this);
+    getPubSub().publish(Topic.JobAdded, this);
   }
 
   @AfterUpdate()
   signalUpdate(): void {
     console.log("Job updated", this);
-    // TODO: Signal pubsub about job update.
+    getPubSub().publish(Topic.JobRemoved, this);
   }
 
   @AfterRemove()
   handleJobRemoval(): void {
     console.log("Job removed", this);
-    // TODO: Signal pubsub about job being removed.
-    removeJobFromQueue(this);
+    const removedJob = Object.assign({}, this);
+    console.log("Job removal cloning:", this, removedJob);
+    getPubSub().publish(Topic.JobRemoved, removedJob);
+    removeJobFromQueue(removedJob);
   }
 }

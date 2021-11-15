@@ -27,4 +27,7 @@ module.exports = {
     "type-graphql": "type-graphql/dist/browser-shim.js",
     "typeorm": "typeorm/typeorm-class-transformer-shim.js",
   },
+  packageOptions: {
+    polyfillNode: true,
+  },
 };
