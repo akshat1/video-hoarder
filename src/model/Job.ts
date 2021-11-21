@@ -1,8 +1,9 @@
 import "reflect-metadata";
+import { JobProgress } from "./JobProgress";
 import { getJSONTransformer } from "./JSONTransformer";
 import { YTMetadata } from "./YouTube";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 export enum JobStatus {
   Pending = "pending",
@@ -29,7 +30,7 @@ export class DownloadOptions {
 @ObjectType()
 export class Job extends BaseEntity {
   @Field(() => ID)
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Field(() => Date)
@@ -73,4 +74,8 @@ export class Job extends BaseEntity {
     type: String,
   })
   downloadOptions: DownloadOptions;
+
+  // Progress. This is not stored in the DB, but do exist in memory for graphql.
+  @Field(() => JobProgress, { nullable: true })
+  progress?: JobProgress;
 }

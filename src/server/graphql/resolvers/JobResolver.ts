@@ -3,9 +3,8 @@ import { Topic } from "../../../model/Topic";
 import { canDelete } from "../../perms";
 import { fetchMetadata } from "../../youtube";
 import { Context } from "@apollo/client";
-import { PubSubEngine } from "graphql-subscriptions";
 import md5 from "md5";
-import { Arg, Ctx, Field, InputType, Mutation, PubSub, Query, Resolver, Root, Subscription } from "type-graphql";
+import { Arg, Ctx, Field, InputType, Mutation, Query, Resolver, Root, Subscription } from "type-graphql";
 
 @InputType()
 export class AddJobInput {
@@ -43,8 +42,16 @@ export class JobResolver {
     return jobId;
   }
 
+  @Subscription({
+    topics: Topic.JobUpdated,
+  })
+  jobUpdated(@Root() job: Job): Job {
+    return job;
+  }
+
+  // TODO: Pubsub updates should happen from the event handlers in the Job model, not from mutations.
   @Mutation(() => Job)
-  async addJob (@Arg("data") data: AddJobInput, @Ctx() context: Context, @PubSub() pubSub: PubSubEngine ): Promise<Job> {
+  async addJob (@Arg("data") data: AddJobInput, @Ctx() context: Context): Promise<Job> {
     const {
       url,
       downloadOptions,
@@ -69,19 +76,19 @@ export class JobResolver {
       downloadOptions,
     });
     await newJob.save();
-    await pubSub.publish(Topic.JobAdded, newJob);
+    // await pubSub.publish(Topic.JobAdded, newJob);
     return newJob;
   }
 
   @Mutation(() => Number)
-  async removeJob(@Arg("jobId") jobId: string, @Ctx() context: Context, @PubSub() pubSub: PubSubEngine): Promise<Number> {
+  async removeJob(@Arg("jobId") jobId: string, @Ctx() context: Context): Promise<Number> {
     const currentUser = await context.getUser();
     if (currentUser) {
       const job = await Job.findOne(jobId);
       if (canDelete(currentUser, job)) {
         await Job.remove([job]);
         // @TODO: If currently in progress, kill the download process for this video.
-        pubSub.publish(Topic.JobRemoved, jobId);
+        // pubSub.publish(Topic.JobRemoved, jobId);
         return 0;
       }
     }

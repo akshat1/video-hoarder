@@ -1,6 +1,7 @@
 import { Job } from "../model/Job";
 import { infoTable } from "./cssUtils";
 import { Mutation } from "./gql";
+import { JobProgress } from "./JobProgress";
 import { Thumbnail } from "./Thumbnail";
 import { useMutation } from "@apollo/client";
 import { Button, makeStyles, Paper, Theme, Typography } from "@material-ui/core";
@@ -34,6 +35,7 @@ const useStyle = makeStyles((theme: Theme) => ({
   },
   tableGrid: infoTable(theme),
   controls: {},
+  progress: {},
 }));
 
 interface Props {
@@ -90,6 +92,9 @@ export const Item:FunctionComponent<Props> = (props) => {
           {updatedElem}
           <Typography>Format</Typography>
           <Typography>{_.get(job, "downloadOptions.formatSelector")}</Typography>
+        </div>
+        <div className={classes.progress}>
+          <JobProgress job={job} />
         </div>
         <div className={classes.controls}>
           <Button

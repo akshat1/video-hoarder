@@ -23,6 +23,8 @@ export const ItemList:FunctionComponent = () => {
     onSubscriptionData: () => refetchJobs(),
   });
 
+  useSubscription(Subscription.JobUpdated);
+
   let loadingElement = null;
   let errorElement = null;
   let jobElements = [];

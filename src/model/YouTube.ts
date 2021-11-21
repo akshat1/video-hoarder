@@ -83,7 +83,7 @@ export class YTFormat {
   @Field(() => Int, { nullable: true })
   height?: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   quality?: number;
 
   @Field(() => Float)
