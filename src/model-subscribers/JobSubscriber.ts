@@ -2,8 +2,9 @@ import { Job } from "../model/Job";
 import { Topic } from "../model/Topic";
 import { getPubSub } from "../server/pubsub";
 import { addJobToQueue, removeJobFromQueue } from "../server/YTQueue";
-import { EntitySubscriberInterface, InsertEvent, RemoveEvent, UpdateEvent } from "typeorm";
+import { EntitySubscriberInterface, EventSubscriber, InsertEvent, RemoveEvent, UpdateEvent } from "typeorm";
 
+@EventSubscriber()
 export class JobSubscriber implements EntitySubscriberInterface<Job> {
   listenTo(): Function|string {
     return Job;

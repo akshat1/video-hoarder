@@ -26,6 +26,8 @@ const onProgress = (job: Job, progress: JobProgress): void => {
   // a part of the typeorm model (while it is part of the graphql model) and therefore this isn't handled by
   // JobSubscriber. In order to still update the UI, we make this one exception about publishing pubsub from
   // YTQueue.
+  console.log("Job Updated...", job.url);
+  job.progress = progress;
   getPubSub().publish(Topic.JobUpdated, job);
 };
 
@@ -62,5 +64,7 @@ export const pickUpPendingJobs = async (): Promise<void> => {
       createdAt: "ASC",
     },
   });
+  // @TODO: USe save and load info json to resume downloads
+  // @See: https://github.com/ytdl-org/youtube-dl/issues/11308
   jobs.forEach(job => addJobToQueue(job));
 };

@@ -30,7 +30,7 @@ export const JobProgress:React.FunctionComponent<Props> = (props) => {
 
     return (
       <div className={classes.root}>
-        <LinearProgress value={percent}/>
+        <LinearProgress variant="determinate" value={percent}/>
         <div className={classes.data}>
           <Typography>Total Size</Typography>
           <Typography>{totalSize}</Typography>

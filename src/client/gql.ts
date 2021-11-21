@@ -99,6 +99,22 @@ const JobRemoved = gql`
   }
 `;
 
+const JobUpdated = gql`
+  subscription OnJobUpdated {
+    jobUpdated {
+      id,
+      status,
+      errorMessage,
+      progress {
+        percent,
+        totalSize,
+        currentSpeed,
+        eta,
+      }
+    }
+  }
+`;
+
 const Login = gql`
   mutation Login($userName: String!, $password: String!) {
     login(userName: $userName, password: $password) {
@@ -145,4 +161,5 @@ export const Mutation = {
 export const Subscription = {
   JobAdded,
   JobRemoved,
+  JobUpdated,
 };

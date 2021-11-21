@@ -115,6 +115,10 @@ const main = async () => {
         };
       },
     }],
+    formatError: (err) => {
+      console.error("Apollo Error", err);
+      return err;
+    },
   });
 
   subscriptionServer = SubscriptionServer.create({

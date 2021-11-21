@@ -76,6 +76,6 @@ export class Job extends BaseEntity {
   downloadOptions: DownloadOptions;
 
   // Progress. This is not stored in the DB, but do exist in memory for graphql.
-  @Field(() => JobProgress)
+  @Field(() => JobProgress, { nullable: true })
   progress?: JobProgress;
 }

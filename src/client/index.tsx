@@ -10,21 +10,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
-if (typeof window !== "undefined" && typeof window.require !== "function") {
-  window.require = function(id: string): object {
-    switch (id) {
-      case './local/zh_CN':
-        return {
-          confirmLabel: 'OK',
-          backspaceLabel: 'backspace',
-          cancelKeyboardLabel: 'cancel keyboard'
-        }
-      default:
-        return {}
-    }
-  }
-}
-
 let apolloClient: ApolloClient<any>;
 const getApolloClient = ():ApolloClient<any> => {
   if (!apolloClient) {
