@@ -23,11 +23,12 @@ module.exports = {
     treeshake: true,
     manifest: true,
   },
-  alias: {
-    "type-graphql": "type-graphql/dist/browser-shim.js",
-    "typeorm": "typeorm/typeorm-class-transformer-shim.js",
-  },
   packageOptions: {
     polyfillNode: true,
+  },
+  alias: {
+    "type-graphql": "type-graphql/dist/browser-shim.js",
+    // "typeorm": "typeorm/typeorm-class-transformer-shim.js",
+    // typeorm: path.join(process.cwd(), "src/shims/typeorm-class-transformer-shim.js"),
   },
 };

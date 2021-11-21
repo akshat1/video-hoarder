@@ -44,6 +44,12 @@ const Jobs = gql`
       downloadOptions {
         formatSelector
       }
+      progress {
+        percent
+        totalSize
+        currentSpeed
+        eta
+      }
     }
   }
 `;

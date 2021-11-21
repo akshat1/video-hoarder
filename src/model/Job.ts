@@ -1,11 +1,9 @@
 import "reflect-metadata";
-import { getPubSub } from "../server/pubsub";
-import { addJobToQueue, removeJobFromQueue } from "../server/YTQueue";
+import { JobProgress } from "./JobProgress";
 import { getJSONTransformer } from "./JSONTransformer";
-import { Topic } from "./Topic";
 import { YTMetadata } from "./YouTube";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
-import { AfterInsert, AfterRemove, AfterUpdate, BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 export enum JobStatus {
   Pending = "pending",
@@ -77,25 +75,7 @@ export class Job extends BaseEntity {
   })
   downloadOptions: DownloadOptions;
 
-  @AfterInsert()
-  handleNewJob(): void {
-    console.log("Adding job to queue", this);
-    addJobToQueue(this);
-    getPubSub().publish(Topic.JobAdded, this);
-  }
-
-  @AfterUpdate()
-  signalUpdate(): void {
-    console.log("Job updated", this);
-    getPubSub().publish(Topic.JobRemoved, this);
-  }
-
-  @AfterRemove()
-  handleJobRemoval(): void {
-    console.log("Job removed", this);
-    const removedJob = Object.assign({}, this);
-    console.log("Job removal cloning:", this, removedJob);
-    getPubSub().publish(Topic.JobRemoved, removedJob);
-    removeJobFromQueue(removedJob);
-  }
+  // Progress. This is not stored in the DB, but do exist in memory for graphql.
+  @Field(() => JobProgress)
+  progress?: JobProgress;
 }
