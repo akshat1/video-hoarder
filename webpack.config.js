@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // const path = require("path");
+const path = require("path/posix");
 const webpack = require("webpack");
 
 module.exports = {
-  mode: "development",
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
   devtool: "inline-source-map",
   entry: "./src/client/index.tsx",
   output: {
     filename: "app.js",
-    path: __dirname,
+    path: path.join(__dirname, "public"),
   },
   module: {
     rules: [{
@@ -34,4 +35,10 @@ module.exports = {
       resource.request = resource.request.replace(/type-graphql/, "type-graphql/dist/browser-shim.js");
     }),
   ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "public"),
+    },
+    historyApiFallback: true,
+  },
 };

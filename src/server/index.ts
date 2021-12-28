@@ -24,7 +24,7 @@ import { v4 as uuid } from "uuid";
 
 const SessionSecret = "Not so secretely bad secret";
 const Config = {
-  webUIPath: process.env.NODE_ENV === "production" ? "./app/client" : "./src/client",
+  webUIPath: "./public/", // process.env.NODE_ENV === "production" ? "./app/client" : "./src/client",
   port: process.env.SERVER_PORT || 8081,
 };
 
