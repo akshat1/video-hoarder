@@ -70,6 +70,7 @@ export const Main:FunctionComponent = () => {
       color="inherit"
       edge="start"
       key="btn-settings"
+      href="./settings"
     >
       <Settings />
     </IconButton>,

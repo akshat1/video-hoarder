@@ -77,6 +77,7 @@ export class JobResolver {
       metadata: await fetchMetadata(url),
       downloadOptions,
     });
+    console.log("newJob", newJob);
     await newJob.save();
     // await pubSub.publish(Topic.JobAdded, newJob);
     return newJob;

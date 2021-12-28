@@ -75,6 +75,8 @@ const Jobs = gql`
       url
       downloadOptions {
         formatSelector
+        rateLimit
+        downloadLocation
       }
       progress {
         percent

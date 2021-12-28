@@ -35,7 +35,10 @@ const useStyle = makeStyles((theme: Theme) => ({
   },
   tableGrid: infoTable(theme),
   controls: {},
-  progress: {},
+  progress: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 interface Props {
@@ -133,6 +136,8 @@ export const Item:FunctionComponent<Props> = (props) => {
           {updatedElem}
           <Typography>Format</Typography>
           <Typography>{_.get(job, "downloadOptions.formatSelector")}</Typography>
+          <Typography>Rate limit</Typography>
+          <Typography>{_.get(job, "downloadOptions.rateLimit")}</Typography>
           <Typography>Downloading to</Typography>
           <Typography>{_.get(job, "downloadOptions.downloadLocation")}</Typography>
         </div>
