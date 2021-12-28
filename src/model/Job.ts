@@ -13,17 +13,29 @@ export enum JobStatus {
   Canceled = "canceled",
 }
 
+export const RateUnlimited = "Unlimited";
+
 // Can't have the same class as both object and input types. I'm probbaly missing something.
 @InputType()
 export class DownloadOptionsInput {
   @Field()
   formatSelector?: string;
+
+  @Field(() => String, { nullable: true })
+  rateLimit?: string;
 }
 
 @ObjectType()
 export class DownloadOptions {
   @Field()
   formatSelector?: string;
+
+  /**
+   * Rate limit in bytes per second (e.g. 50K or 4.2M).
+   * @see https://github.com/ytdl-org/youtube-dl#download-options
+   */
+  @Field(() => String, { nullable: true })
+  rateLimit?: string;
 }
 
 @Entity()

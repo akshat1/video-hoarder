@@ -20,18 +20,24 @@ const onCompletion = async (error: Error, job: Job): Promise<void> => {
   thunks.delete(job.id);
 };
 
+const onAbort = async (job: Job): Promise<void> => {
+  job.status = JobStatus.Canceled;
+  await job.save();
+  thunks.delete(job.id);
+};
+
 const onProgress = (job: Job, progress: JobProgress): void => {
   job.progress = progress;
   // Most events are published to pubsub by the typeorm model (JobSubscriber class). However, progress isn't
   // a part of the typeorm model (while it is part of the graphql model) and therefore this isn't handled by
   // JobSubscriber. In order to still update the UI, we make this one exception about publishing pubsub from
   // YTQueue.
-  console.log("Job Updated...", job.url);
   job.progress = progress;
   getPubSub().publish(Topic.JobUpdated, job);
 };
 
 export const addJobToQueue = (job: Job): void => {
+  console.log("addJobToQueue()");
   queue.add(async () => {
     job.status = JobStatus.InProgress;
     await job.save(); // This is important, as this will let everyone else know the job update.
@@ -39,18 +45,24 @@ export const addJobToQueue = (job: Job): void => {
       job,
       onCompletion,
       onProgress,
+      onAbort,
     });
     thunks.set(job.id, thunk);
   });
 };
 
 export const removeJobFromQueue = async (job: Job): Promise<void> => {
-  const thunk = thunks.get(job.id);
-  if (thunk) {
-    // thunk exists, which means we have started downloading this item.
-    thunk.abort();
-    job.status = JobStatus.Canceled;
-    await job.save(); // This is important, as this will let everyone else know the job update.
+  console.log("removeJobFromQueue");
+  if (job) {
+    const thunk = thunks.get(job.id);
+    if (thunk) {
+      // thunk exists, which means we have started downloading this item.
+      thunk.abort();
+      job.status = JobStatus.Canceled;
+      await job.save(); // This is important, as this will let everyone else know the job update.
+    } else {
+      console.log("Thunk not found.");
+    }
   }
 };
 
@@ -68,3 +80,11 @@ export const pickUpPendingJobs = async (): Promise<void> => {
   // @See: https://github.com/ytdl-org/youtube-dl/issues/11308
   jobs.forEach(job => addJobToQueue(job));
 };
+
+const hookUp = () => {
+  const pubSub = getPubSub();
+  pubSub.subscribe(Topic.JobAdded, addJobToQueue, {});
+  pubSub.subscribe(Topic.JobCancelled, removeJobFromQueue, {});
+  pubSub.subscribe(Topic.JobRemoved, removeJobFromQueue, {});
+};
+hookUp();

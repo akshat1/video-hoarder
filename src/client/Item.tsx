@@ -1,4 +1,4 @@
-import { Job } from "../model/Job";
+import { Job, JobStatus } from "../model/Job";
 import { infoTable } from "./cssUtils";
 import { Mutation } from "./gql";
 import { JobProgress } from "./JobProgress";
@@ -47,12 +47,25 @@ export const Item:FunctionComponent<Props> = (props) => {
   const classes = useStyle();
 
   const [
+    doCancelJob, {
+      error: cancellationError,
+      loading: cancelling,
+    },
+  ] = useMutation(Mutation.CancelJob);
+  const onCancel = () =>
+    doCancelJob({
+      variables: {
+        jobId: job.id,
+      },
+    });
+
+  const [
     doRemoveJob, {
-      error: abortError,
-      loading: aborting,
+      error: removalError,
+      loading: removing,
     },
   ] = useMutation(Mutation.RemoveJob);
-  const onAbort = () =>
+  const onRemove = () =>
     doRemoveJob({
       variables: {
         jobId: job.id,
@@ -68,6 +81,34 @@ export const Item:FunctionComponent<Props> = (props) => {
       </>
     );
   }
+
+  const opButtons = [];
+  if (job.status === JobStatus.Pending || job.status === JobStatus.InProgress) {
+    opButtons.push(
+      <Button
+        size="small"
+        variant="outlined"
+        onClick={onCancel}
+        disabled={Boolean(cancelling || cancellationError)}
+        key={`${job.id}--cancel`}
+      >
+        Cancel
+      </Button>
+    );
+  }
+
+  if (job.status === JobStatus.Canceled || job.status === JobStatus.Completed || job.status === JobStatus.Failed) {
+    opButtons.push(<Button
+      size="small"
+      variant="outlined"
+      onClick={onRemove}
+      disabled={Boolean(removing || removalError)}
+      key={`${job.id}--remove`}
+    >
+      Remove
+    </Button>);
+  }
+
   return (
     <Paper variant="outlined" className={classes.root}>
       <div className={classes.thumbnail}>
@@ -97,14 +138,7 @@ export const Item:FunctionComponent<Props> = (props) => {
           <JobProgress job={job} />
         </div>
         <div className={classes.controls}>
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={onAbort}
-            disabled={Boolean(aborting || abortError)}
-          >
-            Abort
-          </Button>
+          {opButtons}          
         </div>
       </div>
     </Paper>

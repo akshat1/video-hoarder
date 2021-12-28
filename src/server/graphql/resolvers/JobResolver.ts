@@ -1,6 +1,8 @@
 import { DownloadOptionsInput, Job, JobStatus } from "../../../model/Job";
 import { Topic } from "../../../model/Topic";
+import { EINSUFFICIENTPERMS, ENOUSER } from "../../errors";
 import { canDelete } from "../../perms";
+import { getPubSub } from "../../pubsub";
 import { fetchMetadata } from "../../youtube";
 import { Context } from "@apollo/client";
 import md5 from "md5";
@@ -81,18 +83,55 @@ export class JobResolver {
   }
 
   @Mutation(() => Number)
-  async removeJob(@Arg("jobId") jobId: string, @Ctx() context: Context): Promise<Number> {
+  async cancelJob(@Arg("jobId") jobId: string, @Ctx() context: Context): Promise<Number> {
+    console.log("Cancel job");
     const currentUser = await context.getUser();
     if (currentUser) {
-      const job = await Job.findOne(jobId);
+      const job = await Job.findOne({
+        where: {
+          id: jobId,
+        },
+      });
+
       if (canDelete(currentUser, job)) {
-        await Job.remove([job]);
-        // @TODO: If currently in progress, kill the download process for this video.
-        // pubSub.publish(Topic.JobRemoved, jobId);
+        console.log("Set status to canceled");
+        job.status = JobStatus.Canceled;
+        await job.save();
+        getPubSub().publish(Topic.JobCancelled, job);
         return 0;
       }
     }
 
     return -1;
+  }
+
+  /**
+   * @param jobId id of the job to be deleted
+   * @param context
+   * @returns number of items deleted (should always be 0 or 1)
+   */
+  @Mutation(() => Number)
+  async removeJob(@Arg("jobId") jobId: string, @Ctx() context: Context): Promise<Number> {
+    const currentUser = await context.getUser();
+    if (currentUser) {
+      const job = await Job.findOne({
+        where: {
+          id: jobId,
+        },
+      });
+
+      if (job) {
+        if (canDelete(currentUser, job)) {
+          await job.remove();
+          return 1;
+        }
+
+        throw new Error(EINSUFFICIENTPERMS);
+      }
+
+      return 0;
+    }
+
+    throw new Error(ENOUSER);
   }
 }

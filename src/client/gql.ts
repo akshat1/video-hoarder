@@ -87,6 +87,12 @@ const AddJob = gql`
   }
 `;
 
+const CancelJob = gql`
+  mutation CancelJob($jobId: String!) {
+    cancelJob(jobId: $jobId)
+  }
+`;
+
 const RemoveJob = gql`
   mutation RemoveJob($jobId: String!) {
     removeJob(jobId: $jobId)
@@ -155,6 +161,7 @@ export const Mutation = {
   AddJob,
   Login,
   Logout,
+  CancelJob,
   RemoveJob,
 };
 
