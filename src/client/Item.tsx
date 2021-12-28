@@ -133,6 +133,8 @@ export const Item:FunctionComponent<Props> = (props) => {
           {updatedElem}
           <Typography>Format</Typography>
           <Typography>{_.get(job, "downloadOptions.formatSelector")}</Typography>
+          <Typography>Downloading to</Typography>
+          <Typography>{_.get(job, "downloadOptions.downloadLocation")}</Typography>
         </div>
         <div className={classes.progress}>
           <JobProgress job={job} />

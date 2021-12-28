@@ -1,5 +1,5 @@
-import { Job } from "../model/Job";
 import { User } from "../model/User";
+import { YTMetadata } from "../model/YouTube";
 import { ENOENT } from "constants";
 import { promises as fs } from "fs";
 import yaml from "js-yaml";
@@ -93,43 +93,52 @@ const matchValues = (reference: string, value: string): boolean => {
   return reference === value;
 };
 
-const isMatchingRule = (rule: DownloadLocationRule, user: User, job: Job): boolean => {
+const isMatchingRule = (rule: DownloadLocationRule, user: User, metadata: YTMetadata): boolean => {
   const {
     match,
   } = rule;
 
+  const {
+    channel,
+    extractor,
+    fulltitle,
+    webpageUrl,
+    title,
+    uploader,
+  } = metadata;
+
   if (match.channel) {
-    if (!matchValues(match.channel, job.metadata.channel)) {
+    if (!matchValues(match.channel, channel)) {
       return false;
     }
   }
 
   if (match.extractor) {
-    if (!matchValues(match.extractor, job.metadata.extractor)) {
+    if (!matchValues(match.extractor, extractor)) {
       return false;
     }
   }
 
   if (match.fulltitle) {
-    if (!matchValues(match.fulltitle, job.metadata.fulltitle)) {
+    if (!matchValues(match.fulltitle, fulltitle)) {
       return false;
     }
   }
 
   if (match.hostname) {
-    if (!matchValues(match.hostname, new URL(job.url).hostname)) {
+    if (!matchValues(match.hostname, new URL(webpageUrl).hostname)) {
       return false;
     }
   }
 
   if (match.title) {
-    if (!matchValues(match.title, job.metadata.title)) {
+    if (!matchValues(match.title, title)) {
       return false;
     }
   }
 
   if (match.uploader) {
-    if (!matchValues(match.uploader, job.metadata.uploader)) {
+    if (!matchValues(match.uploader, uploader)) {
       return false;
     }
   }
@@ -140,8 +149,8 @@ const isMatchingRule = (rule: DownloadLocationRule, user: User, job: Job): boole
   return true;
 }
 
-const getCustomDownloadLocation = (rules: DownloadLocationRule[], user: User, job: Job): string|null => {
-  const matchingRules = rules.filter(rule => isMatchingRule(rule, user, job));
+const getCustomDownloadLocation = (rules: DownloadLocationRule[], user: User, metadata: YTMetadata): string|null => {
+  const matchingRules = rules.filter(rule => isMatchingRule(rule, user, metadata));
   // Problem: Multiple rules may match a given job. We must find the one with the highest specificity.
   // Solution:
   //   - All the conditions in the match block must be satisfied in order to
@@ -159,7 +168,7 @@ const getCustomDownloadLocation = (rules: DownloadLocationRule[], user: User, jo
 };
 
 const downloadRoot = path.join(process.env.HOME, "Downloads");
-export const getDownloadLocation = async (job: Job, user: User): Promise<string> => {
+export const getDownloadLocation = async (metadata: YTMetadata, user: User): Promise<string> => {
   const pathElements = [
     downloadRoot,
     user.userName,
@@ -170,7 +179,7 @@ export const getDownloadLocation = async (job: Job, user: User): Promise<string>
     const buffLocationRules = await fs.readFile(customLocationModulePath);
     const { rules } = yaml.load(buffLocationRules.toString("utf-8")) as CustomDownloadLocationConfig;
     rules.forEach(validateRule);
-    const customLocation = getCustomDownloadLocation(rules, user, job);
+    const customLocation = getCustomDownloadLocation(rules, user, metadata);
     if (customLocation) {
       pathElements.push(customLocation);
     }

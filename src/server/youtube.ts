@@ -1,8 +1,6 @@
 import { Job, JobStatus, RateUnlimited } from "../model/Job";
 import { JobProgress } from "../model/JobProgress";
-import { User } from "../model/User";
 import { YTMetadata } from "../model/YouTube";
-import { getDownloadLocation } from "./DownloadLocation";
 import NodeCache from "node-cache";
 import YouTubeDLWrap from "youtube-dl-wrap";
 
@@ -44,16 +42,16 @@ export const download = async (args: DownloadArgs): Promise<DownloadThunk> => {
     downloadOptions: {
       formatSelector,
       rateLimit,
+      downloadLocation,
     },
     url,
   } = job;
 
-  const user = await User.findOne({ where: { userName: job.createdBy }});
   const controller = new AbortController();
   const dlArgs = [
     url,
     "-f", formatSelector,
-    "-o", await getDownloadLocation(job, user),
+    "-o", downloadLocation,
     "--restrict-filenames",
   ];
 

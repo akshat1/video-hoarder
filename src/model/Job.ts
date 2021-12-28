@@ -23,6 +23,10 @@ export class DownloadOptionsInput {
 
   @Field(() => String, { nullable: true })
   rateLimit?: string;
+
+  // At the moment it's not user editable through the UI (but CAN be controlled by the user through config/location.yml).
+  @Field(() => String)
+  downloadLocation: string;
 }
 
 @ObjectType()
@@ -36,6 +40,9 @@ export class DownloadOptions {
    */
   @Field(() => String, { nullable: true })
   rateLimit?: string;
+
+  @Field(() => String)
+  downloadLocation: string;
 }
 
 @Entity()
