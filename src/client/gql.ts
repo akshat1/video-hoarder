@@ -25,6 +25,38 @@ const YTMetadata = gql`
   }
 `;
 
+const MetadataAndOptions = gql`
+  query MetadataAndOptionsQuery($url: String!) {
+    metadataAndOptions(url: $url) {
+      metadata {
+        title
+        id
+        uploadDate
+        channel
+        channelUrl
+        thumbnails {
+          height
+          url
+          width
+        }
+        description
+        formats {
+          acodec
+          format
+          formatId
+          quality
+          vcodec
+        }
+      }
+      downloadOptions {
+        formatSelector
+        rateLimit
+        downloadLocation
+      }
+    }
+  }
+`;
+
 const Jobs = gql`
   query Jobs {
     jobs {
@@ -154,6 +186,7 @@ const Logout = gql`
 export const Query = {
   CurrentUser,
   Jobs,
+  MetadataAndOptions,
   YTMetadata,
 };
 

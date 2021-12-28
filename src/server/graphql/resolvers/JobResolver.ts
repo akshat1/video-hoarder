@@ -61,7 +61,7 @@ export class JobResolver {
 
     const user = await context.getUser();
     if (!user) {
-      throw new Error("No user in the context.");
+      throw new Error(ENOUSER);
     }
 
     const { userName } = user; 

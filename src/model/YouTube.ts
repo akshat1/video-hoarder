@@ -65,7 +65,7 @@ export class YTHTTPHeaders {
 
 @ObjectType()
 export class YTFormat {
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   asr?: string;
 
   @Field(() => String, { nullable: true })
@@ -74,7 +74,7 @@ export class YTFormat {
   @Field(() => String)
   formatId: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   formatNote?: string;
 
   @Field(() => Float, { nullable: true })
@@ -86,40 +86,40 @@ export class YTFormat {
   @Field(() => Int, { nullable: true })
   quality?: number;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: true })
   tbr?: number;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   url?: string;
 
   @Field(() => Int, { nullable: true })
   width?: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   ext?: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   vcodec?: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   acodec?: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   abr?: string;
 
-  @Field(() => YTDownloaderOptions)
+  @Field(() => YTDownloaderOptions, { nullable: true })
   downloaderOptions?: YTDownloaderOptions
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   container?: string;
 
   @Field(() => String)
   format: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   protocol?: string;
 
-  @Field(() => YTHTTPHeaders)
+  @Field(() => YTHTTPHeaders, { nullable: true })
   httpHeaders?: string;
 
   static BestBestMerged: YTFormat = {
@@ -140,17 +140,17 @@ export class YTFormat {
 
 @ObjectType()
 export class YTThumbnail {
-  @Field(() => Int)
-  height: number;
+  @Field(() => Int, { nullable: true })
+  height?: number;
 
   @Field(() => String)
   url: string;
 
-  @Field(() => Int)
-  width: number;
+  @Field(() => Int, { nullable: true })
+  width?: number;
 
-  @Field(() => String)
-  resolution: string;
+  @Field(() => String, { nullable: true })
+  resolution?: string;
 
   @Field(() => String)
   id: string;
@@ -419,11 +419,11 @@ export class YTMetadata {
   @Field(() => String)
   uploaderUrl: string;
 
-  @Field(() => String)
-  channelId: string;
+  @Field(() => String, { nullable: true })
+  channelId?: string;
 
-  @Field(() => String)
-  channelUrl: string;
+  @Field(() => String, { nullable: true })
+  channelUrl?: string;
 
   @Field(() => Int)
   duration: number;
@@ -458,8 +458,8 @@ export class YTMetadata {
   @Field(() => Int)
   dislikeCount: number;
 
-  @Field(() => String)
-  channel: string;
+  @Field(() => String, { nullable: true })
+  channel?: string;
 
   @Field(() => String, { nullable: true })
   track?: string;

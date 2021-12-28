@@ -2,7 +2,6 @@ import { Job, JobStatus, RateUnlimited } from "../model/Job";
 import { JobProgress } from "../model/JobProgress";
 import { YTMetadata } from "../model/YouTube";
 import NodeCache from "node-cache";
-import path from "path";
 import YouTubeDLWrap from "youtube-dl-wrap";
 
 const youTubeDL = new YouTubeDLWrap("/usr/local/bin/youtube-dl");
@@ -31,21 +30,22 @@ interface DownloadArgs {
   onAbort?: (job: Job) => void|Promise<void>;
 }
 
-const downloadLocation = path.join(process.env.HOME, "Downloads", "%(title)s.%(ext)s");
-console.log("downloadLocation:", downloadLocation);
-export const download = (args: DownloadArgs): DownloadThunk => {
+export const download = async (args: DownloadArgs): Promise<DownloadThunk> => {
   const {
-    job: {
-      downloadOptions: {
-        formatSelector,
-        rateLimit,
-      },
-      url,
-    },
+    job,
     onProgress,
     onCompletion,
     // onAbort,
   } = args;
+
+  const {
+    downloadOptions: {
+      formatSelector,
+      rateLimit,
+      downloadLocation,
+    },
+    url,
+  } = job;
 
   const controller = new AbortController();
   const dlArgs = [
@@ -71,9 +71,6 @@ export const download = (args: DownloadArgs): DownloadThunk => {
         onProgress(args.job, progress);
       }
     })
-    // .on("youtubeDlEvent", (eventType, eventData) => {
-    //   console.log(`Event for ${url}`, { eventType, eventData });
-    // })
     .on("error", (error) => {
       console.error(error);
       if (typeof onCompletion === "function") {
@@ -89,12 +86,11 @@ export const download = (args: DownloadArgs): DownloadThunk => {
       }
     });
 
-  // TODO: Actually download the item.
   return {
     abort: () => {
       console.log(`Aborting ${url}.`);
       controller.abort();
-      youtubeDlEventEmitter.youtubeDlProcess.kill();
+      // youtubeDlEventEmitter.youtubeDlProcess.kill();
       console.log("Killed process?", youtubeDlEventEmitter.youtubeDlProcess.killed);
     },
   };

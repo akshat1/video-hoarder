@@ -7,6 +7,7 @@ browserify-cache.json
 build/
 cert/*
 config.jsontmp/
+config/location.yml
 coverage/
 db-data/
 dist/
@@ -16,6 +17,7 @@ download/*
 node_modules/
 sample.json
 sample2.json
+sample3-vimeo.json
 storybook-static/
 tmp/
 webpack-stats.json

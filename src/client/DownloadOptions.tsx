@@ -1,19 +1,11 @@
-import { DownloadOptionsInput, RateUnlimited } from "../model/Job";
-import { YTFormat, YTMetadata } from "../model/YouTube";
+import { DownloadOptionsInput } from "../model/Job";
+import { YTMetadata } from "../model/YouTube";
 import { infoTable } from "./cssUtils";
 import { DownloadRateInput } from "./DownloadRateInput";
 import { FormatSelector } from "./FormatSelector";
-import { Query } from "./gql";
 import { Thumbnail } from "./Thumbnail";
-import { useQuery } from "@apollo/client";
 import { Grid, Link, makeStyles,Theme, Typography } from "@material-ui/core";
-import _ from "lodash";
 import React, { ChangeEvent, FunctionComponent } from "react";
-
-export const DefaultOptions:DownloadOptionsInput = {
-  formatSelector: YTFormat.BestBestMerged.formatId,
-  rateLimit: RateUnlimited,
-};
 
 const useStyle = makeStyles((theme: Theme) => ({
   root: {
@@ -35,14 +27,14 @@ const useStyle = makeStyles((theme: Theme) => ({
 interface Props {
   onChange: (options: DownloadOptionsInput) => void;
   options: DownloadOptionsInput,
-  url: string;
+  metadata: YTMetadata,
 }
 
 export const DownloadOptions:FunctionComponent<Props> = (props) => {
   const {
     onChange,
     options,
-    url,
+    metadata,
   } = props;
 
   const classes = useStyle();
@@ -59,42 +51,35 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
     });
   };
 
-  if (url) {
-    const metadataThunk = url ? useQuery(Query.YTMetadata, { variables: { url }}) : null;
-    const metadata = _.get(metadataThunk, "data.ytMetadata", null) as YTMetadata|null;
-    if (metadata) {
-      return (
-        <Grid container spacing={3} className={classes.root}>
-          <Grid item xs={12}>
-            <Typography variant="h4">{metadata.title}</Typography>
-          </Grid>
-          <Grid item sm={12} md={8}className={classes.dlOptions}>
-            <Typography>Download format</Typography>
-            <FormatSelector
-              url={url}
-              value={options.formatSelector}
-              onChange={onFormatChange}
-            />
-            <Typography>Download Rate Limit</Typography>
-            <DownloadRateInput value={options.rateLimit} onChange={onRateLimitChange}/>
-          </Grid>
-          <Grid item sm={12} md={4} className={classes.meta}>
-            <Thumbnail
-              thumbnails={metadata.thumbnails}
-              fallback={metadata.thumbnail}
-              className={classes.thumbnail}
-            />
-            <div className={classes.tableGrid}>
-              <Typography>Channel</Typography>
-              <Typography><Link href={metadata.channelUrl}>{metadata.channel}</Link></Typography>
-              <Typography>Uploaded</Typography>
-              <Typography>{new Date(metadata.uploadDate).toLocaleDateString(Intl.NumberFormat().resolvedOptions().locale, { year: "numeric", month: "long", day: "numeric" })}</Typography>
-            </div>
-          </Grid>
-        </Grid>
-      );
-    }
-  }
-
-  return null;
+  return (
+    <Grid container spacing={3} className={classes.root}>
+      <Grid item xs={12}>
+        <Typography variant="h4">{metadata.title}</Typography>
+      </Grid>
+      <Grid item sm={12} md={8}className={classes.dlOptions}>
+        <Typography>Download format</Typography>
+        <FormatSelector
+          value={options.formatSelector}
+          onChange={onFormatChange}
+        />
+        <Typography>Download rate limit</Typography>
+        <DownloadRateInput value={options.rateLimit} onChange={onRateLimitChange}/>
+        <Typography>Download location</Typography>
+        <Typography>{options.downloadLocation}</Typography>
+      </Grid>
+      <Grid item sm={12} md={4} className={classes.meta}>
+        <Thumbnail
+          thumbnails={metadata.thumbnails}
+          fallback={metadata.thumbnail}
+          className={classes.thumbnail}
+        />
+        <div className={classes.tableGrid}>
+          <Typography>Channel</Typography>
+          <Typography><Link href={metadata.channelUrl}>{metadata.channel}</Link></Typography>
+          <Typography>Uploaded</Typography>
+          <Typography>{new Date(metadata.uploadDate).toLocaleDateString(Intl.NumberFormat().resolvedOptions().locale, { year: "numeric", month: "long", day: "numeric" })}</Typography>
+        </div>
+      </Grid>
+    </Grid>
+  );
 };

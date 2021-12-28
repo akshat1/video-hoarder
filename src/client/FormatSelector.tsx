@@ -1,8 +1,5 @@
-import { YTFormat, YTMetadata } from "../model/YouTube";
-import { Query } from "./gql";
-import { useQuery } from "@apollo/client";
+import { YTFormat } from "../model/YouTube";
 import { FormControl, MenuItem, Select } from "@material-ui/core";
-import _ from "lodash";
 import React, { ChangeEvent, FunctionComponent } from "react";
 
 /**
@@ -20,7 +17,6 @@ const getFormatOptions = (): YTFormat[] => {
 };
 
 interface Props {
-  url: string;
   value: string;
   onChange?: (event: React.ChangeEvent<{ name?: string; value: string }>, child: React.ReactNode) => void;
 }
@@ -28,30 +24,24 @@ interface Props {
 export const FormatSelector:FunctionComponent<Props> = (props) => {
   const {
     onChange,
-    url,
     value,
   } = props;
 
-  const metadataThunk = url ? useQuery(Query.YTMetadata, { variables: { url } }) : {};
-  const metadata = _.get(metadataThunk, "data.ytMetadata", null) as YTMetadata|null;
-  
-  if (metadata) {
-    const options = getFormatOptions();
-    const menuItems = options.map(({ format, formatId }) =>
-      <MenuItem value={formatId} key={formatId}>{format}</MenuItem>
-    );
+  const options = getFormatOptions();
+  const menuItems = options.map(({ format, formatId }) =>
+    <MenuItem value={formatId} key={formatId}>{format}</MenuItem>
+  );
 
-    return (
-      <FormControl>
-        <Select
-          value={value}
-          onChange={onChange}
-        >
-          {menuItems}
-        </Select>
-      </FormControl>
-    );
-  }
+  return (
+    <FormControl>
+      <Select
+        value={value}
+        onChange={onChange}
+      >
+        {menuItems}
+      </Select>
+    </FormControl>
+  );
 
   return null;
 };
