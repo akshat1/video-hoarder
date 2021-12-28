@@ -54,7 +54,6 @@ export class UserResolver {
         password,
       }
     );
-    console.log("Call context.login with", user);
     await context.login(user);
     return { user };
   }

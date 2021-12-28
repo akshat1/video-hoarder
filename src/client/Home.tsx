@@ -30,12 +30,6 @@ export const Home:FunctionComponent = () => {
   const onSubmit = async (evt) => {
     evt.preventDefault();
     if (url && metadata) {
-      console.log("Add Job", {
-        data: {
-          url: url,
-          downloadOptions,
-        },
-      });
       await doAddJob({
         variables: {
           data: {

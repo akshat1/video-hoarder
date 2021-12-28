@@ -1,17 +1,18 @@
-import { DownloadOptionsInput } from "../model/Job";
+import { DownloadOptionsInput, RateUnlimited } from "../model/Job";
 import { YTFormat, YTMetadata } from "../model/YouTube";
 import { infoTable } from "./cssUtils";
+import { DownloadRateInput } from "./DownloadRateInput";
 import { FormatSelector } from "./FormatSelector";
 import { Query } from "./gql";
 import { Thumbnail } from "./Thumbnail";
 import { useQuery } from "@apollo/client";
-import { Grid, Link, Theme, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { Grid, Link, makeStyles,Theme, Typography } from "@material-ui/core";
 import _ from "lodash";
-import React, { ChangeEvent, FunctionComponent, useState } from "react";
+import React, { ChangeEvent, FunctionComponent } from "react";
 
 export const DefaultOptions:DownloadOptionsInput = {
   formatSelector: YTFormat.BestBestMerged.formatId,
+  rateLimit: RateUnlimited,
 };
 
 const useStyle = makeStyles((theme: Theme) => ({
@@ -26,13 +27,13 @@ const useStyle = makeStyles((theme: Theme) => ({
   },
   tableGrid: infoTable(theme),
   dlOptions: {
-    ...infoTable(theme),
+    ...infoTable(theme, { alignItems: "center" }),
     marginTop: theme.spacing(1),
   },
 }));
 
 interface Props {
-  onChange: (DownloadOptionsInput) => void;
+  onChange: (options: DownloadOptionsInput) => void;
   options: DownloadOptionsInput,
   url: string;
 }
@@ -45,13 +46,17 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
   } = props;
 
   const classes = useStyle();
-  const [formatSelector, setFormatSelector] = useState(options.formatSelector);
-  const setOptions = _.debounce(() => {
-    onChange({ formatSelector });
-  }, 250);
   const onFormatChange = (event: ChangeEvent<{ name?: string, value: string }>) => {
-    setFormatSelector(event.currentTarget.value);
-    setOptions();
+    onChange({
+      ...options,
+      formatSelector: event.currentTarget.value,
+    });
+  };
+  const onRateLimitChange = (event: ChangeEvent, newValue: any) => {
+    onChange({
+      ...options,
+      rateLimit: newValue,
+    });
   };
 
   if (url) {
@@ -67,9 +72,11 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
             <Typography>Download format</Typography>
             <FormatSelector
               url={url}
-              value={formatSelector}
+              value={options.formatSelector}
               onChange={onFormatChange}
             />
+            <Typography>Download Rate Limit</Typography>
+            <DownloadRateInput value={options.rateLimit} onChange={onRateLimitChange}/>
           </Grid>
           <Grid item sm={12} md={4} className={classes.meta}>
             <Thumbnail

@@ -17,7 +17,6 @@ export const verifyUser = async (userName: string, password: string, cb: Functio
         userName,
       } = user;
 
-      console.log("calling cb for", userName);
       return cb(null, {
         id,
         passwordExpired,
