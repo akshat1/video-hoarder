@@ -1,0 +1,64 @@
+# This file must follow the following interface:
+#
+# interface CustomDownloadLocationConfig {
+#   rules: DownloadLocationRule[];
+# }
+#
+# interface DownloadLocationRule {
+#   /** Name of the rule. This is required because it's useful for troubleshooting purposes. */
+#   name: string;
+#   /** The match object. */
+#   match: DownloadLocationRuleMatch;
+#   /** Target download location. This will be appended to /Downloads/userName/ */
+#   location: string;
+# }
+#
+# interface DownloadLocationRuleMatch {
+#   channel?: string;
+#   extractor?: string;
+#   fulltitle?: string;
+#   hostname?: string;
+#   title?: string;
+#   uploader?: string;
+# }
+#
+# Values for the match object may specify a literal string or a regular
+# expression (to account for a range of possible matches). A RegExp is
+# specified by enclosing it in a pair of "/" characters (as if specifying a
+# RegExp literal in JavaScript).
+#
+# I have found www.debuggex.com to be very useful when designing regular expressions.
+#
+# The conditions specified in the match object are matched against the video metadata (obtained through youtube-dl --print-json)
+#
+# Things to note about the match object:
+# - all properties are optional
+# - but at least one must be specified
+# - all specified conditions must be met in order for a match
+# - each can be a string or a regular expression
+# - note that not all properties are available for all services. For instance, vimeo metadata doesn't seem to have channel.
+#
+# Finally,
+# - If multiple rules match a given video, then the rule with more match conditions is used (as that is a more specific rule).
+# - If two (or more) matching rules have the same specificity, then the rule which appears first in the following config will be used.
+#
+
+rules:
+  - name: YTPublicDomain
+    match:
+      channel: PublicDomainFootage
+    location: PublicDomainFootage
+  - name: VimPublicDomain
+    match:
+      hostname: /^(www\.)?vimeo\.com$/
+      uploader: Public Videos
+    location: general_tech
+  # Catch all rules should be specified last.
+  - name: youtube generic
+    match:
+      hostname: www.youtube.com
+    location: youtube
+  - name: vimeo generic
+    match:
+      hostname: www.vimeo.com
+    location: vimeo

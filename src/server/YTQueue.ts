@@ -41,7 +41,7 @@ export const addJobToQueue = (job: Job): void => {
   queue.add(async () => {
     job.status = JobStatus.InProgress;
     await job.save(); // This is important, as this will let everyone else know the job update.
-    const thunk = download({
+    const thunk = await download({
       job,
       onCompletion,
       onProgress,

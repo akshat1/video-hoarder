@@ -7,4 +7,5 @@ module.exports = {
   subscribers: [
     "./src/model-subscribers/*.ts",
   ],
+  logging: false,
 };

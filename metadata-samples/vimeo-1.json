@@ -1,0 +1,2385 @@
+{
+  "formats": [
+    {
+      "format_id": "hls-akfire_interconnect_quic_sep-audio-high-audio",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/audio/2cdfe85b/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "language": null,
+      "ext": "mp4",
+      "protocol": "m3u8_native",
+      "preference": -50,
+      "vcodec": "none",
+      "format": "hls-akfire_interconnect_quic_sep-audio-high-audio - audio only",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic_sep-audio-medium-audio",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/audio/98813ec5/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "language": null,
+      "ext": "mp4",
+      "protocol": "m3u8_native",
+      "preference": -50,
+      "vcodec": "none",
+      "format": "hls-akfire_interconnect_quic_sep-audio-medium-audio - audio only",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire_sep-audio-high-audio",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/audio/2cdfe85b/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "language": null,
+      "ext": "mp4",
+      "protocol": "m3u8_native",
+      "preference": -50,
+      "vcodec": "none",
+      "format": "hls-fastly_skyfire_sep-audio-high-audio - audio only",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire_sep-audio-medium-audio",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/audio/98813ec5/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "language": null,
+      "ext": "mp4",
+      "protocol": "m3u8_native",
+      "preference": -50,
+      "vcodec": "none",
+      "format": "hls-fastly_skyfire_sep-audio-medium-audio - audio only",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-audio-2a137087",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "m4a",
+      "width": null,
+      "height": null,
+      "tbr": 64.0,
+      "asr": 24000,
+      "fps": null,
+      "language": null,
+      "format_note": "DASH audio",
+      "filesize": null,
+      "container": "m4a_dash",
+      "vcodec": "none",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "../audio/2a137087/chop/segment-0.mp4"
+        },
+        {
+          "path": "../audio/2a137087/chop/segment-1.m4s",
+          "duration": 6.058666666666666
+        },
+        {
+          "path": "../audio/2a137087/chop/segment-2.m4s",
+          "duration": 6.058666666666666
+        },
+        {
+          "path": "../audio/2a137087/chop/segment-3.m4s",
+          "duration": 4.394666666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -50,
+      "format": "dash-akfire_interconnect_quic_sep-audio-2a137087 - audio only (DASH audio)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-audio-2a137087",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "m4a",
+      "width": null,
+      "height": null,
+      "tbr": 64.0,
+      "asr": 24000,
+      "fps": null,
+      "language": null,
+      "format_note": "DASH audio",
+      "filesize": null,
+      "container": "m4a_dash",
+      "vcodec": "none",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "../audio/2a137087/chop/segment-0.mp4"
+        },
+        {
+          "path": "../audio/2a137087/chop/segment-1.m4s",
+          "duration": 6.058666666666666
+        },
+        {
+          "path": "../audio/2a137087/chop/segment-2.m4s",
+          "duration": 6.058666666666666
+        },
+        {
+          "path": "../audio/2a137087/chop/segment-3.m4s",
+          "duration": 4.394666666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -50,
+      "format": "dash-fastly_skyfire_sep-audio-2a137087 - audio only (DASH audio)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-audio-98813ec5",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "m4a",
+      "width": null,
+      "height": null,
+      "tbr": 127.0,
+      "asr": 48000,
+      "fps": null,
+      "language": null,
+      "format_note": "DASH audio",
+      "filesize": null,
+      "container": "m4a_dash",
+      "vcodec": "none",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "../audio/98813ec5/chop/segment-0.mp4"
+        },
+        {
+          "path": "../audio/98813ec5/chop/segment-1.m4s",
+          "duration": 6.058666666666666
+        },
+        {
+          "path": "../audio/98813ec5/chop/segment-2.m4s",
+          "duration": 6.08
+        },
+        {
+          "path": "../audio/98813ec5/chop/segment-3.m4s",
+          "duration": 4.330666666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -50,
+      "format": "dash-akfire_interconnect_quic_sep-audio-98813ec5 - audio only (DASH audio)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-audio-98813ec5",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "m4a",
+      "width": null,
+      "height": null,
+      "tbr": 127.0,
+      "asr": 48000,
+      "fps": null,
+      "language": null,
+      "format_note": "DASH audio",
+      "filesize": null,
+      "container": "m4a_dash",
+      "vcodec": "none",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "../audio/98813ec5/chop/segment-0.mp4"
+        },
+        {
+          "path": "../audio/98813ec5/chop/segment-1.m4s",
+          "duration": 6.058666666666666
+        },
+        {
+          "path": "../audio/98813ec5/chop/segment-2.m4s",
+          "duration": 6.08
+        },
+        {
+          "path": "../audio/98813ec5/chop/segment-3.m4s",
+          "duration": 4.330666666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -50,
+      "format": "dash-fastly_skyfire_sep-audio-98813ec5 - audio only (DASH audio)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-audio-9cb2e39b",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "m4a",
+      "width": null,
+      "height": null,
+      "tbr": 255.0,
+      "asr": 48000,
+      "fps": null,
+      "language": null,
+      "format_note": "DASH audio",
+      "filesize": null,
+      "container": "m4a_dash",
+      "vcodec": "none",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "../audio/9cb2e39b/chop/segment-0.mp4"
+        },
+        {
+          "path": "../audio/9cb2e39b/chop/segment-1.m4s",
+          "duration": 6.058666666666666
+        },
+        {
+          "path": "../audio/9cb2e39b/chop/segment-2.m4s",
+          "duration": 6.08
+        },
+        {
+          "path": "../audio/9cb2e39b/chop/segment-3.m4s",
+          "duration": 4.330666666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -50,
+      "format": "dash-akfire_interconnect_quic_sep-audio-9cb2e39b - audio only (DASH audio)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-audio-9cb2e39b",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "m4a",
+      "width": null,
+      "height": null,
+      "tbr": 255.0,
+      "asr": 48000,
+      "fps": null,
+      "language": null,
+      "format_note": "DASH audio",
+      "filesize": null,
+      "container": "m4a_dash",
+      "vcodec": "none",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "../audio/9cb2e39b/chop/segment-0.mp4"
+        },
+        {
+          "path": "../audio/9cb2e39b/chop/segment-1.m4s",
+          "duration": 6.058666666666666
+        },
+        {
+          "path": "../audio/9cb2e39b/chop/segment-2.m4s",
+          "duration": 6.08
+        },
+        {
+          "path": "../audio/9cb2e39b/chop/segment-3.m4s",
+          "duration": 4.330666666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -50,
+      "format": "dash-fastly_skyfire_sep-audio-9cb2e39b - audio only (DASH audio)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-video-2a137087",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 240,
+      "height": 426,
+      "tbr": 253.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640015",
+      "acodec": "none",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "2a137087/chop/segment-0.mp4"
+        },
+        {
+          "path": "2a137087/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2a137087/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2a137087/chop/segment-3.m4s",
+          "duration": 4.333291666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-akfire_interconnect_quic_sep-video-2a137087 - 240x426 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-video-2a137087",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 240,
+      "height": 426,
+      "tbr": 253.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640015",
+      "acodec": "none",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "2a137087/chop/segment-0.mp4"
+        },
+        {
+          "path": "2a137087/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2a137087/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2a137087/chop/segment-3.m4s",
+          "duration": 4.333291666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-fastly_skyfire_sep-video-2a137087 - 240x426 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic_sep-372",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 372.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 240,
+      "height": 426,
+      "vcodec": "avc1.640015",
+      "acodec": "none",
+      "format": "hls-akfire_interconnect_quic_sep-372 - 240x426",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire_sep-372",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 372.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 240,
+      "height": 426,
+      "vcodec": "avc1.640015",
+      "acodec": "none",
+      "format": "hls-fastly_skyfire_sep-372 - 240x426",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-video-98813ec5",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 360,
+      "height": 640,
+      "tbr": 432.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.64001E",
+      "acodec": "none",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "98813ec5/chop/segment-0.mp4"
+        },
+        {
+          "path": "98813ec5/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "98813ec5/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "98813ec5/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-akfire_interconnect_quic_sep-video-98813ec5 - 360x640 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-video-98813ec5",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 360,
+      "height": 640,
+      "tbr": 432.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.64001E",
+      "acodec": "none",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "98813ec5/chop/segment-0.mp4"
+        },
+        {
+          "path": "98813ec5/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "98813ec5/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "98813ec5/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-fastly_skyfire_sep-video-98813ec5 - 360x640 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic_sep-679",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/98813ec5/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 679.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 360,
+      "height": 640,
+      "vcodec": "avc1.64001E",
+      "acodec": "none",
+      "format": "hls-akfire_interconnect_quic_sep-679 - 360x640",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire_sep-679",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/98813ec5/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 679.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 360,
+      "height": 640,
+      "vcodec": "avc1.64001E",
+      "acodec": "none",
+      "format": "hls-fastly_skyfire_sep-679 - 360x640",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-video-955d7ef2",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 540,
+      "height": 960,
+      "tbr": 963.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.64001F",
+      "acodec": "none",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "955d7ef2/chop/segment-0.mp4"
+        },
+        {
+          "path": "955d7ef2/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "955d7ef2/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "955d7ef2/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-akfire_interconnect_quic_sep-video-955d7ef2 - 540x960 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-video-955d7ef2",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 540,
+      "height": 960,
+      "tbr": 963.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.64001F",
+      "acodec": "none",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "955d7ef2/chop/segment-0.mp4"
+        },
+        {
+          "path": "955d7ef2/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "955d7ef2/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "955d7ef2/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-fastly_skyfire_sep-video-955d7ef2 - 540x960 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic_sep-1210",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/955d7ef2/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 1210.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 540,
+      "height": 960,
+      "vcodec": "avc1.64001F",
+      "acodec": "none",
+      "format": "hls-akfire_interconnect_quic_sep-1210 - 540x960",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire_sep-1210",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/955d7ef2/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 1210.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 540,
+      "height": 960,
+      "vcodec": "avc1.64001F",
+      "acodec": "none",
+      "format": "hls-fastly_skyfire_sep-1210 - 540x960",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-video-888161c0",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 720,
+      "height": 1280,
+      "tbr": 1772.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640020",
+      "acodec": "none",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "888161c0/chop/segment-0.mp4"
+        },
+        {
+          "path": "888161c0/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "888161c0/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "888161c0/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-akfire_interconnect_quic_sep-video-888161c0 - 720x1280 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-video-888161c0",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 720,
+      "height": 1280,
+      "tbr": 1772.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640020",
+      "acodec": "none",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "888161c0/chop/segment-0.mp4"
+        },
+        {
+          "path": "888161c0/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "888161c0/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "888161c0/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-fastly_skyfire_sep-video-888161c0 - 720x1280 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic_sep-2019",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/888161c0/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 2019.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 720,
+      "height": 1280,
+      "vcodec": "avc1.640020",
+      "acodec": "none",
+      "format": "hls-akfire_interconnect_quic_sep-2019 - 720x1280",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire_sep-2019",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/888161c0/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 2019.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 720,
+      "height": 1280,
+      "vcodec": "avc1.640020",
+      "acodec": "none",
+      "format": "hls-fastly_skyfire_sep-2019 - 720x1280",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-video-e54db19e",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 1080,
+      "height": 1920,
+      "tbr": 3411.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640028",
+      "acodec": "none",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "e54db19e/chop/segment-0.mp4"
+        },
+        {
+          "path": "e54db19e/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "e54db19e/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "e54db19e/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-akfire_interconnect_quic_sep-video-e54db19e - 1080x1920 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-video-e54db19e",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 1080,
+      "height": 1920,
+      "tbr": 3411.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640028",
+      "acodec": "none",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "e54db19e/chop/segment-0.mp4"
+        },
+        {
+          "path": "e54db19e/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "e54db19e/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "e54db19e/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-fastly_skyfire_sep-video-e54db19e - 1080x1920 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic_sep-3658",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/e54db19e/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 3658.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 1080,
+      "height": 1920,
+      "vcodec": "avc1.640028",
+      "acodec": "none",
+      "format": "hls-akfire_interconnect_quic_sep-3658 - 1080x1920",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire_sep-3658",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/e54db19e/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 3658.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 1080,
+      "height": 1920,
+      "vcodec": "avc1.640028",
+      "acodec": "none",
+      "format": "hls-fastly_skyfire_sep-3658 - 1080x1920",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-video-9cb2e39b",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 1440,
+      "height": 2560,
+      "tbr": 6727.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640032",
+      "acodec": "none",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "9cb2e39b/chop/segment-0.mp4"
+        },
+        {
+          "path": "9cb2e39b/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "9cb2e39b/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "9cb2e39b/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-akfire_interconnect_quic_sep-video-9cb2e39b - 1440x2560 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-video-9cb2e39b",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 1440,
+      "height": 2560,
+      "tbr": 6727.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640032",
+      "acodec": "none",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "9cb2e39b/chop/segment-0.mp4"
+        },
+        {
+          "path": "9cb2e39b/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "9cb2e39b/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "9cb2e39b/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-fastly_skyfire_sep-video-9cb2e39b - 1440x2560 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic_sep-6974",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/9cb2e39b/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 6974.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 1440,
+      "height": 2560,
+      "vcodec": "avc1.640032",
+      "acodec": "none",
+      "format": "hls-akfire_interconnect_quic_sep-6974 - 1440x2560",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire_sep-6974",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/9cb2e39b/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 6974.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 1440,
+      "height": 2560,
+      "vcodec": "avc1.640032",
+      "acodec": "none",
+      "format": "hls-fastly_skyfire_sep-6974 - 1440x2560",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic_sep-video-2cdfe85b",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 2160,
+      "height": 3840,
+      "tbr": 16323.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640034",
+      "acodec": "none",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "2cdfe85b/chop/segment-0.mp4"
+        },
+        {
+          "path": "2cdfe85b/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2cdfe85b/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2cdfe85b/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-akfire_interconnect_quic_sep-video-2cdfe85b - 2160x3840 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire_sep-video-2cdfe85b",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 2160,
+      "height": 3840,
+      "tbr": 16323.0,
+      "asr": null,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640034",
+      "acodec": "none",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "2cdfe85b/chop/segment-0.mp4"
+        },
+        {
+          "path": "2cdfe85b/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2cdfe85b/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2cdfe85b/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "preference": -40,
+      "format": "dash-fastly_skyfire_sep-video-2cdfe85b - 2160x3840 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic_sep-16570",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2cdfe85b/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 16570.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 2160,
+      "height": 3840,
+      "vcodec": "avc1.640034",
+      "acodec": "none",
+      "format": "hls-akfire_interconnect_quic_sep-16570 - 2160x3840",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire_sep-16570",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2cdfe85b/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/sep/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 16570.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": -40,
+      "width": 2160,
+      "height": 3840,
+      "vcodec": "avc1.640034",
+      "acodec": "none",
+      "format": "hls-fastly_skyfire_sep-16570 - 2160x3840",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "url": "https://vod-progressive.akamaized.net/exp=1640684897~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2116%2F26%2F660583443%2F3036736976.mp4~hmac=41605b50ca94b0832c3844708d184ddb94a23263bdd087714f232a438100b459/vimeo-prod-skyfire-std-us/01/2116/26/660583443/3036736976.mp4",
+      "format_id": "http-240p",
+      "width": 240,
+      "height": 426,
+      "fps": 30,
+      "tbr": null,
+      "ext": "mp4",
+      "format": "http-240p - 240x426",
+      "protocol": "https",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic-310",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 310.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 240,
+      "height": 426,
+      "vcodec": "avc1.640015",
+      "acodec": "mp4a.40.2",
+      "format": "hls-akfire_interconnect_quic-310 - 240x426",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire-310",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 310.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 240,
+      "height": 426,
+      "vcodec": "avc1.640015",
+      "acodec": "mp4a.40.2",
+      "format": "hls-fastly_skyfire-310 - 240x426",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic-video-2a137087",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 240,
+      "height": 426,
+      "tbr": 317.0,
+      "asr": 24000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640015",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "2a137087/chop/segment-0.mp4"
+        },
+        {
+          "path": "2a137087/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2a137087/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2a137087/chop/segment-3.m4s",
+          "duration": 4.333291666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-akfire_interconnect_quic-video-2a137087 - 240x426 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire-video-2a137087",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 240,
+      "height": 426,
+      "tbr": 317.0,
+      "asr": 24000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640015",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "2a137087/chop/segment-0.mp4"
+        },
+        {
+          "path": "2a137087/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2a137087/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2a137087/chop/segment-3.m4s",
+          "duration": 4.333291666666667
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-fastly_skyfire-video-2a137087 - 240x426 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "url": "https://vod-progressive.akamaized.net/exp=1640684897~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2116%2F26%2F660583443%2F3036736969.mp4~hmac=b9fae3d2c30b31735464cda7d316771f22620ce2894482b6934e544a761bc1bb/vimeo-prod-skyfire-std-us/01/2116/26/660583443/3036736969.mp4",
+      "format_id": "http-360p",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "tbr": null,
+      "ext": "mp4",
+      "format": "http-360p - 360x640",
+      "protocol": "https",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic-552",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/98813ec5/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 552.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 360,
+      "height": 640,
+      "vcodec": "avc1.64001E",
+      "acodec": "mp4a.40.2",
+      "format": "hls-akfire_interconnect_quic-552 - 360x640",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire-552",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/98813ec5/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 552.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 360,
+      "height": 640,
+      "vcodec": "avc1.64001E",
+      "acodec": "mp4a.40.2",
+      "format": "hls-fastly_skyfire-552 - 360x640",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic-video-98813ec5",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 360,
+      "height": 640,
+      "tbr": 559.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.64001E",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "98813ec5/chop/segment-0.mp4"
+        },
+        {
+          "path": "98813ec5/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "98813ec5/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "98813ec5/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-akfire_interconnect_quic-video-98813ec5 - 360x640 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire-video-98813ec5",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 360,
+      "height": 640,
+      "tbr": 559.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.64001E",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "98813ec5/chop/segment-0.mp4"
+        },
+        {
+          "path": "98813ec5/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "98813ec5/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "98813ec5/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-fastly_skyfire-video-98813ec5 - 360x640 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "url": "https://vod-progressive.akamaized.net/exp=1640684897~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2116%2F26%2F660583443%2F3036736977.mp4~hmac=59843059d34601fef4906d9d8b6777747fbbd21224472c23b7eb12e6ddda6b7a/vimeo-prod-skyfire-std-us/01/2116/26/660583443/3036736977.mp4",
+      "format_id": "http-540p",
+      "width": 540,
+      "height": 960,
+      "fps": 30,
+      "tbr": null,
+      "ext": "mp4",
+      "format": "http-540p - 540x960",
+      "protocol": "https",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic-1210",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/955d7ef2/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 1210.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 540,
+      "height": 960,
+      "vcodec": "avc1.64001F",
+      "acodec": "mp4a.40.2",
+      "format": "hls-akfire_interconnect_quic-1210 - 540x960",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire-1210",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/955d7ef2/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 1210.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 540,
+      "height": 960,
+      "vcodec": "avc1.64001F",
+      "acodec": "mp4a.40.2",
+      "format": "hls-fastly_skyfire-1210 - 540x960",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic-video-955d7ef2",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 540,
+      "height": 960,
+      "tbr": 1218.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.64001F",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "955d7ef2/chop/segment-0.mp4"
+        },
+        {
+          "path": "955d7ef2/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "955d7ef2/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "955d7ef2/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-akfire_interconnect_quic-video-955d7ef2 - 540x960 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire-video-955d7ef2",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 540,
+      "height": 960,
+      "tbr": 1218.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.64001F",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "955d7ef2/chop/segment-0.mp4"
+        },
+        {
+          "path": "955d7ef2/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "955d7ef2/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "955d7ef2/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-fastly_skyfire-video-955d7ef2 - 540x960 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "url": "https://vod-progressive.akamaized.net/exp=1640684897~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2116%2F26%2F660583443%2F3036736971.mp4~hmac=dbddf3ed36f624f034c921bd5aa01f25c781f3152606d05d76ecc46ea64098ac/vimeo-prod-skyfire-std-us/01/2116/26/660583443/3036736971.mp4",
+      "format_id": "http-720p",
+      "width": 720,
+      "height": 1280,
+      "fps": 30,
+      "tbr": null,
+      "ext": "mp4",
+      "format": "http-720p - 720x1280",
+      "protocol": "https",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic-2020",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/888161c0/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 2020.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 720,
+      "height": 1280,
+      "vcodec": "avc1.640020",
+      "acodec": "mp4a.40.2",
+      "format": "hls-akfire_interconnect_quic-2020 - 720x1280",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire-2020",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/888161c0/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 2020.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 720,
+      "height": 1280,
+      "vcodec": "avc1.640020",
+      "acodec": "mp4a.40.2",
+      "format": "hls-fastly_skyfire-2020 - 720x1280",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic-video-888161c0",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 720,
+      "height": 1280,
+      "tbr": 2027.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640020",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "888161c0/chop/segment-0.mp4"
+        },
+        {
+          "path": "888161c0/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "888161c0/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "888161c0/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-akfire_interconnect_quic-video-888161c0 - 720x1280 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire-video-888161c0",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 720,
+      "height": 1280,
+      "tbr": 2027.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640020",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "888161c0/chop/segment-0.mp4"
+        },
+        {
+          "path": "888161c0/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "888161c0/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "888161c0/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-fastly_skyfire-video-888161c0 - 720x1280 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "url": "https://vod-progressive.akamaized.net/exp=1640684897~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2116%2F26%2F660583443%2F3036736982.mp4~hmac=fca53292677ac4e70d5aafeade8f012edd8f0ba59de99d5cba2fe182b31d5106/vimeo-prod-skyfire-std-us/01/2116/26/660583443/3036736982.mp4",
+      "format_id": "http-1080p",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "tbr": null,
+      "ext": "mp4",
+      "format": "http-1080p - 1080x1920",
+      "protocol": "https",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic-3658",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/e54db19e/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 3658.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 1080,
+      "height": 1920,
+      "vcodec": "avc1.640028",
+      "acodec": "mp4a.40.2",
+      "format": "hls-akfire_interconnect_quic-3658 - 1080x1920",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire-3658",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/e54db19e/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 3658.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 1080,
+      "height": 1920,
+      "vcodec": "avc1.640028",
+      "acodec": "mp4a.40.2",
+      "format": "hls-fastly_skyfire-3658 - 1080x1920",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic-video-e54db19e",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 1080,
+      "height": 1920,
+      "tbr": 3666.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640028",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "e54db19e/chop/segment-0.mp4"
+        },
+        {
+          "path": "e54db19e/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "e54db19e/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "e54db19e/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-akfire_interconnect_quic-video-e54db19e - 1080x1920 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire-video-e54db19e",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 1080,
+      "height": 1920,
+      "tbr": 3666.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640028",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "e54db19e/chop/segment-0.mp4"
+        },
+        {
+          "path": "e54db19e/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "e54db19e/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "e54db19e/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-fastly_skyfire-video-e54db19e - 1080x1920 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic-6974",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/9cb2e39b/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 6974.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 1440,
+      "height": 2560,
+      "vcodec": "avc1.640032",
+      "acodec": "mp4a.40.2",
+      "format": "hls-akfire_interconnect_quic-6974 - 1440x2560",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire-6974",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/9cb2e39b/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 6974.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 1440,
+      "height": 2560,
+      "vcodec": "avc1.640032",
+      "acodec": "mp4a.40.2",
+      "format": "hls-fastly_skyfire-6974 - 1440x2560",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic-video-9cb2e39b",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 1440,
+      "height": 2560,
+      "tbr": 6982.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640032",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "9cb2e39b/chop/segment-0.mp4"
+        },
+        {
+          "path": "9cb2e39b/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "9cb2e39b/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "9cb2e39b/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-akfire_interconnect_quic-video-9cb2e39b - 1440x2560 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire-video-9cb2e39b",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 1440,
+      "height": 2560,
+      "tbr": 6982.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640032",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "9cb2e39b/chop/segment-0.mp4"
+        },
+        {
+          "path": "9cb2e39b/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "9cb2e39b/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "9cb2e39b/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-fastly_skyfire-video-9cb2e39b - 1440x2560 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-akfire_interconnect_quic-16570",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2cdfe85b/playlist.m3u8",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 16570.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 2160,
+      "height": 3840,
+      "vcodec": "avc1.640034",
+      "acodec": "mp4a.40.2",
+      "format": "hls-akfire_interconnect_quic-16570 - 2160x3840",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "hls-fastly_skyfire-16570",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2cdfe85b/playlist.m3u8",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,2cdfe85b,888161c0,955d7ef2,98813ec5,9cb2e39b,e54db19e/master.m3u8",
+      "tbr": 16570.0,
+      "ext": "mp4",
+      "fps": 30.0,
+      "protocol": "m3u8_native",
+      "preference": null,
+      "width": 2160,
+      "height": 3840,
+      "vcodec": "avc1.640034",
+      "acodec": "mp4a.40.2",
+      "format": "hls-fastly_skyfire-16570 - 2160x3840",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-akfire_interconnect_quic-video-2cdfe85b",
+      "manifest_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 2160,
+      "height": 3840,
+      "tbr": 16578.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640034",
+      "acodec": "mp4a.40.2",
+      "url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://160vod-adaptive.akamaized.net/exp=1640684897~acl=%2F3017e9a1-0b8c-4aee-9feb-8caad1e73207%2F%2A~hmac=da882500d1c2e0fbd736bd77621e7fcaa8fba87db9a6c1fd2ba42e0a52974984/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "2cdfe85b/chop/segment-0.mp4"
+        },
+        {
+          "path": "2cdfe85b/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2cdfe85b/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2cdfe85b/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-akfire_interconnect_quic-video-2cdfe85b - 2160x3840 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    },
+    {
+      "format_id": "dash-fastly_skyfire-video-2cdfe85b",
+      "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "ext": "mp4",
+      "width": 2160,
+      "height": 3840,
+      "tbr": 16578.0,
+      "asr": 48000,
+      "fps": 30,
+      "language": null,
+      "format_note": "DASH video",
+      "filesize": null,
+      "container": "mp4_dash",
+      "vcodec": "avc1.640034",
+      "acodec": "mp4a.40.2",
+      "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+      "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+      "fragments": [
+        {
+          "path": "2cdfe85b/chop/segment-0.mp4"
+        },
+        {
+          "path": "2cdfe85b/chop/segment-1.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2cdfe85b/chop/segment-2.m4s",
+          "duration": 6.066666666666666
+        },
+        {
+          "path": "2cdfe85b/chop/segment-3.m4s",
+          "duration": 4.3333125
+        }
+      ],
+      "protocol": "http_dash_segments",
+      "format": "dash-fastly_skyfire-video-2cdfe85b - 2160x3840 (DASH video)",
+      "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-us,en;q=0.5"
+      }
+    }
+  ],
+  "timestamp": 1640652732,
+  "description": "This is \"\u3076\u3093\u3076\u3093\" by PALCLOSET on Vimeo, the home for high quality videos and the people who love them.",
+  "webpage_url": "https://vimeo.com/660583443",
+  "license": "cc0",
+  "id": "660583443",
+  "title": "\u3076\u3093\u3076\u3093",
+  "uploader": "PALCLOSET",
+  "uploader_id": "user135071108",
+  "uploader_url": "https://vimeo.com/user135071108",
+  "thumbnails": [
+    {
+      "id": "base",
+      "width": null,
+      "url": "https://i.vimeocdn.com/video/1335211423-5d6586a7a290360e08c06a7f7bd45c265005c2b50237cbedc4ac3ed6f7c7b255-d"
+    },
+    {
+      "id": "640",
+      "width": 640,
+      "url": "https://i.vimeocdn.com/video/1335211423-5d6586a7a290360e08c06a7f7bd45c265005c2b50237cbedc4ac3ed6f7c7b255-d_640"
+    },
+    {
+      "id": "960",
+      "width": 960,
+      "url": "https://i.vimeocdn.com/video/1335211423-5d6586a7a290360e08c06a7f7bd45c265005c2b50237cbedc4ac3ed6f7c7b255-d_960"
+    },
+    {
+      "id": "1280",
+      "width": 1280,
+      "url": "https://i.vimeocdn.com/video/1335211423-5d6586a7a290360e08c06a7f7bd45c265005c2b50237cbedc4ac3ed6f7c7b255-d_1280"
+    }
+  ],
+  "duration": 16,
+  "subtitles": {},
+  "is_live": false,
+  "thumbnail": "https://i.vimeocdn.com/filter/overlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1335211423-5d6586a7a290360e08c06a7f7bd45c265005c2b50237cbedc4ac3ed6f7c7b255-d_1280x2276&src1=https%3A%2F%2Ff.vimeocdn.com%2Fimages_v6%2Fshare%2Fplay_icon_overlay.png",
+  "width": 2160,
+  "height": 3840,
+  "extractor": "vimeo",
+  "webpage_url_basename": "660583443",
+  "extractor_key": "Vimeo",
+  "playlist": null,
+  "playlist_index": null,
+  "display_id": "660583443",
+  "upload_date": "20211228",
+  "requested_subtitles": null,
+  "format_id": "dash-fastly_skyfire-video-2cdfe85b",
+  "manifest_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+  "ext": "mp4",
+  "tbr": 16578.0,
+  "asr": 48000,
+  "fps": 30,
+  "language": null,
+  "format_note": "DASH video",
+  "filesize": null,
+  "container": "mp4_dash",
+  "vcodec": "avc1.640034",
+  "acodec": "mp4a.40.2",
+  "url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/master.mpd?base64_init=1",
+  "fragment_base_url": "https://skyfire.vimeocdn.com/1640684897-0xfe464da997bf0284eab6dbb65b8392569b45c196/3017e9a1-0b8c-4aee-9feb-8caad1e73207/video/2a137087,9cb2e39b,98813ec5,955d7ef2,e54db19e,888161c0,2cdfe85b/../",
+  "fragments": [
+    {
+      "path": "2cdfe85b/chop/segment-0.mp4"
+    },
+    {
+      "path": "2cdfe85b/chop/segment-1.m4s",
+      "duration": 6.066666666666666
+    },
+    {
+      "path": "2cdfe85b/chop/segment-2.m4s",
+      "duration": 6.066666666666666
+    },
+    {
+      "path": "2cdfe85b/chop/segment-3.m4s",
+      "duration": 4.3333125
+    }
+  ],
+  "protocol": "http_dash_segments",
+  "format": "dash-fastly_skyfire-video-2cdfe85b - 2160x3840 (DASH video)",
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3704.0 Safari/537.36",
+    "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "en-us,en;q=0.5"
+  },
+  "fulltitle": "\u3076\u3093\u3076\u3093",
+  "_filename": "\u3076\u3093\u3076\u3093-660583443.mp4"
+}
