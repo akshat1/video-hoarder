@@ -1,6 +1,7 @@
 import { Mutation,Query } from "./gql";
 import { Home } from "./Home";
 import { LoginForm } from "./LoginForm";
+import { Settings as SettingsPage } from "./Settings";
 import { useMutation, useQuery } from "@apollo/client";
 import { Container, IconButton, makeStyles, Theme, Toolbar } from "@material-ui/core";
 import { Add, ArrowBack, ExitToApp, Settings } from "@material-ui/icons";
@@ -96,7 +97,7 @@ export const Main:FunctionComponent = () => {
           <Route exact path={["/", "/add"]}>
             <Home />
           </Route>
-          <Route exact path="/settings"><h1>Settings</h1></Route>
+          <Route exact path="/settings"><SettingsPage /></Route>
         </Switch>
       </Container>
     </Fragment>
