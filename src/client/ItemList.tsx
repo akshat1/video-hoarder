@@ -2,7 +2,7 @@ import { Job } from "../model/Job";
 import { Query, Subscription } from "./gql";
 import { Item } from "./Item";
 import { useQuery, useSubscription } from "@apollo/client";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import _ from "lodash";
 import React, { FunctionComponent } from "react";
 

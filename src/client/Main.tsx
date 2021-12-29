@@ -3,8 +3,9 @@ import { Home } from "./Home";
 import { LoginForm } from "./LoginForm";
 import { Settings as SettingsPage } from "./Settings";
 import { useMutation, useQuery } from "@apollo/client";
-import { Container, IconButton, makeStyles, Theme, Toolbar } from "@material-ui/core";
-import { Add, ArrowBack, ExitToApp, Settings } from "@material-ui/icons";
+import { Add, ArrowBack, ExitToApp, Settings } from "@mui/icons-material";
+import { Container, IconButton, Theme, Toolbar } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import _ from "lodash";
 import React, { Fragment, FunctionComponent } from "react";
 import { Route, Switch } from "react-router-dom";
@@ -51,7 +52,7 @@ export const Main:FunctionComponent = () => {
         color="inherit"
         edge="start"
         key="btn-back"
-      >
+        size="large">
         <ArrowBack />
       </IconButton>
     );
@@ -63,7 +64,7 @@ export const Main:FunctionComponent = () => {
       color="inherit"
       edge="start"
       key="btn-add-new-download"
-    >
+      size="large">
       <Add />
     </IconButton>,
     <IconButton
@@ -72,7 +73,7 @@ export const Main:FunctionComponent = () => {
       edge="start"
       key="btn-settings"
       href="./settings"
-    >
+      size="large">
       <Settings />
     </IconButton>,
     <IconButton
@@ -82,7 +83,7 @@ export const Main:FunctionComponent = () => {
       key="btn-logout"
       disabled={logoutThunk.loading}
       onClick={handleLogoutClick}
-    >
+      size="large">
       <ExitToApp />
     </IconButton>
   );

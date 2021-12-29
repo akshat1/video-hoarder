@@ -4,11 +4,18 @@ import { getTheme } from "./theme";
 import { ApolloClient, ApolloProvider, HttpLink, split } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
-import { CssBaseline, useMediaQuery } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/styles";
+import { CssBaseline, useMediaQuery } from "@mui/material";
+import { StyledEngineProvider,Theme, ThemeProvider } from "@mui/material/styles";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+
+
+declare module "@mui/styles/defaultTheme" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 let apolloClient: ApolloClient<any>;
 const getApolloClient = ():ApolloClient<any> => {
@@ -52,10 +59,12 @@ const AppWrapper:React.FunctionComponent = () => {
   return (
     <ApolloProvider client={getApolloClient()}>
       <Router>
-        <ThemeProvider theme={getTheme(prefersDarkMode)}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={getTheme(prefersDarkMode)}>
+            <CssBaseline />
+            <App />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     </ApolloProvider>
   );

@@ -5,8 +5,8 @@ import { Mutation, Query } from "./gql";
 import { InputForm } from "./InputForm";
 import { ItemList } from "./ItemList";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { Collapse, Theme  } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { Collapse, Theme  } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import _ from "lodash";
 import React, { ChangeEventHandler, Fragment, FunctionComponent, useEffect, useState } from "react";
 

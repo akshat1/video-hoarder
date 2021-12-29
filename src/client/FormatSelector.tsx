@@ -1,6 +1,6 @@
 import { YTFormat } from "../model/YouTube";
-import { FormControl, MenuItem, Select } from "@material-ui/core";
-import React, { ChangeEvent, FunctionComponent } from "react";
+import { FormControl, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import React, { FunctionComponent } from "react";
 
 /**
  * @todo check for existence of audio and video before adding respective BEST formats.
@@ -18,7 +18,7 @@ const getFormatOptions = (): YTFormat[] => {
 
 interface Props {
   value: string;
-  onChange?: (event: React.ChangeEvent<{ name?: string; value: string }>, child: React.ReactNode) => void;
+  onChange?: (event: SelectChangeEvent, child: React.ReactNode) => void;
 }
 
 export const FormatSelector:FunctionComponent<Props> = (props) => {
@@ -37,6 +37,7 @@ export const FormatSelector:FunctionComponent<Props> = (props) => {
       <Select
         value={value}
         onChange={onChange}
+        variant="standard"
       >
         {menuItems}
       </Select>

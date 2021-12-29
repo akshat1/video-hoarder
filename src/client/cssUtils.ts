@@ -1,5 +1,5 @@
-import { Theme } from "@material-ui/core";
-import { CSSProperties } from "@material-ui/styles";
+import { Theme } from "@mui/material";
+import { CSSProperties } from "@mui/styles";
 
 interface Options {
   alignItems: string;
@@ -8,6 +8,6 @@ interface Options {
 export const infoTable = (theme: Theme, options?: Options): CSSProperties => ({
   alignItems: options?.alignItems || "baseline",
   display: "grid",
-  columnGap: `${theme.spacing(1)}px`,
+  columnGap: theme.spacing(1),
   gridTemplateColumns: "max-content 1fr",
 });
