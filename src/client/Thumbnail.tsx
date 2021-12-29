@@ -1,5 +1,5 @@
 import { YTThumbnail } from "../model/YouTube";
-import makeStyles from "@mui/styles/makeStyles";
+import { makeStyles } from "@mui/styles";
 import React, { FunctionComponent } from "react";
 
 const useStyle = makeStyles(() => ({

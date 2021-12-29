@@ -11,7 +11,7 @@
     "build": "tsc; NODE_ENV=production webpack --profile --json > bundle-stats.json",
     "lint": "eslint . --ext .ts,.tsx",
     "clean": "rm db.dev.sqlite3*",
-    "bundle-analyzer": "webpack-bundle-analyzer bundle-stats.json public"
+    "analyze-bundle": "webpack-bundle-analyzer bundle-stats.json public"
   },
   "sideEffects": [],
   "repository": {
@@ -90,7 +90,7 @@
     "subscriptions-transport-ws": "^0.9.19",
     "symbol-observable": "^4.0.0",
     "type-graphql": "^1.1.1",
-    "typeorm": "^0.2.37",
+    "typeorm": "^0.2.41",
     "uuid": "^8.3.2",
     "youtube-dl-wrap": "^2.1.0"
   }

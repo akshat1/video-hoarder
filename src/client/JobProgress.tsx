@@ -1,7 +1,7 @@
 import { Job, JobStatus } from "../model/Job";
 import { infoTable } from "./cssUtils";
 import { LinearProgress, Theme, Typography } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 
 const useStyle = makeStyles((theme: Theme) => ({

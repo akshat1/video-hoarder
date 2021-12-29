@@ -5,7 +5,7 @@ import { JobProgress } from "./JobProgress";
 import { Thumbnail } from "./Thumbnail";
 import { useMutation } from "@apollo/client";
 import { Button, Paper, Theme, Typography } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
+import { makeStyles } from "@mui/styles";
 import _ from "lodash";
 import React, { FunctionComponent } from "react";
 

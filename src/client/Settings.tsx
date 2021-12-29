@@ -1,7 +1,7 @@
 import { infoTable } from "./cssUtils";
 import { useTitle } from "./hooks";
 import { Grid, Theme, Typography } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
+import { makeStyles } from "@mui/styles";
 import React, { FunctionComponent } from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({

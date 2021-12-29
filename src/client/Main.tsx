@@ -5,7 +5,7 @@ import { Settings as SettingsPage } from "./Settings";
 import { useMutation, useQuery } from "@apollo/client";
 import { Add, ArrowBack, ExitToApp, Settings } from "@mui/icons-material";
 import { Container, IconButton, Theme, Toolbar } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
+import { makeStyles } from "@mui/styles";
 import _ from "lodash";
 import React, { Fragment, FunctionComponent } from "react";
 import { Route, Switch } from "react-router-dom";

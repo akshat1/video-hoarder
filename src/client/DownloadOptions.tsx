@@ -5,7 +5,7 @@ import { DownloadRateInput } from "./DownloadRateInput";
 import { FormatSelector } from "./FormatSelector";
 import { Thumbnail } from "./Thumbnail";
 import { Grid, Link, SelectChangeEvent, Theme, Typography } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
+import { makeStyles } from "@mui/styles";
 import React, { FunctionComponent, SyntheticEvent } from "react";
 
 const useStyle = makeStyles((theme: Theme) => ({
