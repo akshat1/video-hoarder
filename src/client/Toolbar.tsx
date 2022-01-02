@@ -10,7 +10,7 @@ export const Toolbar:FunctionComponent = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const backButtonEnabled = pathname !== "/";
-  const [logout, logoutThunk] = useMutation(
+  const [doLogout, logoutThunk] = useMutation(
     Mutation.Logout,
     {
       update: (cache) => cache.writeQuery({
@@ -21,7 +21,7 @@ export const Toolbar:FunctionComponent = () => {
   );
 
   const handleBackButton = () => navigate("/");
-  const handleLogoutClick = _.debounce(() => logout(), 250);
+  const handleLogoutClick = _.debounce(() => doLogout(), 250);
 
   return (
     <MUIToolbar>

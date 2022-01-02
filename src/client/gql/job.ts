@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const YTMetadata = gql`
+export const YTMetadata = gql`
   query MetadataQuery($url: String!) {
     ytMetadata(url: $url) {
       title
@@ -25,7 +25,7 @@ const YTMetadata = gql`
   }
 `;
 
-const MetadataAndOptions = gql`
+export const MetadataAndOptions = gql`
   query MetadataAndOptionsQuery($url: String!) {
     metadataAndOptions(url: $url) {
       metadata {
@@ -57,7 +57,7 @@ const MetadataAndOptions = gql`
   }
 `;
 
-const Jobs = gql`
+export const Jobs = gql`
   query Jobs {
     jobs {
       createdAt
@@ -88,7 +88,7 @@ const Jobs = gql`
   }
 `;
 
-const JobAdded = gql`
+export const JobAdded = gql`
   subscription OnJobAdded {
     jobAdded {
       createdAt
@@ -108,7 +108,7 @@ const JobAdded = gql`
   }
 `;
 
-const AddJob = gql`
+export const AddJob = gql`
   mutation AddJob($data: AddJobInput!) {
     addJob(data: $data) {
       id
@@ -121,25 +121,25 @@ const AddJob = gql`
   }
 `;
 
-const CancelJob = gql`
+export const CancelJob = gql`
   mutation CancelJob($jobId: String!) {
     cancelJob(jobId: $jobId)
   }
 `;
 
-const RemoveJob = gql`
+export const RemoveJob = gql`
   mutation RemoveJob($jobId: String!) {
     removeJob(jobId: $jobId)
   }
 `;
 
-const JobRemoved = gql`
+export const JobRemoved = gql`
   subscription OnJobRemoved {
     jobRemoved
   }
 `;
 
-const JobUpdated = gql`
+export const JobUpdated = gql`
   subscription OnJobUpdated {
     jobUpdated {
       id,
@@ -154,54 +154,3 @@ const JobUpdated = gql`
     }
   }
 `;
-
-const Login = gql`
-  mutation Login($userName: String!, $password: String!) {
-    login(userName: $userName, password: $password) {
-      user {
-        id,
-        userName,
-        role,
-        passwordExpired,
-      }
-    }
-  }
-`;
-
-const CurrentUser = gql`
-  query CurrentUserQuery {
-    currentUser {
-      user {
-        id,
-        passwordExpired,
-        role,
-        userName,
-      }
-    }
-  }
-`;
-
-const Logout = gql`
-  mutation logout { logout }
-`;
-
-export const Query = {
-  CurrentUser,
-  Jobs,
-  MetadataAndOptions,
-  YTMetadata,
-};
-
-export const Mutation = {
-  AddJob,
-  Login,
-  Logout,
-  CancelJob,
-  RemoveJob,
-};
-
-export const Subscription = {
-  JobAdded,
-  JobRemoved,
-  JobUpdated,
-};
