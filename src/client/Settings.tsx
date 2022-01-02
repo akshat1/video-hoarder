@@ -1,5 +1,6 @@
 import { infoTable } from "./cssUtils";
 import { useTitle } from "./hooks";
+import { UserSettings } from "./UserSettings";
 import { Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { FunctionComponent } from "react";
@@ -17,20 +18,13 @@ export const Settings:FunctionComponent = () => {
   return (
     <Grid container spacing={2} className={classes.root}>
       <Grid item xs={12}>
-        <Typography>
+        <Typography
+          variant="h4"
+        >
           Change password
         </Typography>
       </Grid>
-      <Grid item xs={12}>
-        <form className={classes.passwordInputForm}>
-          <Typography>Current password</Typography>
-          <Typography>CP</Typography>
-          <Typography>New password</Typography>
-          <Typography>NP</Typography>
-          <Typography>Re-enter new password</Typography>
-          <Typography>rnp</Typography>
-        </form>
-      </Grid>
+      <UserSettings />
     </Grid>
   );
 };

@@ -10,10 +10,9 @@ module, and instead must use named exports from top level @mui/foo paths in
 order for this scheme to work.
 */
 
-import Add from "@mui/icons-material/Add";
-import ArrowBack from "@mui/icons-material/ArrowBack";
 import ClearOutlined from "@mui/icons-material/ClearOutlined";
 import ExitToApp from "@mui/icons-material/ExitToApp";
+import Home from "@mui/icons-material/Home";
 import Settings from "@mui/icons-material/Settings";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
@@ -48,8 +47,6 @@ import { CSSProperties } from "@mui/styles";
 import makeStyles from "@mui/styles/makeStyles";
 
 export {
-  Add,
-  ArrowBack,
   Autocomplete,
   Button,
   CircularProgress,
@@ -60,6 +57,7 @@ export {
   CssBaseline,
   CSSProperties,
   ExitToApp,
+  Home,
   FormControl,
   FormHelperText,
   Grid,
