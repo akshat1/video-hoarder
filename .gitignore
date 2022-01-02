@@ -20,4 +20,6 @@ sample2.json
 sample3-vimeo.json
 storybook-static/
 tmp/
-webpack-stats.json
+bundle-stats.json
+public/app.js
+public/app.js.LICENSE.txt

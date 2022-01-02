@@ -4,8 +4,9 @@ import { infoTable } from "./cssUtils";
 import { DownloadRateInput } from "./DownloadRateInput";
 import { FormatSelector } from "./FormatSelector";
 import { Thumbnail } from "./Thumbnail";
-import { Grid, Link, makeStyles,Theme, Typography } from "@material-ui/core";
-import React, { ChangeEvent, FunctionComponent } from "react";
+import { Grid, Link, SelectChangeEvent, Theme, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import React, { FunctionComponent, SyntheticEvent } from "react";
 
 const useStyle = makeStyles((theme: Theme) => ({
   root: {
@@ -38,13 +39,13 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
   } = props;
 
   const classes = useStyle();
-  const onFormatChange = (event: ChangeEvent<{ name?: string, value: string }>) => {
+  const onFormatChange = (event: SelectChangeEvent) => {
     onChange({
       ...options,
-      formatSelector: event.currentTarget.value,
+      formatSelector: event.target.value,
     });
   };
-  const onRateLimitChange = (event: ChangeEvent, newValue: any) => {
+  const onRateLimitChange = (event: SyntheticEvent, newValue: any) => {
     onChange({
       ...options,
       rateLimit: newValue,

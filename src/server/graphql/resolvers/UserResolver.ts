@@ -1,9 +1,15 @@
 import { Role } from "../../../model/Role";
 import { User, UserResponse } from "../../../model/User";
+import { encrypt } from "../../crypto";
 import { createUser } from "../../db/userManagement";
+import { EINCORRECTPASSWORD, ENEWPASSWORDMISMATCH, ENOUSER } from "../../errors";
 import { Arg, Ctx, Field, InputType, Mutation,Query, Resolver } from "type-graphql";
 
 type Context = Record<string, any>;
+
+interface AuthenticateResult {
+  user: User;
+}
 
 @InputType()
 export class CreateUserInput {
@@ -15,6 +21,18 @@ export class CreateUserInput {
 
   @Field()
   role: string;
+}
+
+@InputType()
+export class ChangePasswordInput {
+  @Field()
+  currentPassword: String;
+
+  @Field()
+  newPassword: String;
+
+  @Field()
+  newPasswordDeux: String;
 }
 
 @Resolver()
@@ -53,7 +71,7 @@ export class UserResolver {
         username: userName,
         password,
       }
-    );
+    ) as AuthenticateResult;
     await context.login(user);
     return { user };
   }
@@ -83,5 +101,50 @@ export class UserResolver {
       userName,
     }, currentUser.id);
     return newUser;
+  }
+
+  @Mutation(() => Boolean)
+  async changePassword(@Arg("data") data: ChangePasswordInput, @Ctx() context: Context): Promise<Boolean> {
+    const {
+      currentPassword,
+      newPassword,
+      newPasswordDeux,
+    } = data;
+
+    if (newPassword !== newPasswordDeux) {
+      throw new Error(ENEWPASSWORDMISMATCH);
+    }
+
+    const currentUser = await context.getUser();
+    if (!currentUser) {
+      throw new Error(ENOUSER);
+    }
+
+    const { user: authenticatedUser } = await context.authenticate(
+      "graphql-local",
+      {
+        // Funny story. This needs to pass "username" (and not userName) to work.
+        // Had to step through code to figure this one out.
+        username: currentUser.userName,
+        password: currentPassword,
+      }
+    ) as AuthenticateResult;
+
+    if (!authenticatedUser) {
+      throw new Error(EINCORRECTPASSWORD);
+    }
+
+    // At this point we know that
+    // 1. current password is correct.
+    // 2. both new passwords must match.
+    const { hash, salt } = await encrypt(newPassword.toString());
+    currentUser.updatedAt = new Date().toISOString();
+    currentUser.updatedBy = currentUser.userName;
+    currentUser.passwordHash = hash;
+    currentUser.passwordSalt = salt;
+    console.log(`Changing user password ${currentPassword} => ${newPassword}`);
+    await currentUser.save();
+    context.logout();
+    return true;
   }
 }

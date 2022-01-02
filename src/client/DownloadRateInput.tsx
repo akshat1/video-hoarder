@@ -1,7 +1,6 @@
 import { RateUnlimited } from "../model/Job";
-import { TextField } from "@material-ui/core";
-import { Autocomplete } from "@material-ui/lab";
-import React, { ChangeEvent, FunctionComponent } from "react";
+import { Autocomplete, TextField } from "@mui/material";
+import React, { FunctionComponent, SyntheticEvent } from "react";
 
 const RateOptions = [
   RateUnlimited,
@@ -13,7 +12,7 @@ const RateOptions = [
 ];
 
 interface Props {
-  onChange: (event: ChangeEvent, newValue: any) => void;
+  onChange: (event: SyntheticEvent, newValue: any) => void;
   value: string;
 }
 
@@ -22,12 +21,13 @@ export const DownloadRateInput: FunctionComponent<Props> = (props) => {
     value,
     onChange,
   } = props;
+
   const renderRateLimitInput = (params) => (
     <TextField
       {...params}
+      variant="standard"
       InputProps={{
         ...params.InputProps,
-        type: "search",
       }}
     />
   );

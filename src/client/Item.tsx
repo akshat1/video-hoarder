@@ -4,7 +4,8 @@ import { Mutation } from "./gql";
 import { JobProgress } from "./JobProgress";
 import { Thumbnail } from "./Thumbnail";
 import { useMutation } from "@apollo/client";
-import { Button, makeStyles, Paper, Theme, Typography } from "@material-ui/core";
+import { Button, Paper, Theme, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import _ from "lodash";
 import React, { FunctionComponent } from "react";
 
@@ -12,7 +13,7 @@ const useStyle = makeStyles((theme: Theme) => ({
   root: {
     display: "grid",
     gridTemplateColumns: "1fr",
-    gap: `${theme.spacing(1)}px ${theme.spacing(1)}px`,
+    gap: `${theme.spacing(1)} ${theme.spacing(1)}`,
     [theme.breakpoints.up("md")]: {
       gridTemplateColumns: "33% 1fr",
     },

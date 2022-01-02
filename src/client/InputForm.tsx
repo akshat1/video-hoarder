@@ -1,6 +1,6 @@
-import { Button, CircularProgress, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Theme } from "@material-ui/core";
-import { ClearOutlined } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/styles";
+import { ClearOutlined } from "@mui/icons-material";
+import { Button, CircularProgress, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Theme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import React, { ChangeEventHandler, FormEventHandler, FunctionComponent, MouseEventHandler } from "react";
 
 // const parseSearch = (search: string): Record<string, string> => {
@@ -22,10 +22,7 @@ interface ClearButtonProps {
 const ClearButton:FunctionComponent<ClearButtonProps> = ({ clearURL, busy }) => (
   <InputAdornment position="end">
     {busy ? <CircularProgress /> : null}
-    <IconButton
-      aria-label="clear"
-      onClick={clearURL}
-    >
+    <IconButton aria-label="clear" onClick={clearURL} size="large">
       <ClearOutlined />
     </IconButton>
   </InputAdornment>
@@ -40,7 +37,7 @@ const useStyle = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up("md")]: {
       marginTop: "11px",
     },
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
   },
