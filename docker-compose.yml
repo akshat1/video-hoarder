@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  video-hoarder:
+    image: node:16
+    volumes:
+      - .:/workspace
+      - dev_node_modules:/workspace/node_modules
+    working_dir: /workspace
+    command: yarn dev
+    ports:
+      - 8081:8081
+      - 8080:8080
+      - 9229:9229
+volumes:
+  dev_node_modules:
