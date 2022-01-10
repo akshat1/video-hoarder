@@ -1,0 +1,11 @@
+/* eslint-disable import/no-default-export */
+module.exports = {
+  type: "better-sqlite3",
+  database: "./db.prod.sqlite3",
+  entities: ["./app/model/*.js"],
+  synchronize: true,
+  subscribers: [
+    "./app/model-subscribers/*.js",
+  ],
+  logging: false,
+};

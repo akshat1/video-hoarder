@@ -8,7 +8,7 @@
     "dev-only-server": "ENABLE_STUDIO=true yarn dev-server",
     "dev": "yarn dev-server & yarn dev-client",
     "start": "NODE_ENV=production node app/server",
-    "build": "tsc; NODE_ENV=production webpack --profile --json > bundle-stats.json",
+    "build": "tsc; NODE_ENV=production webpack",
     "lint": "eslint . --ext .ts,.tsx",
     "clean": "rm db.dev.sqlite3*",
     "analyze-bundle": "webpack-bundle-analyzer bundle-stats.json public"
