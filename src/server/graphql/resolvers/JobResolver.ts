@@ -1,12 +1,15 @@
 import { DownloadOptionsInput, Job, JobStatus } from "../../../model/Job";
 import { Topic } from "../../../model/Topic";
 import { EINSUFFICIENTPERMS, ENOUSER } from "../../errors";
+import { getLogger } from "../../logger";
 import { canDelete } from "../../perms";
 import { getPubSub } from "../../pubsub";
 import { fetchMetadata } from "../../youtube";
 import { Context } from "@apollo/client";
 import md5 from "md5";
 import { Arg, Ctx, Field, InputType, Mutation, Query, Resolver, Root, Subscription } from "type-graphql";
+
+const rootLogger = getLogger("JobResolver");
 
 @InputType()
 export class AddJobInput {
@@ -77,15 +80,18 @@ export class JobResolver {
       metadata: await fetchMetadata(url),
       downloadOptions,
     });
-    console.log("newJob", newJob);
+    const videoId = new URL(newJob.url).searchParams.get("v");
+    const logger = getLogger(`jobUpdated ${videoId}`, rootLogger);
+    logger.debug("newJob", newJob);
     await newJob.save();
-    // await pubSub.publish(Topic.JobAdded, newJob);
+    await getPubSub().publish(Topic.JobAdded, newJob);
     return newJob;
   }
 
   @Mutation(() => Number)
   async cancelJob(@Arg("jobId") jobId: string, @Ctx() context: Context): Promise<Number> {
-    console.log("Cancel job");
+    const logger = getLogger("cancelJob", rootLogger);
+    logger.debug("Cancel job");
     const currentUser = await context.getUser();
     if (currentUser) {
       const job = await Job.findOne({
@@ -95,7 +101,7 @@ export class JobResolver {
       });
 
       if (canDelete(currentUser, job)) {
-        console.log("Set status to canceled");
+        logger.debug("Set status to canceled");
         job.status = JobStatus.Canceled;
         await job.save();
         getPubSub().publish(Topic.JobCancelled, job);
@@ -124,6 +130,7 @@ export class JobResolver {
       if (job) {
         if (canDelete(currentUser, job)) {
           await job.remove();
+          await getPubSub().publish(Topic.JobRemoved, job);
           return 1;
         }
 

@@ -1,10 +1,8 @@
 ./db/
-*.sqlite3
-*.sqlite3-shm
-*.sqlite3-wal
 app/
 browserify-cache.json
 build/
+bundle-stats.json
 cert/*
 config.jsontmp/
 config/location.yml
@@ -14,12 +12,12 @@ dist/
 docs/
 download
 download/*
+downloads/
 node_modules/
+public/app.js
+public/app.js.LICENSE.txt
 sample.json
 sample2.json
 sample3-vimeo.json
 storybook-static/
 tmp/
-bundle-stats.json
-public/app.js
-public/app.js.LICENSE.txt

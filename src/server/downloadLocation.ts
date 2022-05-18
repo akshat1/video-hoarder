@@ -167,7 +167,7 @@ const getCustomDownloadLocation = (rules: DownloadLocationRule[], user: User, me
   return bestRule ? bestRule.location : null;
 };
 
-const downloadRoot = path.join(process.env.HOME, "Downloads");
+const downloadRoot = "/workspace/downloads";
 export const getDownloadLocation = async (metadata: YTMetadata, user: User): Promise<string> => {
   const pathElements = [
     downloadRoot,
@@ -177,7 +177,8 @@ export const getDownloadLocation = async (metadata: YTMetadata, user: User): Pro
   try {
     const customLocationModulePath = path.join(process.cwd(), "config", "location.yml");
     const buffLocationRules = await fs.readFile(customLocationModulePath);
-    const { rules } = yaml.load(buffLocationRules.toString("utf-8")) as CustomDownloadLocationConfig;
+    // @todo what happens if the yml file is missing?
+    const { rules = [] } = yaml.load(buffLocationRules.toString("utf-8")) as CustomDownloadLocationConfig;
     rules.forEach(validateRule);
     const customLocation = getCustomDownloadLocation(rules, user, metadata);
     if (customLocation) {

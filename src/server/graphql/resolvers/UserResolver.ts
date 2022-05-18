@@ -142,7 +142,6 @@ export class UserResolver {
     currentUser.updatedBy = currentUser.userName;
     currentUser.passwordHash = hash;
     currentUser.passwordSalt = salt;
-    console.log(`Changing user password ${currentPassword} => ${newPassword}`);
     await currentUser.save();
     context.logout();
     return true;

@@ -5,16 +5,16 @@ import { Field, ObjectType } from "type-graphql";
  */
  @ObjectType()
  export class JobProgress {
-   @Field(() => Number)
+   @Field(() => Number, { nullable: true })
    percent: number;
 
-   @Field(() => String)
+   @Field(() => String, { nullable: true })
    totalSize: string;
 
-   @Field(() => String)
+   @Field(() => String, { nullable: true })
    currentSpeed: string;
 
-   @Field(() => String)
+   @Field(() => String, { nullable: true })
    eta: string;
  }
  

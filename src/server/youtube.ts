@@ -1,14 +1,17 @@
 import { Job, JobStatus, RateUnlimited } from "../model/Job";
 import { JobProgress } from "../model/JobProgress";
 import { YTMetadata } from "../model/YouTube";
+import { getLogger } from "./logger";
 import NodeCache from "node-cache";
 import YouTubeDLWrap from "youtube-dl-wrap";
 
-const youTubeDL = new YouTubeDLWrap("/usr/local/bin/youtube-dl");
+const rootLogger = getLogger("youtube");
+const youTubeDL = new YouTubeDLWrap("/usr/local/bin/yt-dlp");
 
 const metadataCache = new NodeCache({
   stdTTL: 24*60*60*1000, // 24 hours. Should this be shorter?
 });
+
 export const fetchMetadata = async (url:string): Promise<YTMetadata> => {
   let metadata = metadataCache.get<YTMetadata>(url);
   if (!metadata) {
@@ -47,6 +50,8 @@ export const download = async (args: DownloadArgs): Promise<DownloadThunk> => {
     url,
   } = job;
 
+  const videoId = new URL(url).searchParams.get("v");
+  const logger = getLogger(`download(${videoId})`, rootLogger);
   const controller = new AbortController();
   const dlArgs = [
     url,
@@ -61,37 +66,44 @@ export const download = async (args: DownloadArgs): Promise<DownloadThunk> => {
 
   const options = {};
 
-  console.log("Issuing command with args", dlArgs);
+  logger.debug("Issuing command with args", dlArgs);
   const youtubeDlEventEmitter = youTubeDL.exec(dlArgs, options, controller.signal)
-    .on("progress", (progress) => {
-      console.log("progress for", url);
+    .on("progress", async (progress) => {
+      const subLogger = getLogger("on progress", logger);
       if (args.job.status == JobStatus.Canceled) {
-        console.log("Job canceled. Ignore progress.");
+        subLogger.debug("Job canceled. Ignore progress.");
       } else if (typeof onProgress === "function") {
-        onProgress(args.job, progress);
+        // logger.debug("Call onProgress");
+        await onProgress(args.job, progress);
       }
     })
-    .on("error", (error) => {
-      console.error(error);
+    .on("error", async (error) => {
+      const subLogger = getLogger("on error", logger);
+      subLogger.error(error);
       if (typeof onCompletion === "function") {
-        onCompletion(error, args.job);
+        subLogger.debug("Call onCompletion");
+        await onCompletion(error, args.job);
+        subLogger.debug("Done");
       }
     })
-    .on("close", () => {
+    .on("close", async () => {
+      const subLogger = getLogger("on close", logger);
       if (args.job.status !== JobStatus.Canceled) {
         if (typeof onCompletion === "function") {
-          console.log("Complete");
-          onCompletion(null, args.job);
+          subLogger.debug("Call onCompletion");
+          await onCompletion(null, args.job);
+          subLogger.debug("Done");
         }
       }
     });
 
   return {
     abort: () => {
-      console.log(`Aborting ${url}.`);
+      const subLogger = getLogger("abort", logger);
+      subLogger.debug(`Aborting ${url}.`);
       controller.abort();
       // youtubeDlEventEmitter.youtubeDlProcess.kill();
-      console.log("Killed process?", youtubeDlEventEmitter.youtubeDlProcess.killed);
+      subLogger.debug("Killed process?", youtubeDlEventEmitter.youtubeDlProcess.killed);
     },
   };
 }
