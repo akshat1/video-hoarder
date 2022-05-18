@@ -1,67 +1,84 @@
 import { Job, JobStatus } from "../model/Job";
 import { JobProgress } from "../model/JobProgress";
 import { Topic } from "../model/Topic";
+import { getLogger } from "./logger";
 import { getPubSub } from "./pubsub";
 import { download, DownloadThunk } from "./youtube";
 import PQueue from "p-queue";
 
+const rootLogger = getLogger("YTQueue");
 const concurrency = 1; // 6
 const queue = new PQueue({ concurrency });
 const thunks = new Map<string, DownloadThunk>(); // map job-id to download thunk.
 
 const onCompletion = async (error: Error, job: Job): Promise<void> => {
+  const videoId = new URL(job.url).searchParams.get("v");
+  const logger = getLogger(`onCompletion ${videoId}`, rootLogger);
   if (error) {
+    logger.error("We had an error", error);
     job.status = JobStatus.Failed;
     job.errorMessage = error.message;
   } else {
+    logger.debug("No Errors. Set status", JobStatus.Completed);
     job.status = JobStatus.Completed;
   }
-  await job.save(); // This is important, as this will let everyone else know the job update.
+
+  logger.debug("Saving job");
+  await job.save();
+  getPubSub().publish(Topic.JobUpdated, job);
+
+  logger.debug("Done");
   thunks.delete(job.id);
 };
 
 const onAbort = async (job: Job): Promise<void> => {
   job.status = JobStatus.Canceled;
   await job.save();
+  getPubSub().publish(Topic.JobUpdated, job);
   thunks.delete(job.id);
 };
 
 const onProgress = (job: Job, progress: JobProgress): void => {
   job.progress = progress;
-  // Most events are published to pubsub by the typeorm model (JobSubscriber class). However, progress isn't
-  // a part of the typeorm model (while it is part of the graphql model) and therefore this isn't handled by
-  // JobSubscriber. In order to still update the UI, we make this one exception about publishing pubsub from
-  // YTQueue.
-  job.progress = progress;
   getPubSub().publish(Topic.JobUpdated, job);
 };
 
 export const addJobToQueue = (job: Job): void => {
-  console.log("addJobToQueue()");
+  const videoId = new URL(job.url).searchParams.get("v");
+  const logger = getLogger(`addJobToQueue ${videoId}`, rootLogger);
+  logger.debug("Adding job to queue");
   queue.add(async () => {
+    logger.debug("Set status in-progress");
     job.status = JobStatus.InProgress;
-    await job.save(); // This is important, as this will let everyone else know the job update.
+    logger.debug("save...");
+    await job.save();
+    getPubSub().publish(Topic.JobUpdated, job);
+    logger.debug("Call download");
     const thunk = await download({
       job,
       onCompletion,
       onProgress,
       onAbort,
     });
+    logger.debug("Done.");
     thunks.set(job.id, thunk);
   });
 };
 
 export const removeJobFromQueue = async (job: Job): Promise<void> => {
-  console.log("removeJobFromQueue");
+  const videoId = job ? new URL(job.url).searchParams.get("v") : "NoJob";
+  const logger = getLogger(`removeJobFromQueue ${videoId}`, rootLogger);
   if (job) {
+    logger.debug("Removing job from queue");
     const thunk = thunks.get(job.id);
     if (thunk) {
       // thunk exists, which means we have started downloading this item.
       thunk.abort();
       job.status = JobStatus.Canceled;
-      await job.save(); // This is important, as this will let everyone else know the job update.
+      await job.save();
+      getPubSub().publish(Topic.JobUpdated, job);
     } else {
-      console.log("Thunk not found.");
+      logger.debug("Thunk not found.");
     }
   }
 };
