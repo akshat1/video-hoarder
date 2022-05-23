@@ -14,6 +14,8 @@ services:
       PG_USER: postgres
       PG_PASSWORD: postgres
       DB_NAME: video-hoarder-prod
+    volumes:
+      - ~/Downloads:/workspace/downloads/admin
   
   db:
     image: postgres:latest

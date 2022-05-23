@@ -72,8 +72,10 @@ export const initialize = async (): Promise<void> => {
   await getDataSource();
   logger.debug("do we have an admin?");
   const adminUser = await getUserByName("admin");
-  if (!adminUser) {
-    logger.info("create an admin");
+  if (adminUser) {
+    logger.debug("Yes");
+  } else {
+    logger.info("No. Create an admin user.");
     await createUser({
       passwordExpired: false,
       password: "admin",

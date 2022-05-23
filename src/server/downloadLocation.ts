@@ -1,6 +1,6 @@
 import { User } from "../model/User";
 import { YTMetadata } from "../model/YouTube";
-import { ENOENT } from "constants";
+import { getLogger } from "./logger";
 import { promises as fs } from "fs";
 import yaml from "js-yaml";
 import path from "path";
@@ -169,27 +169,25 @@ const getCustomDownloadLocation = (rules: DownloadLocationRule[], user: User, me
 
 const downloadRoot = "/workspace/downloads";
 export const getDownloadLocation = async (metadata: YTMetadata, user: User): Promise<string> => {
+  const logger = getLogger("getDownloadLocation");
   const pathElements = [
     downloadRoot,
     user.userName,
   ];
 
+  let rules = [];
   try {
     const customLocationModulePath = path.join(process.cwd(), "config", "location.yml");
     const buffLocationRules = await fs.readFile(customLocationModulePath);
-    // @todo what happens if the yml file is missing?
-    const { rules = [] } = yaml.load(buffLocationRules.toString("utf-8")) as CustomDownloadLocationConfig;
-    rules.forEach(validateRule);
-    const customLocation = getCustomDownloadLocation(rules, user, metadata);
-    if (customLocation) {
-      pathElements.push(customLocation);
-    }
-  } catch (error) {
-    if (error.code !== ENOENT) {
-      throw error;
-    }
-
-    // else, we don't have a location rules file. ignore error and proceed with default
+    const config = yaml.load(buffLocationRules.toString("utf-8")) as CustomDownloadLocationConfig;
+    rules = config.rules;
+  } catch (err) {
+    logger.error(err);
+  }
+  rules.forEach(validateRule);
+  const customLocation = getCustomDownloadLocation(rules, user, metadata);
+  if (customLocation) {
+    pathElements.push(customLocation);
   }
 
   // Ensure the target directory exists.

@@ -23,9 +23,9 @@ import { v4 as uuid } from "uuid";
 
 const rootLogger = getLogger("Server");
 const SessionSecret = "Not so secretely bad secret";
-const Port = Number(process.env.SERVER_PORT) || 8081;
+const Port = 8080;
 const enableStudio = !!process.env.ENABLE_STUDIO; // enabled through docker-compose for dev environments
-const CORSOrigin = process.env.CORSOrigin || "http://localhost:8080";
+const CORSOrigin = process.env.CORSOrigin || `http://localhost:${Port}`;
 
 /** Exit handler. */
 const onExit = () => {
@@ -135,6 +135,8 @@ const initApolloServer = async (args: InitApolloServerArgs): Promise<ApolloServe
   return apolloServer;
 };
 
+const requestLogger = getLogger("app");
+
 interface InitExpressReturn {
   app: Application;
   passportMiddleware: RequestHandler;
@@ -146,6 +148,11 @@ const initExpress = async (): Promise<InitExpressReturn> => {
   const logger = getLogger("initExpress", rootLogger);
   const app = express();
   const server = createServer(app);
+
+  app.use((request, response, next) => {
+    requestLogger.debug(`${request.method} ${request.url}`);
+    next();
+  });
 
   // We need our own CORS config when we are serving the FE. But we want Apollo to handle CORS when we are talking to the studio.
   logger.info(`enableStudio: ${enableStudio}`);
@@ -175,11 +182,12 @@ const initExpress = async (): Promise<InitExpressReturn> => {
   logger.info(`SPA fallback path: ${spaFallbackPath}`);
   app.use(express.static(webUIPath));
   // Web: SPA Fallback
-  app.use((request:Request, response: Response) => {
-    if (request.method === "GET") {
+  app.use((request:Request, response: Response, next) => {
+    if (request.method === "GET" && request.path !== "/graphql") {
       response.sendFile(spaFallbackPath);
     } else {
-      response.status(404).send({ message: "NOT FOUND" });
+      // response.status(404).send({ message: "NOT FOUND" });
+      next();
     }
   });
 

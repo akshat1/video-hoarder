@@ -21,14 +21,14 @@ let apolloClient: ApolloClient<any>;
 const getApolloClient = ():ApolloClient<any> => {
   if (!apolloClient) {
     const wsLink = new WebSocketLink({
-      uri: "ws://localhost:8081/graphql",
+      uri: "ws://localhost:8080/graphql",
       options: {
         reconnect: true,
       },
     });
 
     const httpLink = new HttpLink({
-      uri: "http://localhost:8081/graphql",
+      uri: "http://localhost:8080/graphql",
       credentials: "include",
     });
 
