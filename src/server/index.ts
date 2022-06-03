@@ -1,5 +1,6 @@
 import { Session } from "../model/Session";
 import { User } from "../model/User";
+import { getAppPort, getCORSOrigin, getServerURL } from "../utility/appUrls";
 import { getDataSource, initialize as initializeDB } from "./db/typeorm";
 import { resolvers } from "./graphql/resolvers";
 import { getLogger } from "./logger";
@@ -23,13 +24,11 @@ import { v4 as uuid } from "uuid";
 
 const rootLogger = getLogger("Server");
 const SessionSecret = "Not so secretely bad secret";
-const Port = 8080;
 const enableStudio = !!process.env.ENABLE_STUDIO; // enabled through docker-compose for dev environments
-const CORSOrigin = process.env.CORSOrigin || `http://localhost:${Port}`;
 
 /** Exit handler. */
 const onExit = () => {
-  // TODO Clean-up
+  // @TODO Clean-up
   getLogger("onExit", rootLogger).info("Server process exit.");
 };
 
@@ -158,7 +157,7 @@ const initExpress = async (): Promise<InitExpressReturn> => {
   logger.info(`enableStudio: ${enableStudio}`);
   if (!enableStudio) {
     app.use(cors({
-      origin: CORSOrigin,
+      origin: getCORSOrigin(),
       credentials: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     }));
@@ -227,8 +226,8 @@ const main = async () => {
   });
 
   // Start the server
-  server.listen(Port, () => logger.info("Listening now."));
-  logger.info(`🚀 Server ready at http://localhost:${Port}${apolloServer.graphqlPath}`);
+  server.listen(getAppPort(), () => logger.info("Listening now."));
+  logger.info(`🚀 Server ready at ${getServerURL()}${apolloServer.graphqlPath}`);
 
   // Add any pending jobs to the queue.
   await pickUpPendingJobs();
