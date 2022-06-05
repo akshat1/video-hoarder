@@ -2,6 +2,7 @@ FROM alpine:latest
 WORKDIR /workspace/
 COPY . .
 RUN apk -U upgrade \
+  && apk add ffmpeg \
   && apk add curl \
   && apk add python3 \
   && apk add nodejs \
