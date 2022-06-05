@@ -31,11 +31,6 @@ module.exports = {
     },
   },
   plugins: [
-    new webpack.EnvironmentPlugin({
-      APP_HOST: "localhost",
-      APP_PORT: "8080",
-      APP_SCHEME: "http",
-    }),
     new webpack.NormalModuleReplacementPlugin(/type-graphql$/, resource => {
       resource.request = resource.request.replace(/type-graphql/, "type-graphql/dist/browser-shim.js");
     }),

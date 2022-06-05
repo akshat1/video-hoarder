@@ -1,6 +1,7 @@
 import { Session } from "../model/Session";
 import { User } from "../model/User";
-import { getAppPort, getCORSOrigin, getServerURL } from "../utility/appUrls";
+import { getAppPort, getCORSOrigin, getServerURL } from "./appUrls";
+import { getRouter } from "./config-endpoint";
 import { getDataSource, initialize as initializeDB } from "./db/typeorm";
 import { resolvers } from "./graphql/resolvers";
 import { getLogger } from "./logger";
@@ -135,6 +136,7 @@ const initApolloServer = async (args: InitApolloServerArgs): Promise<ApolloServe
 };
 
 const requestLogger = getLogger("app");
+const APIURLPattern = /\/(graphql|api\/.*)/;
 
 interface InitExpressReturn {
   app: Application;
@@ -182,13 +184,14 @@ const initExpress = async (): Promise<InitExpressReturn> => {
   app.use(express.static(webUIPath));
   // Web: SPA Fallback
   app.use((request:Request, response: Response, next) => {
-    if (request.method === "GET" && request.path !== "/graphql") {
+    if (request.method === "GET" && !APIURLPattern.test(request.path)) {
       response.sendFile(spaFallbackPath);
     } else {
       // response.status(404).send({ message: "NOT FOUND" });
       next();
     }
   });
+  app.use("/api", getRouter());
 
   return {
     app,

@@ -13,6 +13,6 @@ export const getCORSOrigin = (): string => `${APP_SCHEME}://${APP_HOST}:${APP_PO
 
 export const getServerURL = (): string => `${APP_SCHEME}://${APP_HOST}:${APP_PORT}`;
 
-export const getWebSocketLinkURL = (): string => `ws://${process.env.APP_HOST}:${process.env.APP_PORT}/graphql`;
+export const getWebSocketLinkURL = (): string => `ws://${APP_HOST}:${APP_PORT}/graphql`;
 
 export const getHTTPLinkURL = (): string => `${APP_SCHEME}://${APP_HOST}:${APP_PORT}/graphql`;

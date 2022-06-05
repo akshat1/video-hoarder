@@ -1,4 +1,3 @@
-import { getHTTPLinkURL, getWebSocketLinkURL } from "../utility/appUrls";
 import { App } from "./App";
 import { getApolloClientCache } from "./getApolloClientCache";
 import { getTheme } from "./theme";
@@ -22,14 +21,16 @@ let apolloClient: ApolloClient<any>;
 const getApolloClient = ():ApolloClient<any> => {
   if (!apolloClient) {
     const wsLink = new WebSocketLink({
-      uri: getWebSocketLinkURL(),
+      /// @ts-ignore
+      uri: window.VideoHoarder?.clientConfig.webSocketLinkURL,
       options: {
         reconnect: true,
       },
     });
 
     const httpLink = new HttpLink({
-      uri: getHTTPLinkURL(),
+      /// @ts-ignore
+      uri: window.VideoHoarder?.clientConfig.httpLinkURL,
       credentials: "include",
     });
 
