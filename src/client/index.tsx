@@ -21,14 +21,16 @@ let apolloClient: ApolloClient<any>;
 const getApolloClient = ():ApolloClient<any> => {
   if (!apolloClient) {
     const wsLink = new WebSocketLink({
-      uri: "ws://localhost:8081/graphql",
+      /// @ts-ignore
+      uri: window.VideoHoarder?.clientConfig.webSocketLinkURL,
       options: {
         reconnect: true,
       },
     });
 
     const httpLink = new HttpLink({
-      uri: "http://localhost:8081/graphql",
+      /// @ts-ignore
+      uri: window.VideoHoarder?.clientConfig.httpLinkURL,
       credentials: "include",
     });
 

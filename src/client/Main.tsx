@@ -6,7 +6,6 @@ import { Toolbar } from "./Toolbar";
 import { useQuery } from "@apollo/client";
 import { Container, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import _ from "lodash";
 import React, { Fragment, FunctionComponent } from "react";
 import { Route, Routes } from "react-router-dom";
 
