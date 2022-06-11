@@ -2,6 +2,7 @@
 // const path = require("path");
 const path = require("path/posix");
 const webpack = require("webpack");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 
 module.exports = {
   mode: process.env.NODE_ENV === "production" ? "production" : "development",
@@ -46,6 +47,10 @@ module.exports = {
       if (resource.contextInfo.issuer.indexOf("/node_modules/") === -1 && path.basename(resource.contextInfo.issuer) !== "mui-shim.ts") {
         resource.request = resource.request.replace(/^@mui\/.*$/, path.join(process.cwd(), "src", "client", "mui-shim"));
       }
+    }),
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
     }),
   ],
   devServer: {

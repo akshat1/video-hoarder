@@ -15,8 +15,9 @@ download
 download/*
 downloads/
 node_modules/
-public/app.js
-public/app.js.LICENSE.txt
+public/*.js
+public/*.js.map
+public/*.LICENSE.txt
 sample.json
 sample2.json
 sample3-vimeo.json

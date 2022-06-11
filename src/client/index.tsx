@@ -10,12 +10,25 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    try {
+      const registration = navigator.serviceWorker.register("/service-worker.js");
+      if (registration) {
+        console.log("Service worker registered.");
+      } else {
+        console.log("Failed to register service-worker.");
+      }
+    } catch (error) {
+      console.error("Error registering service-worker.", error);
+    }
+  });
+}
 
 declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
-
 
 let apolloClient: ApolloClient<any>;
 const getApolloClient = ():ApolloClient<any> => {
