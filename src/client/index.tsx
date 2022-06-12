@@ -1,3 +1,4 @@
+import { getLogger } from "../server/logger";
 import { App } from "./App";
 import { getApolloClientCache } from "./getApolloClientCache";
 import { getTheme } from "./theme";
@@ -10,17 +11,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
+const logger = getLogger("index");
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", async () => {
     try {
       const registration = navigator.serviceWorker.register("/service-worker.js");
       if (registration) {
-        console.log("Service worker registered.");
+        logger.debug("Service worker registered.");
       } else {
-        console.log("Failed to register service-worker.");
+        logger.debug("Failed to register service-worker.");
       }
     } catch (error) {
-      console.error("Error registering service-worker.", error);
+      logger.error("Error registering service-worker.", error);
     }
   });
 }

@@ -4,13 +4,19 @@ const path = require("path/posix");
 const webpack = require("webpack");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 
+const isProd = process.env.NODE_ENV === "production";
+
 module.exports = {
-  mode: process.env.NODE_ENV === "production" ? "production" : "development",
-  devtool: "inline-source-map",
+  mode: isProd ? "production" : "development",
+  devtool: isProd ? false : "inline-source-map",
   entry: "./src/client/index.tsx",
+  optimization: {
+    usedExports: true,
+  },
   output: {
     filename: "app.js",
     path: path.join(__dirname, "public"),
+    publicPath: "/",
   },
   module: {
     rules: [{
@@ -55,6 +61,10 @@ module.exports = {
     }),
   ],
   devServer: {
+    contentBase: path.join(__dirname, "public"),
+    port: 8080,
+    host: "localhost",
+    allowedHosts: "all",
     static: {
       directory: path.join(__dirname, "public"),
     },

@@ -25,6 +25,7 @@ import { v4 as uuid } from "uuid";
 
 const rootLogger = getLogger("Server");
 const SessionSecret = "Not so secretely bad secret";
+const isDev = process.env.NODE_ENV !== "production";
 const enableStudio = !!process.env.ENABLE_STUDIO; // enabled through docker-compose for dev environments
 
 /** Exit handler. */
@@ -175,8 +176,27 @@ const initExpress = async (): Promise<InitExpressReturn> => {
   app.use(passportMiddleware);
   app.use(passportSessionMiddleware);
 
-  // Web
+  logger.debug("isDev?", isDev);
   const webUIPath = path.resolve(process.cwd(), "public");
+  if (isDev) {
+    logger.debug("We are in dev mode. Configure webpack dev middleware");
+    const webpack = await require("webpack");
+    const webpackDevMiddleware = await require("webpack-dev-middleware");
+    // eslint-disable-next-line import/extensions
+    const webpackConfig = await require("../../webpack.config.js");
+    logger.debug("Got config.");
+    const compiler = webpack(webpackConfig);
+    logger.debug("Got compiler. Now to configure the middleware.");
+    const options = {
+      publicPath: webpackConfig.output.publicPath,
+    };
+    logger.debug("Webpack dev middleware options:", options);
+    const devMiddleware = webpackDevMiddleware(compiler, options);
+    app.use(devMiddleware);
+  } else {
+    logger.debug("We are in production mode.");
+  }
+  // Web  
   const spaFallbackPath = path.join(webUIPath, "index.html");
   logger.info(`CWD: ${process.cwd()}`);
   logger.info(`Going to serve static files from ${webUIPath}`);
@@ -191,6 +211,7 @@ const initExpress = async (): Promise<InitExpressReturn> => {
       next();
     }
   });
+  
   app.use("/api", getRouter());
 
   return {

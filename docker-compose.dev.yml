@@ -9,16 +9,17 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 8080:8080
+      - 9229:9229
     environment:
       PG_HOST: db
       PG_PORT: 5432
       PG_USER: postgres
       PG_PASSWORD: postgres
-      DB_NAME: video-hoarder-prod
+      DB_NAME: video-hoarder-dev
       APP_HOST: localhost
       # APP_PORT: 8080
       # EXPOSED_PORT: 443
-      # APP_SCHEME: https
+      APP_SCHEME: http
     volumes:
       - .:/workspace
       - ~/Downloads:/workspace/downloads/admin

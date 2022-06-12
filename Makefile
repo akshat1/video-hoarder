@@ -7,4 +7,4 @@ push:
 	docker push $(NAME):$(VERSION)
 
 dev:
-	docker-compose -f docker-compose.dev.yml -d up
+	docker-compose -f docker-compose.dev.yml up -d
