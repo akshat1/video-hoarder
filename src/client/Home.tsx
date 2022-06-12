@@ -9,6 +9,7 @@ import { Collapse, Theme  } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import _ from "lodash";
 import React, { ChangeEventHandler, Fragment, FunctionComponent, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const InputPattern = "^(https?:\\/\\/.+)$";
 const isValidURL = (url: string): boolean => new RegExp(InputPattern).test(url);
@@ -26,6 +27,8 @@ export const Home:FunctionComponent = () => {
   const isValid = isValidURL(url);
   const [fetchMetadata, metadataThunk] = useLazyQuery(Query.MetadataAndOptions);
   const [doAddJob, addJobThunk] = useMutation(Mutation.AddJob);
+  const { search } = useLocation();
+  console.log(search);
 
   const onSubmit = async (evt) => {
     evt.preventDefault();

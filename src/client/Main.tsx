@@ -37,7 +37,6 @@ export const Main:FunctionComponent = () => {
       <Container className={classes.view}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/" element={<Home />} />
           <Route path="/settings" element={<SettingsPage />}/>
         </Routes>
       </Container>
