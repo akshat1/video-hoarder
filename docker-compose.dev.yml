@@ -1,0 +1,42 @@
+version: "3.2"
+services:
+  app:
+    container_name: vh_dev
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8080:8080
+      - 9229:9229
+    environment:
+      PG_HOST: db
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+      DB_NAME: video-hoarder-dev
+      APP_HOST: localhost
+      # APP_PORT: 8080
+      # EXPOSED_PORT: 443
+      APP_SCHEME: http
+    volumes:
+      - .:/workspace
+      - ~/Downloads:/workspace/downloads/admin
+      - node_modules:/workspace/node_modules
+    command: sleep infinity
+  
+  db:
+    container_name: vh_db
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - postgres-dev:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+
+volumes:
+  postgres-dev:
+  node_modules:

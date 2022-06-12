@@ -45,7 +45,6 @@ export const PasswordResetForm:FunctionComponent = () => {
   const onNewPasswordChanged:ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (evt) => setNewPassword(evt.target.value);
   const onNewPasswordDeuxChanged:ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (evt) => setNewPasswordDeux(evt.target.value);
   const onFormSubmit = async (evt: FormEvent) => {
-    console.log("Form was submitted!");
     evt.stopPropagation();
     evt.preventDefault();
     const success = await doChangePassword({

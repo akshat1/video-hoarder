@@ -40,6 +40,9 @@ const useStyle = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  downloadLocation: {
+    wordBreak: "break-all",
+  },
 }));
 
 interface Props {
@@ -140,7 +143,7 @@ export const Item:FunctionComponent<Props> = (props) => {
           <Typography>Rate limit</Typography>
           <Typography>{_.get(job, "downloadOptions.rateLimit")}</Typography>
           <Typography>Downloading to</Typography>
-          <Typography>{_.get(job, "downloadOptions.downloadLocation")}</Typography>
+          <Typography className={classes.downloadLocation}>{_.get(job, "downloadOptions.downloadLocation")}</Typography>
         </div>
         <div className={classes.progress}>
           <JobProgress job={job} />
