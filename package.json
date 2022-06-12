@@ -6,7 +6,7 @@
     "analyze-bundle": "webpack-bundle-analyzer -h 0.0.0.0 -p 8080 stats.json public",
     "clean": "rm -rf app/*",
     "build-client": "NODE_ENV=production webpack --profile --json > stats.json",
-    "build": "NODE_ENV=production tsc; build-client",
+    "build": "NODE_ENV=production tsc; yarn build-client",
     "dev": "nodemon --exec \"NODE_ENV=development node -r ts-node/register --inspect=0.0.0.0:9229\" src/server/index.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "start": "NODE_ENV=production node app/server"
