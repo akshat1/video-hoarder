@@ -3,4 +3,5 @@ export enum Topic {
   JobCancelled = "JobCancelled",
   JobRemoved = "JobRemoved",
   JobUpdated = "JobUpdated",
+  YTDLUpdateComplete = "YTDLUpdateComplete",
 }
