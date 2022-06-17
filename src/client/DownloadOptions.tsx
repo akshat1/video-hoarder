@@ -57,7 +57,7 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
       <Grid item xs={12}>
         <Typography variant="h4">{metadata.title}</Typography>
       </Grid>
-      <Grid item sm={12} md={8}className={classes.dlOptions}>
+      <Grid item sm={12} md={8} className={classes.dlOptions}>
         <Typography>Download format</Typography>
         <FormatSelector
           value={options.formatSelector}

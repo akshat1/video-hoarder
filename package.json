@@ -61,6 +61,7 @@
     "@emotion/styled": "^11.6.0",
     "@graphql-tools/schema": "^8.2.0",
     "@mui/icons-material": "^5.2.5",
+    "@mui/lab": "^5.0.0-alpha.86",
     "@mui/material": "^5.2.6",
     "@mui/styles": "^5.2.3",
     "@types/node-cache": "^4.2.5",

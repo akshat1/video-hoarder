@@ -1,6 +1,6 @@
 import { DownloadOptionsInput } from "../model/Job";
 import { YTMetadata } from "../model/YouTube";
-import { getLogger } from "../server/logger";
+import { getLogger } from "../shared/logger";
 import { DownloadOptions } from "./DownloadOptions";
 import { Mutation, Query } from "./gql";
 import { InputForm } from "./InputForm";

@@ -1,7 +1,7 @@
 import { Job, JobStatus } from "../model/Job";
 import { JobProgress } from "../model/JobProgress";
 import { Topic } from "../model/Topic";
-import { getLogger } from "./logger";
+import { getLogger } from "../shared/logger";
 import { getPubSub } from "./pubsub";
 import { download, DownloadThunk } from "./youtube";
 import PQueue from "p-queue";

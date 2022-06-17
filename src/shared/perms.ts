@@ -11,3 +11,6 @@ export const canDelete = (user: User, job: Job): boolean => {
   // Others can only delete their own jobs.
   return job.createdBy === user.id;
 };
+
+export const canChangeSettings = (user: User): boolean =>
+  user.role === Role.Admin;

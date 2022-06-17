@@ -3,7 +3,7 @@ import { Job, JobStatus, RateUnlimited } from "../model/Job";
 import { JobProgress } from "../model/JobProgress";
 import { Topic } from "../model/Topic";
 import { YTMetadata } from "../model/YouTube";
-import { getLogger } from "./logger";
+import { getLogger } from "../shared/logger";
 import { getPubSub } from "./pubsub";
 import { execFile } from "child_process";
 import NodeCache from "node-cache";
@@ -52,7 +52,7 @@ export const fetchMetadata = (url:string): Promise<YTMetadata> => {
       reject(error);
     }
   });
-}
+};
 
 export interface DownloadThunk {
   abort: Function;
@@ -160,7 +160,30 @@ export const download = (args: DownloadArgs): Promise<DownloadThunk> => {
       reject(error);
     }
   });
-}
+};
+
+export const getYTDLExecutable = (): string => ytdlPath;
+
+export const getYTDLVersion = (): Promise<string> => {
+  const logger = getLogger("getYTDLVersion", rootLogger);
+  return new Promise((resolve, reject) => {
+    execFile(ytdlPath, ["--version"], (error, stdOut, stdError) => {
+      if (stdOut.length) {
+        resolve(stdOut.toString());
+      }
+
+      if (stdError?.length) {
+        logger.error("Error while updating YTDL.", stdError.toString());
+      }
+
+      if (error) {
+        logger.error("Error while updating YTDL.", error);
+        reject(error);
+        return;
+      }
+    });
+  });
+};
 
 const UpdateFrequencyDays = 1;
 const doUpdate = (): Promise<void> => {
@@ -168,22 +191,24 @@ const doUpdate = (): Promise<void> => {
   const logger = getLogger("doUpdate", rootLogger);
   return new Promise((resolve, reject) => {
     logger.info("Update yt-dlp");
-    execFile(ytdlPath, ["-U"], (error, stdOut, stdErr) => {
+    execFile(ytdlPath, ["-U"], (error, stdOut, stdError) => {
       isUpdating = false;
       // line up the next update.
       setTimeout(doUpdate, UpdateFrequencyDays * 86400000); // Magic number alert. 86400000 = 24 * 60 * 60 * 1000
-      if (error) {
-        logger.error("Error updating yt-dlp.", error);
-        reject(error);
-      }
-
-      if (stdErr.length) {
-        logger.error("Error updating yt-dlp.", stdErr.toString());
-      }
-
       if (stdOut.length) {
         logger.info("yt-dlp -U output:\n", stdOut.toString());
       }
+
+      if (stdError?.length) {
+        logger.error("Error updating yt-dlp.", stdError.toString());
+      }
+
+      if (error) {
+        logger.error("Error updating yt-dlp.", error);
+        reject(error);
+        return;
+      }
+
       resolve();
     });
   });

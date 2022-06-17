@@ -3,18 +3,6 @@ import { Button, CircularProgress, Container, FormControl, FormHelperText, Grid,
 import { makeStyles } from "@mui/styles";
 import React, { ChangeEventHandler, FormEventHandler, FunctionComponent, MouseEventHandler } from "react";
 
-// const parseSearch = (search: string): Record<string, string> => {
-//   const queryString = search.substr(1);
-//   const dict = {};
-//   // The following code doesn't handle query params with array values (foo=bar&foo=baz) but that
-//   // doesn't matter to us.
-//   queryString
-//     .split("&")
-//     .map(pair => pair.split("="))
-//     .forEach(([key, value]) => dict[key] = value);
-//   return dict;
-// };
-
 interface ClearButtonProps {
   clearURL: MouseEventHandler<HTMLInputElement>;
   busy: boolean;

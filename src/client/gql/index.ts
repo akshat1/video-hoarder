@@ -14,13 +14,17 @@ import {
   CurrentUser,
   Login,
   Logout,
+  Users,
 } from "./user";
+import { YTDLInformation } from "./ytdl";
 
 export const Query = {
   CurrentUser,
   Jobs,
   MetadataAndOptions,
   YTMetadata,
+  YTDLInformation,
+  Users,
 };
 
 export const Mutation = {

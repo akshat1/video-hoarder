@@ -1,6 +1,6 @@
 import { User } from "../model/User";
 import { YTMetadata } from "../model/YouTube";
-import { getLogger } from "./logger";
+import { getLogger } from "../shared/logger";
 import { promises as fs } from "fs";
 import yaml from "js-yaml";
 import path from "path";

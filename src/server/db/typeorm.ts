@@ -2,7 +2,7 @@ import { Job } from "../../model/Job";
 import { Role } from "../../model/Role";
 import { Session } from "../../model/Session";
 import { User } from "../../model/User";
-import { getLogger } from "../logger";
+import { getLogger } from "../../shared/logger";
 import { createUser, getUserByName } from "./userManagement";
 import pgtools from "pgtools";
 import { DataSource, DataSourceOptions } from "typeorm";

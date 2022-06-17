@@ -1,5 +1,5 @@
 import { Role } from "../../../model/Role";
-import { User, UserResponse } from "../../../model/User";
+import { User } from "../../../model/User";
 import { encrypt } from "../../crypto";
 import { createUser } from "../../db/userManagement";
 import { EINCORRECTPASSWORD, ENEWPASSWORDMISMATCH, ENOUSER } from "../../errors";
@@ -42,18 +42,14 @@ export class UserResolver {
     return User.find();
   }
 
-  @Query(() => UserResponse)
-  async user(@Arg("id") id: string): Promise<UserResponse> {
-    return {
-      user: await User.findOne({
-        where: { id },
-      }),
-    };
+  @Query(() => User)
+  async user(@Arg("id") id: string): Promise<User> {
+    return await User.findOne({ where: { id } });
   }
 
-  @Query(() => UserResponse)
-  currentUser (@Ctx() context: Context): UserResponse {
-    return { user: context.getUser() };
+  @Query(() => User, { nullable: true })
+  currentUser (@Ctx() context: Context): User|null {
+    return context.getUser() || null;
   }
 
   @Mutation(() => Boolean)
@@ -61,8 +57,8 @@ export class UserResolver {
     return context.logout() || false;
   }
 
-  @Mutation(() => UserResponse)
-  async login (@Arg("userName") userName: string, @Arg("password") password: string, @Ctx() context: Context): Promise<UserResponse> {
+  @Mutation(() => User)
+  async login (@Arg("userName") userName: string, @Arg("password") password: string, @Ctx() context: Context): Promise<User> {
     const { user } = await context.authenticate(
       "graphql-local",
       {
@@ -73,7 +69,7 @@ export class UserResolver {
       }
     ) as AuthenticateResult;
     await context.login(user);
-    return { user };
+    return user;
   }
 
   @Mutation(() => User)

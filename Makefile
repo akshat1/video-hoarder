@@ -10,7 +10,7 @@ push:
 dev:
 	docker-compose -f docker-compose.dev.yml up -d
 
-dev-connect
+dev-connect:
 	docker exec -it $(CONTAINER_NAME) /bin/bash
 
 stop-dev:

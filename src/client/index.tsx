@@ -1,4 +1,4 @@
-import { getLogger } from "../server/logger";
+import { getLogger } from "../shared/logger";
 import { App } from "./App";
 import { getApolloClientCache } from "./getApolloClientCache";
 import { getTheme } from "./theme";

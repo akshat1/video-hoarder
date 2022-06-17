@@ -1,8 +1,8 @@
 import { DownloadOptionsInput, Job, JobStatus } from "../../../model/Job";
 import { Topic } from "../../../model/Topic";
+import { canDelete } from "../../../shared/perms";
 import { EINSUFFICIENTPERMS, ENOUSER } from "../../errors";
-import { getLogger } from "../../logger";
-import { canDelete } from "../../perms";
+import { getLogger } from "../../../shared/logger";
 import { getPubSub } from "../../pubsub";
 import { fetchMetadata } from "../../youtube";
 import { Context } from "@apollo/client";

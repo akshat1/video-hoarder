@@ -1,4 +1,5 @@
 import {Query } from "./gql";
+import { CurrentUserResponse } from "./gql/user";
 import { Home } from "./Home";
 import { LoginForm } from "./LoginForm";
 import { Settings as SettingsPage } from "./Settings";
@@ -22,8 +23,8 @@ const useStyles = makeStyles((theme:Theme) => ({
 
 export const Main:FunctionComponent = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(Query.CurrentUser);
-  const loggedIn = !!data?.currentUser?.user;
+  const { loading, error, data } = useQuery<CurrentUserResponse>(Query.CurrentUser);
+  const loggedIn = !!data?.currentUser;
 
   if (loading) {
     return <h1>Loading...</h1>;

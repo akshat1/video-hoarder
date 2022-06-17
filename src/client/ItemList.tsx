@@ -1,5 +1,5 @@
-import { Job } from "../model/Job";
 import { Query, Subscription } from "./gql";
+import { JobsQueryResponse } from "./gql/job";
 import { Item } from "./Item";
 import { useQuery, useSubscription } from "@apollo/client";
 import { Grid } from "@mui/material";
@@ -12,7 +12,7 @@ export const ItemList:FunctionComponent = () => {
     loading: fetchingJobs,
     error: jobFetchingError,
     refetch: refetchJobs,
-  } = useQuery<{jobs: Job[]}>(Query.Jobs);
+  } = useQuery<JobsQueryResponse>(Query.Jobs);
   const jobs = _.get(data, "jobs", []);
 
   useSubscription(Subscription.JobAdded, {
