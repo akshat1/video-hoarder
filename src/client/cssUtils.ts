@@ -16,3 +16,13 @@ export const infoTable = (theme: Theme, options?: Options): CSSProperties => ({
   rowGap: theme.spacing(_.get(options, "rowGap", 0)),
   gridTemplateColumns: "max-content 1fr",
 });
+
+export const verticalFlexBox = (): CSSProperties => ({
+  display: "flex",
+  flexDirection: "column",
+});
+
+export const horizontalFlexBox = (): CSSProperties => ({
+  display: "flex",
+  flexDirection: "row",
+});

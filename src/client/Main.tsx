@@ -1,3 +1,4 @@
+import { verticalFlexBox } from "./cssUtils";
 import {Query } from "./gql";
 import { CurrentUserResponse } from "./gql/user";
 import { Home } from "./Home";
@@ -12,12 +13,17 @@ import { Route, Routes } from "react-router-dom";
 
 const useStyles = makeStyles((theme:Theme) => ({
   root: {
+    ...verticalFlexBox(),
     height: "100vh",
     padding: 0,
   },
 
+  toolbar: {},
+
   view: {
+    ...verticalFlexBox(),
     padding: theme.spacing(2),
+    flexGrow: 1,
   },
 }));
 
@@ -34,7 +40,7 @@ export const Main:FunctionComponent = () => {
   
   const loggedInView = (
     <Fragment>
-      <Toolbar />
+      <Toolbar className={classes.toolbar} />
       <Container className={classes.view}>
         <Routes>
           <Route path="/" element={<Home />} />

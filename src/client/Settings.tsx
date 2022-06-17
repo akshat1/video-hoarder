@@ -1,5 +1,5 @@
 import { canChangeSettings } from "../shared/perms";
-import { infoTable } from "./cssUtils";
+import { infoTable, verticalFlexBox } from "./cssUtils";
 import { Query } from "./gql";
 import { CurrentUserResponse } from "./gql/user";
 import { useTitle } from "./hooks";
@@ -14,8 +14,9 @@ import React, { ChangeEvent, FunctionComponent, useState } from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
+    ...verticalFlexBox(),
     width: "100%",
-    typography: "body1",
+    flexGrow: 1,
   },
   tabs: {
     borderBottom: 1,
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   passwordInputForm: {
     ...infoTable(theme),
   },
+  tabPanel: {},
 }));
 
 enum TabId {
@@ -55,7 +57,7 @@ export const Settings:FunctionComponent = () => {
             {showUserSettings && <Tab label="Users" value={TabId.User} />}
           </TabList>
         </Box>
-        <TabPanel value={TabId.Personal}>
+        <TabPanel value={TabId.Personal} className={classes.tabPanel}>
           <Grid container spacing={2} className={classes.root}>
             <Grid item xs={12}>
               <Typography
@@ -71,14 +73,14 @@ export const Settings:FunctionComponent = () => {
           // Ah JSX. So "graceful" without "ugly conditionals".
           // Who doesn't want to partake the JSX-JS-JSX club sandwich. Mmmmmhmmm. SCRUMPTIOUS!!!
           showYTDLSettings && (
-            <TabPanel value={TabId.YTDL}>
+            <TabPanel value={TabId.YTDL} className={classes.tabPanel}>
               <YTDLSettings />
             </TabPanel>
           )
         }
         {
           showUserSettings && (
-            <TabPanel value={TabId.User}>
+            <TabPanel value={TabId.User} className={classes.tabPanel}>
               <UserSettings />
             </TabPanel>
           )
