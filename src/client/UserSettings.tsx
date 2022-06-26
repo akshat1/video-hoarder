@@ -47,7 +47,7 @@ const UserList:FunctionComponent<UserListProps> = ({ users, onDelete, className,
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+  userSettingsRoot: {
     ...verticalFlexBox(),
   },
   userList: {},
@@ -71,13 +71,14 @@ export const UserSettings:FunctionComponent = () => {
   } = useQuery<CurrentUserResponse>(Query.CurrentUser);
   const [newUserDialogOpen, setNewUserDialogOpen] = useState(false);
   const handleNewUserDialogClose = () => setNewUserDialogOpen(false);
+  const handleUserAddition = () => setNewUserDialogOpen(false);
   const showNewUserDialog = () => setNewUserDialogOpen(true);
   
   const classes = useStyles();
 
   if (loadingUsers || loadingCurrentUser) {
     return (
-      <div className={classes.root}>
+      <div className={classes.userSettingsRoot}>
         <CircularProgress />
       </div>
     );
@@ -86,7 +87,7 @@ export const UserSettings:FunctionComponent = () => {
     usersError && logger.error(usersError);
     currentUserError && logger.error(currentUserError);
     return (
-      <div className={classes.root}>
+      <div className={classes.userSettingsRoot}>
         <Icon><Error /></Icon>
         {usersError && <Typography color="error">{usersError.message}</Typography>}
         {currentUserError && <Typography color="error">{currentUserError.message}</Typography>}
@@ -94,7 +95,7 @@ export const UserSettings:FunctionComponent = () => {
     );
   } else if (usersResponse?.users) {
     return (
-      <div className={classes.root}>
+      <div className={classes.userSettingsRoot}>
         <Box className={classes.buttonContainer}>
           <Button
             variant="outlined"
@@ -107,6 +108,7 @@ export const UserSettings:FunctionComponent = () => {
           </Button>
         </Box>
         <NewUserForm
+          onAddition={handleUserAddition}
           open={newUserDialogOpen}
           onCancel={handleNewUserDialogClose}
         />

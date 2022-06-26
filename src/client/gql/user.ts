@@ -43,6 +43,14 @@ export const ChangePassword = gql`
   }
 `;
 
+export const CreateUser = gql`
+  mutation createUser($data: CreateUserInput!) {
+    createUser(data: $data) {
+      id
+    }
+  }
+`;
+
 export interface CurrentUserResponse {
   currentUser: User;
 }

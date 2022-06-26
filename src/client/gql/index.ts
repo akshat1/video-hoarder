@@ -11,6 +11,7 @@ import {
 } from "./job";
 import {
   ChangePassword,
+  CreateUser,
   CurrentUser,
   Login,
   Logout,
@@ -31,6 +32,7 @@ export const Mutation = {
   AddJob,
   CancelJob,
   ChangePassword,
+  CreateUser,
   Login,
   Logout,
   RemoveJob,
