@@ -6,6 +6,7 @@ import {
   Jobs,
   JobUpdated,
   MetadataAndOptions,
+  RemoveAllDoneJobs,
   RemoveJob,
   YTMetadata,
 } from "./job";
@@ -37,6 +38,7 @@ export const Mutation = {
   DeleteUser,
   Login,
   Logout,
+  RemoveAllDoneJobs,
   RemoveJob,
 };
 
