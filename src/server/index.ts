@@ -158,13 +158,13 @@ const initExpress = async (): Promise<InitExpressReturn> => {
 
   // We need our own CORS config when we are serving the FE. But we want Apollo to handle CORS when we are talking to the studio.
   logger.info(`enableStudio: ${enableStudio}`);
-  if (!enableStudio) {
+  if (!enableStudio) 
     app.use(cors({
       origin: getCORSOrigin(),
       credentials: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     }));
-  }
+  
 
   const sessionMiddleware = await getSessionMiddleware();
   app.use(sessionMiddleware);
@@ -193,9 +193,9 @@ const initExpress = async (): Promise<InitExpressReturn> => {
     logger.debug("Webpack dev middleware options:", options);
     const devMiddleware = webpackDevMiddleware(compiler, options);
     app.use(devMiddleware);
-  } else {
+  } else 
     logger.debug("We are in production mode.");
-  }
+  
   // Web  
   const spaFallbackPath = path.join(webUIPath, "index.html");
   logger.info(`CWD: ${process.cwd()}`);
@@ -204,12 +204,12 @@ const initExpress = async (): Promise<InitExpressReturn> => {
   app.use(express.static(webUIPath));
   // Web: SPA Fallback
   app.use((request:Request, response: Response, next) => {
-    if (request.method === "GET" && !APIURLPattern.test(request.path)) {
+    if (request.method === "GET" && !APIURLPattern.test(request.path)) 
       response.sendFile(spaFallbackPath);
-    } else {
+     else 
       // response.status(404).send({ message: "NOT FOUND" });
       next();
-    }
+    
   });
   
   app.use("/api", getRouter());

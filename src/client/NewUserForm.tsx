@@ -24,17 +24,17 @@ const isUserNameValid = (userName: string): boolean =>
 */
 const isPasswordValid = (password: string): boolean => {
   // I'm sure there's a way to do this in a single regexp but this is what I know at the moment, and it works.
-  if (password && password.length > 8 && password.length < 101) {
-    if (/[a-z]+/.test(password)) {    // has at least 1 lower case letter
-      if (/[A-Z]+/.test(password)) {  // has at least 1 upper case letter
-        if (/\d+/.test(password)) {   // has at least 1 number
-          if (/[!@#\$%\^&\*\(\)\-_=\+\[\{\]\}\|\\;:\'\,\./\?<>`~"]+/.test(password)) { // has at least 1 special character
+  if (password && password.length > 8 && password.length < 101) 
+    if (/[a-z]+/.test(password))     // has at least 1 lower case letter
+      if (/[A-Z]+/.test(password))   // has at least 1 upper case letter
+        if (/\d+/.test(password))    // has at least 1 number
+          if (/[!@#\$%\^&\*\(\)\-_=\+\[\{\]\}\|\\;:\'\,\./\?<>`~"]+/.test(password))  // has at least 1 special character
             return true;
-          }
-        }
-      }
-    }
-  }
+          
+        
+      
+    
+  
 
   return false;
 };

@@ -24,6 +24,7 @@ module.exports = {
     "no-useless-escape": "off",
     "simple-import-sort/imports": ["error", { groups: [] }],
     quotes: ["error", "double"],
+    curly: ["error", "multi"],
   },
   settings: {
     "import/resolver": {

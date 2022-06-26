@@ -26,9 +26,9 @@ export const YTDLSettings:FunctionComponent = () => {
   } = useQuery<YTDLInformationData>(Query.YTDLInformation);
 
   let output = null; // oooh how I miss jsx conditionals.
-  if (fetchingInformation) {
+  if (fetchingInformation) 
     output = <CircularProgress />;
-  } else if (data?.ytdlInformation && !(fetchingInformation || informationFetchingError)) {
+   else if (data?.ytdlInformation && !(fetchingInformation || informationFetchingError)) {
     const {
       executable,
       version,

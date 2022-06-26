@@ -14,27 +14,27 @@ const Primitives = [
  */
 const camelize = (input: Record<string, any>, seen: Set<any> = new Set<any>()): Record<string, any> => {
   // Guard against circular references.
-  if (seen.has(input)) {
+  if (seen.has(input)) 
     return input;
-  }
+  
 
   // typeof null is "object", but null is a singleton.
-  if (input === null) {
+  if (input === null) 
     return null;
-  }
+  
 
-  if (Primitives.indexOf(typeof input) !== -1) {
+  if (Primitives.indexOf(typeof input) !== -1) 
     return input;
-  }
+  
 
-  if (Array.isArray(input)) {
+  if (Array.isArray(input)) 
     return input.map(x => camelize(x));
-  }
+  
 
   const result = {};
-  for (const key in input) {
+  for (const key in input) 
     result[_.camelCase(key)] = camelize(input[key]);
-  }
+  
 
   return result;
 }

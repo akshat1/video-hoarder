@@ -32,9 +32,9 @@ export const Main:FunctionComponent = () => {
   const { loading, error, data } = useQuery<CurrentUserResponse>(Query.CurrentUser);
   const loggedIn = !!data?.currentUser;
 
-  if (loading) {
+  if (loading) 
     return <h1>Loading...</h1>;
-  }
+  
 
   const loggedOutView = <LoginForm error={error} />;
   

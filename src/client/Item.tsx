@@ -80,17 +80,17 @@ export const Item:FunctionComponent<Props> = (props) => {
     });
 
   let updatedElem = null;
-  if (job.updatedAt) {
+  if (job.updatedAt) 
     updatedElem = (
       <>
         <Typography>Last updated</Typography>
         <Typography>{new Date(job.updatedAt).toLocaleString(Intl.NumberFormat().resolvedOptions().locale)}</Typography>
       </>
     );
-  }
+  
 
   const opButtons = [];
-  if (job.status === JobStatus.Pending || job.status === JobStatus.InProgress) {
+  if (job.status === JobStatus.Pending || job.status === JobStatus.InProgress) 
     opButtons.push(
       <Button
         size="small"
@@ -102,9 +102,9 @@ export const Item:FunctionComponent<Props> = (props) => {
         Cancel
       </Button>
     );
-  }
+  
 
-  if (job.status === JobStatus.Canceled || job.status === JobStatus.Completed || job.status === JobStatus.Failed) {
+  if (job.status === JobStatus.Canceled || job.status === JobStatus.Completed || job.status === JobStatus.Failed) 
     opButtons.push(<Button
       size="small"
       variant="outlined"
@@ -114,7 +114,7 @@ export const Item:FunctionComponent<Props> = (props) => {
     >
       Remove
     </Button>);
-  }
+  
 
   return (
     <Paper variant="outlined" className={classes.root}>

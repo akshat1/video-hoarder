@@ -63,9 +63,9 @@ export class JobResolver {
     } = data;
 
     const user = await context.getUser();
-    if (!user) {
+    if (!user) 
       throw new Error(ENOUSER);
-    }
+    
 
     const { userName } = user; 
     const timeStamp = new Date();

@@ -77,9 +77,9 @@ export const removeJobFromQueue = async (job: Job): Promise<void> => {
       job.status = JobStatus.Canceled;
       await job.save();
       getPubSub().publish(Topic.JobUpdated, job);
-    } else {
+    } else 
       logger.debug("Thunk not found.");
-    }
+    
   }
 };
 

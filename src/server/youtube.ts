@@ -33,18 +33,18 @@ export const fetchMetadata = (url:string): Promise<YTMetadata> => {
           metadata = YTMetadata.fromJSON(await youTubeDL.getVideoInfo(url));
           metadataCache.set(url, metadata);
           // Clean-up, in case we were waiting for an update to conclude.
-          if (subscriptionId) {
+          if (subscriptionId) 
             getPubSub().unsubscribe(subscriptionId);
-          }
+          
         };
 
         // If we are currently updating yt-dl, then wait until we are done.
-        if (isUpdating) {
+        if (isUpdating) 
           subscriptionId = await getPubSub().subscribe(Topic.YTDLUpdateComplete, actualFetch, {});
-        } else {
+         else 
           // no update in progress. Go ahead and execute.
           await actualFetch();
-        }
+        
       }
 
       resolve(metadata);
@@ -71,9 +71,9 @@ export const download = (args: DownloadArgs): Promise<DownloadThunk> => {
     try {
       let subscriptionId;
       const actualDownload = async (): Promise<void> => {
-        if (subscriptionId) {
+        if (subscriptionId) 
           getPubSub().unsubscribe(subscriptionId);
-        }
+        
 
         const {
           job,
@@ -101,9 +101,9 @@ export const download = (args: DownloadArgs): Promise<DownloadThunk> => {
           "--restrict-filenames",
         ];
       
-        if (typeof rateLimit === "string" && rateLimit !== RateUnlimited) {
+        if (typeof rateLimit === "string" && rateLimit !== RateUnlimited) 
           dlArgs.push("-r", rateLimit);
-        }
+        
       
         const options = {};
       
@@ -111,12 +111,12 @@ export const download = (args: DownloadArgs): Promise<DownloadThunk> => {
         const youtubeDlEventEmitter = youTubeDL.exec(dlArgs, options, controller.signal)
           .on("progress", async (progress) => {
             const subLogger = getLogger("on progress", logger);
-            if (args.job.status == JobStatus.Canceled) {
+            if (args.job.status == JobStatus.Canceled) 
               subLogger.debug("Job canceled. Ignore progress.");
-            } else if (typeof onProgress === "function") {
+             else if (typeof onProgress === "function") 
               // logger.debug("Call onProgress");
               await onProgress(args.job, progress);
-            }
+            
           })
           .on("error", async (error) => {
             const subLogger = getLogger("on error", logger);
@@ -129,13 +129,13 @@ export const download = (args: DownloadArgs): Promise<DownloadThunk> => {
           })
           .on("close", async () => {
             const subLogger = getLogger("on close", logger);
-            if (args.job.status !== JobStatus.Canceled) {
+            if (args.job.status !== JobStatus.Canceled) 
               if (typeof onCompletion === "function") {
                 subLogger.debug("Call onCompletion");
                 await onCompletion(null, args.job);
                 subLogger.debug("Done");
               }
-            }
+            
           });
       
         const thunk = {
@@ -151,11 +151,11 @@ export const download = (args: DownloadArgs): Promise<DownloadThunk> => {
         resolve(thunk);
       }
       
-      if (isUpdating) {
+      if (isUpdating) 
         subscriptionId = await getPubSub().subscribe(Topic.YTDLUpdateComplete, actualDownload, {});
-      } else {
+       else 
         actualDownload();
-      }
+      
     } catch (error) {
       reject(error);
     }
@@ -168,13 +168,13 @@ export const getYTDLVersion = (): Promise<string> => {
   const logger = getLogger("getYTDLVersion", rootLogger);
   return new Promise((resolve, reject) => {
     execFile(ytdlPath, ["--version"], (error, stdOut, stdError) => {
-      if (stdOut.length) {
+      if (stdOut.length) 
         resolve(stdOut.toString());
-      }
+      
 
-      if (stdError?.length) {
+      if (stdError?.length) 
         logger.error("Error while updating YTDL.", stdError.toString());
-      }
+      
 
       if (error) {
         logger.error("Error while updating YTDL.", error);
@@ -195,13 +195,13 @@ const doUpdate = (): Promise<void> => {
       isUpdating = false;
       // line up the next update.
       setTimeout(doUpdate, UpdateFrequencyDays * 86400000); // Magic number alert. 86400000 = 24 * 60 * 60 * 1000
-      if (stdOut.length) {
+      if (stdOut.length) 
         logger.info("yt-dlp -U output:\n", stdOut.toString());
-      }
+      
 
-      if (stdError?.length) {
+      if (stdError?.length) 
         logger.error("Error updating yt-dlp.", stdError.toString());
-      }
+      
 
       if (error) {
         logger.error("Error updating yt-dlp.", error);

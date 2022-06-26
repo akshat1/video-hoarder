@@ -42,13 +42,13 @@ export const JobProgress:React.FunctionComponent<Props> = (props) => {
         </div>
       </div>
     );
-  } else if (job.status === JobStatus.Pending) {
+  } else if (job.status === JobStatus.Pending) 
     return (
       <div className={`${classes.root} ${classes.inProgress}`}>
         <LinearProgress />
       </div>
     );
-  }
+  
 
   // Don't render anything for completed or failed jobs.
   return null;

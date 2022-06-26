@@ -66,17 +66,17 @@ const validateRule = (rule: DownloadLocationRule): boolean => {
   const hasMatch = (typeof rule.match !== "undefined") && Object.keys(rule.match).length > 0;
   const hasLocation = typeof rule.location === "string";
   const hasName = typeof rule.name === "string";
-  if (!hasName) {
+  if (!hasName) 
     throw new Error("Rule is missing a name");
-  }
+  
 
-  if (!hasLocation) {
+  if (!hasLocation) 
     throw new Error(`Rule ${rule.name} is missing the property "location".`);
-  }
+  
 
-  if (!hasMatch) {
+  if (!hasMatch) 
     throw new Error(`Rule ${rule.name} should have a valid (non-empty) match property.`);
-  }
+  
 
   return true;
 }
@@ -107,41 +107,41 @@ const isMatchingRule = (rule: DownloadLocationRule, user: User, metadata: YTMeta
     uploader,
   } = metadata;
 
-  if (match.channel) {
-    if (!matchValues(match.channel, channel)) {
+  if (match.channel) 
+    if (!matchValues(match.channel, channel)) 
       return false;
-    }
-  }
+    
+  
 
-  if (match.extractor) {
-    if (!matchValues(match.extractor, extractor)) {
+  if (match.extractor) 
+    if (!matchValues(match.extractor, extractor)) 
       return false;
-    }
-  }
+    
+  
 
-  if (match.fulltitle) {
-    if (!matchValues(match.fulltitle, fulltitle)) {
+  if (match.fulltitle) 
+    if (!matchValues(match.fulltitle, fulltitle)) 
       return false;
-    }
-  }
+    
+  
 
-  if (match.hostname) {
-    if (!matchValues(match.hostname, new URL(webpageUrl).hostname)) {
+  if (match.hostname) 
+    if (!matchValues(match.hostname, new URL(webpageUrl).hostname)) 
       return false;
-    }
-  }
+    
+  
 
-  if (match.title) {
-    if (!matchValues(match.title, title)) {
+  if (match.title) 
+    if (!matchValues(match.title, title)) 
       return false;
-    }
-  }
+    
+  
 
-  if (match.uploader) {
-    if (!matchValues(match.uploader, uploader)) {
+  if (match.uploader) 
+    if (!matchValues(match.uploader, uploader)) 
       return false;
-    }
-  }
+    
+  
 
   // No mismatches mean a match
   // Which further means that an empty match object would match everything
@@ -186,9 +186,9 @@ export const getDownloadLocation = async (metadata: YTMetadata, user: User): Pro
   }
   rules.forEach(validateRule);
   const customLocation = getCustomDownloadLocation(rules, user, metadata);
-  if (customLocation) {
+  if (customLocation) 
     pathElements.push(customLocation);
-  }
+  
 
   // Ensure the target directory exists.
   const directoryPath = path.join(...pathElements);

@@ -93,13 +93,13 @@ export const UserSettings:FunctionComponent = () => {
   
   const classes = useStyles();
 
-  if (loadingUsers || loadingCurrentUser) {
+  if (loadingUsers || loadingCurrentUser) 
     return (
       <div className={classes.userSettingsRoot}>
         <CircularProgress />
       </div>
     );
-  } else if (usersError || currentUserError) {
+   else if (usersError || currentUserError) {
     const logger = getLogger("UserSettings");
     usersError && logger.error(usersError);
     currentUserError && logger.error(currentUserError);
@@ -110,7 +110,7 @@ export const UserSettings:FunctionComponent = () => {
         {currentUserError && <Typography color="error">{currentUserError.message}</Typography>}
       </div>
     );
-  } else if (usersResponse?.users) {
+  } else if (usersResponse?.users) 
     return (
       <div className={classes.userSettingsRoot}>
         <Box className={classes.buttonContainer}>
@@ -138,5 +138,5 @@ export const UserSettings:FunctionComponent = () => {
         />
       </div>
     );
-  }
+  
 };

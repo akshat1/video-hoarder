@@ -29,21 +29,21 @@ export const ItemList:FunctionComponent = () => {
   let errorElement = null;
   let jobElements = [];
 
-  if (fetchingJobs) {
+  if (fetchingJobs) 
     loadingElement = <>Loading</>;
-  }
+  
 
-  if (jobFetchingError) {
+  if (jobFetchingError) 
     errorElement = <>Error</>;
-  }
+  
 
-  if (!(fetchingJobs && jobFetchingError)) {
+  if (!(fetchingJobs && jobFetchingError)) 
     jobElements = jobs.map(j =>
       <Grid item xs={12} key={j.id}>
         <Item job={j}/>
       </Grid>
     );
-  }
+  
 
   return (
     <Grid container spacing={2}>

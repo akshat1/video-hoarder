@@ -81,14 +81,14 @@ export class UserResolver {
       userName,
     } = data;
 
-    if (currentUser.role !== Role.Admin) {
+    if (currentUser.role !== Role.Admin) 
       throw new Error("Insufficient privilege to create new user.");
-    }
+    
 
     const existingUser = await User.findOne({ where: { userName } });
-    if (existingUser) {
+    if (existingUser) 
       throw new Error("User already exists");
-    }
+    
 
     const newUser = await createUser({
       password,
@@ -102,13 +102,13 @@ export class UserResolver {
   @Mutation(() => Boolean)
   async deleteUser(@Arg("userId") userId: string, @Ctx() context: Context): Promise<Boolean> {
     const currentUser = context.getUser();
-    if (currentUser.role !== Role.Admin) {
+    if (currentUser.role !== Role.Admin) 
       throw new Error("Insufficient privilege to create new user.");
-    }
+    
 
-    if (currentUser.id === userId) {
+    if (currentUser.id === userId) 
       throw new Error("Can't delete oneself.");
-    }
+    
 
     const user = await User.findOne({ where: { id: userId } });
     if (user) {
@@ -127,14 +127,14 @@ export class UserResolver {
       newPasswordDeux,
     } = data;
 
-    if (newPassword !== newPasswordDeux) {
+    if (newPassword !== newPasswordDeux) 
       throw new Error(ENEWPASSWORDMISMATCH);
-    }
+    
 
     const currentUser = await context.getUser();
-    if (!currentUser) {
+    if (!currentUser) 
       throw new Error(ENOUSER);
-    }
+    
 
     const { user: authenticatedUser } = await context.authenticate(
       "graphql-local",
@@ -146,9 +146,9 @@ export class UserResolver {
       }
     ) as AuthenticateResult;
 
-    if (!authenticatedUser) {
+    if (!authenticatedUser) 
       throw new Error(EINCORRECTPASSWORD);
-    }
+    
 
     // At this point we know that
     // 1. current password is correct.

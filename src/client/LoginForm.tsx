@@ -66,7 +66,7 @@ export const LoginForm:FunctionComponent<PropTypes> = ({ error }) => {
 
   // Render
   let errorDisplay;
-  if (error || loginError) {
+  if (error || loginError) 
     errorDisplay = (
       <Typography
         className={classes.loginError}
@@ -75,7 +75,7 @@ export const LoginForm:FunctionComponent<PropTypes> = ({ error }) => {
         {(error || loginError).message}
       </Typography>
     )
-  }
+  
 
   return (
     <Container

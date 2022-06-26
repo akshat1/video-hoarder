@@ -62,11 +62,11 @@ export const Home:FunctionComponent = () => {
   }
 
   const debouncedFetchMetadata = _.debounce((ytURL) => {
-    if (ytURL) {
+    if (ytURL) 
       fetchMetadata({
         variables: { url: ytURL },
       });
-    }
+    
   }, 250);
 
   const onInputURLChange:ChangeEventHandler<HTMLInputElement> = (event) => {
