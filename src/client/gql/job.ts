@@ -134,6 +134,12 @@ export const RemoveJob = gql`
   }
 `;
 
+export const RemoveAllDoneJobs = gql`
+  mutation removeAllDoneJobs {
+    removeAllDoneJobs
+  }
+`;
+
 export const JobRemoved = gql`
   subscription OnJobRemoved {
     jobRemoved

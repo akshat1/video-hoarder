@@ -1,5 +1,7 @@
 import { DownloadOptionsInput, Job, JobStatus } from "../../../model/Job";
+import { Role } from "../../../model/Role";
 import { Topic } from "../../../model/Topic";
+import { User } from "../../../model/User";
 import { getLogger } from "../../../shared/logger";
 import { canDelete } from "../../../shared/perms";
 import { EINSUFFICIENTPERMS, ENOUSER } from "../../errors";
@@ -138,6 +140,27 @@ export class JobResolver {
       }
 
       return 0;
+    }
+
+    throw new Error(ENOUSER);
+  }
+
+  @Mutation(() => Number)
+  async removeAllDoneJobs(@Ctx() context: Context): Promise<Number> {
+    const currentUser = await context.getUser() as User;
+    if (currentUser) {
+      const searchQuery: Record<string, any> = [
+        { status: JobStatus.Completed },
+        { status: JobStatus.Canceled },
+        { status: JobStatus.Failed },
+      ];
+
+      if (currentUser.role !== Role.Admin)
+        searchQuery.createdBy = currentUser.userName;
+      const jobs = await Job.find({ where: searchQuery });
+      for (const job of jobs) 
+        await job.remove();
+      return jobs.length;
     }
 
     throw new Error(ENOUSER);
