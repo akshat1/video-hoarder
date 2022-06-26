@@ -6,7 +6,11 @@ import _ from "lodash";
 import React, { FunctionComponent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const Toolbar:FunctionComponent = () => {
+interface ToolbarProps {
+  className?: string;
+}
+
+export const Toolbar:FunctionComponent<ToolbarProps> = ({ className }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const backButtonEnabled = pathname !== "/";
@@ -24,7 +28,7 @@ export const Toolbar:FunctionComponent = () => {
   const handleLogoutClick = _.debounce(() => doLogout(), 250);
 
   return (
-    <MUIToolbar>
+    <MUIToolbar className={className}>
       <IconButton
         aria-label="Go back"
         color="inherit"

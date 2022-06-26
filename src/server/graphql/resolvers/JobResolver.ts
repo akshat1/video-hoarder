@@ -1,8 +1,8 @@
 import { DownloadOptionsInput, Job, JobStatus } from "../../../model/Job";
 import { Topic } from "../../../model/Topic";
+import { getLogger } from "../../../shared/logger";
+import { canDelete } from "../../../shared/perms";
 import { EINSUFFICIENTPERMS, ENOUSER } from "../../errors";
-import { getLogger } from "../../logger";
-import { canDelete } from "../../perms";
 import { getPubSub } from "../../pubsub";
 import { fetchMetadata } from "../../youtube";
 import { Context } from "@apollo/client";
@@ -63,9 +63,9 @@ export class JobResolver {
     } = data;
 
     const user = await context.getUser();
-    if (!user) {
+    if (!user) 
       throw new Error(ENOUSER);
-    }
+    
 
     const { userName } = user; 
     const timeStamp = new Date();

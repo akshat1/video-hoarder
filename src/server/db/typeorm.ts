@@ -2,7 +2,7 @@ import { Job } from "../../model/Job";
 import { Role } from "../../model/Role";
 import { Session } from "../../model/Session";
 import { User } from "../../model/User";
-import { getLogger } from "../logger";
+import { getLogger } from "../../shared/logger";
 import { createUser, getUserByName } from "./userManagement";
 import pgtools from "pgtools";
 import { DataSource, DataSourceOptions } from "typeorm";
@@ -72,9 +72,9 @@ export const initialize = async (): Promise<void> => {
   await getDataSource();
   logger.debug("do we have an admin?");
   const adminUser = await getUserByName("admin");
-  if (adminUser) {
+  if (adminUser) 
     logger.debug("Yes");
-  } else {
+   else {
     logger.info("No. Create an admin user.");
     await createUser({
       passwordExpired: false,

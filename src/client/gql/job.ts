@@ -1,3 +1,4 @@
+import { Job } from "../../model/Job";
 import { gql } from "@apollo/client";
 
 export const YTMetadata = gql`
@@ -154,3 +155,7 @@ export const JobUpdated = gql`
     }
   }
 `;
+
+export interface JobsQueryResponse {
+  jobs: Job[];
+}

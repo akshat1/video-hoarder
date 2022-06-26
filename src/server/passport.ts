@@ -1,7 +1,7 @@
 import { User } from "../model/User";
+import { getLogger } from "../shared/logger";
 import { hash } from "./crypto";
 import { getUserByName } from "./db/userManagement";
-import { getLogger } from "./logger";
 
 const rootLogger = getLogger("passport");
 const MessageIncorrectLogin = "Incorrect username or password.";

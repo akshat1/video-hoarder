@@ -1,4 +1,6 @@
+import { verticalFlexBox } from "./cssUtils";
 import {Query } from "./gql";
+import { CurrentUserResponse } from "./gql/user";
 import { Home } from "./Home";
 import { LoginForm } from "./LoginForm";
 import { Settings as SettingsPage } from "./Settings";
@@ -11,29 +13,34 @@ import { Route, Routes } from "react-router-dom";
 
 const useStyles = makeStyles((theme:Theme) => ({
   root: {
+    ...verticalFlexBox(),
     height: "100vh",
     padding: 0,
   },
 
+  toolbar: {},
+
   view: {
+    ...verticalFlexBox(),
     padding: theme.spacing(2),
+    flexGrow: 1,
   },
 }));
 
 export const Main:FunctionComponent = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(Query.CurrentUser);
-  const loggedIn = !!data?.currentUser?.user;
+  const { loading, error, data } = useQuery<CurrentUserResponse>(Query.CurrentUser);
+  const loggedIn = !!data?.currentUser;
 
-  if (loading) {
+  if (loading) 
     return <h1>Loading...</h1>;
-  }
+  
 
   const loggedOutView = <LoginForm error={error} />;
   
   const loggedInView = (
     <Fragment>
-      <Toolbar />
+      <Toolbar className={classes.toolbar} />
       <Container className={classes.view}>
         <Routes>
           <Route path="/" element={<Home />} />

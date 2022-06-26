@@ -27,9 +27,9 @@ export class YouTubeResolver {
   async metadataAndOptions(@Arg("url") url: string, @Ctx() context: Context): Promise<MetadataAndOptions> {
     const metadata = await fetchMetadata(url);
     const user = await context.getUser();
-    if (!user) {
+    if (!user) 
       throw new Error(ENOUSER);
-    }
+    
 
     const downloadOptions: DownloadOptions = {
       downloadLocation: await getDownloadLocation(metadata, user),

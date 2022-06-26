@@ -1,4 +1,4 @@
-import { getLogger } from "../server/logger";
+import { getLogger } from "../shared/logger";
 import { App } from "./App";
 import { getApolloClientCache } from "./getApolloClientCache";
 import { getTheme } from "./theme";
@@ -13,20 +13,20 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 const logger = getLogger("index");
 
-if ("serviceWorker" in navigator) {
+if ("serviceWorker" in navigator) 
   window.addEventListener("load", async () => {
     try {
       const registration = navigator.serviceWorker.register("/service-worker.js");
-      if (registration) {
+      if (registration) 
         logger.debug("Service worker registered.");
-      } else {
+       else 
         logger.debug("Failed to register service-worker.");
-      }
+      
     } catch (error) {
       logger.error("Error registering service-worker.", error);
     }
   });
-}
+
 
 declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

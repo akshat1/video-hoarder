@@ -1,12 +1,11 @@
 import { DownloadOptionsInput } from "../model/Job";
 import { YTMetadata } from "../model/YouTube";
-import { getLogger } from "../server/logger";
+import { getLogger } from "../shared/logger";
 import { DownloadOptions } from "./DownloadOptions";
 import { Mutation, Query } from "./gql";
 import { InputForm } from "./InputForm";
 import { ItemList } from "./ItemList";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { logMissingFieldErrors } from "@apollo/client/core/ObservableQuery";
 import { Collapse, Theme  } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import _ from "lodash";
@@ -63,11 +62,11 @@ export const Home:FunctionComponent = () => {
   }
 
   const debouncedFetchMetadata = _.debounce((ytURL) => {
-    if (ytURL) {
+    if (ytURL) 
       fetchMetadata({
         variables: { url: ytURL },
       });
-    }
+    
   }, 250);
 
   const onInputURLChange:ChangeEventHandler<HTMLInputElement> = (event) => {

@@ -12,17 +12,19 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
   ],
   rules: {
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "comma-dangle": ["error", "always-multiline"],
     "import/default": "error",
     "import/extensions": ["error", "never"],
     "import/named": "error",
     "import/no-absolute-path": "error",
     "import/no-default-export": "error",
+    "no-useless-escape": "off",
     "simple-import-sort/imports": ["error", { groups: [] }],
     quotes: ["error", "double"],
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/ban-types": "off",
+    curly: ["error", "multi"],
   },
   settings: {
     "import/resolver": {

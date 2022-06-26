@@ -37,9 +37,9 @@ export const PasswordResetForm:FunctionComponent = () => {
   const isDisabled = logoutThunk.loading || changePasswordThunk.loading || !(currentPassword && newPassword && (newPassword === newPasswordDeux));  
   const newPasswordError = newPassword !== newPasswordDeux ? "Both the new password fields must match." : null;
   let changePasswordError = null;
-  if (changePasswordThunk.error) {
+  if (changePasswordThunk.error) 
     changePasswordError = <Typography className={classes.serverError}>{changePasswordThunk.error.message}</Typography>;
-  }
+  
   
   const onCurrentPasswordChanged:ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (evt) => setCurrentPassword(evt.target.value);
   const onNewPasswordChanged:ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (evt) => setNewPassword(evt.target.value);
@@ -56,9 +56,9 @@ export const PasswordResetForm:FunctionComponent = () => {
         },
       },
     });
-    if (success) {
+    if (success) 
       await doLogout();
-    }
+    
   };
 
   return (

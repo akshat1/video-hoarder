@@ -2,7 +2,7 @@
  * Centralised logic for obtaining various internal URLs. Shared between server and client environments.
  */
 
-import { getLogger } from "./logger";
+import { getLogger } from "../shared/logger";
 
 const logger = getLogger("appUrls");
 
