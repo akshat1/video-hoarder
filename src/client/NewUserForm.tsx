@@ -89,7 +89,6 @@ const evaluateFormValues = (args: EvaluateFormValuesArgs) => {
   }
 
   if (passwordOne !== passwordTwo) {
-    console.log(">>", passwordOne, passwordTwo, passwordOne == passwordTwo, passwordOne === passwordTwo);
     setState({
       ...state,
       submitDisabled: true,

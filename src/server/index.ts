@@ -1,10 +1,10 @@
 import { Session } from "../model/Session";
 import { User } from "../model/User";
+import { getLogger } from "../shared/logger";
 import { getAppPort, getCORSOrigin, getServerURL } from "./appUrls";
 import { getRouter } from "./config-endpoint";
 import { getDataSource, initialize as initializeDB } from "./db/typeorm";
 import { resolvers } from "./graphql/resolvers";
-import { getLogger } from "../shared/logger";
 import { deserializeUser, serializeUser, verifyUser } from "./passport";
 import { getPubSub } from "./pubsub";
 import { pickUpPendingJobs } from "./YTQueue";

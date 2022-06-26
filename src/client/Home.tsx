@@ -6,7 +6,6 @@ import { Mutation, Query } from "./gql";
 import { InputForm } from "./InputForm";
 import { ItemList } from "./ItemList";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { logMissingFieldErrors } from "@apollo/client/core/ObservableQuery";
 import { Collapse, Theme  } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import _ from "lodash";

@@ -1,28 +1,40 @@
+/**
+ * @TODO Handle delete user errors (through error notifications / bar or something).
+ */
 import { User } from "../model/User";
 import { getLogger } from "../shared/logger";
 import { verticalFlexBox } from "./cssUtils";
-import { Query } from "./gql";
+import { Mutation, Query } from "./gql";
 import { CurrentUserResponse, UsersResponse } from "./gql/user";
 import { NewUserForm } from "./NewUserForm";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Add, Delete, Error, Person } from "@mui/icons-material";
 import { Avatar, Box, Button, CircularProgress, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { FunctionComponent, MouseEventHandler, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 
 interface UserListProps {
-  users: User[];
-  onDelete?: MouseEventHandler;
+  busy: boolean,
   className?: string;
   currentUser: User;
+  onDelete?: (userId: string) => void;
+  users: User[];
 }
 
-const UserList:FunctionComponent<UserListProps> = ({ users, onDelete, className, currentUser }) => {
+const UserList:FunctionComponent<UserListProps> = (props) => {
+  const {
+    busy,
+    className,
+    currentUser,
+    onDelete,
+    users,
+  } = props;
   const getDeleteButton = (user: User) => {
     if (currentUser.id !== user.id) {
+      const icon = busy ? <CircularProgress /> : <Delete />;
       return (
-        <IconButton edge="end" aria-label="Delete" onClick={onDelete}>
-          <Delete />
+        <IconButton edge="end" aria-label="Delete" onClick={() => onDelete(user.id)} disabled={busy}>
+          {icon}
         </IconButton>
       );
     }
@@ -69,10 +81,15 @@ export const UserSettings:FunctionComponent = () => {
     error: currentUserError,
     loading: loadingCurrentUser,
   } = useQuery<CurrentUserResponse>(Query.CurrentUser);
+  const [doDeleteUser, deleteUserThunk] = useMutation(Mutation.DeleteUser, {
+    refetchQueries: [{ query: Query.Users }, "Users"],
+  });
   const [newUserDialogOpen, setNewUserDialogOpen] = useState(false);
   const handleNewUserDialogClose = () => setNewUserDialogOpen(false);
   const handleUserAddition = () => setNewUserDialogOpen(false);
   const showNewUserDialog = () => setNewUserDialogOpen(true);
+  const handleDeleteButtonClick= (userId: string) =>
+    doDeleteUser({ variables: { userId } });
   
   const classes = useStyles();
 
@@ -113,9 +130,11 @@ export const UserSettings:FunctionComponent = () => {
           onCancel={handleNewUserDialogClose}
         />
         <UserList
+          busy={deleteUserThunk.loading}
           users={usersResponse.users}
           className={classes.userList}
           currentUser={currentUserResponse.currentUser}
+          onDelete={handleDeleteButtonClick}
         />
       </div>
     );

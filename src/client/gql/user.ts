@@ -51,6 +51,12 @@ export const CreateUser = gql`
   }
 `;
 
+export const DeleteUser = gql`
+  mutation deleteUser($userId: String!) {
+    deleteUser(userId: $userId)
+  }
+`;
+
 export interface CurrentUserResponse {
   currentUser: User;
 }

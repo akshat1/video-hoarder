@@ -100,6 +100,26 @@ export class UserResolver {
   }
 
   @Mutation(() => Boolean)
+  async deleteUser(@Arg("userId") userId: string, @Ctx() context: Context): Promise<Boolean> {
+    const currentUser = context.getUser();
+    if (currentUser.role !== Role.Admin) {
+      throw new Error("Insufficient privilege to create new user.");
+    }
+
+    if (currentUser.id === userId) {
+      throw new Error("Can't delete oneself.");
+    }
+
+    const user = await User.findOne({ where: { id: userId } });
+    if (user) {
+      await user.remove();
+      return true;
+    }
+
+    return false;
+  }
+
+  @Mutation(() => Boolean)
   async changePassword(@Arg("data") data: ChangePasswordInput, @Ctx() context: Context): Promise<Boolean> {
     const {
       currentPassword,
