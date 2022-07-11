@@ -1,11 +1,11 @@
 # Batched status updates
 
-|      |                                                                          |
-|------|--------------------------------------------------------------------------|
-|Title |Batching of job status updates provided from graphql server to the client |
-|Tags  |Client, responsiveness, network, graphql, job-status                      |
-|Status|Committed                                                                 |
-|Date  |10th July, 2022                                                           |
+|        |                                                                           |
+|--------|---------------------------------------------------------------------------|
+| Title  | Batching of job status updates provided from graphql server to the client |
+| Tags   | Client, responsiveness, network, graphql, job-status                      |
+| Status | Committed                                                                 |
+| Date   | 10th July, 2022                                                           |
 
 
 ## Problem
@@ -19,3 +19,9 @@ This setup works OK for a small number of jobs, but as soon as the number of in-
 Job status updates received from the external downloader will no longer be immediatekly put on the websocket. Instead, these updates will be gathered in a short term buffer on the server. A separate code path will periodically check the buffer for contents, and transmit them as a single websocket message if any updates are found. Any updates sent to the client will be removed from the buffer.
 
 This will make the update (and therefore repaint) frequency on the client deterministic (and lower) which in turn will give us a more responsive UI.
+
+This entails the following
+- All codepaths which emitted Topics.JobUpdated now emit Topic.JobUpdatedInternal
+- Topic.JobUpdatedInternal is consumed by job-update-batcher, to push updates into a buffer
+- job-update-batcher emits Topic.JobUpdated once every X seconds (1 for now) with updates received in the last X seconds (we keep the most recent update for each job-id)
+- Topic.JobUpdated is consumed by the JobResolver (and the client)

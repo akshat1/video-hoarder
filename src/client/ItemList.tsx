@@ -23,11 +23,15 @@ export const ItemList:FunctionComponent = () => {
   const handleCleanUpClicked = () => doCleanUp();
 
   useSubscription(Subscription.JobAdded, {
-    onSubscriptionData: () => refetchJobs(),
+    onSubscriptionData: () => {
+      refetchJobs(); // TODO: Let's do a targeted update here, instead of refetching the world.
+    },
   });
 
   useSubscription(Subscription.JobRemoved, {
-    onSubscriptionData: () => refetchJobs(),
+    onSubscriptionData: () => {
+      refetchJobs(); // TODO: Let's do a targeted update here, instead of refetching the world.
+    },
   });
 
   useSubscription(Subscription.JobUpdated);

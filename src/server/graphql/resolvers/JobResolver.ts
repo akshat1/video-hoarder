@@ -1,3 +1,4 @@
+import "../../job-update-batcher";
 import { DownloadOptionsInput, Job, JobStatus } from "../../../model/Job";
 import { Role } from "../../../model/Role";
 import { Topic } from "../../../model/Topic";
@@ -49,11 +50,11 @@ export class JobResolver {
     return jobId;
   }
 
-  @Subscription({
-    topics: Topic.JobUpdated,
+  @Subscription(() => [Job], {
+    topics: (Topic.JobUpdated),
   })
-  jobUpdated(@Root() job: Job): Job {
-    return job;
+  jobUpdated(@Root() jobs: Job[]): Job[] {
+    return jobs;
   }
 
   // TODO: Pubsub updates should happen from the event handlers in the Job model, not from mutations.
