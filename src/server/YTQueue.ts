@@ -25,7 +25,7 @@ const onCompletion = async (error: Error, job: Job): Promise<void> => {
 
   logger.debug("Saving job");
   await job.save();
-  getPubSub().publish(Topic.JobUpdated, job);
+  getPubSub().publish(Topic.JobUpdatedInternal, job);
 
   logger.debug("Done");
   thunks.delete(job.id);
@@ -34,13 +34,13 @@ const onCompletion = async (error: Error, job: Job): Promise<void> => {
 const onAbort = async (job: Job): Promise<void> => {
   job.status = JobStatus.Canceled;
   await job.save();
-  getPubSub().publish(Topic.JobUpdated, job);
+  getPubSub().publish(Topic.JobUpdatedInternal, job);
   thunks.delete(job.id);
 };
 
 const onProgress = (job: Job, progress: JobProgress): void => {
   job.progress = progress;
-  getPubSub().publish(Topic.JobUpdated, job);
+  getPubSub().publish(Topic.JobUpdatedInternal, job);
 };
 
 export const addJobToQueue = (job: Job): void => {
@@ -52,7 +52,7 @@ export const addJobToQueue = (job: Job): void => {
     job.status = JobStatus.InProgress;
     logger.debug("save...");
     await job.save();
-    getPubSub().publish(Topic.JobUpdated, job);
+    getPubSub().publish(Topic.JobUpdatedInternal, job);
     logger.debug("Call download");
     const thunk = await download({
       job,
@@ -76,7 +76,7 @@ export const removeJobFromQueue = async (job: Job): Promise<void> => {
       thunk.abort();
       job.status = JobStatus.Canceled;
       await job.save();
-      getPubSub().publish(Topic.JobUpdated, job);
+      getPubSub().publish(Topic.JobUpdatedInternal, job);
     } else 
       logger.debug("Thunk not found.");
     
