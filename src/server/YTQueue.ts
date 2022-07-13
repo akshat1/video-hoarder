@@ -8,7 +8,9 @@ import PQueue from "p-queue";
 
 const rootLogger = getLogger("YTQueue");
 const concurrency = Number(process.env.MAX_SIMULTANEOUS_DOWNLOADS || 6);
+rootLogger.debug(`Concurrency is ${concurrency}`);
 const queue = new PQueue({ concurrency });
+queue.start();
 const thunks = new Map<string, DownloadThunk>(); // map job-id to download thunk.
 
 const onCompletion = async (error: Error, job: Job): Promise<void> => {
