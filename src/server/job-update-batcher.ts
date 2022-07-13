@@ -17,7 +17,6 @@ const buffer:Map<string, Job> = new Map();
  * Listener for the Topic.JobUpdatedInternal event. This is where we update our buffer.
  */
 const onJobUpdated = (job: Job): void => {
-  rootLogger.debug("job updated:", job.id);
   // We want to retain the latest message for the job and discard older ones.
   buffer.delete(job.id);
   buffer.set(job.id, job);

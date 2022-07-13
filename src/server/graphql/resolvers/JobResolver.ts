@@ -4,7 +4,7 @@ import { Role } from "../../../model/Role";
 import { Topic } from "../../../model/Topic";
 import { User } from "../../../model/User";
 import { getLogger } from "../../../shared/logger";
-import { canDelete } from "../../../shared/perms";
+import { canDelete, canSee } from "../../../shared/perms";
 import { EINSUFFICIENTPERMS, ENOUSER } from "../../errors";
 import { getPubSub } from "../../pubsub";
 import { fetchMetadata } from "../../youtube";
@@ -26,18 +26,20 @@ export class AddJobInput {
 @Resolver()
 export class JobResolver {
   @Query(() => [Job])
-  async jobs(): Promise<Job[]> {
+  async jobs(@Ctx() context: Context): Promise<Job[]> {
+    const user = await context.getUser();
     const jobs = await Job.find({
       order: {
         updatedAt: "DESC",
       },
     });
 
-    return jobs;
+    return jobs.filter(job => canSee(user, job));
   }
 
   @Subscription({
     topics: Topic.JobAdded,
+    filter: ({ payload: job, context }) => canSee(context?.req?.user, job),
   })
   jobAdded(@Root() job: Job): Job {
     return job;
@@ -45,16 +47,21 @@ export class JobResolver {
 
   @Subscription({
     topics: Topic.JobRemoved,
+    filter: ({ payload: job, context }) => canSee(context?.req?.user, job),
   })
-  jobRemoved(@Root() jobId: string): string {
-    return jobId;
+  jobRemoved(@Root() job: Job): String {
+    return job.id;
   }
 
   @Subscription(() => [Job], {
     topics: (Topic.JobUpdated),
   })
-  jobUpdated(@Root() jobs: Job[]): Job[] {
-    return jobs;
+  jobUpdated(@Root() jobs: Job[], @Ctx() context: Context): Job[] {
+    const user = context.req.user;
+    if (user)
+       return jobs.filter(job => canSee(user, job));
+
+    return [];
   }
 
   // TODO: Pubsub updates should happen from the event handlers in the Job model, not from mutations.
@@ -159,7 +166,7 @@ export class JobResolver {
       if (currentUser.role !== Role.Admin)
         searchQuery.createdBy = currentUser.userName;
       const jobs = await Job.find({ where: searchQuery });
-      for (const job of jobs) 
+      for (const job of jobs)
         await job.remove();
       return jobs.length;
     }
