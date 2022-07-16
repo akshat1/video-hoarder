@@ -26,3 +26,19 @@ export const horizontalFlexBox = (): CSSProperties => ({
   display: "flex",
   flexDirection: "row",
 });
+
+const ToolbarSXStub: CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  borderRadius: 1,
+  "& svg": { m: 1.5 },
+  "& hr": { mx: 0.5 },
+};
+export const toolbar = (theme: Theme): CSSProperties => ({
+  ...ToolbarSXStub,
+  border: `1px solid ${theme.palette.divider}`,
+  padding: theme.spacing(2),
+  columnGap: theme.spacing(2),
+  background: theme.palette.background.paper,
+  color: theme.palette.text.secondary,
+});

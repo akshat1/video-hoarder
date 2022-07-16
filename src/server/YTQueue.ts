@@ -7,8 +7,10 @@ import { download, DownloadThunk } from "./youtube";
 import PQueue from "p-queue";
 
 const rootLogger = getLogger("YTQueue");
-const concurrency = 1; // 6
+const concurrency = Number(process.env.MAX_SIMULTANEOUS_DOWNLOADS || 6);
+rootLogger.debug(`Concurrency is ${concurrency}`);
 const queue = new PQueue({ concurrency });
+queue.start();
 const thunks = new Map<string, DownloadThunk>(); // map job-id to download thunk.
 
 const onCompletion = async (error: Error, job: Job): Promise<void> => {
@@ -38,8 +40,10 @@ const onAbort = async (job: Job): Promise<void> => {
   thunks.delete(job.id);
 };
 
+const onProgressLogger = getLogger("onProgress", rootLogger);
 const onProgress = (job: Job, progress: JobProgress): void => {
   job.progress = progress;
+  onProgressLogger.debug(`(${job.id}) ${job.metadata?.title?.substring(0, 30)} now ${progress.percent}.`);
   getPubSub().publish(Topic.JobUpdatedInternal, job);
 };
 
