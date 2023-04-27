@@ -15,6 +15,7 @@ module.exports = {
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
     "comma-dangle": ["error", "always-multiline"],
     "import/default": "error",
     "import/extensions": ["error", "never"],

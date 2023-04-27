@@ -1,4 +1,6 @@
 import { Job } from "../../model/Job";
+import { Preset } from "../../model/Preset";
+import { PresetMatchRule } from "../../model/PresetMatchRule";
 import { Role } from "../../model/Role";
 import { Session } from "../../model/Session";
 import { User } from "../../model/User";
@@ -53,7 +55,7 @@ export const getDataSource = async (): Promise<DataSource> => {
       username: PG_USER,
       password: PG_PASSWORD,
       database: DB_NAME,
-      entities: [Job, User, Session],
+      entities: [Job, User, Session, Preset, PresetMatchRule],
       synchronize: true,
       logging: false,
     };
@@ -67,9 +69,8 @@ export const getDataSource = async (): Promise<DataSource> => {
   return dataSource;
 }
 
-export const initialize = async (): Promise<void> => {
-  const logger = getLogger("initialize", rootLogger);
-  await getDataSource();
+export const ensureUsers = async (): Promise<void> => {
+  const logger = getLogger("ensureUsers", rootLogger);
   logger.debug("do we have an admin?");
   const adminUser = await getUserByName("admin");
   if (adminUser) 
@@ -83,4 +84,33 @@ export const initialize = async (): Promise<void> => {
       role: Role.Admin,
     }, "System");
   }
+};
+
+const eapLogger = getLogger("ensureAPreset", rootLogger);
+export const ensureAPreset = async (presetName: string, presetStub: Partial<Preset>): Promise<void> => {
+  if (!(await Preset.find({ where: { name: presetName }}))) {
+    eapLogger.debug("Create preset", presetName);
+    await Preset.create(presetStub);
+    eapLogger.debug("done");
+  }
+};
+
+const expectedPresets: Partial<Preset>[] = [
+  {
+    name: "Best AV - Generic",
+    formatSelector: "bestvideo+bestaudio/best",
+  },
+];
+export const ensurePresets = async (): Promise<void> => {
+  const logger = getLogger("ensurePresets", rootLogger);
+  logger.debug("do we have a best/best?");
+  for (const preset of expectedPresets)
+    await ensureAPreset(preset.name, preset);
+};
+
+export const initialize = async (): Promise<void> => {
+  // const logger = getLogger("initialize", rootLogger);
+  await getDataSource();
+  await ensureUsers();
+  await ensurePresets();
 };

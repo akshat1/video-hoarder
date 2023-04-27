@@ -4,6 +4,7 @@ import { getJSONTransformer } from "./JSONTransformer";
 import { YTMetadata } from "./YouTube";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { VHEntity } from "./VHEntity";
 
 export enum JobStatus {
   Pending = "pending",
@@ -29,6 +30,7 @@ export class DownloadOptionsInput {
   downloadLocation: string;
 }
 
+@Entity()
 @ObjectType()
 export class DownloadOptions {
   @Field()
@@ -47,27 +49,7 @@ export class DownloadOptions {
 
 @Entity()
 @ObjectType()
-export class Job extends BaseEntity {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
-  @Field(() => Date)
-  @Column()
-  createdAt: Date;
-
-  @Field(() => String)
-  @Column()
-  createdBy: string;
-
-  @Field(() => Date)
-  @Column()
-  updatedAt: Date;
-
-  @Field(() => String)
-  @Column()
-  updatedBy: string;
-
+export class Job extends VHEntity {
   @Field(() => String, { nullable: true })
   @Column({ nullable: true })
   errorMessage?: string;
