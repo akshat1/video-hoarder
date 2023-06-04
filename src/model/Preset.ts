@@ -20,4 +20,8 @@ export class Preset extends VHEntity {
   @Field(() => String)
   @Column()
   rateLimit: string;
+
+  @Field(() => Boolean)
+  @Column()
+  private: string;
 }
