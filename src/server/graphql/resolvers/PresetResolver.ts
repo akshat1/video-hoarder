@@ -1,7 +1,7 @@
-import { Preset } from "../../model/Preset";
-import { User } from "../../model/User";
-import { getLogger } from "../../shared/logger";
-import { ENOUSER, EPRESETNAMEINUSE } from "../errors";
+import { Preset } from "../../../model/Preset";
+import { User } from "../../../model/User";
+import { getLogger } from "../../../shared/logger";
+import { ENOUSER, EPRESETNAMEINUSE } from "../../errors";
 import { Context } from "@apollo/client";
 import { Arg, Ctx, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
 
@@ -34,7 +34,7 @@ export class PresetResolver {
     logger.debug("currentUser: ", currentUser?.userName || "None!!!");
     const presets = await Preset.find({
       where: [
-        { createdBy: "admin" },
+        { createdBy: "System" },
         { createdBy: currentUser.userName },
       ],
     });
