@@ -20,6 +20,7 @@ services:
       # APP_PORT: 8080
       # EXPOSED_PORT: 443
       APP_SCHEME: http
+      ENABLE_STUDIO: true
     volumes:
       - .:/workspace
       - ~/Downloads:/workspace/downloads/admin
@@ -30,6 +31,8 @@ services:
     container_name: vh_db
     image: postgres:latest
     restart: unless-stopped
+    ports:
+      - 5432:5432
     volumes:
       - postgres-dev:/var/lib/postgresql/data
     environment:
