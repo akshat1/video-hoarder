@@ -1,12 +1,13 @@
+import { useQuery } from "@apollo/client";
 import { DownloadOptionsInput } from "../model/Job";
 import { YTMetadata } from "../model/YouTube";
 import { infoTable } from "./cssUtils";
-import { DownloadRateInput } from "./DownloadRateInput";
-import { FormatSelector } from "./FormatSelector";
+import PresetSelector from "./PresetSelector";
 import { Thumbnail } from "./Thumbnail";
 import { Grid, Link, SelectChangeEvent, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { FunctionComponent, SyntheticEvent } from "react";
+import { GetPresets } from "./gql/preset";
 
 const useStyle = makeStyles((theme: Theme) => ({
   root: {
@@ -20,7 +21,6 @@ const useStyle = makeStyles((theme: Theme) => ({
   },
   tableGrid: infoTable(theme),
   dlOptions: {
-    ...infoTable(theme, { alignItems: "center" }),
     marginTop: theme.spacing(1),
   },
 }));
@@ -39,18 +39,13 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
   } = props;
 
   const classes = useStyle();
-  const onFormatChange = (event: SelectChangeEvent) => {
-    onChange({
-      ...options,
-      formatSelector: event.target.value,
-    });
-  };
-  const onRateLimitChange = (event: SyntheticEvent, newValue: any) => {
-    onChange({
-      ...options,
-      rateLimit: newValue,
-    });
-  };
+
+  // Temporarily, we obtain a list of presets from the server in order to set a default preset value. Eventually, we
+  // will have a matching preset will be returned as part of download metadata from the server.
+  const { loading, error, data } = useQuery(GetPresets);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
   return (
     <Grid container spacing={3} className={classes.root}>
@@ -58,15 +53,7 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
         <Typography variant="h4">{metadata.title}</Typography>
       </Grid>
       <Grid item sm={12} md={8} className={classes.dlOptions}>
-        <Typography>Download format</Typography>
-        <FormatSelector
-          value={options.formatSelector}
-          onChange={onFormatChange}
-        />
-        <Typography>Download rate limit</Typography>
-        <DownloadRateInput value={options.rateLimit} onChange={onRateLimitChange}/>
-        <Typography>Download location</Typography>
-        <Typography>{options.downloadLocation}</Typography>
+        <PresetSelector value={data.presets[0]?.id} />
       </Grid>
       <Grid item sm={12} md={4} className={classes.meta}>
         <Thumbnail

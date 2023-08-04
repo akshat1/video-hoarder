@@ -1,6 +1,7 @@
-import { Field, ID } from "type-graphql";
+import { Field, ID, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
+@ObjectType()
 @Entity()
 export class VHEntity extends BaseEntity {
   @Field(() => ID)

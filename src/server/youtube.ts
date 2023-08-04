@@ -96,12 +96,15 @@ export const download = (args: DownloadArgs): Promise<DownloadThunk> => {
         const controller = new AbortController();
         const dlArgs = [
           url,
-          "-f", formatSelector,
           "-o", downloadLocation,
           "--restrict-filenames",
         ];
+
+        if (formatSelector && formatSelector !== "best") {
+          dlArgs.push("-f", formatSelector);
+        }
       
-        if (typeof rateLimit === "string" && rateLimit !== RateUnlimited) 
+        if (rateLimit && rateLimit !== RateUnlimited) 
           dlArgs.push("-r", rateLimit);
         
       

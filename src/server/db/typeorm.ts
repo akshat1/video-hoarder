@@ -5,6 +5,7 @@ import { Role } from "../../model/Role";
 import { Session } from "../../model/Session";
 import { User } from "../../model/User";
 import { getLogger } from "../../shared/logger";
+import { createPreset } from "./presetManagement";
 import { createUser, getUserByName } from "./userManagement";
 import pgtools from "pgtools";
 import { DataSource, DataSourceOptions } from "typeorm";
@@ -88,9 +89,9 @@ export const ensureUsers = async (): Promise<void> => {
 
 const eapLogger = getLogger("ensureAPreset", rootLogger);
 export const ensureAPreset = async (presetName: string, presetStub: Partial<Preset>): Promise<void> => {
-  if (!(await Preset.find({ where: { name: presetName }}))) {
+  if (!(await Preset.findOne({ where: { name: presetName }}))) {
     eapLogger.debug("Create preset", presetName);
-    await Preset.create(presetStub);
+    await createPreset(presetStub, "System");
     eapLogger.debug("done");
   }
 };
@@ -98,14 +99,19 @@ export const ensureAPreset = async (presetName: string, presetStub: Partial<Pres
 const expectedPresets: Partial<Preset>[] = [
   {
     name: "Best AV - Generic",
-    formatSelector: "bestvideo+bestaudio/best",
+  },
+  {
+    name: "Best Audio Only",
+    formatSelector: "bestaudio",
   },
 ];
 export const ensurePresets = async (): Promise<void> => {
   const logger = getLogger("ensurePresets", rootLogger);
-  logger.debug("do we have a best/best?");
-  for (const preset of expectedPresets)
+  logger.debug(`Ensure ${expectedPresets.length} presets.`);
+  for (const preset of expectedPresets) {
+    logger.debug(preset);
     await ensureAPreset(preset.name, preset);
+  }
 };
 
 export const initialize = async (): Promise<void> => {
