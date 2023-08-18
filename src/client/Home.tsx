@@ -105,12 +105,25 @@ export const Home:FunctionComponent = () => {
     const optionsResponse = _.get(metadataResponse, "metadataAndOptions.downloadOptions", null);
     const newOptions = optionsResponse ? _.pick(
       optionsResponse,
-      "formatSelector", "rateLimit", "downloadLocation"
+      "formatSelector", "rateLimit", "downloadLocation", "presetId",
     ) : null;
     // apollo adds __typename to downloaded object, and complains if you send the same property back since it's
     // not part of the schema that's why I'm using _.pick instead of simply using response.downloadOptions.
     setDownloadOptions(newOptions);
   }, [metadataResponse]);
+
+  let downloadOptionsEl;
+  if (downloadOptions && metadata) {
+    console.log("Download Options");
+    downloadOptionsEl = (<DownloadOptions
+      metadata={metadata}
+      onChange={setDownloadOptions}
+      presetId={downloadOptions.presetId}/>
+    );
+  } else {
+    console.log({ downloadOptions, metadata });
+    downloadOptionsEl = <h1>FUUUUUUUUUUUU</h1>;
+  }
 
   return (
     <Fragment>
@@ -123,7 +136,7 @@ export const Home:FunctionComponent = () => {
         busy={metadataThunk.loading || addJobThunk.loading}
       />
       <Collapse in={!!metadata} className={classes.metadataContainer}>
-        {downloadOptions && metadata && <DownloadOptions options={downloadOptions} metadata={metadata} onChange={setDownloadOptions}/>}
+        {downloadOptionsEl}
       </Collapse>
       <Collapse in={!metadata}>
         <ItemList />

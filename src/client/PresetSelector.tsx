@@ -1,22 +1,21 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
-import { GetPresets } from './gql/preset';
 import { Preset } from '../model/Preset';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 interface PresetSelectorProps {
+  presets: Preset[];
   value: string;
   onChange?: (event: SelectChangeEvent, child: React.ReactNode) => void;
 }
 
-const PresetSelector:React.FunctionComponent<PresetSelectorProps>  = ({ value, onChange }) => {
-  const { loading, error, data } = useQuery(GetPresets);
+const PresetSelector:React.FunctionComponent<PresetSelectorProps>  = (props) => {
+  const {
+    onChange,
+    presets,
+    value,
+  } = props;
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
-  // At this point we know we have data
-  const menuItems = data.presets.map((preset: Preset) => <MenuItem value={preset.id} key={preset.id}>{preset.name}</MenuItem>);
+  const menuItems = presets.map((preset: Preset) => <MenuItem value={preset.id} key={preset.id}>{preset.name}</MenuItem>);
 
   return (
     <FormControl fullWidth>

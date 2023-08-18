@@ -42,6 +42,12 @@ export class PresetResolver {
     return presets;
   }
 
+  @Query(() => Preset)
+  async preset(@Arg("id") id: string): Promise<Preset> {
+    const preset = await Preset.findOne({ where: { id } });
+    return preset;
+  }
+
   @Mutation(() => String)
   async savePreset(@Arg("data") preset: PresetInput, @Ctx() context: Context): Promise<String> {
     const currentUser = await context.getUser() as User;

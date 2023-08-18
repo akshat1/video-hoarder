@@ -23,5 +23,5 @@ export class Preset extends VHEntity {
 
   @Field(() => Boolean)
   @Column()
-  isPrivate: string;
+  isPrivate: boolean;
 }

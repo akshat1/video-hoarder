@@ -53,6 +53,7 @@ export const MetadataAndOptions = gql`
         formatSelector
         rateLimit
         downloadLocation
+        presetId
       }
     }
   }

@@ -28,6 +28,9 @@ export class DownloadOptionsInput {
   // At the moment it's not user editable through the UI (but CAN be controlled by the user through config/location.yml).
   @Field(() => String)
   downloadLocation: string;
+
+  @Field(() => String)
+  presetId: string;
 }
 
 @Entity()
@@ -45,6 +48,9 @@ export class DownloadOptions {
 
   @Field(() => String)
   downloadLocation: string;
+
+  @Field(() => String)
+  presetId: string;
 }
 
 @Entity()

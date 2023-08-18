@@ -1,4 +1,5 @@
 import { DownloadOptions, RateUnlimited } from "../../../model/Job";
+import { Preset } from "../../../model/Preset";
 import { YTFormat, YTMetadata } from "../../../model/YouTube";
 import { getDownloadLocation } from "../../downloadLocation";
 import { ENOUSER } from "../../errors";
@@ -35,6 +36,8 @@ export class YouTubeResolver {
       downloadLocation: await getDownloadLocation(metadata, user),
       formatSelector: YTFormat.BestBestMerged.formatId,
       rateLimit: RateUnlimited,
+      // TODO: Change this once we have scripted matching up and running.
+      presetId: (await Preset.find())[0].id,
     };
 
     return {
