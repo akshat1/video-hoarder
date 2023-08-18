@@ -23,7 +23,7 @@ const useStyle = makeStyles((theme: Theme) => ({
   meta: {
     borderLeft: `1px solid ${theme.palette.divider}`,
   },
-  tableGrid: infoTable(theme),
+  tableGrid: infoTable(theme, { alignItems: "end" } ),
   dlOptions: {
     marginTop: theme.spacing(1),
   },
