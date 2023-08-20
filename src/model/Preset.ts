@@ -1,5 +1,5 @@
 import { VHEntity } from "./VHEntity";
-import { Field, ObjectType } from "type-graphql";
+import { Field, InputType, ObjectType } from "type-graphql";
 import { Column, Entity } from "typeorm";
 
 @ObjectType()
@@ -24,4 +24,22 @@ export class Preset extends VHEntity {
   @Field(() => Boolean)
   @Column()
   isPrivate: boolean;
+}
+
+@InputType()
+export class PresetInput {
+  @Field()
+  name: string;
+  @Field()
+  downloadLocation: string;
+  @Field()
+  formatSelector: string;
+  @Field()
+  rateLimit: string;
+  @Field()
+  isPrivate: boolean;
+  @Field()
+  saveMetadata: boolean;
+  @Field()
+  generateNFO: boolean;
 }

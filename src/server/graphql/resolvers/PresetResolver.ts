@@ -1,27 +1,9 @@
-import { Preset } from "../../../model/Preset";
+import { Preset, PresetInput } from "../../../model/Preset";
 import { User } from "../../../model/User";
 import { getLogger } from "../../../shared/logger";
 import { ENOUSER, EPRESETNAMEINUSE } from "../../errors";
 import { Context } from "@apollo/client";
 import { Arg, Ctx, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
-
-@InputType()
-class PresetInput {
-  @Field()
-  name: string;
-  @Field()
-  downloadLocation: string;
-  @Field()
-  formatSelector: string;
-  @Field()
-  rateLimit: string;
-  @Field()
-  private: boolean;
-  @Field()
-  saveMetadata: boolean;
-  @Field()
-  generateNFO: boolean;
-}
 
 const rootLogger = getLogger("PresetResolver");
 
