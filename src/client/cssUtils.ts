@@ -6,15 +6,17 @@ import _ from "lodash";
 interface Options {
   alignItems?: string;
   columnGap?: number;
+  justifyItems?: string;
   rowGap?: number;
 }
 
 export const infoTable = (theme: Theme, options?: Options): CSSProperties => ({
   alignItems: options?.alignItems || "baseline",
-  display: "grid",
   columnGap: theme.spacing(_.get(options, "columnGap", 1)),
-  rowGap: theme.spacing(_.get(options, "rowGap", 0)),
+  display: "grid",
   gridTemplateColumns: "max-content 1fr",
+  justifyItems: options?.justifyItems || "baseline",
+  rowGap: theme.spacing(_.get(options, "rowGap", 0)),
 });
 
 export const verticalFlexBox = (): CSSProperties => ({
