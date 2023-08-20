@@ -6,15 +6,11 @@ import React, { FunctionComponent } from "react";
  * @todo check for existence of audio and video before adding respective BEST formats.
  * @todo add CUSTOM option and have the component display an advanced UI when selected.
  */
-const getFormatOptions = (): YTFormat[] => {
-  const result = [
-    YTFormat.BestBestMerged,
-    YTFormat.BestAudio,
-    YTFormat.BestVideo,
-  ];
-
-  return result;
-};
+const getFormatOptions = (): YTFormat[] => [
+  YTFormat.BestBestMerged,
+  YTFormat.BestAudio,
+  YTFormat.BestVideo,
+];
 
 interface Props {
   value: string;
@@ -27,8 +23,7 @@ export const FormatSelector:FunctionComponent<Props> = (props) => {
     value,
   } = props;
 
-  const options = getFormatOptions();
-  const menuItems = options.map(({ format, formatId }) =>
+  const menuItems = getFormatOptions().map(({ format, formatId }) =>
     <MenuItem value={formatId} key={formatId}>{format}</MenuItem>
   );
 
