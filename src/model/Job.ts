@@ -1,10 +1,10 @@
 import "reflect-metadata";
 import { JobProgress } from "./JobProgress";
 import { getJSONTransformer } from "./JSONTransformer";
-import { YTMetadata } from "./YouTube";
-import { Field, ID, InputType, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { VHEntity } from "./VHEntity";
+import { YTMetadata } from "./YouTube";
+import { Field, InputType, ObjectType } from "type-graphql";
+import { Column, Entity } from "typeorm";
 
 export enum JobStatus {
   Pending = "pending",

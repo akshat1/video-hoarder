@@ -1,12 +1,16 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Slide, TextField, Theme, Typography, Checkbox } from "@mui/material";
+import { PresetInput } from "../model/Preset";
+import { YTFormat } from "../model/YouTube";
+import { getLogger } from "../shared/logger";
+import { infoTable } from "./cssUtils";
+import { DownloadRateInput } from "./DownloadRateInput";
+import { FormatSelector } from "./FormatSelector";
+import { Button, Checkbox,Dialog, DialogActions, DialogContent, DialogTitle, Slide, TextField, Theme, Typography } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
-import { infoTable } from "./cssUtils";
-import { Preset, PresetInput } from "../model/Preset";
-import { FormatSelector } from "./FormatSelector";
-import { YTFormat } from "../model/YouTube";
-import { DownloadRateInput } from "./DownloadRateInput";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
+
+const logger = getLogger("PresetEditor");
 
 type ActualTransitionProps = TransitionProps & { children: React.ReactElement; };  // Why do TransitionProps not include Children by default?
 const Transition = React.forwardRef(function Transition(props: ActualTransitionProps, ref: React.Ref<unknown>) {
@@ -15,7 +19,8 @@ const Transition = React.forwardRef(function Transition(props: ActualTransitionP
 
 interface PresetEditorProps {
   open: boolean;
-  onSave: () => void;
+  value: PresetInput | undefined;
+  onSave: (Preset) => void;
   onCancel: () => void;
 }
 
@@ -26,17 +31,22 @@ const useStyle = makeStyles((theme: Theme) => ({
   }),
   checkboxContainer: {
     justifySelf: "left",
-  }
+  },
+  locationInput: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
 }));
 
 const BlankPreset: PresetInput = {
   name: "",
   downloadLocation: "",
-  formatSelector: YTFormat.BestBestMerged.formatId,
+  // @TODO: Applicable format selectors should be returned by the Metadata response taking into account available formats.
+  formatSelector: "",
   rateLimit: "",
   isPrivate: false,
   saveMetadata: false,
-  generateNFO: false,
 };
 
 interface PresetEditorState {
@@ -45,29 +55,39 @@ interface PresetEditorState {
 }
 
 export const PresetEditor: React.FunctionComponent<PresetEditorProps> = (props) => {
+  const classes = useStyle();
+  logger.debug("props", props);
   const {
+    value = BlankPreset,
     open,
     onSave,
     onCancel,
   } = props;
 
-  const classes = useStyle();
-  const [{
-    preset,
-    isChanged,
-  }, setState] = useState({ 
-    preset: BlankPreset,
+  const [state, setState] = useState<PresetEditorState>({
+    preset: _.cloneDeep(value),  // We don't want to mutate the original value
     isChanged: false,
   });
+  useEffect(() => {
+    setState({
+      preset: _.cloneDeep(value),  // We don't want to mutate the original value
+      isChanged: false,
+    });
+  }, [value]);
 
+  const {
+    preset,
+    isChanged,
+  } = state;
+
+  logger.debug("preset in state", preset);
   const {
     name,
     downloadLocation,
-    formatSelector,
+    formatSelector = YTFormat.BestBestMerged.formatId,
     rateLimit,
     isPrivate,
     saveMetadata,
-    generateNFO,
   } = preset;
 
   const constructPreset = () => ({
@@ -77,71 +97,39 @@ export const PresetEditor: React.FunctionComponent<PresetEditorProps> = (props) 
     rateLimit,
     isPrivate,
     saveMetadata,
-    generateNFO,
   });
 
-  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const doChange = (property: string, isCheckBox: boolean = false) => {
+    return (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newPreset = constructPreset();
+      newPreset[property] = isCheckBox ? !preset[property] : event.target.value;
+      const isChanged = !_.isEqual(newPreset, preset);
+      setState({
+        preset: newPreset,
+        isChanged,
+      });
+    };
+  }
+
+  const onNameChange = doChange("name");
+  const onDownloadLocationChange = doChange("downloadLocation");
+  const onFormatSelectorChange = doChange("formatSelector");
+  const onRateLimitChange = doChange("rateLimit");
+  const onIsPrivateChange = doChange("isPrivate", true);
+  const onSaveMetadataChange = doChange("saveMetadata", true);
+
+  const doCancel = () => {
     setState({
-      preset: {
-        ...constructPreset(),
-        name: event.target.value,
-      },
-      isChanged: true,
+      preset: value,
+      isChanged: false,
     });
-  
-  const onDownloadLocationChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setState({
-      preset: {
-        ...constructPreset(),
-        downloadLocation: event.target.value,
-      },
-      isChanged: true,
-    });
-  
-  const onFormatSelectorChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setState({
-      preset: {
-        ...constructPreset(),
-        formatSelector: event.target.value,
-      },
-      isChanged: true,
-    });
-  
-  const onRateLimitChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setState({
-      preset: {
-        ...constructPreset(),
-        rateLimit: event.target.value,
-      },
-      isChanged: true,
-    });
-  
-  const onIsPrivateChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setState({
-      preset: {
-        ...constructPreset(),
-        isPrivate: !isPrivate,
-      },
-      isChanged: true,
-    });
-  
-  const onSaveMetadataChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setState({
-      preset: {
-        ...constructPreset(),
-        saveMetadata: !saveMetadata,
-      },
-      isChanged: true,
-    });
-  
-  const onGenerateNFOChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setState({
-      preset: {
-        ...constructPreset(),
-        generateNFO: !generateNFO,
-      },
-      isChanged: true,
-    });
+    onCancel();
+  };
+
+  const doSave = () => {
+    const newPreset = constructPreset();
+    onSave(newPreset);
+  };
 
   return (
     <Dialog
@@ -151,40 +139,36 @@ export const PresetEditor: React.FunctionComponent<PresetEditorProps> = (props) 
     >
       <DialogTitle>Preset Editor</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          <div className={classes.inputGrid}>
-            <Typography>Name</Typography>
-            <TextField variant="standard" value={name} onChange={onNameChange}/>
+        <div className={classes.inputGrid}>
+          <Typography>Name*</Typography>
+          <TextField variant="standard" value={name} onChange={onNameChange} />
 
-            <Typography>Download location</Typography>
-            <TextField variant="standard" value={downloadLocation} onChange={onDownloadLocationChange}/>
-
-            <Typography>Format</Typography>
-            <FormatSelector value={formatSelector} onChange={onFormatSelectorChange}/>
-
-            <Typography>Rate limit</Typography>
-            <DownloadRateInput value={rateLimit} onChange={onRateLimitChange}/>
-
-            <Typography>Private?</Typography>
-            <div className={classes.checkboxContainer}>
-              <Checkbox checked={isPrivate} onChange={onIsPrivateChange}/>
-            </div>
-
-            <Typography>Save metadata</Typography>
-            <div className={classes.checkboxContainer}>
-              <Checkbox checked={saveMetadata} onChange={onSaveMetadataChange}/>
-            </div>
-
-            <Typography>Generate NFO</Typography>
-            <div className={classes.checkboxContainer}>
-              <Checkbox checked={generateNFO} onChange={onGenerateNFOChange}/>
-            </div>
+          <Typography>Download location</Typography>
+          <div className={classes.locationInput}>
+            <Typography>UserHome/</Typography>
+            <TextField variant="standard" value={downloadLocation} onChange={onDownloadLocationChange} />
           </div>
-        </DialogContentText>
+
+          <Typography>Format</Typography>
+          <FormatSelector value={formatSelector} onChange={onFormatSelectorChange} />
+
+          <Typography>Rate limit</Typography>
+          <DownloadRateInput value={rateLimit} onChange={onRateLimitChange}/>
+
+          <Typography>Private?</Typography>
+          <div className={classes.checkboxContainer}>
+            <Checkbox checked={isPrivate} onChange={onIsPrivateChange} />
+          </div>
+
+          <Typography>Save metadata JSON</Typography>
+          <div className={classes.checkboxContainer}>
+            <Checkbox checked={saveMetadata} onChange={onSaveMetadataChange} />
+          </div>
+        </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button onClick={onSave} disabled={!isChanged}>Save</Button>
+        <Button onClick={doCancel}>Cancel</Button>
+        <Button onClick={doSave} disabled={!isChanged}>{`Save ? ${isChanged}`}</Button>
       </DialogActions>
     </Dialog>
   );

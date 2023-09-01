@@ -3,7 +3,7 @@ import { User } from "../../../model/User";
 import { getLogger } from "../../../shared/logger";
 import { ENOUSER, EPRESETNAMEINUSE } from "../../errors";
 import { Context } from "@apollo/client";
-import { Arg, Ctx, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 
 const rootLogger = getLogger("PresetResolver");
 

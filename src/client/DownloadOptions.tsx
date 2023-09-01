@@ -1,17 +1,17 @@
 // TODO: Hookup onChange to update presetId on the parent.
 
-import { useQuery } from "@apollo/client";
 import { DownloadOptionsInput } from "../model/Job";
+import { Preset } from "../model/Preset";
 import { YTMetadata } from "../model/YouTube";
 import { infoTable } from "./cssUtils";
-import PresetSelector from "./PresetSelector";
-import { Thumbnail } from "./Thumbnail";
-import { Grid, Link, SelectChangeEvent, Theme, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import React, { FunctionComponent, SyntheticEvent, useState } from "react";
 import { GetPresets } from "./gql/preset";
 import { PresetInformation } from "./PresetInformation";
-import { Preset } from "../model/Preset";
+import PresetSelector from "./PresetSelector";
+import { Thumbnail } from "./Thumbnail";
+import { useQuery } from "@apollo/client";
+import { Grid, Link, Theme, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import React, { FunctionComponent } from "react";
 
 const useStyle = makeStyles((theme: Theme) => ({
   root: {
@@ -39,7 +39,6 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
   const classes = useStyle();
 
   const {
-    onChange,
     metadata,
     presetId,
   } = props;

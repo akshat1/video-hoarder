@@ -24,6 +24,10 @@ export class Preset extends VHEntity {
   @Field(() => Boolean)
   @Column()
   isPrivate: boolean;
+
+  @Field(() => Boolean)
+  @Column()
+  saveMetadata: boolean;
 }
 
 @InputType()
@@ -40,6 +44,9 @@ export class PresetInput {
   isPrivate: boolean;
   @Field()
   saveMetadata: boolean;
+  /*
+  // This is aspirational at this point. NFO desn't support videp "clips" yet; See https://kodi.wiki/view/NFO_files
   @Field()
   generateNFO: boolean;
+  */
 }

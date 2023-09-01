@@ -1,17 +1,9 @@
-import { Preset } from "../../model/Preset";
+import { Preset, PresetInput } from "../../model/Preset";
 import { getLogger } from "../../shared/logger";
 
 const rootLogger = getLogger("presetManagement");
 
-interface CreatePresetInput {
-  name: string;
-  downloadLocation?: string;
-  formatSelector?: string;
-  rateLimit?: string;
-  isPrivate?: boolean;
-}
-
-export const createPreset = async (presetStub, createdBy: string): Promise<Preset> => {
+export const createPreset = async (presetStub: PresetInput, createdBy: string): Promise<Preset> => {
   const logger = getLogger("createPreset", rootLogger);
   logger.debug("Creating preset...", presetStub);
   const timeStamp = new Date().toISOString();
@@ -21,6 +13,7 @@ export const createPreset = async (presetStub, createdBy: string): Promise<Prese
     formatSelector: "",
     rateLimit: "",
     isPrivate: true,
+    saveMetadata: false,
 
     // default values can be overridden by this step.
     ...presetStub,

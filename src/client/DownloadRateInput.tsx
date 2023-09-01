@@ -40,6 +40,7 @@ export const DownloadRateInput: FunctionComponent<Props> = (props) => {
       id="download-rate-limit"
       options={RateOptions}
       renderInput={renderRateLimitInput}
+      placeholder="Unlimited"
     />
   );
 };

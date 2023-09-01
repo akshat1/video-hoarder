@@ -1,8 +1,8 @@
-import React from "react";
-import { GetPreset } from "./gql/preset";
-import { Typography, } from "@mui/material";
-import { useQuery } from "@apollo/client";
 import { Preset } from "../model/Preset";
+import { GetPreset } from "./gql/preset";
+import { useQuery } from "@apollo/client";
+import { Typography } from "@mui/material";
+import React from "react";
 
 interface PresetInformationProps {
   presetId: string;

@@ -1,11 +1,15 @@
-import { Preset } from "../../model/Preset";
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GetPresets = gql`
   query GetPresetsQuery {
     presets {
       id
       name
+      downloadLocation
+      formatSelector
+      rateLimit
+      isPrivate
+      saveMetadata
     }
   }
 `;
@@ -19,6 +23,7 @@ export const GetPreset = gql`
       formatSelector
       rateLimit
       isPrivate
+      saveMetadata
     }
   }
 `;

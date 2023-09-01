@@ -1,5 +1,5 @@
-import { PresetResolver } from "./PresetResolver";
 import { JobResolver } from "./JobResolver";
+import { PresetResolver } from "./PresetResolver";
 import { UserResolver } from "./UserResolver";
 import { YouTubeResolver } from "./YouTubeResolver";
 import { YTDLResolver } from "./YTDLResolver";

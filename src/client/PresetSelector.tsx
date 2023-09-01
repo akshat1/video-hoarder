@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { Preset } from '../model/Preset';
-import { FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, } from '@mui/material';
+import { Preset, PresetInput } from "../model/Preset";
+import { getLogger } from "../shared/logger";
+import { PresetEditor } from "./PresetEditor";
+import { Add, Delete, Edit } from "@mui/icons-material";
+import { FormControl, IconButton, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Add, Delete, Edit } from '@mui/icons-material';
-import { Theme } from '@emotion/react';
-import { PresetEditor } from './PresetEditor';
+import React, { useState } from "react";
 
-const useStyle = makeStyles((theme: Theme) => ({
+const rootLogger = getLogger("PresetSelector");
+const useStyle = makeStyles(() => ({
   root: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
   },
   selector: {
     flexGrow: 1,
-  }
+  },
 }));
 
 interface PresetSelectorProps {
@@ -22,7 +23,7 @@ interface PresetSelectorProps {
   onChange?: (event: SelectChangeEvent, child: React.ReactNode) => void;
 }
 
-const PresetSelector: React.FunctionComponent<PresetSelectorProps> = (props) => {
+export const PresetSelector: React.FunctionComponent<PresetSelectorProps> = (props) => {
   const {
     onChange,
     presets,
@@ -31,8 +32,35 @@ const PresetSelector: React.FunctionComponent<PresetSelectorProps> = (props) => 
 
   const classes = useStyle();
   const [isPresetEditorOpen, setPresetEditorOpen] = useState(false);
-  const openPresetEditor = () => setPresetEditorOpen(true);
-  const onPresetEditorClose = () => setPresetEditorOpen(false);
+  const [presetEditorValue, setPresetEditorValue] = useState<PresetInput | undefined>(undefined);
+
+  const closePresetEditor = () => {
+    setPresetEditorValue(undefined);
+    setPresetEditorOpen(false);
+  }
+
+  const doNewPreset = () => {
+    const logger = getLogger("doNewPreset", rootLogger);
+    logger.debug("setPresetEditorValue(undefined);");
+    setPresetEditorValue(undefined);
+    logger.debug("setPresetEditorOpen(true);");
+    setPresetEditorOpen(true);
+  }
+
+  const doEditPreset = () => {
+    const logger = getLogger("doNewPreset", rootLogger);
+    const selectedPreset = presets.find(preset => preset.id === value);
+    logger.debug("setPresetEditorValue(", selectedPreset, ")");
+    setPresetEditorValue(selectedPreset);
+    logger.debug("setPresetEditorOpen(true);");
+    setPresetEditorOpen(true);
+  };
+
+  const savePreset = () => {
+    rootLogger.debug("savePreset");
+    // @TODO DownloadOptions should provide a callback to save the preset.
+  };
+
   const menuItems = presets.map((preset: Preset) => <MenuItem value={preset.id} key={preset.id}>{preset.name}</MenuItem>);
 
   return (
@@ -53,20 +81,19 @@ const PresetSelector: React.FunctionComponent<PresetSelectorProps> = (props) => 
         <IconButton>
           <Delete />
         </IconButton>
-        <IconButton>
-          <Edit />
+        <IconButton onClick={doEditPreset} >
+          <Edit/>
         </IconButton>
-        <IconButton>
-          <Add onClick={openPresetEditor} />
+        <IconButton onClick={doNewPreset} >
+          <Add/>
         </IconButton>
       </div>
       <PresetEditor
+        value={presetEditorValue}
         open={isPresetEditorOpen}
-        onCancel={onPresetEditorClose}
-        onSave={onPresetEditorClose}
+        onCancel={closePresetEditor}
+        onSave={savePreset}
       />
     </div>
   );
 };
-
-export default PresetSelector;
