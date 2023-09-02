@@ -5,7 +5,6 @@ import {
   JobRemoved,
   Jobs,
   JobUpdated,
-  MetadataAndOptions,
   RemoveAllDoneJobs,
   RemoveJob,
   YTMetadata,
@@ -24,7 +23,6 @@ import { YTDLInformation } from "./ytdl";
 export const Query = {
   CurrentUser,
   Jobs,
-  MetadataAndOptions,
   YTMetadata,
   YTDLInformation,
   Users,

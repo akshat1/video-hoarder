@@ -3,7 +3,9 @@
 import { DownloadOptionsInput } from "../model/Job";
 import { Preset } from "../model/Preset";
 import { YTMetadata } from "../model/YouTube";
+import { getLogger } from "../shared/logger";
 import { infoTable } from "./cssUtils";
+import { Query } from "./gql";
 import { GetPresets } from "./gql/preset";
 import { PresetInformation } from "./PresetInformation";
 import { PresetSelector } from "./PresetSelector";
@@ -11,7 +13,9 @@ import { Thumbnail } from "./Thumbnail";
 import { useQuery } from "@apollo/client";
 import { Grid, Link, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
+
+const logger = getLogger("DownloadOptions");
 
 const useStyle = makeStyles((theme: Theme) => ({
   root: {
@@ -30,27 +34,34 @@ const useStyle = makeStyles((theme: Theme) => ({
 }));
  
 interface Props {
+  videoURL: string;
   onChange: (options: DownloadOptionsInput) => void;
-  metadata: YTMetadata,
-  presetId: string;
 }
 
 export const DownloadOptions:FunctionComponent<Props> = (props) => {
   const classes = useStyle();
+  const { videoURL } = props;
+  
+  const {
+    loading: loadingMetadata,
+    error: metadataError,
+    data: metadataResponse,
+  } = useQuery<{ metadata: YTMetadata }>(Query.YTMetadata, { variables: { url: videoURL } });
+  const metadata = metadataResponse?.metadata;
 
   const {
-    metadata,
-    presetId,
-  } = props;
+    loading: loadingPresets,
+    error: presetsError,
+    data: presetsResponse,
+  } = useQuery<{ presets: Preset[] }>(GetPresets);
 
-  /* @TODO Temporarily, we obtain a list of presets from the server in order to set a default preset value.
-   Eventually, we will have a matching preset will be returned as part of download metadata from the server. */
-  const { loading, error, data } = useQuery<{ presets: Preset[] }>(GetPresets);
+  const [preset, setPreset] = useState<Preset>();
+  useEffect(() => setPreset(presetsResponse?.presets[0]), [presetsResponse]);
+  const presetSelectorEl = preset ? <PresetSelector presets={presetsResponse?.presets} value={preset} onChange={setPreset}/> : null;
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
-  const { presets } = data;
+  if (loadingPresets || loadingMetadata) return <p>Loading...</p>;
+  if (presetsError || metadataError) return <p>Error :(</p>;
+  if (!metadata) return <p>No Metadata</p>;
 
   return (
     <Grid container spacing={3} className={classes.root}>
@@ -60,8 +71,8 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
       <Grid item sm={12} md={8} className={classes.dlOptions}>
         <div className={classes.tableGrid}>
           <Typography>Preset</Typography>
-          <PresetSelector presets={presets} value={presetId} />
-          <PresetInformation presetId={presetId} />
+          {presetSelectorEl}
+          <PresetInformation preset={preset} />
         </div>
       </Grid>
       <Grid item sm={12} md={4} className={classes.meta}>

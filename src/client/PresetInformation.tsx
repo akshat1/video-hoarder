@@ -1,24 +1,13 @@
-import { Preset } from "../model/Preset";
-import { GetPreset } from "./gql/preset";
-import { useQuery } from "@apollo/client";
+import { Preset } from "../model/Preset";;
 import { Typography } from "@mui/material";
 import React from "react";
 
 interface PresetInformationProps {
-  presetId: string;
+  preset: Preset | undefined;
 }
 
 export const PresetInformation: React.FC<PresetInformationProps> = (props) => {
-  const { presetId } = props;
-  // Obtain the preset information from the server.
-  const { loading, error, data } = useQuery<{ preset: Preset}>(GetPreset, {
-    variables: { id: presetId },
-  });
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-  
-  const { preset } = data;
+  const { preset } = props;
   if (!preset) return <p>No preset found.</p>;
 
   const {

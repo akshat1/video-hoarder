@@ -37,13 +37,13 @@ export const Home:FunctionComponent = () => {
   const [url, setURL] = useState("");
   const [downloadOptions, setDownloadOptions] = useState<DownloadOptionsInput|null>(null);
   const isValid = isValidURL(url);
-  const [fetchMetadata, metadataThunk] = useLazyQuery(Query.MetadataAndOptions);
+  const [fetchMetadata, metadataThunk] = useLazyQuery(Query.YTMetadata);
   const [doAddJob, addJobThunk] = useMutation(Mutation.AddJob);
 
   const { search } = useLocation();
   const onSubmit = async (evt) => {
     evt.preventDefault();
-    if (url && metadata) {
+    if (url) {
       await doAddJob({
         variables: {
           data: {
@@ -88,41 +88,14 @@ export const Home:FunctionComponent = () => {
       }
     } catch (err) {
       // we probably don't have a URL, or a malformed one. Carry on as if no URL was shared.
+      getLogger("useEffect for sharedURL", logger).debug("Error:", err);
     }
   }, []);
 
-  let metadata:(YTMetadata | null) = null;
-  const {
-    loading: fetchingMetadata,
-    data: metadataResponse,
-  } = metadataThunk;
-  if (url && !fetchingMetadata) {
-    logger.debug("metadataResponse", metadataResponse);
-    metadata  = _.get(metadataResponse, "metadataAndOptions.metadata", null);
-  }
-
-  useEffect(() => {
-    const optionsResponse = _.get(metadataResponse, "metadataAndOptions.downloadOptions", null);
-    const newOptions = optionsResponse ? _.pick(
-      optionsResponse,
-      "formatSelector", "rateLimit", "downloadLocation", "presetId",
-    ) : null;
-    // apollo adds __typename to downloaded object, and complains if you send the same property back since it's
-    // not part of the schema that's why I'm using _.pick instead of simply using response.downloadOptions.
-    setDownloadOptions(newOptions);
-  }, [metadataResponse]);
-
   let downloadOptionsEl;
-  if (downloadOptions && metadata) {
-    console.log("Download Options");
-    downloadOptionsEl = (<DownloadOptions
-      metadata={metadata}
-      onChange={setDownloadOptions}
-      presetId={downloadOptions.presetId}/>
-    );
-  } else {
-    console.log({ downloadOptions, metadata });
-    downloadOptionsEl = <h1>FUUUUUUUUUUUU</h1>;
+  if (url) {
+    logger.debug("Render <DownloadOptions />");
+    downloadOptionsEl = <DownloadOptions onChange={setDownloadOptions} videoURL={url}/>;
   }
 
   return (
@@ -135,10 +108,10 @@ export const Home:FunctionComponent = () => {
         clearURL={clearURL}
         busy={metadataThunk.loading || addJobThunk.loading}
       />
-      <Collapse in={!!metadata} className={classes.metadataContainer}>
+      <Collapse in={!!url} className={classes.metadataContainer}>
         {downloadOptionsEl}
       </Collapse>
-      <Collapse in={!metadata}>
+      <Collapse in={!url}>
         <ItemList />
       </Collapse>
     </Fragment>

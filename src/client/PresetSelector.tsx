@@ -19,8 +19,8 @@ const useStyle = makeStyles(() => ({
 
 interface PresetSelectorProps {
   presets: Preset[];
-  value: string;
-  onChange?: (event: SelectChangeEvent, child: React.ReactNode) => void;
+  value: Preset;
+  onChange?: (Preset) => void;
 }
 
 export const PresetSelector: React.FunctionComponent<PresetSelectorProps> = (props) => {
@@ -40,19 +40,12 @@ export const PresetSelector: React.FunctionComponent<PresetSelectorProps> = (pro
   }
 
   const doNewPreset = () => {
-    const logger = getLogger("doNewPreset", rootLogger);
-    logger.debug("setPresetEditorValue(undefined);");
     setPresetEditorValue(undefined);
-    logger.debug("setPresetEditorOpen(true);");
     setPresetEditorOpen(true);
   }
 
   const doEditPreset = () => {
-    const logger = getLogger("doNewPreset", rootLogger);
-    const selectedPreset = presets.find(preset => preset.id === value);
-    logger.debug("setPresetEditorValue(", selectedPreset, ")");
-    setPresetEditorValue(selectedPreset);
-    logger.debug("setPresetEditorOpen(true);");
+    setPresetEditorValue(value);
     setPresetEditorOpen(true);
   };
 
@@ -60,6 +53,9 @@ export const PresetSelector: React.FunctionComponent<PresetSelectorProps> = (pro
     rootLogger.debug("savePreset");
     // @TODO DownloadOptions should provide a callback to save the preset.
   };
+
+  const onPresetSelectionChange = (event: SelectChangeEvent) =>
+    onChange(presets.find((preset: Preset) => preset.id === event.target.value));
 
   const menuItems = presets.map((preset: Preset) => <MenuItem value={preset.id} key={preset.id}>{preset.name}</MenuItem>);
 
@@ -69,8 +65,8 @@ export const PresetSelector: React.FunctionComponent<PresetSelectorProps> = (pro
         <FormControl fullWidth>
           <Select
             id="preset-selector"
-            onChange={onChange}
-            value={value}
+            onChange={onPresetSelectionChange}
+            value={value.id}
             variant="standard"
           >
             {menuItems}

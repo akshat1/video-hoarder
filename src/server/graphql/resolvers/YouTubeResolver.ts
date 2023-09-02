@@ -19,7 +19,7 @@ class MetadataAndOptions {
 @Resolver()
 export class YouTubeResolver {
   @Query(() => YTMetadata)
-  async ytMetadata(@Arg("url") url: string): Promise<YTMetadata> {
+  async metadata(@Arg("url") url: string): Promise<YTMetadata> {
     const metadata = await fetchMetadata(url);
     return metadata;
   }

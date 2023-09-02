@@ -100,8 +100,10 @@ export const download = (args: DownloadArgs): Promise<DownloadThunk> => {
           "--restrict-filenames",
         ];
 
-        if (formatSelector && formatSelector !== "best") 
+        if (formatSelector && formatSelector !== "best") {
+          logger.debug("Format selector:", formatSelector);
           dlArgs.push("-f", formatSelector);
+        }
         
       
         if (rateLimit && rateLimit !== RateUnlimited) 
