@@ -1,6 +1,5 @@
 import { PresetInput } from "../model/Preset";
 import { YTFormat } from "../model/YouTube";
-import { getLogger } from "../shared/logger";
 import { infoTable } from "./cssUtils";
 import { DownloadRateInput } from "./DownloadRateInput";
 import { FormatSelector } from "./FormatSelector";
@@ -9,8 +8,6 @@ import { TransitionProps } from "@mui/material/transitions";
 import { makeStyles } from "@mui/styles";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-
-const logger = getLogger("PresetEditor");
 
 type ActualTransitionProps = TransitionProps & { children: React.ReactElement; };  // Why do TransitionProps not include Children by default?
 const Transition = React.forwardRef(function Transition(props: ActualTransitionProps, ref: React.Ref<unknown>) {
@@ -56,7 +53,6 @@ interface PresetEditorState {
 
 export const PresetEditor: React.FunctionComponent<PresetEditorProps> = (props) => {
   const classes = useStyle();
-  logger.debug("props", props);
   const {
     value = BlankPreset,
     open,
@@ -80,7 +76,6 @@ export const PresetEditor: React.FunctionComponent<PresetEditorProps> = (props) 
     isChanged,
   } = state;
 
-  logger.debug("preset in state", preset);
   const {
     name,
     downloadLocation,
@@ -131,6 +126,8 @@ export const PresetEditor: React.FunctionComponent<PresetEditorProps> = (props) 
     onSave(newPreset);
   };
 
+  const canSave = isChanged && name;
+
   return (
     <Dialog
       open={open}
@@ -168,7 +165,7 @@ export const PresetEditor: React.FunctionComponent<PresetEditorProps> = (props) 
       </DialogContent>
       <DialogActions>
         <Button onClick={doCancel}>Cancel</Button>
-        <Button onClick={doSave} disabled={!isChanged}>{`Save ? ${isChanged}`}</Button>
+        <Button onClick={doSave} disabled={!canSave}>Save</Button>
       </DialogActions>
     </Dialog>
   );

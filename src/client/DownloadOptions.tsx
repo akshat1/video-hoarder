@@ -6,7 +6,7 @@ import { YTMetadata } from "../model/YouTube";
 import { infoTable } from "./cssUtils";
 import { GetPresets } from "./gql/preset";
 import { PresetInformation } from "./PresetInformation";
-import PresetSelector from "./PresetSelector";
+import { PresetSelector } from "./PresetSelector";
 import { Thumbnail } from "./Thumbnail";
 import { useQuery } from "@apollo/client";
 import { Grid, Link, Theme, Typography } from "@mui/material";
@@ -43,8 +43,8 @@ export const DownloadOptions:FunctionComponent<Props> = (props) => {
     presetId,
   } = props;
 
-  // Temporarily, we obtain a list of presets from the server in order to set a default preset value. Eventually, we
-  // will have a matching preset will be returned as part of download metadata from the server.
+  /* @TODO Temporarily, we obtain a list of presets from the server in order to set a default preset value.
+   Eventually, we will have a matching preset will be returned as part of download metadata from the server. */
   const { loading, error, data } = useQuery<{ presets: Preset[] }>(GetPresets);
 
   if (loading) return <p>Loading...</p>;
